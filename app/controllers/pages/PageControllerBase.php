@@ -1,7 +1,7 @@
 <?php 
 declare(strict_types=1);
 
-namespace SakuraCore\Controllers\Pages;
+namespace SakuraPanel\Controllers\Pages;
 
 use Phalcon\Mvc\Controller;
 

@@ -25,7 +25,7 @@ use \Phalcon\Logger\Formatter\Line as LineFormatter;
 use \Phalcon\Logger\Adapter\Stream as StreamLogger;
 
 // mail
-use SakuraCore\Library\Mail\Mail;
+use SakuraPanel\Library\Mail\Mail;
 
 
 // cache
@@ -92,7 +92,7 @@ $di->setShared('mail', function () {
  * Set Website Config : name , title , etc , set controller
  */
 $di->setShared('site', function () {
-    $site =  new \SakuraCore\Controllers\App\SiteConfigsController();
+    $site =  new \SakuraPanel\Controllers\App\SiteConfigsController();
     $site->initialize();
     return $site;
 });
@@ -283,7 +283,7 @@ $di->set(
                         case DispatcherException::EXCEPTION_HANDLER_NOT_FOUND:
                             $dispatcher->forward(
                                 array(
-                                        'controller' => '\SakuraCore\Controllers\Pages\PageErrors',
+                                        'controller' => '\SakuraPanel\Controllers\Pages\PageErrors',
                                     'action'     => 'Page404',
                                 )
                             );
@@ -291,7 +291,7 @@ $di->set(
                         case DispatcherException::EXCEPTION_ACTION_NOT_FOUND:
                             $dispatcher->forward(
                                 array(
-                                        'controller' => '\SakuraCore\Controllers\Pages\PageErrors',
+                                        'controller' => '\SakuraPanel\Controllers\Pages\PageErrors',
                                     'action'     => 'Page404',
                                 )
                             );

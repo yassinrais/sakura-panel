@@ -18,77 +18,77 @@ $loader->registerNamespaces(array(
 	/**
 	 *	Library
 	 */
-	'SakuraCore\Library'=>APP_PATH. '/library/',
+	'SakuraPanel\Library'=>APP_PATH. '/library/',
 
 	/**
 	 *	Base Shared
 	 */
-	'SakuraCore\Models' => APP_PATH . '/models/',
-	'SakuraCore\Controllers' => APP_PATH . '/controllers/',
+	'SakuraPanel\Models' => APP_PATH . '/models/',
+	'SakuraPanel\Controllers' => APP_PATH . '/controllers/',
 
 	/**
 	 *	App
 	 */
-	'SakuraCore\Models\App' => APP_PATH . '/models/app/',
-	'SakuraCore\Controllers\App' => APP_PATH . '/controllers/app/',
+	'SakuraPanel\Models\App' => APP_PATH . '/models/app/',
+	'SakuraPanel\Controllers\App' => APP_PATH . '/controllers/app/',
 
 	/**
 	 *	Data
 	 */
-	'SakuraCore\Models\Data' => APP_PATH . '/models/data/',
-	'SakuraCore\Controllers\Data' => APP_PATH . '/controllers/data/',
+	'SakuraPanel\Models\Data' => APP_PATH . '/models/data/',
+	'SakuraPanel\Controllers\Data' => APP_PATH . '/controllers/data/',
 
 	/**
 	 *	Role
 	 */
-	'SakuraCore\Models\Role' => APP_PATH . '/models/role/',
-	'SakuraCore\Controllers\Role' => APP_PATH . '/controllers/role/',
+	'SakuraPanel\Models\Role' => APP_PATH . '/models/role/',
+	'SakuraPanel\Controllers\Role' => APP_PATH . '/controllers/role/',
 
 	/**
 	 *	Security
 	 */
-	'SakuraCore\Models\Security' => APP_PATH . '/models/security/',
-	'SakuraCore\Controllers\Security' => APP_PATH . '/controllers/security/',
+	'SakuraPanel\Models\Security' => APP_PATH . '/models/security/',
+	'SakuraPanel\Controllers\Security' => APP_PATH . '/controllers/security/',
 
 	/**
 	 *	Member
 	 */
-	'SakuraCore\Models\Member' => APP_PATH .'/models/member/',
-	'SakuraCore\Controllers\Member' => APP_PATH .'/controllers/member/',
+	'SakuraPanel\Models\Member' => APP_PATH .'/models/member/',
+	'SakuraPanel\Controllers\Member' => APP_PATH .'/controllers/member/',
 		// :: user profile :: // 
-		'SakuraCore\Controllers\Member\Profile' => APP_PATH .'/controllers/member/profile',
+		'SakuraPanel\Controllers\Member\Profile' => APP_PATH .'/controllers/member/profile',
 		// :: shared controllers :: //
-		'SakuraCore\Controllers\Member\Shared' => APP_PATH . '/controllers/member/shared',
+		'SakuraPanel\Controllers\Member\Shared' => APP_PATH . '/controllers/member/shared',
 
 
 	/**
 	 *	Payment
 	 */
-	'SakuraCore\Models\Payment' => APP_PATH . '/models/payment/',
-	'SakuraCore\Controllers\Payment' => APP_PATH . '/controllers/payment/',
+	'SakuraPanel\Models\Payment' => APP_PATH . '/models/payment/',
+	'SakuraPanel\Controllers\Payment' => APP_PATH . '/controllers/payment/',
 
 
 	/**
 	 *	User
 	 */
-	'SakuraCore\Models\User' => APP_PATH . '/models/user/',
-	'SakuraCore\Controllers\User' => APP_PATH . '/controllers/user/',
+	'SakuraPanel\Models\User' => APP_PATH . '/models/user/',
+	'SakuraPanel\Controllers\User' => APP_PATH . '/controllers/user/',
 
 
 	/**
 	 *	Ajax - Theme - Page
 	 */
-	'SakuraCore\Controllers\Ajax' => APP_PATH . '/controllers/ajax/',
-	'SakuraCore\Controllers\Theme' => APP_PATH . '/controllers/theme/',
+	'SakuraPanel\Controllers\Ajax' => APP_PATH . '/controllers/ajax/',
+	'SakuraPanel\Controllers\Theme' => APP_PATH . '/controllers/theme/',
 
 	
-	'SakuraCore\Controllers\Pages' => APP_PATH . '/controllers/pages/',
+	'SakuraPanel\Controllers\Pages' => APP_PATH . '/controllers/pages/',
 	
 
 	/**
 	 * Form - Views
 	 */
-	'SakuraCore\Forms' => APP_PATH . '/forms/',
+	'SakuraPanel\Forms' => APP_PATH . '/forms/',
 
 
 ))->register();

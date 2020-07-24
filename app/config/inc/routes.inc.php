@@ -12,7 +12,7 @@ $configs['sections'] = array(
     'home'=>[
         "index"=>[
             'url'=>['/#','/'],
-            'controller'=>'SakuraCore\Controllers\Pages\Home' , 'action'=>'index'
+            'controller'=>'SakuraPanel\Controllers\Pages\Home' , 'action'=>'index'
         ],
     ],
   
@@ -20,11 +20,11 @@ $configs['sections'] = array(
     'error'=>[
         "404"=>[
             'url'=>['/404','/#/','/404/(.*)'],
-            'controller'=>'SakuraCore\Controllers\Pages\Error','action'=>'Page404'
+            'controller'=>'SakuraPanel\Controllers\Pages\Error','action'=>'Page404'
         ],
         "503"=>[
             'url'=>['/503','/#/','/503/(.*)'],
-            'controller'=>'SakuraCore\Controllers\Pages\Error','action'=>'Page503'
+            'controller'=>'SakuraPanel\Controllers\Pages\Error','action'=>'Page503'
         ],
     ],
 
@@ -34,7 +34,7 @@ $configs['sections'] = array(
         // shared dasboard
         'dashboard'=>[
                 'url'=>['/#','/#/','/#/@'],
-                'controller'=>'\SakuraCore\Controllers\Member\Shared\Dashboard',
+                'controller'=>'\SakuraPanel\Controllers\Member\Shared\Dashboard',
                 'action'=>'index' , 
                 'info'=>['title'=>'Dashboard','icon'=>'bx bx-home-circle','category'=>'general']
         ],
@@ -43,7 +43,7 @@ $configs['sections'] = array(
         // auth
         'auth'=>[
                 'url'=>['/@','/@/','/@/:action/:params','/@/:action/:params/:token'],
-                'controller'=>'\SakuraCore\Controllers\Member\Auth',
+                'controller'=>'\SakuraPanel\Controllers\Member\Auth',
                 'action'=>1, 
                 'params' =>2 , 
                 'token' => 3, 
@@ -51,7 +51,7 @@ $configs['sections'] = array(
         ],
         'logout'=>[
                 'url'=>['/#/@','/#/@/','/#/@/:params'],
-                'controller'=>'\SakuraCore\Controllers\Member\Auth',
+                'controller'=>'\SakuraPanel\Controllers\Member\Auth',
                 'action'=>'logout', 
                 'params'=>2 , 
                 'info'=>['title'=>'Logout','icon'=>'bx bx-power-off','category'=>'account']
