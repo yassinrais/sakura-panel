@@ -15,15 +15,14 @@
 
 ## 📗 About
 
-<p>Sakura Core , a Script made with Javascript and run in NodeJs </p>
-<p>The idea of bot is to create a discord bot who manager commands more easy ,
-this one let you to add commands easy and manage </p>
+<p>Sakura Panel , a Script made with PHP (phalcon framework) and run in apache/nginx </p>
+<p>The idea of the panel is to manage Discord Bots made with <a href="https://github.com/yassinrais/sakura-core/" target="_blank">Sakura Core</a>... </p>
 
 
 
 ## ⚙️ Installation :
 
-1. You need to install NodeJs on your *machine*
+1. You need to install Php(+^7.2) and Phalcon (+^4.0.1) on your *machine*
 2. git clone [https://github.com/yassinrais/sakura-panel.git](https://github.com/yassinrais/sakura-panel.git) repository into your *machine*
 3. Run ``composer install`` to install php dependencies (vendor)
 4. Copy ``.env.example`` to ``.env`` and edit the configs
