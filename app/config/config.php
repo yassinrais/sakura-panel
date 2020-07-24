@@ -7,7 +7,8 @@
 defined('BASE_PATH') || define('BASE_PATH', getenv('BASE_PATH') ?: realpath(dirname(__FILE__) . '/../..'));
 defined('APP_PATH') || define('APP_PATH', BASE_PATH . '/app');
 
-return new \Phalcon\Config([
+
+$configs = array(
     'database' => [
         'adapter'     => getenv('DB_ADAPTER')   ?: 'Mysql',
         'host'        => getenv('DB_HOST')      ?: 'localhost',
@@ -27,7 +28,56 @@ return new \Phalcon\Config([
         'cacheDir'       => BASE_PATH . '/cache/',
         'cacheViewsDir'       => BASE_PATH . '/cache/views/',
         'cacheSessionsDir' => BASE_PATH . '/cache/sessions/',
+        'cacheSecurityDir' => BASE_PATH . '/cache/security/',
         'baseUri'        => '/',
         'baseURL'        => ((!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' || $_SERVER['SERVER_PORT'] == 443) ? "https://" : "http://"). $_SERVER['HTTP_HOST'] . "/",
     ]
-]);
+);
+
+
+
+
+/**
+ *      Logger
+ */
+include ('inc/logger.inc.php');
+
+
+/**
+ *      Tables
+ */
+include ('inc/tables.inc.php');
+
+
+
+
+/**
+ *      Routers
+ */
+include ('inc/routes.inc.php');
+
+
+
+/**
+ *      Mailer
+ */
+include ('inc/mail.inc.php');
+
+
+
+/**
+ *      Security
+ */
+include ('inc/security.inc.php');
+
+/**
+ *      Functions
+ *      _function_name...
+ *
+ */
+include ('inc/functions.inc.php');
+
+
+
+// return configs
+return new \Phalcon\Config($configs);

@@ -1,6 +1,10 @@
 *.env
 *.phalcon*
-*cache/*
+*cache/security/*
+*cache/sessions/*
+*cache/views/*
 *storage/*
 *vendor/*
 *composer.lock
+*logs/*
+*dev/*
