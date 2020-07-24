@@ -1,2 +1,4 @@
-/cache/
-/config/development/
+*.env
+*.phalcon*
+*cache/*
+*storage/*
