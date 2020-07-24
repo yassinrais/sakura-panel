@@ -1,6 +1,6 @@
 <p align=center>
-  <img src="https://github.com/yassinrais/sakura-core/raw/master/assets/sakura-sm-banner.jpg" >
-  <h1 >Sakura Core</h1>
+  <img src="https://i.imgur.com/Hgh7vem.jpg" >
+  <h1 >Sakura Panel</h1>
 </p>
 
 
