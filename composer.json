@@ -1,0 +1,13 @@
+{
+    "name": "yassm/sakura-panel",
+    "description": "Sakura Panel , a Script made with PHP (phalcon framework) and run in apache/nginx",
+    "type": "project",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Yassine Rais",
+            "email": "yassine@neutrapp.com"
+        }
+    ],
+    "require": {}
+}
