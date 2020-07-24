@@ -9,12 +9,12 @@ defined('APP_PATH') || define('APP_PATH', BASE_PATH . '/app');
 
 return new \Phalcon\Config([
     'database' => [
-        'adapter'     => 'Mysql',
-        'host'        => 'localhost',
-        'username'    => 'root',
-        'password'    => '',
-        'dbname'      => 'test',
-        'charset'     => 'utf8',
+        'adapter'     => getenv('DB_ADAPTER')   ?: 'Mysql',
+        'host'        => getenv('DB_HOST')      ?: 'localhost',
+        'username'    => getenv('DB_USER')      ?: 'root',
+        'password'    => getenv('DB_PASS')      ?: '',
+        'dbname'      => getenv('DB_NAME')      ?: 'test',
+        'charset'     => getenv('DB_CHARSET')   ?: 'utf8',
     ],
     'application' => [
         'appDir'         => APP_PATH . '/',
@@ -25,6 +25,9 @@ return new \Phalcon\Config([
         'pluginsDir'     => APP_PATH . '/plugins/',
         'libraryDir'     => APP_PATH . '/library/',
         'cacheDir'       => BASE_PATH . '/cache/',
+        'cacheViewsDir'       => BASE_PATH . '/cache/views/',
+        'cacheSessionsDir' => BASE_PATH . '/cache/sessions/',
         'baseUri'        => '/',
+        'baseURL'        => ((!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' || $_SERVER['SERVER_PORT'] == 443) ? "https://" : "http://"). $_SERVER['HTTP_HOST'] . "/",
     ]
 ]);
