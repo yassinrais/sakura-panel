@@ -16,6 +16,8 @@ $configs['security'] = [
 	'activationMailDelay'=> getenv('SECURITY_SEND_ACTIVATION_DELAY') ?: 1  * 60  ,// 1 minute
 	'fakeFailsDelay'=> rand(0, (int)getenv('SECURITY_FAKE_FAILS_DELAY') ?: 6), // 5 seconds
 
+
+	'min_password_length'=> 5,
 ];
 
 // for new we are not interested

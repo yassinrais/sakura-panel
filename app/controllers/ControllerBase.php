@@ -1,9 +1,10 @@
 <?php
 declare(strict_types=1);
 
-use Phalcon\Mvc\Controller;
+use \SakuraPanel\Plugins\Auth\AuthMiddleware;
 
-class ControllerBase extends Controller
+class ControllerBase extends AuthMiddleware
 {
-    // Implement common logic
+
+
 }

@@ -3,14 +3,39 @@ declare(strict_types=1);
 
 namespace SakuraPanel\Controllers\Pages;
 
-use Phalcon\Mvc\Controller;
+use \Phalcon\Mvc\Controller;
+
+use \SakuraPanel\Library\SharedConstInterface;
+use \SakuraPanel\Plugins\Auth\AuthMiddleware;
+
 
 /**
  * PageControllerBase
  */
-class PageControllerBase extends Controller
+class PageControllerBase extends AuthMiddleware implements SharedConstInterface
 {
+	public $assetsPack;
 
+	public function initialize()
+	{
+		$this->assetsPack = new \stdClass();
+		// save assets
+		$aHeader = $this->assets->collection('header')
+			->addCss('https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet')
+			->addCss('assets/vendor/fontawesome-free/css/all.min.css')
+			->addCss('assets/css/sb-admin-2.min.css');
+
+		$aFooter = $this->assets->collection('footer')
+			->addJs('assets/vendor/jquery/jquery.min.js')
+			->addJs('assets/vendor/bootstrap/js/bootstrap.bundle.min.js')
+			->addJs('assets/vendor/jquery-easing/jquery.easing.min.js')
+			->addJs('assets/js/sb-admin-2.min.js');
+
+		// save in attribute
+		$this->assetsPack->header = $aHeader;
+		$this->assetsPack->footer = $aFooter;
+	}
+	
 	public function indexAction()
 	{
 		return '404';

@@ -10,6 +10,7 @@
         }
     ],
     "require": {
-        "vlucas/phpdotenv": "^5.1"
+        "vlucas/phpdotenv": "^5.1",
+        "sidroberts/phalcon-authmiddleware": "^3.0"
     }
 }

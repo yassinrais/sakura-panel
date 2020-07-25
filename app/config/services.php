@@ -97,6 +97,14 @@ $di->setShared('site', function () {
     return $site;
 });
 
+/**
+ * Set Website Config : name , title , etc , set controller
+ */
+$di->setShared('page', function () {
+    $page =  new \SakuraPanel\Controllers\App\PageInfoController();
+    return $page;
+});
+
 
 /**
  * Setting up the view component
@@ -267,6 +275,26 @@ $di->setShared('cacheSecurity' , function () use ($di)
 
 });
 
+/**
+ * global Cache (models)
+ */
+
+$di->setShared('globalCache' , function () use ($di)
+{
+    $config = $this->getConfig();
+    
+    $serializerFactory = new SerializerFactory();
+
+    $options = [
+        // 'defaultSerializer' => 'Json',
+        'lifetime'          => 60 * 1 /*min*/ * 5 ,
+        'storageDir' => $config->application->cacheGlobalDir ?? BASE_PATH . '/cache/global/',
+    ];
+
+    return new Stream($serializerFactory, $options);
+
+});
+
 $di->set(
     'dispatcher',
     function() use ($di) {
@@ -277,7 +305,7 @@ $di->set(
             "dispatch:beforeException",
             function($event, $dispatcher, $exception)
             {
-                 // if (getenv('APP_DEBUG') != true) {
+                 if (getenv('APP_DEBUG') != true) {
 
                     switch ($exception->getCode()) {
                         case DispatcherException::EXCEPTION_HANDLER_NOT_FOUND:
@@ -297,9 +325,15 @@ $di->set(
                             );
                             return false;
                     }
-                // }
+                }
             }
         );
+
+        $evManager->attach(
+            "dispatch:beforeExecuteRoute",
+            new \Sid\Phalcon\AuthMiddleware\Event()
+        );
+
         $dispatcher = new \Phalcon\Mvc\Dispatcher();
         $dispatcher->setEventsManager($evManager);
         return $dispatcher;

@@ -8,10 +8,14 @@ namespace SakuraPanel\Controllers\Pages;
  * HomeController
  */
 class HomeController extends PageControllerBase
-{
-
+{	
+    // Implement common logic
+    public function onConstruct(){
+    	$this->authenticate();
+    }
+    
 	public function indexAction(){
-		return 'OK';
+		return $this->view->pick('home');
 	}	
 
 	

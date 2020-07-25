@@ -3,8 +3,10 @@
 *cache/security/*
 *cache/sessions/*
 *cache/views/*
+*cache/global/*
 *storage/*
 *vendor/*
 *composer.lock
 *logs/*
-*dev/*
+*dev
+*/dev/*

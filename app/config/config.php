@@ -14,7 +14,7 @@ $configs = array(
         'host'        => getenv('DB_HOST')      ?: 'localhost',
         'username'    => getenv('DB_USER')      ?: 'root',
         'password'    => getenv('DB_PASS')      ?: '',
-        'dbname'      => getenv('DB_NAME')      ?: 'test',
+        'dbname'      => getenv('DB_NAME')      ?: 'sakura_panel',
         'charset'     => getenv('DB_CHARSET')   ?: 'utf8',
     ],
     'application' => [
@@ -22,15 +22,17 @@ $configs = array(
         'controllersDir' => APP_PATH . '/controllers/',
         'modelsDir'      => APP_PATH . '/models/',
         'migrationsDir'  => APP_PATH . '/migrations/',
-        'viewsDir'       => APP_PATH . '/views/',
+        'viewsDir'       => APP_PATH . '/views/default/',
         'pluginsDir'     => APP_PATH . '/plugins/',
         'libraryDir'     => APP_PATH . '/library/',
         'cacheDir'       => BASE_PATH . '/cache/',
         'cacheViewsDir'       => BASE_PATH . '/cache/views/',
         'cacheSessionsDir' => BASE_PATH . '/cache/sessions/',
         'cacheSecurityDir' => BASE_PATH . '/cache/security/',
+        'cacheGlobalDir' => BASE_PATH . '/cache/global/',
         'baseUri'        => '/',
-        'baseURL'        => ((!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' || $_SERVER['SERVER_PORT'] == 443) ? "https://" : "http://"). $_SERVER['HTTP_HOST'] . "/",
+        // server configs  doesnt exist in cli ("request" :@ to ignore undefined vars) 
+        'baseURL'        => ((!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' || @$_SERVER['SERVER_PORT'] == 443) ? "https://" : "http://"). @$_SERVER['HTTP_HOST'] . "/",
     ]
 );
 

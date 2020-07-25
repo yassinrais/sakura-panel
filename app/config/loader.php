@@ -8,7 +8,9 @@ $loader = new \Phalcon\Loader();
 $loader->registerDirs(
     [
         $config->application->controllersDir,
-        $config->application->modelsDir
+        $config->application->modelsDir,
+        $config->application->libaryDir,
+        $config->application->pluginsDir,
     ]
 )->register();
 
@@ -19,6 +21,12 @@ $loader->registerNamespaces(array(
 	 *	Library
 	 */
 	'SakuraPanel\Library'=>APP_PATH. '/library/',
+
+	/**
+	 *	Library
+	 */
+	'SakuraPanel\Plugins'=>APP_PATH. '/plugins/',
+	'SakuraPanel\Plugins\Auth'=>APP_PATH. '/plugins/auth/',
 
 	/**
 	 *	Base Shared

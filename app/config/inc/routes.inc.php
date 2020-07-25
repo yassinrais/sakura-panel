@@ -31,10 +31,9 @@ $configs['sections'] = array(
 
     'member'=>[
 
-        // shared dasboard
         'dashboard'=>[
                 'url'=>['/#','/#/','/#/@'],
-                'controller'=>'\SakuraPanel\Controllers\Member\Shared\Dashboard',
+                'controller'=>'\SakuraPanel\Controllers\Member\Dashboard',
                 'action'=>'index' , 
                 'info'=>['title'=>'Dashboard','icon'=>'bx bx-home-circle','category'=>'general']
         ],
@@ -43,7 +42,7 @@ $configs['sections'] = array(
         // auth
         'auth'=>[
                 'url'=>['/@','/@/','/@/:action/:params','/@/:action/:params/:token'],
-                'controller'=>'\SakuraPanel\Controllers\Member\Auth',
+                'controller'=>'\SakuraPanel\Controllers\Auth\Auth',
                 'action'=>1, 
                 'params' =>2 , 
                 'token' => 3, 

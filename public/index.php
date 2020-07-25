@@ -10,6 +10,17 @@ define('APP_PATH', BASE_PATH . '/app');
 
 try {
     /**
+     * vendor include 
+     */
+    include BASE_PATH . '/vendor/autoload.php';
+
+    /**
+     * Env Loader
+     */
+    $dotenv = Dotenv\Dotenv::createUnsafeImmutable(BASE_PATH);
+    $dotenv->load();
+
+    /**
      * The FactoryDefault Dependency Injector automatically registers
      * the services that provide a full stack framework.
      */
@@ -42,7 +53,6 @@ try {
 
     echo $application->handle($_SERVER['REQUEST_URI'])->getContent();
 } catch (\Exception $e) {
-
     if (getenv('APP_DEBUG') == true) {
         echo $e->getMessage() . '<br>';
         echo '<pre>' . $e->getTraceAsString() . '</pre>';
