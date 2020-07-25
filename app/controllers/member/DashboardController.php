@@ -2,23 +2,19 @@
 declare(strict_types=1);
 
 namespace SakuraPanel\Controllers\Member;
-use SakuraPanel\Controllers\Pages\{ PageControllerBase };
+
 /**
  * Dashboard
  */
-class DashboardController extends PageControllerBase
+class DashboardController extends MemberControllerBase
 {
     // Implement common logic
-    public function onConstruct(){
-    	$this->authenticate();
-    	
+    public function initialize(){
+        $this->page->set('title','Dashboard');
+        
     	parent::initialize();
     }
 
-    public function initialize()
-    {
-    	$this->view->setMainView('member/index');
-    }
 	public function indexAction()
 	{
 		return $this->view->pick('member/dashboard/index');
