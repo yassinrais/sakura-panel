@@ -17,4 +17,4 @@
 
   <base href="{{ url() }}">
 </head>
-<body id="page-top" class="{{ page.get('body.class') }}">
+<body id="page-top" class="{{ page.get('body.class') }} <?=(@$_COOKIE['sidebar-collapse'] === 'hide') ? 'sidebar-toggled':'' ?>"">

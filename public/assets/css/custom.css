@@ -66,3 +66,7 @@
 	background: #f191afff;
 	border-color: #f191afff;	
 }
+
+.card-header .text-primary{
+	color:white !important;
+}

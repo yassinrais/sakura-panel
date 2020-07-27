@@ -13,7 +13,7 @@ $configs['sections'] = array(
         "index"=>[
             'url'=>['/#','/'],
             'controller'=>'SakuraPanel\Controllers\Pages\Home' , 'action'=>'index',
-            'access' => ['geusts' => ['*'] ]
+            'access' => ['*' => ['*'] ]
         ],
     ],
   

@@ -359,3 +359,15 @@ $di->set(
 );
 
 
+
+
+$di->set(
+    'widgets',
+    function () use ($di)
+    {
+        $instance = new \SakuraPanel\Library\Widgets\WidgetsLoader();
+        $instance->setWidgetsPath($this->getConfig()->application->widgetsPath);
+        $instance->loadWidgets();
+        return $instance;
+    }
+);

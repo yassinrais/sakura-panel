@@ -1,7 +1,8 @@
-<div class="col-12">
-<div class="card">
-	<div class="card-header">Card Header</div>
-	<div class="card-body">
-		<h2>Example body</h2>
-	</div>
-</div></div>
+{% set wd =  widgets.getWidgets() %}
+{% if wd is not null %}
+	{% for w in wd %}
+		{% if w['path'] is defined %}
+			{{ partial(w['path']) }}
+		{% endif %}
+	{% endfor %}
+{% endif %}

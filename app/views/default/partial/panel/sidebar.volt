@@ -1,4 +1,4 @@
-<ul class="navbar-nav sidebar sidebar-dark accordion sakura-bg " id="accordionSidebar">
+<ul class="navbar-nav sidebar sidebar-dark accordion sakura-bg <?=(!empty($_COOKIE['sidebar-collapse']) and $_COOKIE['sidebar-collapse'] === 'hide') ? 'toggled':'' ?>" id="accordionSidebar">
 
     <div class="sakura-bgx">
       <!-- Sidebar - Brand -->
@@ -32,7 +32,7 @@
       {% endif %}
 
       <!-- Divider -->
-      <hr class="sidebar-divider d-none d-md-block">
+      <hr class="sidebar-divider d-none d-md-block mt-3">
 
       <!-- Sidebar Toggler (Sidebar) -->
       <div class="text-center">
