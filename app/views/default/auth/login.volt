@@ -13,7 +13,8 @@
               <div class="col-lg-6">
                 <div class="p-5">
                   <div class="text-center">
-                    <h1 class="h4 text-gray-900 mb-4">Authentification</h1>
+                    <img src="assets/img/sakura-icon.png" class="img-responsive rounded-circle mb-3" width="80px">
+                    <h1 class="h4 text-gray-900 mb-4"><b>Authentification</b></h1>
                     <h1 class="h4 text-gray-900 mb-4">Sign In</h1>
                   </div>
                   <form class="user" action="" method="post">

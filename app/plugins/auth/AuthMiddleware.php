@@ -165,12 +165,12 @@ class AuthMiddleware extends Controller implements MiddlewareInterface , SharedC
         if ($remember && !empty($user->id)) {
             $rand_crypt_token = $this->randToken($this->authKeyRememberLength ?: 13);
 
-            $session = new Sessions();
+            $session = new UsersSessions();
             $session->user_id = $user->id;
             $session->expired_at = time() + $this->di->getShared('site')->get('session-lifetime', 60 * 60 * 24 * 10);
             $session->session = $rand_crypt_token;
 
-            if ($session->create()) $this->cookies->set($this->auth_remember, $rand_crypt_token);
+            if ($session->create()) $this->cookies->set($this->authKeyRemember , $rand_crypt_token);
 
             $user = $this::filterUserSession($user);
         }

@@ -6,7 +6,7 @@ use \SakuraPanel\Controllers\Pages\PageControllerBase;
 
 
 use \SakuraPanel\Forms\LoginForm;
-use \SakuraPanel\Models\User\Users;
+use \SakuraPanel\Models\User\{Users , UsersSessions};
 
 /**
  * LoginController
@@ -16,7 +16,7 @@ class AuthController extends PageControllerBase
     // Implement common logic
     public function onConstruct(){
         if ($this->isLoggedIn()){
-    		return $this->response->redirect('./home');
+    		return $this->response->redirect('./member');
     	}
     }
     
@@ -50,7 +50,7 @@ class AuthController extends PageControllerBase
 
                     if ($user && $this->security->checkHash($this->request->getPost('password') , $user->password)) {
                         if ($user->isActive()) {
-                            $this->setUserSession($user);
+                            $this->setUserSession($user , $this->request->getPost('remember') ?? false);
                             $this->response->redirect('member/dashboard');
                         }else
                             $this->flashSession->{$user->getStatus()->type}('Your account is '. $user->getStatus()->title);

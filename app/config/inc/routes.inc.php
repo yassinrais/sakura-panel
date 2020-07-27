@@ -9,15 +9,7 @@
 
 $configs['sections'] = array(
 
-    'home'=>[
-        "index"=>[
-            'url'=>['/#','/'],
-            'controller'=>'SakuraPanel\Controllers\Pages\Home' , 'action'=>'index',
-            'access' => ['*' => ['*'] ]
-        ],
-    ],
-  
- 
+
     'error'=>[
         "404"=>[
             'url'=>['/404','/#/','/404/(.*)'],
@@ -81,7 +73,7 @@ $configs['sections'] = array(
 
         // auth
         'auth'=>[
-                'url'=>['/@','/@/','/@/:action/:params','/@/:action/:params/:token'],
+                'url'=>['/', '/@','/@/','/@/:action/:params','/@/:action/:params/:token'],
                 'controller'=>'\SakuraPanel\Controllers\Auth\Auth',
                 'action'=>1, 
                 'params' =>2 , 

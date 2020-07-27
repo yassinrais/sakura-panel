@@ -27,7 +27,7 @@ class SiteConfigsController extends \ControllerBase
 	        ]
 	    ])->toArray();
 		foreach ($list as $row) {
-			$this->settings[$row['key']] = $row['value'];
+			$this->settings[$row['key']] = $row['val'] ?? null;
 		}
 	}
 

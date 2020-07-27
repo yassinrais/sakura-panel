@@ -1,5 +1,5 @@
 <?php
-namespace \SakuraPanel\Models\User;
+namespace SakuraPanel\Models\User;
 
 class UsersSessions extends \ModelBase
 {

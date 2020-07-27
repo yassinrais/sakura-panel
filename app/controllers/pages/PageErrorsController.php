@@ -8,13 +8,13 @@ class PageErrorsController extends PageControllerBase{
 
 
 	public function Page404Action(){
-		return '404 - error';
+		return $this->view->pick('errors/404');
 	}
 
 
 	public function Page503Action()
 	{
-		return '503 - error';
+		return $this->view->pick('errors/503');
 	}
 
 }
