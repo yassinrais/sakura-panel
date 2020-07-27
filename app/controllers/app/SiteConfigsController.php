@@ -20,7 +20,7 @@ class SiteConfigsController extends \ControllerBase
 	{
 		$settings = new SiteConfigs();
 		$list = $settings::find([
-			'columns' => 'key, value',
+			'columns' => 'key, val',
 			'cache' => [
 	            'key'      => 'model-site-configs',
 	         	'service'  =>'globalCache',
@@ -46,7 +46,7 @@ class SiteConfigsController extends \ControllerBase
 	{
 		$settings = $model ?: new SiteConfigs();
 		$settings->key = $key;	
-		$settings->value = $value;
+		$settings->val = $value;
 		return $settings->save();	
 	}
 
@@ -68,7 +68,7 @@ class SiteConfigsController extends \ControllerBase
 
 		if (!$keyVal && $this->create) {
 			$this::set($key,$value,$settings);
-		}else $value = $keyVal->value ?: $value;
+		}else $value = $keyVal->val ?: $value;
 
 
 		return $value;

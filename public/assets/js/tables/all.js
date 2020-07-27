@@ -10,3 +10,17 @@ $('#users-dataTable').DataTable({
         {data: "email"}
     ]
 });
+$('#wsettings-dataTable').DataTable({
+    serverSide: true,
+    ajax: {
+        url: '/member/website-settings/ajax',
+        method: 'POST'
+    },
+    columns: [
+        {data: "id"},
+        {data: "key"},
+        {data: "val"},
+        {data: "type"},
+        {data: "actions"}
+    ]
+});

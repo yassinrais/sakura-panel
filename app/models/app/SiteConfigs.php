@@ -21,7 +21,7 @@ class SiteConfigs extends \ModelBase
      *
      * @var string
      */
-    public $value;
+    public $val;
 
     /**
      *

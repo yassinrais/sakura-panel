@@ -51,9 +51,19 @@ $configs['sections'] = array(
 
 
         'users'=>[
-                'url'=>['/#/@/','/#/@', '/#/@/:action'],
+                'url'=>['/#/@/','/#/@', '/#/@/:action', '/#/@/:action/:params'],
                 'controller'=>'\SakuraPanel\Controllers\Admin\Users\Users',
                 'action'=> 1 , 
+                'params'=> 2 , 
+                'access' => ['admins' => ['*'] ]
+        ],
+
+
+        'website-settings'=>[
+                'url'=>['/#/@/','/#/@', '/#/@/:action', '/#/@/:action/:params'],
+                'controller'=>'\SakuraPanel\Controllers\Admin\Website\Settings',
+                'action'=> 1 , 
+                'params'=> 2 , 
                 'access' => ['admins' => ['*'] ]
         ],
 

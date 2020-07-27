@@ -16,7 +16,7 @@
       {% if menu | length %}
         {% for k,m in menu %}
           {% if m['items'] is defined and m['items'] | length %}
-            <div class="sidebar-heading pt-3">
+            <div class="sidebar-heading pt-3 mt-3">
               {{ k }}
             </div>
             {% for it in m['items'] %}

@@ -100,4 +100,11 @@ class DataTable  extends \ControllerBase{
     return $this;
   }
 
+
+  public function addCustomColumn($name , $callback)
+  {
+    foreach ($this->response['data'] as $key => $data) {
+      $this->response['data'][$key][$name] = $callback($key , $data);
+    }
+  }
 }

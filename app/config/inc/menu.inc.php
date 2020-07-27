@@ -1,5 +1,7 @@
 <?php 
-
+/**
+ * Panel Menu (sidebar)
+ */
 
 $configs['menu'] = [
 	"General"=>[
@@ -27,6 +29,15 @@ $configs['menu'] = [
 				"access"=>"admins",
 			],
 
+			"website-settings"=>[
+				"title"=>"Website Settings",
+				"icon"=>"fas fa-cogs",
+				"url"=>"member/website-settings",
+
+
+				"access"=>"admins",
+			],
+
 		]
 	],
 
@@ -35,7 +46,7 @@ $configs['menu'] = [
 
 			"settings"=>[
 				"title"=>"Settings",
-				"icon"=>"fas fa-cogs",
+				"icon"=>"fas fa-user-circle",
 				"url"=>"member/settings",
 
 

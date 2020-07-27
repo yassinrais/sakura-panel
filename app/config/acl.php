@@ -1,5 +1,7 @@
 <?php 
-
+/**
+ * Acl For Roles (Admins / Members / Geusts)
+ */
 use Phalcon\Acl\Adapter\Memory;
 use Phalcon\Acl\Component;
 use Phalcon\Acl\Role;

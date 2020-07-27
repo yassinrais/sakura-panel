@@ -56,3 +56,13 @@
 	border-radius: 0px;
     background-color: #f191afe5;
 }
+
+.btn-sakura{
+	background: #f191afe5;
+	color:white !important;
+	border-color: #f191afff;	
+}
+.btn-sakura:active , .btn-sakura:hover{
+	background: #f191afff;
+	border-color: #f191afff;	
+}
