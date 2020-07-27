@@ -319,7 +319,7 @@ $di->set(
             "dispatch:beforeException",
             function($event, $dispatcher, $exception)
             {
-                 if (getenv('APP_DEBUG') != true) {
+                 if (getenv('APP_DEBUG') !== true) {
 
                     switch ($exception->getCode()) {
                         case DispatcherException::EXCEPTION_HANDLER_NOT_FOUND:

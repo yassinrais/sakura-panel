@@ -67,11 +67,6 @@ class AuthController extends PageControllerBase
         return $this->view->pick('auth/login');
     }
 
-    public function registerAction()
-    {
-        return 'REGISTER';
-    }
-
 
     public function logoutAction()
     {
