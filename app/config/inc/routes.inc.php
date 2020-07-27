@@ -12,7 +12,8 @@ $configs['sections'] = array(
     'home'=>[
         "index"=>[
             'url'=>['/#','/'],
-            'controller'=>'SakuraPanel\Controllers\Pages\Home' , 'action'=>'index'
+            'controller'=>'SakuraPanel\Controllers\Pages\Home' , 'action'=>'index',
+            'access' => ['geusts' => ['*'] ]
         ],
     ],
   
@@ -20,11 +21,13 @@ $configs['sections'] = array(
     'error'=>[
         "404"=>[
             'url'=>['/404','/#/','/404/(.*)'],
-            'controller'=>'SakuraPanel\Controllers\Pages\Error','action'=>'Page404'
+            'controller'=>'SakuraPanel\Controllers\Pages\PageErrors','action'=>'Page404',
+            'access'=> ['*' => ['*']]
         ],
         "503"=>[
             'url'=>['/503','/#/','/503/(.*)'],
-            'controller'=>'SakuraPanel\Controllers\Pages\Error','action'=>'Page503'
+            'controller'=>'SakuraPanel\Controllers\Pages\PageErrors','action'=>'Page503',
+            'access' => ['*' => ['*'] ]
         ],
     ],
 
@@ -35,7 +38,34 @@ $configs['sections'] = array(
                 'url'=>['/#','/#/','/#/@'],
                 'controller'=>'\SakuraPanel\Controllers\Member\Dashboard',
                 'action'=>'index' , 
-                'info'=>['title'=>'Dashboard','icon'=>'bx bx-home-circle','category'=>'general']
+                'access' => ['members|admins' => ['*'] ]
+        ],
+
+        'settings'=>[
+                'url'=>['/#','/#/','/#/@'],
+                'controller'=>'\SakuraPanel\Controllers\Member\Account\Profilesettings',
+                'action'=>'index' , 
+                'access' => ['members|admins' => ['*'] ]
+        ],
+
+
+
+        'users'=>[
+                'url'=>['/#/@/','/#/@', '/#/@/:action'],
+                'controller'=>'\SakuraPanel\Controllers\Admin\Users\Users',
+                'action'=> 1 , 
+                'access' => ['admins' => ['*'] ]
+        ],
+
+
+
+
+        'logout'=>[
+                'url'=>['/#/@','/#/@/','/#/@/:params'],
+                'controller'=>'\SakuraPanel\Controllers\Member\Auth',
+                'action'=>'logout', 
+                'params'=>2 , 
+                'access' => ['members|admins' => ['*'] ]
         ],
 
 
@@ -46,15 +76,9 @@ $configs['sections'] = array(
                 'action'=>1, 
                 'params' =>2 , 
                 'token' => 3, 
-                'info'=>['title'=>'Auth','icon'=>'bx bx-cog','hide'=>true]
+                'access' => ['*' => ['*'] ]
         ],
-        'logout'=>[
-                'url'=>['/#/@','/#/@/','/#/@/:params'],
-                'controller'=>'\SakuraPanel\Controllers\Member\Auth',
-                'action'=>'logout', 
-                'params'=>2 , 
-                'info'=>['title'=>'Logout','icon'=>'bx bx-power-off','category'=>'account']
-        ]
+
     ],
      
 );

@@ -149,6 +149,8 @@ $di->setShared('view', function () {
 
             $c->addFunction('getenv','getenv');
             
+            $c->addFunction('var_dump','var_dump');
+            
             return $volt;
         },
         '.phtml' => PhpEngine::class
@@ -295,13 +297,25 @@ $di->setShared('globalCache' , function () use ($di)
 
 });
 
+
+/**
+ * acl service
+ */
+$di->setShared('acl', function () use($di) {
+    return include APP_PATH . "/config/acl.php";
+});
+
+
+/**
+ * Dispatcher : event manager
+ */
 $di->set(
     'dispatcher',
     function() use ($di) {
 
-        $evManager = $di->getShared('eventsManager');
+        $eventsManager = $di->getShared('eventsManager');
 
-        $evManager->attach(
+        $eventsManager->attach(
             "dispatch:beforeException",
             function($event, $dispatcher, $exception)
             {
@@ -329,14 +343,19 @@ $di->set(
             }
         );
 
-        $evManager->attach(
+        // attach auth event
+        $eventsManager->attach(
             "dispatch:beforeExecuteRoute",
             new \Sid\Phalcon\AuthMiddleware\Event()
         );
 
+        // set event manager 
         $dispatcher = new \Phalcon\Mvc\Dispatcher();
-        $dispatcher->setEventsManager($evManager);
+        $dispatcher->setEventsManager($eventsManager);
+
         return $dispatcher;
     },
     true
 );
+
+

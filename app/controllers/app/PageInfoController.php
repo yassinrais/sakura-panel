@@ -15,6 +15,7 @@ class PageInfoController extends \ControllerBase
 		'og:image'=>'',
 	];
 
+	private $menu = [];
 
 	/**
 	 * get page info 
@@ -35,5 +36,37 @@ class PageInfoController extends \ControllerBase
 	public function set($key , $val = null)
 	{
 		$this->info[$key] = $val;
+	}
+
+	/**
+	 * Get Panel Menu
+	 */
+
+	public function getMenu()
+	{
+		$access = $this->di->get('user')->role_name ?? "geusts";
+
+		$this->menu = [];
+
+		$allMenus = $this->config->menu;
+
+
+		foreach ($allMenus as $category => $menu) {
+			$this->menu[$category] = $this->menu[$category] ?? [];
+
+			foreach ($menu['items'] ?? [] as $name => $info) {
+				if (empty($info['access']) || in_array($access, explode("|", strtolower($info['access']))) || $info['access'] === "*") {
+					$this->menu[$category]['items'] = array_merge_recursive(
+						$this->menu[$category]['items'] ?? [],
+						[
+							$name => $info
+						]
+					);
+				}
+			}
+		}
+
+
+		return $this->menu;
 	}
 }

@@ -11,5 +11,10 @@
   <title>{{ page.get('title') ? page.get('title') ~ ' - '  : '' }}{{ site.get('name' , getenv('APP_NAME') ? getenv('APP_NAME') :  'Sakura Panel') }}</title>
 
   {{ assets.outputCss('header') }}
+  {% if dataTable is defined %}{{ assets.outputCss('dataTable') }}{% endif %}
+
+
+
+  <base href="{{ url() }}">
 </head>
-<body class="{{ page.get('body.class') }}">
+<body id="page-top" class="{{ page.get('body.class') }}">

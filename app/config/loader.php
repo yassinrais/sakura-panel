@@ -21,6 +21,8 @@ $loader->registerNamespaces(array(
 	 *	Library
 	 */
 	'SakuraPanel\Library'=>APP_PATH. '/library/',
+	'SakuraPanel\Library\DataTable'=>APP_PATH. '/library/datatables/',
+	'SakuraPanel\Library\DataTable\Adapters'=>APP_PATH. '/library/datatables/adapters/',
 
 	/**
 	 *	Library
@@ -64,9 +66,14 @@ $loader->registerNamespaces(array(
 	'SakuraPanel\Models\Member' => APP_PATH .'/models/member/',
 	'SakuraPanel\Controllers\Member' => APP_PATH .'/controllers/member/',
 		// :: user profile :: // 
-		'SakuraPanel\Controllers\Member\Profile' => APP_PATH .'/controllers/member/profile',
-		// :: shared controllers :: //
-		'SakuraPanel\Controllers\Member\Shared' => APP_PATH . '/controllers/member/shared',
+		'SakuraPanel\Controllers\Member\Account' => APP_PATH .'/controllers/member/account/',
+
+	/**
+	 *	Member
+	 */
+	'SakuraPanel\Models\Admin' => APP_PATH .'/models/admin/',
+		// :: user profile :: // 
+		'SakuraPanel\Controllers\Admin\Users' => APP_PATH .'/controllers/admin/users/',
 
 
 	/**

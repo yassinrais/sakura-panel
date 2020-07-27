@@ -51,8 +51,6 @@ include ('inc/logger.inc.php');
 include ('inc/tables.inc.php');
 
 
-
-
 /**
  *      Routers
  */
@@ -71,6 +69,15 @@ include ('inc/mail.inc.php');
  *      Security
  */
 include ('inc/security.inc.php');
+
+
+
+/**
+ *      Security
+ */
+include ('inc/menu.inc.php');
+
+
 
 /**
  *      Functions

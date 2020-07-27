@@ -1,0 +1,58 @@
+.card , .card-header , .card-footer{
+	border-radius: 0 !important;
+	border:none;
+}
+.card{
+	border: 1px solid #f191af26;
+	box-shadow: 2px 1px 0px 3px #f191af12;
+}
+.card-header{
+	color:white;
+	border:none;
+  	background-color: #f191afc7;
+}
+
+
+.sakura-icolor{
+  color: white;
+}
+.sakura-color{
+  color: #f091af;
+}
+.sakura-bg{
+  background: url(https://image.winudf.com/v2/image/Y29tLndhbGxwYXBlcmhvdXNlLnNha3VyYXdhbGxwYXBlcl9zY3JlZW5zaG90c18wX2FjNTRlNjI0/screen-0.jpg?fakeurl=1&type=.jpg);
+}
+.sakura-bgx{
+  background-color: #f191afe5;
+  height: 100%;
+}
+
+
+.sidebar a span{
+	font-size: 1rem;
+}
+
+.alert{
+	border-radius: 0px !important;
+	color: rgba(25,25,25,0.85);
+}
+
+.alert-danger{
+	background: #f19191;
+}
+.alert-success{
+	background: #91f192;
+}
+.alert-warning{
+	background: #f1d691;
+}
+.alert-info{
+	background: #91bdf1;
+}
+
+*[type="search"] , .custom-select{
+	border:none;
+	color:white;
+	border-radius: 0px;
+    background-color: #f191afe5;
+}

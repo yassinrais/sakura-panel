@@ -1,7 +1,12 @@
 <?php
 namespace SakuraPanel\Models\User;
 
-use Phalcon\Validation\Validator\Email as EmailValidator;
+use Phalcon\Validation;
+use Phalcon\Validation\Validator\{
+    Email as EmailValidator ,
+    Uniqueness ,
+    Regex
+};
 
 class Users extends \ModelBase
 {
@@ -29,6 +34,18 @@ class Users extends \ModelBase
      * @var string
      */
     public $password;
+
+    /**
+     *
+     * @var string
+     */
+    public $role_name;
+
+    /**
+     *
+     * @var string
+     */
+    public $fullname;
 
     /**
      *
@@ -78,6 +95,25 @@ class Users extends \ModelBase
                 ]
             )
         );
+        $validator->add(
+            'email',
+            new Uniqueness(
+                [
+                    'model'   => $this,
+                    'message' => 'Please enter a correct email address',
+                ]
+            )
+        );
+
+        $validator->add(
+            'fullname',
+            new Regex(
+                [
+                    'message' => 'The full name must contains alphanumeric characters',
+                    'pattern' => '/^[a-zA-Z]{4,}(?: [a-zA-Z]+){0,2}$/',
+                ]
+            )
+        );
 
         return $this->validate($validator);
     }
@@ -112,5 +148,9 @@ class Users extends \ModelBase
         return parent::findFirst($parameters);
     }
 
+    public function beforeUpdate()
+    {
+        $this->password = $this->getDI()->getSecurity()->hash($this->password);
+    }
 
 }

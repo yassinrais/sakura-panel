@@ -8,6 +8,8 @@
     if ($(".sidebar").hasClass("toggled")) {
       $('.sidebar .collapse').collapse('hide');
     };
+    console.log($('.sidebar .collapse'));
+    
   });
 
   // Close any open menu accordions when window is resized below 768px

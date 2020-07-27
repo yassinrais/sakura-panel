@@ -10,9 +10,9 @@ class DashboardController extends MemberControllerBase
 {
     // Implement common logic
     public function initialize(){
-        $this->page->set('title','Dashboard');
-        
     	parent::initialize();
+
+        $this->page->set('title','Dashboard');
     }
 
 	public function indexAction()

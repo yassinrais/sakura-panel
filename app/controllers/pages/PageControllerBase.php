@@ -23,17 +23,28 @@ class PageControllerBase extends AuthMiddleware implements SharedConstInterface
 		$aHeader = $this->assets->collection('header')
 			->addCss('https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet')
 			->addCss('assets/vendor/fontawesome-free/css/all.min.css')
-			->addCss('assets/css/sb-admin-2.min.css');
+			->addCss('assets/css/sb-admin-2.css')
+			->addCss('assets/css/custom.css')
+			->addCss('assets/css/panel.css');
 
 		$aFooter = $this->assets->collection('footer')
 			->addJs('assets/vendor/jquery/jquery.min.js')
+			->addJs('assets/vendor/jquery-cookie/jquery.cookie.js')
 			->addJs('assets/vendor/bootstrap/js/bootstrap.bundle.min.js')
 			->addJs('assets/vendor/jquery-easing/jquery.easing.min.js')
 			->addJs('assets/js/sb-admin-2.min.js');
 
+
+		$aDataTables = $this->assets->collection('dataTable')
+			->addCss('assets/vendor/datatables/dataTables.bootstrap4.min.css')
+			->addJs('assets/vendor/datatables/jquery.dataTables.min.js')
+			->addJs('assets/vendor/datatables/dataTables.bootstrap4.min.js')
+			->addJs('assets/js/tables/all.js');
+
 		// save in attribute
 		$this->assetsPack->header = $aHeader;
 		$this->assetsPack->footer = $aFooter;
+		$this->assetsPack->dataTable = $aDataTables;
 	}
 	
 	public function indexAction()

@@ -1,7 +1,7 @@
 <?php
 namespace \SakuraPanel\Models\User;
 
-class UserSessions extends \ModelBase
+class UsersSessions extends \ModelBase
 {
 
     /**
@@ -45,14 +45,14 @@ class UserSessions extends \ModelBase
      */
     public function initialize()
     {
-        $this->setSource($this->getSourceByName("user_sessions"));
+        $this->setSource($this->getSourceByName("users_sessions"));
     }
 
     /**
      * Allows to query a set of records that match the specified conditions
      *
      * @param mixed $parameters
-     * @return UserSessions[]|UserSessions|\Phalcon\Mvc\Model\ResultSetInterface
+     * @return UsersSessions[]|UsersSessions|\Phalcon\Mvc\Model\ResultSetInterface
      */
     public static function find($parameters = null): \Phalcon\Mvc\Model\ResultsetInterface
     {
@@ -63,7 +63,7 @@ class UserSessions extends \ModelBase
      * Allows to query the first record that match the specified conditions
      *
      * @param mixed $parameters
-     * @return UserSessions|\Phalcon\Mvc\Model\ResultInterface
+     * @return UsersSessions|\Phalcon\Mvc\Model\ResultInterface
      */
     public static function findFirst($parameters = null)
     {

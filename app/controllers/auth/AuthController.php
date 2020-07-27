@@ -47,11 +47,11 @@ class AuthController extends PageControllerBase
                         $this->flashSession->error((string) $msg);
                 }else{
                     $user = Users::findFirstByEmail((string) $this->request->getPost('email'));
-                    
+
                     if ($user && $this->security->checkHash($this->request->getPost('password') , $user->password)) {
                         if ($user->isActive()) {
-                            $this->flashSession->success('Login Success !');
                             $this->setUserSession($user);
+                            $this->response->redirect('member/dashboard');
                         }else
                             $this->flashSession->{$user->getStatus()->type}('Your account is '. $user->getStatus()->title);
                     }else
@@ -70,5 +70,12 @@ class AuthController extends PageControllerBase
     public function registerAction()
     {
         return 'REGISTER';
+    }
+
+
+    public function logoutAction()
+    {
+        $this::clearUserSession();
+        $this->response->redirect('auth/login');
     }
 }

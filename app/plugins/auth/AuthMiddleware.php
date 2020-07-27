@@ -1,31 +1,57 @@
 <?php 
 namespace SakuraPanel\Plugins\Auth;
 
+// sakura lib 
 use \SakuraPanel\Library\SharedConstInterface;
 use \SakuraPanel\Models\User\{
-    UserSessions,
+    UsersSessions,
     Users
 };
 
+// AuthMiddleware lib
 use \Sid\Phalcon\AuthMiddleware\MiddlewareInterface;
 
-use Phalcon\Mvc\Controller;
+// phalcon
+use \Phalcon\Mvc\Controller;
+use \Phalcon\Mvc\Dispatcher;
 
 class AuthMiddleware extends Controller implements MiddlewareInterface , SharedConstInterface
 {
     private $authKey = "user";
     private $authKeyRemember = "user_rm";
     private $authKeyRememberLength = 50;
-    private $auth_data = ['id','username','email'];
+    private $auth_data = ['id','username','email' , 'role_name'];
 
     protected $user;
+    protected $isLogged = false;
+    // check role / acl permissions
+    public function beforeExecuteRoute(Dispatcher $dispatcher)
+    {
+        $this->isLogged = $this->isLoggedIn();
 
+        $controllerName = $dispatcher->getControllerName();
+        // Check if the user have permission to the current option
+        $actionName = $dispatcher->getActionName();
+        
+        $role_name = $this->isLogged->role_name  ?? $this::ROLE_DEFAULT;
+
+
+        if (!$this->acl->isAllowed($role_name, $controllerName, $actionName)) {
+            $this->flash->notice($role_name.'::::: You don\'t have access to this module: ' . $controllerName . ':' . $actionName);
+            
+            if (!$this->acl->isAllowed($role_name, $controllerName, 'index')) {
+                $this->response->redirect('../404');
+            }
+            
+            return false;
+        }
+    }
 
     public function authenticate() : bool
     {
-        $loggedIn = $this->isLoggedIn();
 
-        if (!$loggedIn) {
+        $this->isLogged = $this->isLoggedIn();
+        if (!$this->isLogged) {
             $this->flashSession->error(
                 "You must be logged in."
             );
@@ -53,7 +79,6 @@ class AuthMiddleware extends Controller implements MiddlewareInterface , SharedC
                 $auth = $this::checkUserSession($this->cookies->get($this->authKeyRemember));
             }
         }
-        
 
         return $auth;
     }
@@ -69,7 +94,7 @@ class AuthMiddleware extends Controller implements MiddlewareInterface , SharedC
 
     public function checkUserSession($session_key)
     {
-        $session = new UserSessions();
+        $session = new UsersSessions();
 
         $user_auth = $session::findFirst([
             'session = ?0',
@@ -94,7 +119,7 @@ class AuthMiddleware extends Controller implements MiddlewareInterface , SharedC
         }
 
         if (!$user_auth) $this::clearUserSession();
-        $this->di->setShared('user', $user_auth ? $user_auth : null);
+        $this->diSaveUser($user_auth);
 
         return $user_auth;
     }
@@ -116,6 +141,17 @@ class AuthMiddleware extends Controller implements MiddlewareInterface , SharedC
         return $ds && $dc;
     }
 
+
+    /**
+     * Save User Session
+     * @param Object
+     */
+
+    public function diSaveUser($user_session)
+    {
+        $this->user = $user_session;
+        $this->di->setShared('user', !empty($user_session) ? $user_session : null);
+    }
 
     /**
      * 
@@ -158,7 +194,7 @@ class AuthMiddleware extends Controller implements MiddlewareInterface , SharedC
             if ($user_session) 
                 {
                     $_user = ($filter) ? $this::filterUserSession($user_session) : $user_session;
-                    $this->di->setShared('user', $user_session ? $user_session : null);
+                    $this->diSaveUser($user_session);
                 }
         }
 
