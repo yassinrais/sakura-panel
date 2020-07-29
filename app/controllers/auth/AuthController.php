@@ -7,6 +7,7 @@ use \SakuraPanel\Controllers\Pages\PageControllerBase;
 
 use \SakuraPanel\Forms\LoginForm;
 use \SakuraPanel\Models\User\{Users , UsersSessions};
+use \Phalcon\Http\Response;
 
 /**
  * LoginController
@@ -16,7 +17,8 @@ class AuthController extends PageControllerBase
     // Implement common logic
     public function onConstruct(){
         if ($this->isLoggedIn()){
-    		return $this->response->redirect('./member');
+            print_r("Redirect to panel ...");
+    		return $this->response->redirect('member');
     	}
     }
     
@@ -30,7 +32,8 @@ class AuthController extends PageControllerBase
         $this->view->form = new LoginForm();
     }
 	public function indexAction(){
-		return $this->response->redirect("auth/login");
+		return $this->response->redirect("auth/login?fromIndex");
+        // return 'index:login';
 	}	
 
 	public function loginAction()
@@ -51,7 +54,20 @@ class AuthController extends PageControllerBase
                     if ($user && $this->security->checkHash($this->request->getPost('password') , $user->password)) {
                         if ($user->isActive()) {
                             $this->setUserSession($user , $this->request->getPost('remember') ?? false);
-                            $this->response->redirect('member/dashboard');
+
+                            // Getting a response instance
+                            $response = new Response();
+
+                            // Set status code
+                            $response->setStatusCode(301, 'Found');
+                            $response->setHeader('Location', $this->url->get('/member/'));
+
+                            // Set the content of the response
+                            $response->setContent("Redirecting to member panel ...");
+
+                            // Send response to the client
+                            return $response->send();
+                            die;
                         }else
                             $this->flashSession->{$user->getStatus()->type}('Your account is '. $user->getStatus()->title);
                     }else

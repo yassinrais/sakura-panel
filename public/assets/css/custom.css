@@ -20,10 +20,15 @@
   color: #f091af;
 }
 .sakura-bg{
-  background: url(https://image.winudf.com/v2/image/Y29tLndhbGxwYXBlcmhvdXNlLnNha3VyYXdhbGxwYXBlcl9zY3JlZW5zaG90c18wX2FjNTRlNjI0/screen-0.jpg?fakeurl=1&type=.jpg);
+  /*background: url(https://image.winudf.com/v2/image/Y29tLndhbGxwYXBlcmhvdXNlLnNha3VyYXdhbGxwYXBlcl9zY3JlZW5zaG90c18wX2FjNTRlNjI0/screen-0.jpg?fakeurl=1&type=.jpg);*/
+  /*background: url(https://i.pinimg.com/originals/36/d1/33/36d13390fef74fc29a676e913470f9e3.jpg);*/
+  background: url(../img/nav-bg-1.jpg);
+  background-size: cover;
+  background-position: bottom;
 }
 .sakura-bgx{
-  background-color: #f191afe5;
+  background-color: #252525d5;
+  /*f191afe0;*/
   height: 100%;
 }
 

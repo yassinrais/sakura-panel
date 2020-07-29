@@ -27,7 +27,6 @@ $loader->registerNamespaces(array(
 	 *	Library
 	 */
 	'SakuraPanel\Plugins'=>APP_PATH. '/plugins/',
-	'SakuraPanel\Plugins\Auth'=>APP_PATH. '/plugins/auth/',
 
 	/**
 	 *	Base Shared

@@ -11,9 +11,9 @@ $router->handle($_SERVER['REQUEST_URI']);
 $configs = $di->getConfig();
 
 
-if ($configs->sections)
-foreach ($configs->sections as $prefix => $sections) {
-    foreach ($sections as $name => $page) {
+if ($configs->route_groups)
+foreach ($configs->route_groups as $prefix => $rgroups) {
+    foreach ($rgroups as $name => $page) {
         $urls = is_object($page->url) ? $page->url : (object) [$page->url];
         foreach ($urls as $url) {
             $router->add(

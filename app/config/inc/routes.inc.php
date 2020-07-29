@@ -7,7 +7,7 @@
  *
  */
 
-$configs['sections'] = array(
+$configs['route_groups'] = array(
 
 
     'error'=>[
@@ -34,7 +34,7 @@ $configs['sections'] = array(
         ],
 
         'settings'=>[
-                'url'=>['/#','/#/','/#/@'],
+                'url'=>['/#/@','/#/@/'],
                 'controller'=>'\SakuraPanel\Controllers\Member\Account\Profilesettings',
                 'action'=>'index' , 
                 'access' => ['members|admins' => ['*'] ]

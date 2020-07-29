@@ -20,9 +20,9 @@ $acl->addRole($roleGeusts);
 
 $acl->setDefaultAction(\Phalcon\Acl\Enum::DENY);
 
-if ($configs->sections)
-foreach ($configs->sections as $prefix => $sections) {
-    foreach ($sections as $name => $page) {
+if ($configs->route_groups)
+foreach ($configs->route_groups as $prefix => $rgroup) {
+    foreach ($rgroup as $name => $page) {
         if (!$page->access)
             break;
 

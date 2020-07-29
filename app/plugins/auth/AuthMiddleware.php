@@ -52,6 +52,7 @@ class AuthMiddleware extends Controller implements MiddlewareInterface , SharedC
 
         $this->isLogged = $this->isLoggedIn();
         if (!$this->isLogged) {
+            
             $this->flashSession->error(
                 "You must be logged in."
             );

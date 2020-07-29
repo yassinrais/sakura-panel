@@ -58,7 +58,8 @@ $configs['menu'] = [
 			"logout"=>[
 				"title"=>"Logout",
 				"icon"=>"fas fa-sign-out-alt",
-				"attrs"=>'href="#" data-toggle="modal" data-target="#logoutModal"',
+				"url"=>"auth/logout",
+				// "attrs"=>'data-toggle="modal" data-target="#logoutModal"',
 
 				"access"=>"*",
 			],
