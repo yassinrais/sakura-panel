@@ -106,5 +106,7 @@ class DataTable  extends \ControllerBase{
     foreach ($this->response['data'] as $key => $data) {
       $this->response['data'][$key][$name] = $callback($key , $data);
     }
+
+    return $this;
   }
 }

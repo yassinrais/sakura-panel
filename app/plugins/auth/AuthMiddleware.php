@@ -12,10 +12,9 @@ use \SakuraPanel\Models\User\{
 use \Sid\Phalcon\AuthMiddleware\MiddlewareInterface;
 
 // phalcon
-use \Phalcon\Mvc\Controller;
 use \Phalcon\Mvc\Dispatcher;
 
-class AuthMiddleware extends Controller implements MiddlewareInterface , SharedConstInterface
+class AuthMiddleware extends \ControllerBase implements MiddlewareInterface , SharedConstInterface
 {
     private $authKey = "user";
     private $authKeyRemember = "user_rm";

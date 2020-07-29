@@ -12,6 +12,14 @@ interface SharedConstInterface {
 	const ACTIVE = 1;
 	const SUSPENDED = 2;
 
+
+	const STATUS_LIST = [
+      self::INACTIVE => 'InActive',
+      self::ACTIVE => 'Active',
+      self::SUSPENDED => 'Suspended',
+      self::DELETED => 'Deleted',
+    ];
+
 	// date
 	const DATE_FORMAT = "y-m-d";	
 	const TIME_FORMAT = "H:i:s";	

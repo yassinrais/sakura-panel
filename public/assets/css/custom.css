@@ -75,3 +75,11 @@
 .card-header .text-primary{
 	color:white !important;
 }
+
+/**	
+*	Sweet Alert 2 custom 
+*/
+
+.swal2-actions button{
+	margin: 0px 5px;
+}

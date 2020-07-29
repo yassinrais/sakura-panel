@@ -89,26 +89,40 @@ class ModelBase extends Model implements SharedConstInterface
 	 */
 	public function getStatus()
 	{
+		return self::getStatusById($this->status);
+	}
+
+	public static function getStatusById($status)
+	{
 		$info = (object) [
 			'title'=>'Unknown',
+			'icon'=>'close',
 			'id'=>-2,
-			'type'=>'error'
+			'type'=>'error',
+			'color'=>'danger',
 		];
 
-		switch ($this->status ?? null) {
-			case $this::DELETED:
+		switch ($status ?: null) {
+			case self::DELETED:
 				$info->title = "Deleted";
+				$info->icon = "trash";
 				break;
-			case $this::INACTIVE:
+			case self::INACTIVE:
 				$info->title = "InActive";
 				$info->type = "warning";
+				$info->icon = "exclamation";
+				$info->color = "info";
 				break;
-			case $this::ACTIVE:
+			case self::ACTIVE:
 				$info->title = "Active";
 				$info->type = "success";
+				$info->icon = "check-square";
+				$info->color = "success";
 				break;
-			case $this::SUSPENDED:
+			case self::SUSPENDED:
 				$info->title = "Suspended";
+				$info->icon = "minus";
+				$info->color = "warning";
 				break;
 
 			default:
@@ -118,7 +132,6 @@ class ModelBase extends Model implements SharedConstInterface
 
 		return (object) $info;
 	}
-
 
 	public function isActive()
 	{

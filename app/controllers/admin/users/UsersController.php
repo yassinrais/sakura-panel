@@ -49,9 +49,4 @@ class UsersController extends MemberControllerBase
         }
 	}
 
-	public function testAction()
-	{
-		return ('test');
-	}
-
 }

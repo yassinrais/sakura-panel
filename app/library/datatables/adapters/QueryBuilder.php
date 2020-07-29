@@ -23,7 +23,7 @@ class QueryBuilder extends AdapterInterface{
       'limit'   => 1,
       'page'    => 1,
     ]);
- 
+    
     $total = $builder->paginate();
 
       

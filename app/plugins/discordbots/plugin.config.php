@@ -7,10 +7,11 @@ $configs['route_groups'] = array_merge_recursive(
 	$configs['route_groups'] ,
 	[
 		"member"=>[
-			"test"=>[
-				'url'=>['/#/@','/#/@/'],
+			"discordbots"=>[
+				'url'=>['/#/@','/#/@/','/#/@/:action','/#/@/:action/:params'],
                 'controller'=>"\SakuraPanel\Plugins\\${groupName}\Controllers\DiscordBots",
-                'action'=>'index' , 
+                'action'=>1 , 
+                'params'=>2 , 
                 'access' => ['members|admins' => ['*'] ]
             ]
 		]
@@ -22,10 +23,10 @@ $configs['route_groups'] = array_merge_recursive(
 $configs['menu']['Admin']['items'] = array_merge_recursive(
 	$configs['menu']['Admin']['items'],
 	[
-		"test"=>[
+		"discordbots"=>[
 			"title"=>"Discord Bots",
-			"icon"=>"fas fa-check",
-			"url"=>"member/test",
+			"icon"=>"fas fa-robot",
+			"url"=>"member/discordbots",
 
 
 			"access"=>"admins",
