@@ -16,7 +16,8 @@
 ## 📗 About
 
 <p>Sakura Panel , a Script made with PHP (phalcon framework) and run in apache/nginx </p>
-<p>The idea of the panel is to manage Discord Bots made with <a href="https://github.com/yassinrais/sakura-core/" target="_blank">Sakura Core</a>... </p>
+<p>The idea of the panel is to manage your website easy, by adding custom plugins without touching the skeleton source code</p>
+<p style="font-style: italic;">The origine idea was to create a discord bots panel <a href="https://github.com/yassinrais/sakura-core/" target="_blank">Sakura Core</a>... </p>
 
 
 
