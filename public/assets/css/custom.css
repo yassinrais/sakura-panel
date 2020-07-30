@@ -1,85 +1,85 @@
-.card , .card-header , .card-footer{
-	border-radius: 0 !important;
+.card,.card-header,.card-footer {
+	border-radius:0!important;
 	border:none;
 }
-.card{
-	border: 1px solid #f191af26;
-	box-shadow: 2px 1px 0px 3px #f191af12;
+
+.card {
+	border:1px solid #f191af26;
+	box-shadow:2px 1px 0 3px #f191af12;
 }
-.card-header{
-	color:white;
+
+.card-header {
+	color:#FFF;
 	border:none;
-  	background-color: #f191afc7;
+	background-color:#f191afc7;
 }
 
-
-.sakura-icolor{
-  color: white;
-}
-.sakura-color{
-  color: #f091af;
-}
-.sakura-bg{
-  /*background: url(https://image.winudf.com/v2/image/Y29tLndhbGxwYXBlcmhvdXNlLnNha3VyYXdhbGxwYXBlcl9zY3JlZW5zaG90c18wX2FjNTRlNjI0/screen-0.jpg?fakeurl=1&type=.jpg);*/
-  /*background: url(https://i.pinimg.com/originals/36/d1/33/36d13390fef74fc29a676e913470f9e3.jpg);*/
-  background: url(../img/nav-bg-1.jpg);
-  background-size: cover;
-  background-position: bottom;
-}
-.sakura-bgx{
-  background-color: #252525d5;
-  /*f191afe0;*/
-  height: 100%;
+.sakura-icolor {
+	color:#FFF;
 }
 
-
-.sidebar a span{
-	font-size: 1rem;
+.sakura-color {
+	color:#f091af;
 }
 
-.alert{
-	border-radius: 0px !important;
-	color: rgba(25,25,25,0.85);
+.sakura-bg {
+	background:url(../img/nav-bg-1.jpg);
+	background-size:cover;
+	background-position:center top;
 }
 
-.alert-danger{
-	background: #f19191;
-}
-.alert-success{
-	background: #91f192;
-}
-.alert-warning{
-	background: #f1d691;
-}
-.alert-info{
-	background: #91bdf1;
+.sakura-bgx {
+	background-color:#252525d5;
+	height:100%;
 }
 
-*[type="search"] , .custom-select{
+.sidebar a span {
+	font-size:1rem;
+}
+
+.alert {
+	border-radius:0!important;
+	color:rgba(25,25,25,0.85);
+}
+
+.alert-danger {
+	background:#f19191;
+}
+
+.alert-success {
+	background:#91f192;
+}
+
+.alert-warning {
+	background:#f1d691;
+}
+
+.alert-info {
+background:#91bdf1;
+}
+
+[type="search"],.custom-select {
 	border:none;
-	color:white;
-	border-radius: 0px;
-    background-color: #f191afe5;
+	color:#FFF;
+	border-radius:0;
+	background-color:#f191afe5;
 }
 
-.btn-sakura{
-	background: #f191afe5;
-	color:white !important;
-	border-color: #f191afff;	
-}
-.btn-sakura:active , .btn-sakura:hover{
-	background: #f191afff;
-	border-color: #f191afff;	
+.btn-sakura {
+	background:#f191afe5;
+	color:#FFF!important;
+	border-color:#f191afff;
 }
 
-.card-header .text-primary{
-	color:white !important;
+.btn-sakura:active,.btn-sakura:hover {
+	background:#f191afff;
+	border-color:#f191afff;
 }
 
-/**	
-*	Sweet Alert 2 custom 
-*/
+.card-header .text-primary {
+	color:#FFF!important;
+}
 
-.swal2-actions button{
-	margin: 0px 5px;
+.swal2-actions button {
+	margin:0 5px;
 }

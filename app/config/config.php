@@ -31,8 +31,8 @@ $configs = array(
         'cacheDir'       => BASE_PATH . '/cache/',
         'cacheViewsDir'       => BASE_PATH . '/cache/views/',
         'cacheSessionsDir' => BASE_PATH . '/cache/sessions/',
-        'cacheSecurityDir' => BASE_PATH . '/cache/security/',
-        'cacheGlobalDir' => BASE_PATH . '/cache/global/',
+        'securityCacheDir' => BASE_PATH . '/cache/security/',
+        'globalCacheDir' => BASE_PATH . '/cache/global/',
         'baseUri'        => '/',
         // server configs  doesnt exist in cli ("request" :@ to ignore undefined vars) 
         'baseURL'        => ((!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' || @$_SERVER['SERVER_PORT'] == 443) ? "https://" : "http://"). @$_SERVER['HTTP_HOST'] . "/",

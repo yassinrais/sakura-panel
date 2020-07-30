@@ -23,7 +23,6 @@ class SiteConfigsController extends \ControllerBase
 			'columns' => 'key, val',
 			'cache' => [
 	            'key'      => 'model-site-configs',
-	         	'service'  =>'globalCache',
 	        ]
 	    ])->toArray();
 		foreach ($list as $row) {

@@ -261,7 +261,7 @@ $di->setShared('logger', function ($filename = null, $format = null) {
  * Cache Security
  */
 
-$di->setShared('cacheSecurity' , function () use ($di)
+$di->setShared('securityCache' , function () use ($di)
 {
     $config = $this->getConfig();
     
@@ -269,8 +269,8 @@ $di->setShared('cacheSecurity' , function () use ($di)
 
     $options = [
         // 'defaultSerializer' => 'Json',
-        'lifetime'          => intval( $config->security->cacheSecurityLifeTime ) ?? 60 * 60 * 24 * 30 ,
-        'storageDir' => $config->application->cacheSecurityDir ?? BASE_PATH . '/cache/security/',
+        'lifetime'          => intval( $config->security->securityCacheLifeTime ) ?? 60 * 60 * 24 * 30 ,
+        'storageDir' => $config->application->securityCacheDir ?? BASE_PATH . '/cache/security/',
     ];
 
     return new Stream($serializerFactory, $options);
@@ -281,7 +281,7 @@ $di->setShared('cacheSecurity' , function () use ($di)
  * global Cache (models)
  */
 
-$di->setShared('globalCache' , function () use ($di)
+$di->setShared('modelsCache' , function () use ($di)
 {
     $config = $this->getConfig();
     
@@ -289,8 +289,8 @@ $di->setShared('globalCache' , function () use ($di)
 
     $options = [
         // 'defaultSerializer' => 'Json',
-        'lifetime'          => 60 * 1 /*min*/ * 5 ,
-        'storageDir' => $config->application->cacheGlobalDir ?? BASE_PATH . '/cache/global/',
+        'lifetime'          => 1 * 10 ,  //10seconds 
+        'storageDir' => $config->application->globalCacheDir ?? BASE_PATH . '/cache/global/',
     ];
 
     return new Stream($serializerFactory, $options);
