@@ -20,10 +20,10 @@
               {{ k }}
             </div>
             {% for it in m['items'] %}
-            <li class="nav-item <?=(strpos(@$_GET['_url'] ?: 'url', (!empty($it->url) ? $it->url : 'unknown')) > -1) ? 'active':''; ?>">
-                <a class="nav-link" {% if it.url is defined %}href="{{ url(it.url) }}"{% endif %} {% if it.attrs is defined %}{{ it.attrs }}{% endif %}>
-                  <i class="{{ it.icon }} fa-fw"></i>
-                  <span>{{ it.title }}</span>
+            <li class="nav-item <?=(strpos(@$_GET['_url'] ?: 'url', (!empty($it['url']) ? $it['url'] : 'unknown')) > -1) ? 'active':''; ?>">
+                <a class="nav-link" {% if it['url'] is defined %}href="{{ url(it['url']) }}"{% endif %} {% if it['attrs'] is defined %}{{ it['attrs'] }}{% endif %}>
+                  <i class="{{ it['icon'] }} fa-fw"></i>
+                  <span>{{ it['title'] }}</span>
                 </a>
               </li>
             {% endfor %}

@@ -69,7 +69,7 @@ class AuthController extends PageControllerBase
                             return $response->send();
                             die;
                         }else
-                            $this->flashSession->{$user->getStatus()->type}('Your account is '. $user->getStatus()->title);
+                            $this->flashSession->{$user->getStatusInfo()->type}('Your account is '. $user->getStatusInfo()->title);
                     }else
                         $this->flashSession->error('Wrong information ! ');
                 }

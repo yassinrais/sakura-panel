@@ -1,35 +1,37 @@
 <?php 
 
-/**
- * Route/access Config
- */
-$configs['route_groups'] = array_merge_recursive(
-	$configs['route_groups'] ,
-	[
-		"member"=>[
-			"discordbots"=>[
-				'url'=>['/#/@','/#/@/','/#/@/:action','/#/@/:action/:params'],
-                'controller'=>"\SakuraPanel\Plugins\\${groupName}\Controllers\DiscordBots",
-                'action'=>1 , 
-                'params'=>2 , 
-                'access' => ['members|admins' => ['*'] ]
-            ]
-		]
-	] 
+use SakuraPanel\Library\Plugins\Plugin;
+
+$plugin = new Plugin();
+
+$plugin->initPlugin(
+	"Discord Bots",
+	"discordbots",
+	"1.0.0",
+	"Yassine Rais"
 );
-/**
- * Menu/access Configs
- */
-$configs['menu']['Admin']['items'] = array_merge_recursive(
-	$configs['menu']['Admin']['items'],
+
+$plugin->addRoute(
+	"member", 
+	"discordbots" ,
 	[
-		"discordbots"=>[
-			"title"=>"Discord Bots",
-			"icon"=>"fas fa-robot",
-			"url"=>"member/discordbots",
-
-
-			"access"=>"admins",
-		],
+		'url'=>['/#/@','/#/@/','/#/@/:action','/#/@/:action/:params'],
+        'controller'=>"\SakuraPanel\Plugins\\${groupName}\Controllers\DiscordBots",
+        'action'=>1 , 
+        'params'=>2 , 
+        'access' => ['members|admins' => ['*'] ]
 	]
+)->addMenu(
+	"Discord",
+	"discordbots",
+	[
+		"title"=>"Discord Bots",
+		"icon"=>"fas fa-robot",
+		"url"=>"member/discordbots",
+		"access"=>"members|admins",
+	],
+	3
 );
+
+
+return $plugin;

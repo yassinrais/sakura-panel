@@ -3,11 +3,20 @@ declare(strict_types=1);
 
 use \Phalcon\Mvc\Model;
 use \SakuraPanel\Library\SharedConstInterface;
-
+use Phalcon\Mvc\Model\Behavior\SoftDelete;
 
 class ModelBase extends Model implements SharedConstInterface
 {
+
 	protected $client_ip;
+
+	public function skipAllAttributes()
+	{
+		$metadata = $this->getModelsMetaData();
+		$attributes = $metadata->getAttributes($this);
+
+		$this->skipAttributes($attributes);
+	}
 
 	public function getSourceByName($name = null)
 	{
@@ -37,21 +46,10 @@ class ModelBase extends Model implements SharedConstInterface
 
 
 	public function beforeDelete(){
-    
-        if (!empty($this->_safe_delete) && $this->_safe_delete == true) {
-              
-              if (isset($this->deleted)) 
-              {
-                    $this->addBehavior(
-                          new SoftDelete(
-                                [
-                                      'field' => 'deleted',
-                                      'value' => $this::DELETED,
-                                ]
-                          )
-                          );
 
-              }
+
+
+        if (!empty($this->_safe_delete) && $this->_safe_delete == true) {
 
               $this->addBehavior(
                     new SoftDelete([    'field' => 'status',        'value' => $this::DELETED     ])
@@ -64,6 +62,7 @@ class ModelBase extends Model implements SharedConstInterface
               );
 
         }
+	
   }
 
 
@@ -80,14 +79,14 @@ class ModelBase extends Model implements SharedConstInterface
 	*/
 	public function setIp($request=null)
 	{
-	    $this->client_ip = is_string($request) ? $request : ((!empty($request->getClientAddress())) ? $request->getClientAddress() : null);
+	    $this->client_ip = is_string($request) ? $request : ((!is_null($request) && !empty($request->getClientAddress())) ? $request->getClientAddress() : null);
 	} 
 
 
 	/**
 	 * get status by id
 	 */
-	public function getStatus()
+	public function getStatusInfo()
 	{
 		return self::getStatusById($this->status);
 	}

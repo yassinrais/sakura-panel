@@ -22,6 +22,7 @@ $loader->registerNamespaces(array(
 	 */
 	'SakuraPanel\Library'=>APP_PATH. '/library/',
 	'SakuraPanel\Library\DataTable'=>APP_PATH. '/library/datatables/',
+	'SakuraPanel\Library\Plugins'=>APP_PATH. '/library/plugins/',
 
 	/**
 	 *	Library

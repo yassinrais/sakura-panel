@@ -44,9 +44,6 @@ foreach ($configs->route_groups as $prefix => $rgroup) {
                 $acl->allow($name , $controller , $actions);
         }
     }
-        
-
-
 }
 
 return $acl;

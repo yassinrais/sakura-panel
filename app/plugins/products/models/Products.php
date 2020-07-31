@@ -1,13 +1,13 @@
 <?php
 declare(strict_types=1);
 
-namespace SakuraPanel\Plugins\Discordbots\Models;
+namespace SakuraPanel\Plugins\Products\Models;
 
 use Phalcon\Validation;
 use Phalcon\Validation\Validator\{ Between , Ip as IpValidator , PresenceOf , Email as EmailValidateur  , StringLength , Regex , Numericality , Callback  , InclusionIn };
 
 
-class Discordbots extends \ModelBase
+class Products extends \ModelBase
 {
 
     /**
@@ -99,7 +99,7 @@ class Discordbots extends \ModelBase
      */
     public function initialize()
     {
-        $this->setSource($this->getSourceByName("discordbots"));
+        $this->setSource($this->getSourceByName("products"));
     }
 
     /**
@@ -209,7 +209,7 @@ class Discordbots extends \ModelBase
      * Allows to query a set of records that match the specified conditions
      *
      * @param mixed $parameters
-     * @return Discordbots[]|Discordbots|\Phalcon\Mvc\Model\ResultSetInterface
+     * @return Products[]|Products|\Phalcon\Mvc\Model\ResultSetInterface
      */
     public static function find($parameters = null): \Phalcon\Mvc\Model\ResultsetInterface
     {
@@ -220,7 +220,7 @@ class Discordbots extends \ModelBase
      * Allows to query the first record that match the specified conditions
      *
      * @param mixed $parameters
-     * @return Discordbots|\Phalcon\Mvc\Model\ResultInterface
+     * @return Products|\Phalcon\Mvc\Model\ResultInterface
      */
     public static function findFirst($parameters = null)
     {

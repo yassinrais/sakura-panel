@@ -8,6 +8,10 @@ error_reporting(E_ALL);
 define('BASE_PATH', dirname(__DIR__));
 define('APP_PATH', BASE_PATH . '/app');
 
+$debug = new \Phalcon\Debug();
+$debug->listen();
+
+
 try {
     /**
      * vendor include 
@@ -45,6 +49,19 @@ try {
      * Include Autoloader
      */
     include APP_PATH . '/config/loader.php';
+
+
+
+
+
+
+    
+
+    /**
+     * Get plguins service for use in inline setup below
+     */
+    $di->getPlugins()->loadPlugins();
+
 
     /**
      * Handle the request

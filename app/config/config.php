@@ -88,29 +88,6 @@ include ('inc/menu.inc.php');
  */
 include ('inc/functions.inc.php');
 
-/**
- * Include plugins configs
- */
-
-try {   
-    $plugin_config_name = "plugin.config.php";
-    $pluginsFolder  = $configs['application']['pluginsDir'] ?? BASE_PATH ;
-
-    $listPFolders = scandir($pluginsFolder);
-    
-    foreach ($listPFolders as $name) {
-        $_path = str_replace("//", "/", $pluginsFolder . '/'. $name.'/');
-        if (is_dir($_path) && in_array($plugin_config_name, scandir($_path))) {
-            $groupName = ucfirst($name);
-            include $_path . $plugin_config_name;
-        }
-    }
-
-} catch (Exception $e) {
-    echo $e->getMessage();
-    // throw new Exception($e->getMessage());
-    exit;
-}
 
 // return configs
 return new \Phalcon\Config($configs);

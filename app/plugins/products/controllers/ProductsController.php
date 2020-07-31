@@ -1,44 +1,44 @@
 <?php 
 
-namespace SakuraPanel\Plugins\Discordbots\Controllers;
+namespace SakuraPanel\Plugins\Products\Controllers;
 
 
 use SakuraPanel\Controllers\Member\{
 	MemberControllerBase
 };
 
-use SakuraPanel\Plugins\Discordbots\Models\{
-	Discordbots
+use SakuraPanel\Plugins\Products\Models\{
+	Products
 };
 
 use SakuraPanel\Library\DataTable\DataTable;
 
-use SakuraPanel\Plugins\Discordbots\Forms\DiscordBotsForm;
+use SakuraPanel\Plugins\Products\Forms\ProductSForm;
 
 /**
- * DiscordBotsController
+ * ProductSController
  */
-class DiscordBotsController extends MemberControllerBase
+class ProductSController extends MemberControllerBase
 {
 
 	public function initialize(){
 		parent::initialize();
 		
-		$this->page->set('base_route' , 'member/discordbots');
-		$this->page->set('title', 'Discord BOT\'s Manager');
-        $this->page->set('description','Here you can manager all discord bots <b>Smile☻</b>.');
+		$this->page->set('base_route' , 'member/products');
+		$this->page->set('title', 'Products Manager');
+        $this->page->set('description','Here you can manager all products bots <b>Smile☻</b>.');
 		
         $this->view->dataTable = true;
 	}
 
 	public function indexAction()
 	{
-		return $this->view->pick('plugins/discordbots/index');
+		return $this->view->pick('plugins/products/index');
 	}	
 	public function createAction()
 	{
-		$row = new DiscordBots();
-		$form = new DiscordBotsForm($row);
+		$row = new ProductS();
+		$form = new ProductSForm($row);
 
 
 		if ($this->request->isPost()) {
@@ -69,16 +69,16 @@ class DiscordBotsController extends MemberControllerBase
 		$this->view->form = $form;
 		// $this->view->form->bind($row->toArray() , $row);
 
-		return $this->view->pick('plugins/discordbots/form');
+		return $this->view->pick('plugins/products/form');
 	}
 	public function editAction($id = null)
 	{
 		if (!is_null($id)) {
-			$row = Discordbots::findFirstById($id);
+			$row = Products::findFirstById($id);
 
 			if ($row) {
 				if ($this->request->isPost()) {
-					$form = new DiscordBotsForm($row);
+					$form = new ProductSForm($row);
 
 
 		            if (false === $form->isValid($_POST)) {
@@ -102,10 +102,10 @@ class DiscordBotsController extends MemberControllerBase
 
 				$this->view->row = $row;
 
-				$this->view->form = new DiscordBotsForm($row);
+				$this->view->form = new ProductSForm($row);
 				$this->view->form->bind($row->toArray() , $row);
 
-				return $this->view->pick('plugins/discordbots/form');
+				return $this->view->pick('plugins/products/form');
 			}
 
 
@@ -118,21 +118,25 @@ class DiscordBotsController extends MemberControllerBase
 	{
 		if ($this->request->isAjax()) {
           $builder = $this->modelsManager->createBuilder()
-                          ->columns('id, name, title, [note], hostname, ip, port , status')
-                          ->from(Discordbots::class);
+                          ->columns('id, name, title, [note], image , status')
+                          ->from(Products::class);
 
           $dataTables = new DataTable();
           $dataTables->setIngoreUpperCase(true);
           
           $dataTables->fromBuilder($builder)
           ->addCustomColumn('c_status' , function ($key , $data) {
-          	$s = Discordbots::getStatusById($data['status']);
+          	$s = Products::getStatusById($data['status']);
           	return "<span class='btn btn-$s->color btn-icon-split btn-sm p-0'>
 				<span class='icon text-white-50'>
 				  <i class='fas fa-$s->icon' style='width:20px'></i>
 				</span>
 				<span class='text'>$s->title</span>
 			</span>";
+          })
+          ->addCustomColumn('image' , function ($key , $data)
+          {
+          	return "<img src='$data[image]' style='max-width:200px;'>";
           })
           ->addCustomColumn('c_actions' , function ($key , $data) {
           	$id = $data['id'];
@@ -161,7 +165,7 @@ class DiscordBotsController extends MemberControllerBase
 		if ($this->request->isAjax()) {
 			$id = (int) $this->request->get('id');
 
-			$row = Discordbots::findFirstById($id);
+			$row = Products::findFirstById($id);
 
 			if (!$row) {
 				$resp = $this::jsonStatus('error','Unknown row id '.$id,'danger');
@@ -187,7 +191,7 @@ class DiscordBotsController extends MemberControllerBase
 		if ($this->request->isAjax()) {
 			$id = (int) $this->request->get('id');
 
-			$row = Discordbots::findFirstById($id);
+			$row = Products::findFirstById($id);
 
 			if (!$row) {
 				$resp = $this::jsonStatus('error','Unknown row id '.$id,'danger');

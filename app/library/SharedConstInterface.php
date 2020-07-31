@@ -11,6 +11,8 @@ interface SharedConstInterface {
 	const INACTIVE = 0;
 	const ACTIVE = 1;
 	const SUSPENDED = 2;
+	// const
+	const DB_READ_KEY = 'model_read';
 
 
 	const STATUS_LIST = [

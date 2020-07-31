@@ -27,7 +27,6 @@ use \Phalcon\Logger\Adapter\Stream as StreamLogger;
 // mail
 use SakuraPanel\Library\Mail\Mail;
 
-
 // cache
 use Phalcon\Cache\Adapter\Stream;
 use Phalcon\Storage\SerializerFactory;
@@ -42,6 +41,7 @@ use Phalcon\Dispatcher\Exception as DispatcherException;
  * Shared configuration service
  */
 $di->setShared('config', function () {
+
     return include APP_PATH . "/config/config.php";
 });
 
@@ -79,31 +79,6 @@ $di->setShared('db', function () {
     return new $class($params);
 });
 
-
-/**
- * Mail service
- */
-$di->setShared('mail', function () {
-    return new Mail();
-});
-
-
-/**
- * Set Website Config : name , title , etc , set controller
- */
-$di->setShared('site', function () {
-    $site =  new \SakuraPanel\Controllers\App\SiteConfigsController();
-    $site->initialize();
-    return $site;
-});
-
-/**
- * Set Website Config : name , title , etc , set controller
- */
-$di->setShared('page', function () {
-    $page =  new \SakuraPanel\Controllers\App\PageInfoController();
-    return $page;
-});
 
 
 /**
@@ -151,6 +126,8 @@ $di->setShared('view', function () {
             
             $c->addFunction('var_dump','var_dump');
             
+            $c->addFunction('class_exists','class_exists');
+            
             return $volt;
         },
         '.phtml' => PhpEngine::class
@@ -184,6 +161,9 @@ $di->setShared('flash', function () {
     return $flash;
 });
 
+/**
+ * FlashSession 
+ */
 $di->setShared('flashSession', function () {
     $escaper = new Escaper();
     $flash = new FlashSession($escaper);
@@ -212,7 +192,10 @@ $di->setShared('session', function () {
     return $session;
 });
 
-
+/**
+ * Security 
+ * crypt
+ */
 $di->setShared('crypt', function() use($di) {
     $crypt = new \Phalcon\Crypt();
     $crypt->setKey('ReallyRandomKey');
@@ -289,7 +272,7 @@ $di->setShared('modelsCache' , function () use ($di)
 
     $options = [
         // 'defaultSerializer' => 'Json',
-        'lifetime'          => 1 * 10 ,  //10seconds 
+        'lifetime'          => 1 * 60 ,  //10seconds 
         'storageDir' => $config->application->globalCacheDir ?? BASE_PATH . '/cache/global/',
     ];
 
@@ -320,7 +303,6 @@ $di->set(
             function($event, $dispatcher, $exception)
             {
                  if (getenv('APP_DEBUG') !== true) {
-
                     switch ($exception->getCode()) {
                         case DispatcherException::EXCEPTION_HANDLER_NOT_FOUND:
                             $dispatcher->forward(
@@ -360,7 +342,44 @@ $di->set(
 
 
 
+/**
+ * Mail service
+ */
+$di->setShared('mail', function () {
 
+    return new Mail(); 
+});
+
+
+/**
+ * Set Website Config : name , title , etc , set controller
+ */
+$di->setShared('site', function () {
+    $site =  new \SakuraPanel\Library\SiteManager();
+    $site->initialize();
+    return $site;
+});
+
+/**
+ * Page Config : name , title , etc , set controller
+ */
+$di->setShared('page', function () {
+    return new \SakuraPanel\Library\PageInfoManager();
+});
+
+
+/**
+ * Page Config : name , title , etc , set controller
+ */
+$di->setShared('plugins', function () {
+    return new \SakuraPanel\Library\Plugins\PluginsManager();
+});
+
+
+/**
+ * @TODO : Delete / Replace  
+ * Widgets test : deleted soon !
+ */
 $di->set(
     'widgets',
     function () use ($di)
@@ -371,3 +390,4 @@ $di->set(
         return $instance;
     }
 );
+
