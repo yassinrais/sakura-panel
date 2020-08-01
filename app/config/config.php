@@ -28,7 +28,7 @@ $configs = array(
         
         'pluginsDir'     => APP_PATH . '/plugins/',
         'libraryDir'     => APP_PATH . '/library/',
-        'cacheDir'       => BASE_PATH . '/cache/',
+        'cacheDir'       => BASE_PATH . '/cache/shared/',
         'cacheViewsDir'       => BASE_PATH . '/cache/views/',
         'cacheSessionsDir' => BASE_PATH . '/cache/sessions/',
         'securityCacheDir' => BASE_PATH . '/cache/security/',

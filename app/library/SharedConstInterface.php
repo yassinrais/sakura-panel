@@ -30,5 +30,10 @@ interface SharedConstInterface {
 
 	// acl 
 	const ROLE_DEFAULT = "geusts";
-	
+
+
+	// plugins
+	const PLUGIN_CONFIG_NAME = "plugin.config.php";
+	const PLUGIN_CONFIG_JSON = "plugin.config.json";
+		
 }

@@ -1,0 +1,9 @@
+a:3:{s:7:"created";i:1596286003;s:3:"ttl";i:3600;s:7:"content";s:292:"s:283:"{
+	"name":"discordbots",
+	"title":"Discord Bots",
+	"version":"1.0.0",
+	"author":"Yassin Rais",
+	"description":"This is an example of plugins to manage discord servers & commands & events ",
+	"image":"https://cdn.iconscout.com/icon/free/png-256/discord-3-569463.png",
+	"require": {}
+}";";}

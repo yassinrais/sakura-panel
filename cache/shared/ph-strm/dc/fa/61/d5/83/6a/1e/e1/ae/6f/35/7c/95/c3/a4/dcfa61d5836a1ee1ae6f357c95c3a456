@@ -1,0 +1,115 @@
+a:3:{s:7:"created";i:1596286001;s:3:"ttl";i:3600;s:7:"content";s:4306:"s:4296:"{
+  "sha": "bbbbbe2e8f0f10809f57d1ac6968bd6f7c6ae606",
+  "url": "https://api.github.com/repos/yassinrais/sakura-plugins/git/trees/bbbbbe2e8f0f10809f57d1ac6968bd6f7c6ae606",
+  "tree": [
+    {
+      "path": "LICENSE",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "4077746af11e44b9ed6651642110f8c4764ca6ee",
+      "size": 1069,
+      "url": "https://api.github.com/repos/yassinrais/sakura-plugins/git/blobs/4077746af11e44b9ed6651642110f8c4764ca6ee"
+    },
+    {
+      "path": "README.md",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "9c08d8ab5ea347d360fa5a7fb10b6ee421921612",
+      "size": 1260,
+      "url": "https://api.github.com/repos/yassinrais/sakura-plugins/git/blobs/9c08d8ab5ea347d360fa5a7fb10b6ee421921612"
+    },
+    {
+      "path": "discordbots",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "7092833e1e198aa0de784db0a39188911b025392",
+      "url": "https://api.github.com/repos/yassinrais/sakura-plugins/git/trees/7092833e1e198aa0de784db0a39188911b025392"
+    },
+    {
+      "path": "discordbots/controllers",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "01d7c78899e315796b611f6441485f4781eea6f4",
+      "url": "https://api.github.com/repos/yassinrais/sakura-plugins/git/trees/01d7c78899e315796b611f6441485f4781eea6f4"
+    },
+    {
+      "path": "discordbots/controllers/DiscordBotsController.php",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "d7d11df333521c7c38fdc6444fd3a4280f4bf5ad",
+      "size": 5730,
+      "url": "https://api.github.com/repos/yassinrais/sakura-plugins/git/blobs/d7d11df333521c7c38fdc6444fd3a4280f4bf5ad"
+    },
+    {
+      "path": "discordbots/forms",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "827bc791eca85f70680d1b1c5ce070caa419f2e1",
+      "url": "https://api.github.com/repos/yassinrais/sakura-plugins/git/trees/827bc791eca85f70680d1b1c5ce070caa419f2e1"
+    },
+    {
+      "path": "discordbots/forms/DiscordBotsForm.php",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "fcc2d5a6b73341400bbaf33825c9ef6637d76b9f",
+      "size": 2874,
+      "url": "https://api.github.com/repos/yassinrais/sakura-plugins/git/blobs/fcc2d5a6b73341400bbaf33825c9ef6637d76b9f"
+    },
+    {
+      "path": "discordbots/models",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "0825cacd0ed0604380a2b91cacabadf071955970",
+      "url": "https://api.github.com/repos/yassinrais/sakura-plugins/git/trees/0825cacd0ed0604380a2b91cacabadf071955970"
+    },
+    {
+      "path": "discordbots/models/Discordbots.php",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "38bb3a555a87862d951acb88dabceb971f68550d",
+      "size": 4962,
+      "url": "https://api.github.com/repos/yassinrais/sakura-plugins/git/blobs/38bb3a555a87862d951acb88dabceb971f68550d"
+    },
+    {
+      "path": "discordbots/plugin.config.json",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "bbca05f20570123f304758c35be209360204e04e",
+      "size": 283,
+      "url": "https://api.github.com/repos/yassinrais/sakura-plugins/git/blobs/bbca05f20570123f304758c35be209360204e04e"
+    },
+    {
+      "path": "discordbots/plugin.config.php",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "7536021c2e17e17a54a2ab14708e8a3f54141b3c",
+      "size": 641,
+      "url": "https://api.github.com/repos/yassinrais/sakura-plugins/git/blobs/7536021c2e17e17a54a2ab14708e8a3f54141b3c"
+    },
+    {
+      "path": "discordbots/views",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "f5112ee601fe6635772aab760bd0414bb2866eff",
+      "url": "https://api.github.com/repos/yassinrais/sakura-plugins/git/trees/f5112ee601fe6635772aab760bd0414bb2866eff"
+    },
+    {
+      "path": "discordbots/views/form.volt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "b94829cdb52db976ee82df0b704b1e85cb8c3c75",
+      "size": 1279,
+      "url": "https://api.github.com/repos/yassinrais/sakura-plugins/git/blobs/b94829cdb52db976ee82df0b704b1e85cb8c3c75"
+    },
+    {
+      "path": "discordbots/views/index.volt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "6329ffe6c9c7ae9cd8eff091901dd723ae2994fb",
+      "size": 1358,
+      "url": "https://api.github.com/repos/yassinrais/sakura-plugins/git/blobs/6329ffe6c9c7ae9cd8eff091901dd723ae2994fb"
+    }
+  ],
+  "truncated": false
+}
+";";}

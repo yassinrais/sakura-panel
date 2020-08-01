@@ -1,0 +1,19 @@
+a:3:{s:7:"created";i:1596286001;s:3:"ttl";i:3600;s:7:"content";s:1436:"s:1426:"{
+  "name": "plugin.config.json",
+  "path": "discordbots/plugin.config.json",
+  "sha": "bbca05f20570123f304758c35be209360204e04e",
+  "size": 283,
+  "url": "https://api.github.com/repos/yassinrais/sakura-plugins/contents/discordbots/plugin.config.json?ref=master",
+  "html_url": "https://github.com/yassinrais/sakura-plugins/blob/master/discordbots/plugin.config.json",
+  "git_url": "https://api.github.com/repos/yassinrais/sakura-plugins/git/blobs/bbca05f20570123f304758c35be209360204e04e",
+  "download_url": "https://raw.githubusercontent.com/yassinrais/sakura-plugins/master/discordbots/plugin.config.json",
+  "type": "file",
+  "content": "ewoJIm5hbWUiOiJkaXNjb3JkYm90cyIsCgkidGl0bGUiOiJEaXNjb3JkIEJv\ndHMiLAoJInZlcnNpb24iOiIxLjAuMCIsCgkiYXV0aG9yIjoiWWFzc2luIFJh\naXMiLAoJImRlc2NyaXB0aW9uIjoiVGhpcyBpcyBhbiBleGFtcGxlIG9mIHBs\ndWdpbnMgdG8gbWFuYWdlIGRpc2NvcmQgc2VydmVycyAmIGNvbW1hbmRzICYg\nZXZlbnRzICIsCgkiaW1hZ2UiOiJodHRwczovL2Nkbi5pY29uc2NvdXQuY29t\nL2ljb24vZnJlZS9wbmctMjU2L2Rpc2NvcmQtMy01Njk0NjMucG5nIiwKCSJy\nZXF1aXJlIjoge30KfQ==\n",
+  "encoding": "base64",
+  "_links": {
+    "self": "https://api.github.com/repos/yassinrais/sakura-plugins/contents/discordbots/plugin.config.json?ref=master",
+    "git": "https://api.github.com/repos/yassinrais/sakura-plugins/git/blobs/bbca05f20570123f304758c35be209360204e04e",
+    "html": "https://github.com/yassinrais/sakura-plugins/blob/master/discordbots/plugin.config.json"
+  }
+}
+";";}

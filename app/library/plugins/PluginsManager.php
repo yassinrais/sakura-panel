@@ -9,8 +9,7 @@ namespace SakuraPanel\Library\Plugins;
 class PluginsManager extends \ControllerBase
 {
 	private $plugins = [];
-	private $plugin_config_name = "plugin.config.php";
-
+	
 
 	/**
 	 * get page info 
@@ -57,7 +56,6 @@ class PluginsManager extends \ControllerBase
 	public function loadPlugins()
 	{
 		$this->loadPluginsFromDirs();
-		
 		foreach ($this->plugins as $key => $plugin) {
 			if ($plugin->get('status')) {
 				$plugin->load($this->getDI());
@@ -75,7 +73,7 @@ class PluginsManager extends \ControllerBase
 	    if (!is_dir($pluginsFolder)) return;
 
 		try {   
-		    $plugin_config_name = $this->plugin_config_name;
+		    $plugin_config_name = $this::PLUGIN_CONFIG_NAME;
 
 		    $listPFolders = scandir($pluginsFolder);
 		    
@@ -85,7 +83,9 @@ class PluginsManager extends \ControllerBase
 		        if (is_dir($_path) && in_array($plugin_config_name, scandir($_path))) {
 		            $groupName = ucfirst($name);
 		            $plugin_config = include $_path . $plugin_config_name;
-		            $this->addPlugin($plugin_config);
+		            if (is_object($plugin_config) && $plugin instanceof Plugin)
+		            	$this->addPlugin($plugin_config);
+		            
 		        }      
 		    }
  

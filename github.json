@@ -1,0 +1,97 @@
+{
+  "name": "master",
+  "commit": {
+    "sha": "b99b9a1c8b416463be4c7e9053621986a5b4e26b",
+    "node_id": "MDY6Q29tbWl0MjgzNzk1NzMwOmI5OWI5YTFjOGI0MTY0NjNiZTRjN2U5MDUzNjIxOTg2YTViNGUyNmI=",
+    "commit": {
+      "author": {
+        "name": "yassinrais",
+        "email": "yassmailrais@gmail.com",
+        "date": "2020-07-31T16:14:36Z"
+      },
+      "committer": {
+        "name": "yassinrais",
+        "email": "yassmailrais@gmail.com",
+        "date": "2020-07-31T16:14:36Z"
+      },
+      "message": "A : Test DiscordBots Manager",
+      "tree": {
+        "sha": "ccae56c4302840dcb3e9225e64359c4e8ffa94dd",
+        "url": "https://api.github.com/repos/yassinrais/sakura-plugins/git/trees/ccae56c4302840dcb3e9225e64359c4e8ffa94dd"
+      },
+      "url": "https://api.github.com/repos/yassinrais/sakura-plugins/git/commits/b99b9a1c8b416463be4c7e9053621986a5b4e26b",
+      "comment_count": 0,
+      "verification": {
+        "verified": false,
+        "reason": "unsigned",
+        "signature": null,
+        "payload": null
+      }
+    },
+    "url": "https://api.github.com/repos/yassinrais/sakura-plugins/commits/b99b9a1c8b416463be4c7e9053621986a5b4e26b",
+    "html_url": "https://github.com/yassinrais/sakura-plugins/commit/b99b9a1c8b416463be4c7e9053621986a5b4e26b",
+    "comments_url": "https://api.github.com/repos/yassinrais/sakura-plugins/commits/b99b9a1c8b416463be4c7e9053621986a5b4e26b/comments",
+    "author": {
+      "login": "yassinrais",
+      "id": 25354731,
+      "node_id": "MDQ6VXNlcjI1MzU0NzMx",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/25354731?v=4",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/yassinrais",
+      "html_url": "https://github.com/yassinrais",
+      "followers_url": "https://api.github.com/users/yassinrais/followers",
+      "following_url": "https://api.github.com/users/yassinrais/following{/other_user}",
+      "gists_url": "https://api.github.com/users/yassinrais/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/yassinrais/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/yassinrais/subscriptions",
+      "organizations_url": "https://api.github.com/users/yassinrais/orgs",
+      "repos_url": "https://api.github.com/users/yassinrais/repos",
+      "events_url": "https://api.github.com/users/yassinrais/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/yassinrais/received_events",
+      "type": "User",
+      "site_admin": false
+    },
+    "committer": {
+      "login": "yassinrais",
+      "id": 25354731,
+      "node_id": "MDQ6VXNlcjI1MzU0NzMx",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/25354731?v=4",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/yassinrais",
+      "html_url": "https://github.com/yassinrais",
+      "followers_url": "https://api.github.com/users/yassinrais/followers",
+      "following_url": "https://api.github.com/users/yassinrais/following{/other_user}",
+      "gists_url": "https://api.github.com/users/yassinrais/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/yassinrais/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/yassinrais/subscriptions",
+      "organizations_url": "https://api.github.com/users/yassinrais/orgs",
+      "repos_url": "https://api.github.com/users/yassinrais/repos",
+      "events_url": "https://api.github.com/users/yassinrais/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/yassinrais/received_events",
+      "type": "User",
+      "site_admin": false
+    },
+    "parents": [
+      {
+        "sha": "7c6690c145968958fb96f8911b34afed546f6c57",
+        "url": "https://api.github.com/repos/yassinrais/sakura-plugins/commits/7c6690c145968958fb96f8911b34afed546f6c57",
+        "html_url": "https://github.com/yassinrais/sakura-plugins/commit/7c6690c145968958fb96f8911b34afed546f6c57"
+      }
+    ]
+  },
+  "_links": {
+    "self": "https://api.github.com/repos/yassinrais/sakura-plugins/branches/master",
+    "html": "https://github.com/yassinrais/sakura-plugins/tree/master"
+  },
+  "protected": false,
+  "protection": {
+    "enabled": false,
+    "required_status_checks": {
+      "enforcement_level": "off",
+      "contexts": [
+        
+      ]
+    }
+  },
+  "protection_url": "https://api.github.com/repos/yassinrais/sakura-plugins/branches/master/protection"
+}

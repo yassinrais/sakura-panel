@@ -277,7 +277,24 @@ $di->setShared('modelsCache' , function () use ($di)
     ];
 
     return new Stream($serializerFactory, $options);
+});
 
+/**
+ * shared Cache
+ */
+$di->setShared('cache' , function () use ($di)
+{
+    $config = $this->getConfig();
+    
+    $serializerFactory = new SerializerFactory();
+
+    $options = [
+        // 'defaultSerializer' => 'Json',
+        'lifetime'          => 1 * 60 * 60  ,  //10seconds 
+        'storageDir' => $config->application->cacheDir ?? BASE_PATH . '/cache/shared/',
+    ];
+
+    return new Stream($serializerFactory, $options);
 });
 
 

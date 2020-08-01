@@ -12,6 +12,7 @@
     ],
     "require": {
         "vlucas/phpdotenv": "^5.1",
-        "sidroberts/phalcon-authmiddleware": "^3.0"
+        "sidroberts/phalcon-authmiddleware": "^3.0",
+        "php-curl-class/php-curl-class": "^8.8"
     }
 }

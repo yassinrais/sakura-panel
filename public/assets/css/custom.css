@@ -83,3 +83,31 @@ background:#91bdf1;
 .swal2-actions button {
 	margin:0 5px;
 }
+
+/**
+* rounded	
+*/
+
+.br-5{
+	border-radius: 2px;
+}
+.plugin-logo{
+	width: 100px;
+	height: 100px;
+
+	max-width:100%;
+	background: url(data:image/gif;base64,0);
+	background-size: cover;
+	background-position: center; 
+}
+
+.bg-sakura{
+	background: rgba(25,25,25, 0.25);
+}
+
+.bg-sakura a{
+	color:white !important;
+}
+.bg-sakura a:hover{
+	color:rgb(25,25,25) !important;
+}

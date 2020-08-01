@@ -4,7 +4,7 @@
  */
 
 $configs['menu'] = [
-	"General"=>[
+	"general"=>[
 		"order"=>0,
 		"items"=>[
 			"dashboard"=>[
@@ -19,7 +19,7 @@ $configs['menu'] = [
 		]
 	],
 
-	"Admin"=>[
+	"admin"=>[
 		"order"=>899,
 		"items"=>[
 			"users"=>[
@@ -43,8 +43,8 @@ $configs['menu'] = [
 		]
 	],
 
-	"Account"=>[
-		"order"=>999,
+	"account"=>[
+		"order"=>9999,
 		"items"=>[
 
 			"settings"=>[

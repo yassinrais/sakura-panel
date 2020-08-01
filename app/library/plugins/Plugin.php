@@ -56,6 +56,8 @@ class Plugin
 	 */
 	public function addRoute(string $category , string $name , array $configs = [])
 	{
+		$category = strtolower($category);
+
 		if (empty($this->routes[$category]))
 			$this->routes[$category] = [];
 		$this->routes[$category] = array_merge_recursive((array)$this->routes[$category] , [$name=>$configs]);
@@ -73,14 +75,16 @@ class Plugin
 	 */
 	public function addMenu(string $category , string $name , array $configs = [] , int $order = 555)
 	{
+		$category = strtolower($category);
+		
 		if (empty($this->menus[$category]))
-			$this->menus[$category] = ['items'=>[]];
+			$this->menus[$category] = ['items'=>[] , 'order'=>0];
 
 		if (empty($this->menus[$category]['items'][$name])) 
 			$this->menus[$category]['items'][$name]= [];
 
-		$this->menus[$category]['order'] = $order;
 		$this->menus[$category]['items'] = array_merge_recursive( $this->menus[$category]['items'], [$name=>$configs]);
+		// $this->menus[$category]['order'] = $order;
 		
 		return $this;
 	}
@@ -115,14 +119,14 @@ class Plugin
 		                $routeConfig
 		            );
 		        }
-		        $acl_item = $page->access;
+		        $acl_item = is_array($page->access) ? $page->access : [$page->access];
 		        foreach ($acl_item as $acl_names => $actions) {
 
 		            $urls = is_object($page->url) ? $page->url : (object) [$page->url];
 		            $controller =  str_replace('[M]', 'Sakura\Controllers\Member', $page->controller );
 		            $roles_alloweds = explode("|", $acl_names ?: "*");
 
-		            $actions = !is_array($actions) && !empty($actions->toArray()) ? $actions->toArray() : ['*'];
+		            $actions = is_object($actions) && !empty($actions->toArray()) ? $actions->toArray() : ['*'];
 		    
 		            $acl->addComponent(
 		                $controller,
