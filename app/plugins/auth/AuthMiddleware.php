@@ -39,6 +39,9 @@ class AuthMiddleware extends \ControllerBase implements MiddlewareInterface , Sh
             $this->flash->notice($role_name.'::::: You don\'t have access to this module: ' . $controllerName . ':' . $actionName);
             
             if (!$this->acl->isAllowed($role_name, $controllerName, 'index')) {
+                if ($this->request->isAjax())
+                    return $this->ajax->error('Please reload your page ! ')->sendResponse();
+
                 $this->response->redirect('../404');
             }
             
@@ -55,6 +58,9 @@ class AuthMiddleware extends \ControllerBase implements MiddlewareInterface , Sh
             $this->flashSession->error(
                 "You must be logged in."
             );
+
+            if ($this->request->isAjax())
+                return $this->ajax->error('You must be logged in ! ')->sendResponse();
 
             $this->response->redirect(
                 "auth/login"

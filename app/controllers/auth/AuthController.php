@@ -29,11 +29,12 @@ class AuthController extends PageControllerBase
 
         $this->view->setMainView('auth/index');
         
+        $this->assetsPack->footer->addJs('assets/js/auth.js');
+        
         $this->view->form = new LoginForm();
     }
 	public function indexAction(){
 		return $this->response->redirect("auth/login?fromIndex");
-        // return 'index:login';
 	}	
 
 	public function loginAction()
@@ -42,45 +43,32 @@ class AuthController extends PageControllerBase
         
         $form = $this->view->form;
 
-        if ($this->request->getPost('action') == "login") {
-            // check login
-            if ($this->security->checkToken('csrf')) {
-                if (!$form->isValid($_POST)) {
-                    foreach ($form->getMessages() as $msg) 
-                        $this->flashSession->error((string) $msg);
-                }else{
-                    $user = Users::findFirstByEmail((string) $this->request->getPost('email'));
+        return $this->view->pick('auth/login');
+    }
 
-                    if ($user && $this->security->checkHash($this->request->getPost('password') , $user->password)) {
-                        if ($user->isActive()) {
-                            $this->setUserSession($user , $this->request->getPost('remember') ?? false);
+    public function ajaxLoginAction()
+    {
+        $this->view->disable();
 
-                            // Getting a response instance
-                            $response = new Response();
+        $form = $this->view->form;
+        if (!$form->isValid($_POST)) {
+            foreach ($form->getMessages() as $msg) 
+                $this->ajax->error((string) $msg);
+        }else{
+            $user = Users::findFirstByEmail((string) $this->request->getPost('email'));
 
-                            // Set status code
-                            $response->setStatusCode(301, 'Found');
-                            $response->setHeader('Location', $this->url->get('/member/'));
-
-                            // Set the content of the response
-                            $response->setContent("Redirecting to member panel ...");
-
-                            // Send response to the client
-                            return $response->send();
-                            die;
-                        }else
-                            $this->flashSession->{$user->getStatusInfo()->type}('Your account is '. $user->getStatusInfo()->title);
-                    }else
-                        $this->flashSession->error('Wrong information ! ');
-                }
-                        
-            
-            }else{
-                $this->flashSession->error('Error ! Protection mesures ! try again ');
-            }
+            if ($user && $this->security->checkHash($this->request->getPost('password') , $user->password)) {
+                if ($user->isActive()) {
+                    $this->setUserSession($user , $this->request->getPost('remember') ?? false);
+                    $this->ajax->success('Login successful. redirecting ... ');
+                }else
+                    $this->ajax->{$user->getStatusInfo()->type}('Your account is '. $user->getStatusInfo()->title);
+            }else
+                $this->ajax->error('Wrong information ! ');
         }
 
-        return $this->view->pick('auth/login');
+
+        return $this->ajax->sendResponse();
     }
 
 

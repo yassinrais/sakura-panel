@@ -15,13 +15,13 @@
               <div class="pt-1 mb-0 font-weight-bold text-gray-600">[description]</div>
             </div>
             <div class="col-auto">
-            	<div class="bg-sakura" style="background: url([image])" width=50 height=50></div>
+            	<div class="plugin-logo" style="background-image: url([image]);" ></div>
             </div>
           </div>
           <div class="pt-1 float-right">
-          	<button class="btn btn-sm btn-success"><i class="fa fa-download"></i> Install</button>
-          	<button class="btn btn-sm btn-warning"><i class="fa fa-calendar"></i> Update</button>
-          	<button class="btn btn-sm btn-danger"><i class="fa fa-trash"></i> Delete</button>
+          	<button data-id="[name]" style="display:none" class="btn btn-install btn-sm btn-success"><i class="fa fa-download"></i> Install</button>
+          	<button data-id="[name]" style="display:none" class="btn btn-update btn-sm btn-warning"><i class="fa fa-calendar"></i> Update</button>
+          	<button data-id="[name]" style="display:none" class="btn btn-delete btn-sm btn-danger"><i class="fa fa-trash"></i> Delete</button>
           </div>
         </div>
       </div>
@@ -47,12 +47,33 @@ window.addEventListener("DOMContentLoaded", (event) => {
 				// l.slideDown();
 				l.html("");
 				if (data.status === 'success') {
-					for(var d in data.data){
-						let p = data.data[d];
+					let plugins = data.data.plugins;
+
+					for(var d in plugins){
+						let p = plugins[d];
 						let _tpl_ = tpl;
-						for(var x in p)
-							_tpl_ = _tpl_.replace(`[`+x+`]`,p[x]);
-						l.append(_tpl_);
+
+						// to replace after xd : this is very very bad :p but no more wasting time
+						_tpl_ = _tpl_.replace(/\[name\]/gm, p.config.name);
+						_tpl_ = _tpl_.replace(/\[title\]/gm, p.config.title);
+						_tpl_ = _tpl_.replace(/\[description\]/gm, p.config.description);
+						_tpl_ = _tpl_.replace(/\[image\]/gm, p.config.image);
+						_tpl_ = _tpl_.replace(/\[version\]/gm, p.config.version);
+
+						let domTpl = $(_tpl_);
+
+						if (p.installed) 
+							domTpl.find('.btn-install').hide();
+						if (p.active || p.installed) 
+							{
+								domTpl.find('.btn-delete').show();
+								domTpl.find('.btn-update').show();
+							}
+						if (!p.installed) {
+							domTpl.find('.btn-install').show();
+						}
+
+						l.append(domTpl);
 					}
 				}else{
 					for(var m in data.msg){
@@ -65,6 +86,23 @@ window.addEventListener("DOMContentLoaded", (event) => {
 				}
 			});
 		}
+
+
+		$('body').on('click', '.btn-install', function () {
+			// install plugin
+
+		});
+
+		$('body').on('click', '.btn-delete', function () {
+			// delete plugin :: working in ::
+			let id = $(this).data('id');
+
+
+			$.post('{{ page.get('base_route') }}/deletePlugin/'+id , function (a) {
+				alert(a);
+			});
+
+		});
 	 });
 });
 </script>

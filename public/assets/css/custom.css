@@ -96,7 +96,7 @@ background:#91bdf1;
 	height: 100px;
 
 	max-width:100%;
-	background: url(data:image/gif;base64,0);
+	background-image: url(data:image/gif;base64,0);
 	background-size: cover;
 	background-position: center; 
 }

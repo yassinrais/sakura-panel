@@ -394,6 +394,14 @@ $di->setShared('plugins', function () {
 
 
 /**
+ * Page Config : name , title , etc , set controller
+ */
+$di->setShared('ajax', function () {
+    return new \SakuraPanel\Library\Ajax\AjaxManager();
+});
+
+
+/**
  * @TODO : Delete / Replace  
  * Widgets test : deleted soon !
  */

@@ -17,9 +17,11 @@
                     <h1 class="h4 text-gray-900 mb-4"><b>Authentification</b></h1>
                     <h1 class="h4 text-gray-900 mb-4">Sign In</h1>
                   </div>
-                  <form class="user" action="" method="post">
-                    {{ flashSession.output() }}
-                    {{ flash.output() }}
+                  <form class="user auth-login" action="auth/ajaxLogin" method="post">
+                    <div class="auth-msgs form-group">
+                      {{ flashSession.output() }}
+                      {{ flash.output() }}
+                    </div>
                     <div class="form-group">
                       {{ 
                         form.render('email' , [ "class":"form-control form-control-user", "aria-describedby":"emailHelp" ,"placeholder":"Enter Email Address..." ])

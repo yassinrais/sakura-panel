@@ -21,6 +21,8 @@ use SakuraPanel\Plugins\PluginsManager\Forms\PluginsForm;
 class PluginsController extends MemberControllerBase
 {
 
+	private $plugins_server = "http://localhost:8080/";
+
 	public function initialize(){
 		parent::initialize();
 		
@@ -31,7 +33,6 @@ class PluginsController extends MemberControllerBase
         $this->view->dataTable = true;
 
         $this->checkViewsFiles('pluginsmanager');
-        $this->gitrepo = getenv('GIT_REPO_ID');
 	}
 
 	public function checkViewsFiles($plugin_name)
@@ -148,37 +149,71 @@ class PluginsController extends MemberControllerBase
           ->sendResponse();
         }
 	}
-
 	public function ajaxAllAction()
 	{
-		$this->view->disable();
-
-		$plugins = $this->getFromGitHubPluginsSHA();
-
-		$githubSha = $this->getFromGitHubPluginsSHA();
-
-		if ($githubSha) {
-			$githubShaLink = ($githubSha->commit->commit->tree->url ?? false);
-
-			if ($githubShaLink) {
-				$plugins = $this->getFromGitHubPlugins($githubShaLink);
-				
-				$this->response->setJsonContent([
-					'status'=>'success',
-					'data'=> $plugins
-				]);
-				return $this->response->send();
-			}
-		}
-
 		$this->response->setJsonContent([
 			'status'=>'error',
-			'msg'=> (array) $this->flashSession->getMessages()
+			'msg'=>'The package list is empty ! '
 		]);
 
-		return $this->response->send();
+		$plugins = $this->getPluginsList();
+
+		if ($plugins !== null && count((array) $plugins)) {
+			
+			if (isset($plugins->plugins))
+				foreach ($plugins->plugins as $name => $plugin) {
+					$plugin->installed = false;
+					$plugin->active = false;
+					
+					$db_plugin = Plugins::findFirstByName($name);
+					if ($db_plugin !== null) {
+						$plugin->installed = true;
+						$plugin->active = $db_plugin->isActive();
+					}
+				}
+
+			$this->response->setJsonContent([
+				'status'=>'success',
+				'data'=> $plugins
+			]);
+		}
+
+		return $this->response;
 	}
 
+
+
+	public function deletePluginAction($name)
+	{
+		$resp = $this::jsonStatus('error','Unknown error','danger');
+		if ($this->request->isAjax()) {
+			$id = (int) $this->request->get('id');
+
+			$row = Plugins::findFirstByName($name);
+
+			if (!$row) {
+				$resp = $this::jsonStatus('error','Unknown row id '.$id,'danger');
+			}else{
+				$row->status = $this::DELETED;
+
+				$view_dir = $this->config->application->viewsDir . "/plugins/${row->name}/";
+
+				if (is_dir($view_dir) && !empty($row->name)) {
+					exit('try to delete $view_dir');
+					\SakuraPanel\Functions\_deleteDir($view_dir);
+				}
+				// if ($row->delete()) {
+					$resp = $this::jsonStatus('success',"Row $id deleted successfully !",'success');
+				// }else{
+				// 	$resp = $this::jsonStatus('error',"Row $id deleted failed ! \n".implode("&", $row->getMessages()),'warning');
+				// }
+			}
+
+          	$this->response->setJsonContent($resp);
+
+          	return $this->response;
+        }
+	}
 	public function deleteAction()
 	{
 		$resp = $this::jsonStatus('error','Unknown error','danger');
@@ -236,92 +271,20 @@ class PluginsController extends MemberControllerBase
 	 ****** 
 	 **** 
 	 *
-	 * Git Hub Plugins Helpers
+	 * Host Plugins : grabber
 	 *
 	 **** 
 	 ****** 
 	*********/
 
-	public function getFromGitHubPluginsSHA()
-	{
-		$url = "https://api.github.com/repos/{$this->gitrepo}/branches/master";
-
-		$content = $this->getRequestContent($url);
-		
-		if ($content) {
-			
-			try {
-				return json_decode($content);
-			} catch (\Exception $e) {
-				$this->flashSession->error($e->getMessage());
-			}
-		}
-
-		return false;
-	}
-
-	public function getFromGitHubPlugins(string $url)
-	{
-		$plugins = [];	
-		
-		$content = $this->getRequestContent($url. "?recursive=1");
-
-		if ($content) {
-			
-			try {
-				$treeList = json_decode($content);
-
-				foreach ($treeList->tree ?? [] as $object) {
-					$type = $object->type;
-					$path = $object->path;
-					$path_array = explode("/", $path);
-					if (count($path_array) == 2 && $path_array[1] == $this::PLUGIN_CONFIG_JSON) {
-						$url = "https://api.github.com/repos/{$this->gitrepo}/contents/$path";
-
-						$plugins[$path_array[0]] = json_decode($this->getConfigFileContent($url));
-					}					
-				}
-
-				return $plugins;
-			} catch (\Exception $e) {
-				$this->flashSession->error($e->getMessage());
-			}
-		}
-
-		$this->flashSession->error('Request to get plugins list was failed ! ');
-	}
-
-
-	public function getConfigFileContent(string $url)
-	{
-		$plugins = [];	
-				
-		$content = $this->getRequestContent($url);
-		if ($content) {
-			
-			try {
-				$treeList = json_decode($content);
-				if (isset($treeList->download_url)) {
-					return $this->getRequestContent($treeList->download_url);
-				}
-
-			} catch (\Exception $e) {
-				$this->flashSession->error($e->getMessage());
-			}
-		}
-		var_dump($url);
-		$this->flashSession->error('Request to get plugin config file was failed ! ');
-	}
-
-
 	public function getRequestContent($url)
 	{
-		if (getenv('APP_DEBUG')) 
-			$url = "http://me.spt.red/me.php?url=".urlencode($url);
+		// if (getenv('APP_DEBUG')) 
+			// $url = ($url);
 
-		if ($this->cache->has(md5($url))) {
-			$content = $this->cache->get(md5($url));
-		}else{
+		// if ($this->cache->has(md5($url))) {
+		// 	$content = $this->cache->get(md5($url));
+		// }else{
 
 			$curl = new \Curl\Curl();
 			$curl->get($url);
@@ -330,13 +293,19 @@ class PluginsController extends MemberControllerBase
 			if (!$content) 
 				$content = file_get_contents($url);
 
-			if ($content) {
-				$this->cache->set(md5($url) , $content);
-			}
-		}
+		// 	if ($content) {
+		// 		$this->cache->set(md5($url) , $content);
+		// 	}
+		// }
 
 
 		return $content;
+	}
+
+	public function getPluginsList()
+	{
+		$x=$this->getRequestContent($this->plugins_server . "/plugins.json");
+		return json_decode($x);
 	}
 
 
