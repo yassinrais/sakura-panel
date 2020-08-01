@@ -196,7 +196,7 @@ class PluginsController extends MemberControllerBase
 			}else{
 				$row->status = $this::DELETED;
 
-				$view_dir = $this->config->application->viewsDir . "/plugins/${row->name}/";
+				$view_dir = $this->getConfig()->application->viewsDir . "/plugins/{$row->name}/";
 
 				if (is_dir($view_dir) && !empty($row->name)) {
 					exit('try to delete $view_dir');
