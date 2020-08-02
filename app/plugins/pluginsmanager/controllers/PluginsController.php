@@ -149,12 +149,11 @@ class PluginsController extends MemberControllerBase
           ->sendResponse();
         }
 	}
+
+
 	public function ajaxAllAction()
 	{
-		$this->response->setJsonContent([
-			'status'=>'error',
-			'msg'=>'The package list is empty ! '
-		]);
+		$this->ajax->error('The packages empty ! ');
 
 		$plugins = $this->getPluginsList();
 
@@ -172,17 +171,16 @@ class PluginsController extends MemberControllerBase
 					}
 				}
 
-			$this->response->setJsonContent([
-				'status'=>'success',
-				'data'=> $plugins
-			]);
+			return $this->ajax->setData($plugins)->set('status','success')->sendResponse();
+		}elseif (is_null($plugins)) {
+			$this->ajax->clearMessages()->error('The server response was empty ! timeout*');
 		}
 
-		return $this->response;
+		return $this->ajax->sendResponse();
 	}
 
 
-
+	/**
 	public function deletePluginAction($name)
 	{
 		$resp = $this::jsonStatus('error','Unknown error','danger');
@@ -265,7 +263,57 @@ class PluginsController extends MemberControllerBase
           	return $this->response;
         }
 	}
+	*/
 
+
+	/*********
+	 ****** 
+	 **** 
+	 *
+	 * Plugins : Install , delete , stop
+	 *
+	 **** 
+	 ****** 
+	*********/
+
+	public function installPluginAction()
+	{
+		$resp = $this->ajax->error('Unknown Plugin !');
+		$plugin = strtolower((string) $this->request->get('plugin'));
+
+		$row = Plugins::findFirstByName($plugin);
+
+		if ($row)
+			return $this->ajax->error(strip_tags($row->title).': Plugin Already Installed')->sendResponse();
+
+		if ( !preg_match('/^[a-z0-9]{5,31}$/', $plugin) )
+			return $this->ajax->error("Plugin ".strip_tags($plugin)."Name is invalid !")->sendResponse();
+
+
+		// get plugin info
+		$plugin_info_json = $this->getRequestContent("{$this->plugins_server}{$plugin}/".self::PLUGIN_CONFIG_JSON);
+
+		try {
+			$plugin_info = json_decode($plugin_info_json);
+
+			if (!empty($plugin_info->name)) {
+				$this->ajax->setData($plugin_info);
+
+				$plugin_info_json = _isUrlAZipFile("{$this->plugins_server}{$plugin}/{$plugin}.zip");
+
+				if (!$plugin_info_json) {
+					$this->ajax->error("Plugin $plugin file is not a zip file ");
+				}else{
+					
+				}
+
+				return $this->ajax->sendResponse();
+			}
+		} catch (Exception $e) {
+		}
+
+      	return $this->ajax->sendResponse();
+	}
 
 	/*********
 	 ****** 
@@ -279,25 +327,13 @@ class PluginsController extends MemberControllerBase
 
 	public function getRequestContent($url)
 	{
-		// if (getenv('APP_DEBUG')) 
-			// $url = ($url);
-
-		// if ($this->cache->has(md5($url))) {
-		// 	$content = $this->cache->get(md5($url));
-		// }else{
-
-			$curl = new \Curl\Curl();
-			$curl->get($url);
-			$content = $curl->rawResponse;
-
-			if (!$content) 
-				$content = file_get_contents($url);
-
-		// 	if ($content) {
-		// 		$this->cache->set(md5($url) , $content);
-		// 	}
-		// }
-
+	 
+		$curl = new \Curl\Curl();
+		$curl->get($url);
+		$content = $curl->rawResponse;
+		$curl->setTimeout(1);
+		if (!$content) 
+			$content = file_get_contents($url);
 
 		return $content;
 	}
@@ -309,4 +345,14 @@ class PluginsController extends MemberControllerBase
 	}
 
 
+
+
+
+	/**
+	 * Helpers
+	 */
+	public function getPluginPath(string $name)
+	{
+		return $this->getConfig()->application->viewsDir . "/plugins/{$name}/";
+	}
 }

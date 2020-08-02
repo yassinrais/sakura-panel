@@ -1,10 +1,12 @@
 <div class="col-12">
 	<div class="row plugins-list">
-		
+		<div class="col-12 p-5 text-center">
+			<h2><i class="fas fa-fw fa-spin fa-sync"></i> Loading ...</h2>
+		</div>
 	</div>
 </div>
 
-<div class="plugin-tpl col-12" style="display:">
+<div class="plugin-tpl col-12" style="display:none;">
 	<div class="col-xl-4 col-md-6 mb-4">
       <div class="card border-left-primary shadow h-100 py-2">
         <div class="card-body">
@@ -48,7 +50,6 @@ window.addEventListener("DOMContentLoaded", (event) => {
 				l.html("");
 				if (data.status === 'success') {
 					let plugins = data.data.plugins;
-
 					for(var d in plugins){
 						let p = plugins[d];
 						let _tpl_ = tpl;
@@ -76,12 +77,10 @@ window.addEventListener("DOMContentLoaded", (event) => {
 						l.append(domTpl);
 					}
 				}else{
+					l.append('<div class="col-12 p-1 form-group msgs"></div>');
+					let em = l.find('.msgs');
 					for(var m in data.msg){
-						let t = data.msg[m];
-						for(var n in t)
-						{
-							l.append("<div class='col-12 alert alert-danger'>"+(t[n])+"</div>");
-						}
+						em.append(`<div class='alert alert-${m}'>${data.msg[m]}</div>`);
 					}
 				}
 			});

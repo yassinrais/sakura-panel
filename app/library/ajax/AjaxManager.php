@@ -11,10 +11,11 @@ class AjaxManager extends \ControllerBase
 	private $messages = [];
 	private $data = [];
 	private $status = "success";
+	private $msg_array = true;
 
 
 	/**
-	 * get page info 
+	 * get ajax attributes 
 	 * @param $key
 	 * @param $default = null
 	 * @return $info
@@ -25,7 +26,7 @@ class AjaxManager extends \ControllerBase
 	}
 
 	/**
-	 * set page info
+	 * set ajax attributes
 	 * @param $key
 	 * @param $val
 	 */
@@ -36,13 +37,38 @@ class AjaxManager extends \ControllerBase
 	}
 
 	/**
+	 * set ajax attributes
+	 * @param $key
+	 * @param $val
+	 */
+	public function clearMessages()
+	{
+		$this->messages = [];
+		return $this;
+	}
+
+	/**
+	 * set data info
+	 * @param $key
+	 * @param $val
+	 */
+	public function setData($val = null)
+	{
+		$this->data = $val;
+		return $this;
+	}
+
+	/**
 	 * add a message
 	 * @param $msg : string
 	 * @return $this : AjaxManager
 	 */
-	public function addMsg($msg)
-	{
-		$this->messages[] = $msg;
+	public function addMsg($msg , string $type = null)
+	{	
+		if ($type === null) 
+			$this->messages[] = $msg;
+		else
+			$this->messages[$type] = $msg;
 		return $this;
 	}
 
@@ -63,38 +89,30 @@ class AjaxManager extends \ControllerBase
 
 	/**
 	 * add a message
-	 * @param $key : string
 	 * @param $data : mixed
 	 * @return $this : AjaxManager
 	 */
-	public function setData($key , $data)
-	{
-		$this->data[$key] = $data;
-		return $this;
-	}
-
-
 	public function error($msg)
 	{
 		$this->status = 'danger';
-		$this->addMsg($msg);
+		return $this->addMsg($msg , 'danger');
 	}
 
 	public function warning($msg)
 	{
 		$this->status = 'warning';
-		$this->addMsg($msg);
+		return $this->addMsg($msg , 'warning');
 	}
 
 	public function success($msg)
 	{
 		$this->status = 'success';
-		$this->addMsg($msg);
+		return $this->addMsg($msg , 'success');
 	}
 	public function notice($msg)
 	{
 		$this->status = 'notice';
-		$this->addMsg($msg);
+		return $this->addMsg($msg , 'notice');
 	}
 
 
@@ -105,7 +123,7 @@ class AjaxManager extends \ControllerBase
 	{
 		$this->response->setJsonContent([
 			'status'=> $this->status,
-			'msg'=> implode(", ", $this->messages),
+			'msg'=> $this->msg_array ? $this->messages : implode(", ", $this->messages),
 			'data'=>$this->data
 		]);
 		
