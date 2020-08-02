@@ -5,6 +5,7 @@
 *cache/views/*
 *cache/global/*
 *cache/shared/*
+*cache/plugins/*
 *storage/*
 *vendor/*
 *composer.lock
