@@ -180,90 +180,42 @@ class PluginsController extends MemberControllerBase
 	}
 
 
-	/**
-	public function deletePluginAction($name)
+	public function deleteAction()
 	{
-		$resp = $this::jsonStatus('error','Unknown error','danger');
 		if ($this->request->isAjax()) {
 			$id = (int) $this->request->get('id');
 
-			$row = Plugins::findFirstByName($name);
+			$row = Plugins::findFirstById($id);
 
 			if (!$row) {
 				$resp = $this::jsonStatus('error','Unknown row id '.$id,'danger');
 			}else{
+				if (empty($row->name)) 
+					return $this->ajax->error('messages','This Plugin name is empty ! please be aware & check files !')->sendResponse();
+			
 				$row->status = $this::DELETED;
+				$view_dir = $this->getPluginViewPath($row->name);
+				$sys_dir = $this->getPluginSysPath($row->name);
 
-				$view_dir = $this->config->application->viewsDir . "/plugins/{$row->name}/";
-
-				if (is_dir($view_dir) && !empty($row->name)) {
+				if (is_dir($view_dir)) {
 					exit('try to delete $view_dir');
 					\SakuraPanel\Functions\_deleteDir($view_dir);
 				}
-				// if ($row->delete()) {
-					$resp = $this::jsonStatus('success',"Row $id deleted successfully !",'success');
-				// }else{
-				// 	$resp = $this::jsonStatus('error',"Row $id deleted failed ! \n".implode("&", $row->getMessages()),'warning');
-				// }
-			}
-
-          	$this->response->setJsonContent($resp);
-
-          	return $this->response;
-        }
-	}
-	public function deleteAction()
-	{
-		$resp = $this::jsonStatus('error','Unknown error','danger');
-		if ($this->request->isAjax()) {
-			$id = (int) $this->request->get('id');
-
-			$row = Plugins::findFirstById($id);
-
-			if (!$row) {
-				$resp = $this::jsonStatus('error','Unknown row id '.$id,'danger');
-			}else{
-				$row->status = $this::DELETED;
-
+				if (is_dir($sys_dir)) {
+					exit('try to delete $view_dir');
+					\SakuraPanel\Functions\_deleteDir($view_dir);
+				}
 				if ($row->delete()) {
-					$resp = $this::jsonStatus('success',"Row $id deleted successfully !",'success');
+					$resp = $this->ajax->success("Row $id deleted successfully !",'success')->sendResponse();
 				}else{
-					$resp = $this::jsonStatus('error',"Row $id deleted failed ! \n".implode("&", $row->getMessages()),'warning');
+					$resp = $this->ajax->error("Row $id deleted failed ! \n".implode("&", $row->getMessages()))->sendResponse();
 				}
 			}
 
-          	$this->response->setJsonContent($resp);
 
-          	return $this->response;
+          	return $this->ajax->error('Unknow error !')->sendResponse();
         }
 	}
-
-	public function restoreAction()
-	{
-		$resp = $this::jsonStatus('error','Unknown error','danger');
-		if ($this->request->isAjax()) {
-			$id = (int) $this->request->get('id');
-
-			$row = Plugins::findFirstById($id);
-
-			if (!$row) {
-				$resp = $this::jsonStatus('error','Unknown row id '.$id,'danger');
-			}else{
-				$row->status = $this::INACTIVE;
-
-				if ($row->save()) {
-					$resp = $this::jsonStatus('success',"Row $id restore successfully !",'success');
-				}else{
-					$resp = $this::jsonStatus('error',"Row $id restore failed ! \n".implode("&", $row->getMessages()),'warning');
-				}
-			}
-
-          	$this->response->setJsonContent($resp);
-
-          	return $this->response;
-        }
-	}
-	*/
 
 
 	/*********
