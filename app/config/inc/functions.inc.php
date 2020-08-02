@@ -35,7 +35,6 @@ if (!function_exists('_isUrlAZipFile')) {
 	    curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
 	    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
 	    curl_setopt($ch, CURLOPT_VERBOSE, 0); // set to 1 to debug
-	    curl_setopt($ch, CURLOPT_STDERR, fopen('php://output', 'r'));
 
 	    $header = '';
 
@@ -53,6 +52,26 @@ if (!function_exists('_isUrlAZipFile')) {
 	    $info   = curl_getinfo($ch);
 
 	    // check for the zip magic header, return true if match, false otherwise
-	    return preg_match('/^PK(?:\x03\x04|\x05\x06|0x07\x08)/', $header) ? $result : false;
+	    return preg_match('/^PK(?:\x03\x04|\x05\x06|0x07\x08)/', $header);
+	}
+}
+
+
+if (!function_exists('_downloadZipFile')) {
+	function _downloadZipFile(string $url, string $filepath){
+		$fp = fopen($filepath, 'w+');
+		$ch = curl_init($url);
+
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, false);
+		curl_setopt($ch, CURLOPT_BINARYTRANSFER, true);
+		//curl_setopt( $ch, CURLOPT_SSL_VERIFYPEER, false );
+		curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 10);
+		curl_setopt($ch, CURLOPT_FILE, $fp);
+		curl_exec($ch);
+
+		curl_close($ch);
+		fclose($fp);
+
+		return (filesize($filepath) > 0)? true : false;
 	}
 }
