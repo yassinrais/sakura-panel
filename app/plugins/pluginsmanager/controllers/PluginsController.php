@@ -37,7 +37,7 @@ class PluginsController extends MemberControllerBase
 
 	public function checkViewsFiles($plugin_name)
 	{
-		$view_dir = $this->config->application->viewsDir . "/plugins/${plugin_name}/";
+		$view_dir = $this->getPluginViewPath($plugin_name);
 		
 		if (!is_dir($view_dir)) {
 			mkdir($view_dir , 0775 , true);
@@ -120,7 +120,7 @@ class PluginsController extends MemberControllerBase
           	return "
           		<div class=row>
           			<div class='col-md-5 col-xs-12' >
-          				<div style='background: url($data[image])' class='plugin-logo br-5'></div>
+          				<div style='background-image: url($data[image])' class='plugin-logo br-5'></div>
           			</div>
           			<div class='col-md-7 col-xs-12'>
           				<p>".strip_tags($data['name'])."</p>
@@ -194,7 +194,7 @@ class PluginsController extends MemberControllerBase
 			}else{
 				$row->status = $this::DELETED;
 
-				$view_dir = $this->getConfig()->application->viewsDir . "/plugins/{$row->name}/";
+				$view_dir = $this->config->application->viewsDir . "/plugins/{$row->name}/";
 
 				if (is_dir($view_dir) && !empty($row->name)) {
 					exit('try to delete $view_dir');
@@ -298,13 +298,38 @@ class PluginsController extends MemberControllerBase
 
 			if (!empty($plugin_info->name)) {
 				$this->ajax->setData($plugin_info);
+				
+				$zipFileUrl = "{$this->plugins_server}{$plugin}/{$plugin}.zip";
 
-				$plugin_info_json = _isUrlAZipFile("{$this->plugins_server}{$plugin}/{$plugin}.zip");
-
-				if (!$plugin_info_json) {
-					$this->ajax->error("Plugin $plugin file is not a zip file ");
+				if (!\SakuraPanel\Functions\_isUrlAZipFile($zipFileUrl)) {
+					$this->ajax->error("Plugin ($zipFileUrl) file is not a zip file ");
 				}else{
+					$zipFileSavePath = $this->config->application->pluginsCacheDir . $plugin . ".zip";
+
+					$download = \SakuraPanel\Functions\_downloadZipFile($zipFileUrl , $zipFileSavePath);
+
+					if (!$download) 
+						return $this->ajax->error("Download plugin failed !")->sendResponse();
 					
+
+					$unzip = $this->unzipPlugin($plugin_info, $zipFileSavePath);
+					if (!$unzip) 
+						return $this->ajax->error('Unzipping plugin failed ! ')->sendResponse();
+
+
+					$p = new Plugins();
+					foreach (['image','name','title','description','author','version','tags'] as $key) {
+						if (isset($plugin_info->$key)) 
+							$p->$key = $plugin_info->$key;
+					}
+					$p->status = $this::ACTIVE;
+
+					if ($p->save()) {
+						$this->ajax->clearMessages()->success("Plugin {$plugin_info->name} installed successfully !");
+					}else{
+						foreach ($p->getMessages() as $msg)
+							$this->ajax->error($msg);
+					}
 				}
 
 				return $this->ajax->sendResponse();
@@ -351,8 +376,28 @@ class PluginsController extends MemberControllerBase
 	/**
 	 * Helpers
 	 */
-	public function getPluginPath(string $name)
+	public function getPluginViewPath(string $name)
 	{
-		return $this->getConfig()->application->viewsDir . "/plugins/{$name}/";
+		return $this::cleanPath($this->config->application->viewsDir . "/plugins/{$name}/");
+	}
+	public function getPluginSysPath(string $name)
+	{
+		return $this::cleanPath($this->config->application->pluginsDir . "/{$name}/");
+	}
+
+	public function unzipPlugin($plugin , $path)
+	{
+		$zip = new \ZipArchive;
+		$res = $zip->open($path);
+		if ($res === TRUE) {
+		  	$zip->extractTo($this->getPluginSysPath($plugin->name));
+		  	$zip->close();
+
+		  	return true;
+		} else {
+			return false;
+		}
+		
+
 	}
 }
