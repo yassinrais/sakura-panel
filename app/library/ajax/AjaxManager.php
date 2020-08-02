@@ -36,6 +36,15 @@ class AjaxManager extends \ControllerBase
 		return $this;
 	}
 
+
+	public function disableArray()
+	{
+		$this->msg_array = false;
+	}
+	public function enableArray()
+	{
+		$this->msg_array = false;
+	}
 	/**
 	 * set ajax attributes
 	 * @param $key

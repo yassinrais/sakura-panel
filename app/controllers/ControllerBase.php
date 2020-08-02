@@ -17,4 +17,10 @@ class ControllerBase extends Controller implements SharedConstInterface
   			'status'=>$status,
   		];
 	}
+
+
+	public function cleanPath(string $path)
+	{
+		return preg_replace('#/+#','/',$path);
+	}
 }

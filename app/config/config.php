@@ -32,6 +32,7 @@ $configs = array(
         'cacheViewsDir'       => BASE_PATH . '/cache/views/',
         'cacheSessionsDir' => BASE_PATH . '/cache/sessions/',
         'securityCacheDir' => BASE_PATH . '/cache/security/',
+        'pluginsCacheDir' => BASE_PATH . '/cache/plugins/',
         'globalCacheDir' => BASE_PATH . '/cache/global/',
         'baseUri'        => '/',
         // server configs  doesnt exist in cli ("request" :@ to ignore undefined vars) 

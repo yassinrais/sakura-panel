@@ -21,9 +21,11 @@
             </div>
           </div>
           <div class="pt-1 float-right">
-          	<button data-id="[name]" style="display:none" class="btn btn-install btn-sm btn-success"><i class="fa fa-download"></i> Install</button>
-          	<button data-id="[name]" style="display:none" class="btn btn-update btn-sm btn-warning"><i class="fa fa-calendar"></i> Update</button>
-          	<button data-id="[name]" style="display:none" class="btn btn-delete btn-sm btn-danger"><i class="fa fa-trash"></i> Delete</button>
+          	<button data-id="[name]" style="display:none" data-cb="$('.plugins-list').trigger('refresh');" data-path='/{{ page.get('base_route') }}' data-action='install' data-id='[name]' class="btn install-plugin table-action-btn btn-sm btn-install btn-success"><i class="fa fa-download"></i> Install</button>
+          	<button data-id="[name]" style="display:none" data-cb="$('.plugins-list').trigger('refresh');" data-path='/{{ page.get('base_route') }}' data-action='update' data-id='[name]' class="btn update-plugin table-action-btn btn-sm btn-update btn-warning"><i class="fa fa-calendar"></i> Update</button>
+          	<button data-id="[name]" style="display:none" data-cb="$('.plugins-list').trigger('refresh');" data-path='/{{ page.get('base_route') }}' data-action='delete' data-id='[name]' class="btn delete-plugin table-action-btn btn-sm btn-delete btn-danger"><i class="fa fa-trash"></i> Delete</button>
+
+          	<!-- <button data-id="[name]" style="display:none" data-path='/{{ page.get('base_route') }}' data-action='delete' data-id='[name]' class="btn btn-sm btn-danger"><i class="fa fa-trash"></i> Delete</button> -->
           </div>
         </div>
       </div>
@@ -42,6 +44,9 @@ window.addEventListener("DOMContentLoaded", (event) => {
 
 		$(document).ready(function () {
 			refresh_plugins();
+		});
+		$('.plugins-list').on('refresh' , function () {
+			setTimeout(function() {}, refresh_plugins());
 		});
 
 		function refresh_plugins(){

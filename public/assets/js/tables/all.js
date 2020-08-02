@@ -30,6 +30,8 @@ $('body').on('click','.table-action-btn' , function () {
 
    let id = e.data('id');
    let action = e.data('action');
+   let path = e.data('path');
+   let cb = e.data('cb');
 
    const tableAction = Swal.mixin({
       customClass: {
@@ -41,7 +43,7 @@ $('body').on('click','.table-action-btn' , function () {
 
     tableAction.fire({
       title: 'Are you sure?',
-      text: `Do you confirm to ${action} Row ${id} ?`,
+      text: `Do you confirm to ${action} ${id} ?`,
       icon: 'warning',
       showCancelButton: true,
       confirmButtonText: 'Yes, do it!',
@@ -50,7 +52,7 @@ $('body').on('click','.table-action-btn' , function () {
       showLoaderOnConfirm: true,
     }).then((result) => {
       if (result.value) {
-          $.post(location.protocol + '//' + location.host + (location.pathname + '/' + action).replace(/\/\// , '/') , {
+          $.post(location.protocol + '//' + location.host + ( ( path ? path : location.pathname ) + '/' + action).replace(/\/\// , '/') , {
               id : id,
               confirm : true
             }, (a)=>{
@@ -62,11 +64,15 @@ $('body').on('click','.table-action-btn' , function () {
                 }
                 tableAction.fire(
                   (action.charAt(0).toUpperCase()) + action.substr(1,action.length) + ' Action',
-                  data.msg,
-                  data.status
+                  typeof data.msg === "string" ? data.msg : (data.msg[data.status] ? data.msg[data.status] : "Error parsing response message"),
+                  (data.status !== "danger") ? data.status : "error"
                 );
                 // we just reload all table :p
-               $('table').DataTable().ajax.reload();
+                if ($('table')) 
+                   $('table').DataTable().ajax.reload();
+
+                if (cb) 
+                  eval(cb);
             }
           );
       } else if (
@@ -81,3 +87,6 @@ $('body').on('click','.table-action-btn' , function () {
       }
     });
 });
+
+
+ 

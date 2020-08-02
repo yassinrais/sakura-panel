@@ -68,6 +68,7 @@ class PluginsController extends MemberControllerBase
 
 		if ($this->request->isPost()) {
 			$row->user_id = (int) $this->di->get('user')->id;
+			$row->setIp($this->request);
 
 
             if (false === $form->isValid($_POST)) {
@@ -133,12 +134,8 @@ class PluginsController extends MemberControllerBase
           	$id = $data['id'];
           	$actions = "";
 
-          	if ($data['status'] != $this::DELETED)
-          		$actions .= 
-          		"<span title='Delete Row' data-action ='delete' data-id='$id' class='ml-1 btn btn-danger btn-circle btn-sm table-action-btn'><i class='fas fa-trash'></i></span>";
-          	if ($data['status'] == $this::DELETED)
-				$actions .= 
-          		"<span title='Restore Row' data-action='restore' data-id='$id' class='ml-1 btn btn-info btn-circle btn-sm table-action-btn' ><i class='fas fa-trash-restore'></i></span>";
+       		$actions .= 
+          		"<span title='Delete Row' data-path='/{$this->page->get('base_route')}' data-action='delete' data-id='$id' class='ml-1 btn btn-danger btn-circle btn-sm table-action-btn'><i class='fas fa-trash'></i></span>"; 
 
       		// $actions .= 
       		// 	"<a href='{$this->page->get('base_route')}/edit/$id' class='ml-1 btn btn-warning btn-circle btn-sm ' ><i class='fas fa-edit'></i></a>";
@@ -183,32 +180,42 @@ class PluginsController extends MemberControllerBase
 	public function deleteAction()
 	{
 		if ($this->request->isAjax()) {
+			// disable response array
+			$this->ajax->disableArray();
+	
 			$id = (int) $this->request->get('id');
+			$name = (string) $this->request->get('id');
 
-			$row = Plugins::findFirstById($id);
+			$row = Plugins::findFirstById($id) ?? Plugins::findFirstByName($name);
 
 			if (!$row) {
-				$resp = $this::jsonStatus('error','Unknown row id '.$id,'danger');
+				return $this->ajax->error('Unknown plugin  id/name '.$id)->sendResponse();
 			}else{
-				if (empty($row->name)) 
-					return $this->ajax->error('messages','This Plugin name is empty ! please be aware & check files !')->sendResponse();
+				$plugin_name = $row->name;
+
+				if (empty($plugin_name)) 
+					return $this->ajax->error('This Plugin name is empty ! please be aware & check files !')->sendResponse();
 			
 				$row->status = $this::DELETED;
-				$view_dir = $this->getPluginViewPath($row->name);
-				$sys_dir = $this->getPluginSysPath($row->name);
 
-				if (is_dir($view_dir)) {
-					exit('try to delete $view_dir');
+				$view_dir = $this->getPluginViewPath($plugin_name);
+				$sys_dir = $this->getPluginSysPath($plugin_name);
+
+				/**
+				 * Delete plugin folders
+				 */
+				if (is_dir($view_dir)) 
 					\SakuraPanel\Functions\_deleteDir($view_dir);
-				}
-				if (is_dir($sys_dir)) {
-					exit('try to delete $view_dir');
-					\SakuraPanel\Functions\_deleteDir($view_dir);
-				}
+				if (is_dir($sys_dir)) 
+					\SakuraPanel\Functions\_deleteDir($sys_dir);
+
+				/**
+				 * Delete row
+				 */
 				if ($row->delete()) {
-					$resp = $this->ajax->success("Row $id deleted successfully !",'success')->sendResponse();
+					return $this->ajax->success("Plugin $plugin_name deleted successfully !",'success')->sendResponse();
 				}else{
-					$resp = $this->ajax->error("Row $id deleted failed ! \n".implode("&", $row->getMessages()))->sendResponse();
+					return $this->ajax->error("Deleting Plugin $plugin_name was failed ! \n".implode("&", $row->getMessages()))->sendResponse();
 				}
 			}
 
@@ -228,10 +235,12 @@ class PluginsController extends MemberControllerBase
 	 ****** 
 	*********/
 
-	public function installPluginAction()
+	public function installAction()
 	{
+		$this->ajax->disableArray();
+		
 		$resp = $this->ajax->error('Unknown Plugin !');
-		$plugin = strtolower((string) $this->request->get('plugin'));
+		$plugin = strtolower((string) $this->request->get('id'));
 
 		$row = Plugins::findFirstByName($plugin);
 
@@ -269,17 +278,18 @@ class PluginsController extends MemberControllerBase
 						return $this->ajax->error('Unzipping plugin failed ! ')->sendResponse();
 
 
-					$p = new Plugins();
+					$row = new Plugins();
 					foreach (['image','name','title','description','author','version','tags'] as $key) {
 						if (isset($plugin_info->$key)) 
-							$p->$key = $plugin_info->$key;
+							$row->$key = $plugin_info->$key;
 					}
-					$p->status = $this::ACTIVE;
+					$row->status = $this::ACTIVE;
+					$row->setIp($this->request);
 
-					if ($p->save()) {
+					if ($row->save()) {
 						$this->ajax->clearMessages()->success("Plugin {$plugin_info->name} installed successfully !");
 					}else{
-						foreach ($p->getMessages() as $msg)
+						foreach ($row->getMessages() as $msg)
 							$this->ajax->error($msg);
 					}
 				}
