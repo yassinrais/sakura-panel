@@ -16,7 +16,8 @@ $('.auth-login').on('submit',function (e) {
        data: form.serialize(), // serializes the form's elements.
        success: function(data)
        {
-          	$('.auth-msgs').html('<div class="alert alert-'+data.status+'">'+data.msg+"</div>");
+           for(var i in data.msg)
+          	$('.auth-msgs').append('<div class="alert alert-'+ (i === "error" ? "danger" : i)+'">'+data.msg[i]+"</div>");
           	if (data.status == "success") window.location.reload();
 
        		btn.html(_obtn);
