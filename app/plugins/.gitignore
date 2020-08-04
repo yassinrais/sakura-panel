@@ -1,4 +1,7 @@
 *
 !.gitignore
+!auth
 !auth/*
+!pluginsmanager
 !pluginsmanager/*
+!pluginsmanager/*/*

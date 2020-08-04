@@ -4,12 +4,7 @@ use SakuraPanel\Library\Plugins\Plugin;
 
 $plugin = new Plugin();
 
-$plugin->initPlugin(
-	"Plugins Manager",
-	"pluginsmanager",
-	"1.0.0",
-	"Yassine Rs"
-);
+$plugin->initPluginByJson(dirname(__FILE__)."/plugin.config.json");
 
 $plugin->addRoute(
 	"member", 
@@ -45,7 +40,6 @@ $plugin->addRoute(
 		]
 	]
 );
-
 
 
 return $plugin;

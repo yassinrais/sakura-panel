@@ -5,7 +5,7 @@ namespace SakuraPanel\Library\Plugins;
 /**
  * Plugin
  */
-class Plugin 
+class Plugin
 {
 	protected $title = "Plugin";
 	protected $name = "plugin";
@@ -16,6 +16,8 @@ class Plugin
 	protected $access = "*";
 	protected $routes = [];
 	protected $menus = [];
+
+	private $di;
 
 	/**
 	 * Init Plugin configs
@@ -35,16 +37,49 @@ class Plugin
 		foreach ($others as $key => $value)
 			$this->set($key , $value);
 
+		$this->status = true;
 	}
 
+	public function initPluginByJson(string $path ="")
+	{
+		$this->status = 0;
+
+		if (!is_file($path)) 
+			return false;
+		try{
+			$plugin_str = file_get_contents($path);
+			$plugin = json_decode($plugin_str);
+
+			return $this->initPlugin(
+				$plugin->title ?? 'Unammed',
+				$plugin->name ?? 'unammed',
+				$plugin->version ?? '1.0.0',
+				$plugin->author ?? 'Anonymous',
+				(array) $plugin->others ?? [],
+			);			
+
+		}catch(\Exception $e){
+		}
+
+		return (json_last_error() == JSON_ERROR_NONE);
+	}
 	/**
-	 * Get an attribute value (i dont use method magic _get)
+	 * Get an attribute value (i dont use method magic __get)
 	 * @param $key : string 
 	 * @return $value : mixed
 	 */
 	public function get(string $key)
 	{
 		return $this->{$key} ?? null;
+	}
+	/**
+	 * set an attribute value (i dont use method magic __set)
+	 * @param $key : string 
+	 * @param $value : mixed
+	 */
+	public function set(string $key , $value = null)
+	{
+		return $this->{$key}  = $value;
 	}
 
 	/**
@@ -94,15 +129,18 @@ class Plugin
 	 */
 	public function load($di)
 	{
-		$this->loadRoutes($di);
-		$this->loadMenu($di);
+		$this->di = $di;
+		$this->loadViews();
+		$this->loadRoutes();
+		$this->loadMenu();
 	}
 
 	/**
 	 * load plugin routes
 	 */
-	public function loadRoutes($di)
+	private function loadRoutes()
 	{
+		$di = $this->di;
 		$router = $di->get('router');
 		$acl = $di->getAcl();
 		foreach ((object) $this->routes as $prefix => $rgroups) {
@@ -145,9 +183,49 @@ class Plugin
 	/**
 	 * load plugin menu
 	 */
-	public function loadMenu($di)
+	private function loadMenu()
 	{
+		$di = $this->di;
+
 		$di->getConfig()->menu = array_merge_recursive( $di->getConfig()->menu->toArray() , (array) $this->menus);
 	}
-	 
+	
+
+	/**
+     * check views exist or not  
+     */	 
+	private function loadViews()
+	{
+
+		$view_dir = $this->getPluginViewPath($this->name);
+		
+		if (!is_dir($view_dir)) {
+			mkdir($view_dir , 0775 , true);
+			
+			$p = $this->getPluginSysPath($this->name)."views/";
+
+			foreach (scandir($p) as $file_name) {
+				if (!in_array($file_name, ['.','..'])){ // if its not a . .. path : copy files
+					copy($p . $file_name, $view_dir . $file_name);
+				}
+			}
+		}	
+	}
+
+	/**
+	 * Helpers
+	 */
+	public function getPluginViewPath()
+	{
+		return $this::cleanPath($this->di->getConfig()->application->viewsDir . "/plugins/{$this->name}/");
+	}
+	public function getPluginSysPath()
+	{
+		return $this::cleanPath($this->di->getConfig()->application->pluginsDir . "/{$this->name}/");
+	}
+
+	public function cleanPath(string $path)
+	{
+		return preg_replace('#/+#','/',$path);
+	}
 }

@@ -31,23 +31,8 @@ class PluginsController extends MemberControllerBase
         $this->page->set('description','Install & Uninstall plugins from your website .');
 		
         $this->view->dataTable = true;
-
-        $this->checkViewsFiles('pluginsmanager');
 	}
 
-	public function checkViewsFiles($plugin_name)
-	{
-		$view_dir = $this->getPluginViewPath($plugin_name);
-		
-		if (!is_dir($view_dir)) {
-			mkdir($view_dir , 0775 , true);
-			
-			$p = dirname(__FILE__)."/../views/";
-
-			foreach (scandir($p) as $file_name) 
-				copy($p . $file_name, $view_dir . $file_name);
-		}	
-	}
 
 	public function installedAction()
 	{
@@ -297,6 +282,7 @@ class PluginsController extends MemberControllerBase
 				return $this->ajax->sendResponse();
 			}
 		} catch (Exception $e) {
+			return $this->ajax->error('Invalid Plugins info\'s '. $e->getMessage())->sendResponse();
 		}
 
       	return $this->ajax->sendResponse();
@@ -359,7 +345,6 @@ class PluginsController extends MemberControllerBase
 		} else {
 			return false;
 		}
-		
 
 	}
 }
