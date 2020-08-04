@@ -88,7 +88,11 @@ class PluginsController extends MemberControllerBase
                           ->columns('id, name, title, [description], image , author, version , status')
                           ->from(Plugins::class);
 
-          $dataTables = new DataTable();
+           $dataTables = new DataTable();
+
+          $dataTables->setOptions([
+          	'limit'=> abs((int) $this->request->get('length'))
+          ]);
           $dataTables->setIngoreUpperCase(true);
           
           $dataTables->fromBuilder($builder)

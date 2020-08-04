@@ -85,7 +85,12 @@ class SettingsController extends MemberControllerBase
                           ->from(SiteConfigs::class);
 
           $dataTables = new DataTable();
+
+          $dataTables->setOptions([
+          	'limit'=> abs((int) $this->request->get('length'))
+          ]);
           $dataTables->setIngoreUpperCase(true);
+          
           $dataTables->fromBuilder($builder);
 
           $dataTables->addCustomColumn('actions' , function ($key , $data)

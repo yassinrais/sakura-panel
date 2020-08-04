@@ -55,7 +55,7 @@ class Plugin
 				$plugin->name ?? 'unammed',
 				$plugin->version ?? '1.0.0',
 				$plugin->author ?? 'Anonymous',
-				(array) $plugin->others ?? [],
+				(array) ($plugin->others ?? []),
 			);			
 
 		}catch(\Exception $e){
@@ -199,10 +199,11 @@ class Plugin
 
 		$view_dir = $this->getPluginViewPath($this->name);
 		
-		if (!is_dir($view_dir)) {
-			mkdir($view_dir , 0775 , true);
+		if (!is_dir($view_dir) || getenv('DEV_MODE') == true) {
+			@mkdir($view_dir , 0775 , true);
 			
 			$p = $this->getPluginSysPath($this->name)."views/";
+			if (!is_dir($p)) return false;
 
 			foreach (scandir($p) as $file_name) {
 				if (!in_array($file_name, ['.','..'])){ // if its not a . .. path : copy files

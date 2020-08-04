@@ -52,8 +52,7 @@ class PageInfoManager extends \ControllerBase
 			$this->menu[$category] = $this->menu[$category] ?? ['items'=>[] , 'order'=>$menu['order'] ?? 999 ];
 
 			foreach ($menu['items'] ?? [] as $name => $info) {
-
-				if (empty($info['access']) || in_array($access, explode("|", strtolower($info['access']))) || $info['access'] === "*") {
+				if (empty($info['access']) || (!is_array($info['access'])) && in_array($access, explode("|", strtolower($info['access']))) || $info['access'] === "*") {
 					if (!empty($info['sub'])) {
 						$ninfo = [];
 						foreach ($info['sub'] as $sub) {

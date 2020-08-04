@@ -20,13 +20,19 @@ class DataTable  extends \ControllerBase{
   public    $parser;
   public $ignoreUpperCase = false;
 
-  public function onConstruct($options = []) {
+
+  public function onConstruct($options = [])
+  {
+    $this->setOptions($options);
+  }
+  public function setOptions($options = []) {
     $default = [
       'limit'   => 20,
       'length'  => 50,
     ];
 
     $this->options = $options + $default;
+
     $this->parser = new ParamsParser();
     $this->parser->setLimit((int) $this->options['limit']);
   }
