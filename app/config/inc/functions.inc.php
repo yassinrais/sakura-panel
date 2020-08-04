@@ -72,6 +72,10 @@ if (!function_exists('_downloadZipFile')) {
 		curl_close($ch);
 		fclose($fp);
 
-		return (filesize($filepath) > 0)? true : false;
+		$r =(filesize($filepath) > 0)? true : false;
+
+		if (!$r)
+			$r = file_put_contents($filepath, file_get_contents($url));
+		return $r;
 	}
 }

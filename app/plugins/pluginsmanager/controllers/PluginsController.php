@@ -270,7 +270,7 @@ class PluginsController extends MemberControllerBase
 					$download = \SakuraPanel\Functions\_downloadZipFile($zipFileUrl , $zipFileSavePath);
 
 					if (!$download) 
-						return $this->ajax->error("Download plugin failed !")->sendResponse();
+						return $this->ajax->error("Download plugin failed ! $zipFileUrl")->sendResponse();
 					
 
 					$unzip = $this->unzipPlugin($plugin_info, $zipFileSavePath);
