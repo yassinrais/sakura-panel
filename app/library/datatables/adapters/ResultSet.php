@@ -1,11 +1,5 @@
 <?php
-/**
- * Copyright : https://github.com/m1ome/phalcon-datatables
- * Edit & Fix old version (phalcon 2.0.0) to (phalcon +4.0.0)
- * Original Authors : github@m1ome , github@abiosoft , github@duesentrieb26
- * Edited By : github@yassinrais  
- */
-namespace SakuraPanel\Library\DataTable\Adapters;
+namespace SakuraPanel\Library\DataTables\Adapters;
 
 use Phalcon\Mvc\Model\Resultset as PhalconResultSet;
 
@@ -15,21 +9,27 @@ class ResultSet extends AdapterInterface {
   protected $column = [];
   protected $global = [];
   protected $order  = [];
+  protected $ingoreUpperCase = false;
 
+
+  public function setIngoreUpperCase($bool = false)
+  {
+    $this->ignoreUpperCase = $bool;
+  }
   public function getResponse() {
     $limit  = $this->parser->getLimit();
     $offset = $this->parser->getOffset();
     $total  = $this->resultSet->count();
 
-    $this->bind('global_search', function($column, $search) {
+    $this->bind('global_search', false, function($column, $search) {
       $this->global[$column][] = $search;
     });
 
-    $this->bind('column_search', function($column, $search) {
+    $this->bind('column_search', false, function($column, $search) {
       $this->column[$column][] = $search;
     });
 
-    $this->bind('order', function($order) {
+    $this->bind('order', true, function($order) {
       $this->order = $order;
     });
 
@@ -40,7 +40,12 @@ class ResultSet extends AdapterInterface {
         if (count($this->global)) {
           foreach($this->global as $column=>$filters) {
             foreach($filters as $search) {
-              $check = (strpos($item->$column, $search) !== false);
+              $col = $this->columnExists($column, true);
+              if (!is_null($col)) {
+                $check = (stripos($item->$col, $search) !== false);
+              } else {
+                $check = false;
+              }
               if ($check) break 2;
             }
           }
@@ -51,7 +56,12 @@ class ResultSet extends AdapterInterface {
         if (count($this->column) && $check) {
           foreach($this->column as $column=>$filters) {
             foreach($filters as $search) {
-              $check = (strpos($item->$column, $search) !== false);
+              $col = $this->columnExists($column, true);
+              if (!is_null($col)) {
+                $check = (stripos($item->$col, $search) !== false);
+              } else {
+                $check = false;
+              }
               if (!$check) break 2;
             }
           }

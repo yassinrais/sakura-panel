@@ -1,6 +1,7 @@
 <?php 
 
 namespace SakuraPanel\Library\Plugins;
+use SakuraPanel\Plugins\PluginsManager\Models\Plugins;
 
 /**
  * Plugin
@@ -133,6 +134,7 @@ class Plugin
 		$this->loadViews();
 		$this->loadRoutes();
 		$this->loadMenu();
+		$this->checkDb();
 	}
 
 	/**
@@ -211,6 +213,27 @@ class Plugin
 				}
 			}
 		}	
+	}
+	/**
+	 * check if plugin exist
+	 */
+	public function checkDb()
+	{
+		if (class_exists(Plugins::class)) {
+			$plugin = Plugins::findFirstByName($this->name);
+
+			if (!$plugin) {
+				$plugin = new Plugins();
+				foreach (['name','author','version','title','image','description'] as $key) 
+					if ($this->get($key)) 
+						$plugin->{$key} = $this->{$key};
+
+				if (!$plugin->save()){
+					$this->di->getLogger()->warning("Plugin {$this->name} can not added to plugins table ! (".implode(",", $plugin->getMessages()).")");
+					$this->di->getLogger()->warning(json_encode($plugin));
+				}
+			}
+		}
 	}
 
 	/**

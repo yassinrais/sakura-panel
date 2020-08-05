@@ -41,8 +41,8 @@ class PluginsController extends MemberControllerBase
 	}	
 	public function allAction()
 	{
-		$this->page->set('title', 'All Free Plugins');
-		return $this->view->pick('plugins/pluginsmanager/all');
+		$this->page->set('title', 'Plugins Manager');
+		return $this->view->pick('plugins/pluginsmanager/index');
 	}	
 
 	public function createAction()

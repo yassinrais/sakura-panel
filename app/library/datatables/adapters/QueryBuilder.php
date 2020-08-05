@@ -1,49 +1,74 @@
 <?php
-/**
- * Copyright : https://github.com/m1ome/phalcon-datatables
- * Edit & Fix old version (phalcon 2.0.0) to (phalcon +4.0.0)
- * Original Authors : github@m1ome , github@abiosoft , github@duesentrieb26
- * Edited By : github@yassinrais  
- */
-namespace SakuraPanel\Library\DataTable\Adapters;
-use Phalcon\Paginator\Adapter\QueryBuilder as PhalconQueryBuilder;
+
+namespace SakuraPanel\Library\DataTables\Adapters;
+
+use Phalcon\Paginator\Adapter\QueryBuilder as PQueryBuilder;
 
 class QueryBuilder extends AdapterInterface{
+
   protected $builder;
-  public $ignoreUpperCase = false;
+  private $global_search;
+  private $column_search;
+  private $_bind;
+  protected $ingoreUpperCase = false;
+
+
+  public function setIngoreUpperCase($bool = false)
+  {
+    $this->ignoreUpperCase = $bool;
+  }
 
   public function setBuilder($builder) {
     $this->builder = $builder;
   }
 
   public function getResponse() {
-
-    $builder = new PhalconQueryBuilder([
+    $builder = new PQueryBuilder([
       'builder' => $this->builder,
       'limit'   => 1,
       'page'    => 1,
     ]);
-    
+
     $total = $builder->paginate();
+    $this->global_search = [];
+    $this->column_search = [];
 
+    $this->bind('global_search', false, function($column, $search) {
+      $key = "keyg_" . str_replace(".", "", $column);
+
+      $cond = "{$column} LIKE :{$key}:";
+      if ($this->ignoreUpperCase) $cond = "UPPER({$column}) LIKE UPPER(:{$key}:)";
       
-    $this->bind('global_search', function($column, $search) {
-      $this->builder->orWhere((!$this->ignoreUpperCase) ? "{$column} LIKE :key_{$column}:" : "UPPER({$column}) LIKE UPPER(:key_{$column}:)", ["key_{$column}" => "%{$search}%"]);
+      $this->global_search[] = $cond;
+      $this->_bind[$key] = "%{$search}%";
     });
 
-    $this->bind('column_search', function($column, $search) {
-      $this->builder->andWhere((!$this->ignoreUpperCase) ? "{$column} LIKE :key_{$column}:" : "UPPER({$column}) LIKE UPPER(:key_{$column}:)", ["key_{$column}" => "%{$search}%"]);
+    $this->bind('column_search', false, function($column, $search) {
+      $key = "keyc_" . str_replace(" ", "", str_replace(".", "", $column));
+    
+      $cond = "{$column} LIKE :{$key}:";
+      if ($this->ignoreUpperCase) $cond = "UPPER({$column}) LIKE UPPER(:{$key}:)";
+      
+      $this->column_search[] = $cond;
+      $this->_bind[$key] = "%{$search}%";
     });
 
-    $this->bind('order', function($order) {
+    $this->bind('order', false, function($order) {
       if (!empty($order)) {
         $this->builder->orderBy(implode(', ', $order));
       }
     });
 
-    $builder = new PhalconQueryBuilder([
+    if (!empty($this->global_search) || !empty($this->column_search)) {
+      $where = implode(' OR ', $this->global_search);
+      if (!empty($this->column_search))
+        $where = (empty($where) ? '' : ('(' . $where . ') AND ')) . implode(' AND ', $this->column_search);
+      $this->builder->andWhere($where, $this->_bind);
+    }
+
+    $builder = new PQueryBuilder([
       'builder' => $this->builder,
-      'limit'   => $this->parser->getLimit(),
+      'limit'   => $this->parser->getLimit($total->total_items),
       'page'    => $this->parser->getPage(),
     ]);
 

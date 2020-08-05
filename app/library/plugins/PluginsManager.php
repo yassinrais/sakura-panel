@@ -12,7 +12,18 @@ class PluginsManager extends \ControllerBase
 	
 
 	/**
-	 * get page info 
+	 * check plugin info 
+	 * @param $key
+	 * @param $default = null
+	 * @return $info
+	 */
+	public function has($key)
+	{
+		return !empty($this->plugins[$key]);
+	}
+
+	/**
+	 * get plugin info 
 	 * @param $key
 	 * @param $default = null
 	 * @return $info
@@ -23,7 +34,7 @@ class PluginsManager extends \ControllerBase
 	}
 
 	/**
-	 * set page info
+	 * set plugin info
 	 * @param $key
 	 * @param $val
 	 */

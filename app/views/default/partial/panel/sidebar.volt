@@ -23,7 +23,7 @@
               {% if it['sub'] is defined and it['sub'] | length %}
                 <li class="nav-item">
                   <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapse{{ loop.index }}" aria-expanded="true" aria-controls="collapse{{ loop.index }}">
-                    <i class="fas fa-fw fa-cog"></i>
+                    <i class="fas fa-fw fa-{{ it['icon'] }}"></i>
                     <span>{{ it['title'] | e}}</span>
                   </a>
                   <div id="collapse{{ loop.index }}" class="collapse" aria-labelledby="{{ it['title'] | e }}" data-parent="#accordionSidebar">

@@ -14,7 +14,7 @@ $plugin->addRoute(
 	    'controller'=>"\SakuraPanel\Plugins\\${groupName}\Controllers\Plugins",
 	    'action'=>1 , 
 	    'params'=>2 , 
-	    'access' => ['members|admins' => ['*'] ]
+	    'access' => ['admins' => ['*'] ]
 	]
 )->addMenu(
 	"Admin",
@@ -22,22 +22,8 @@ $plugin->addRoute(
 	[
 		"title"=>"Plugins Manager",
 		"icon"=>"fas fa-box",
-		"url"=>"member/plugins",
+		"url"=>"member/plugins/all",
 		"access"=>"admins",
-		"sub"=>[
-			[
-				"title"=>"Installed Plugins",
-				"icon"=>"fas fa-box-open",
-				"url"=>"member/plugins/installed",
-				"access"=>"admins",
-			],
-			[
-				"title"=>"All Plugins",
-				"icon"=>"fas fa-box-open",
-				"url"=>"member/plugins/all",
-				"access"=>"admins",
-			],
-		]
 	]
 );
 
