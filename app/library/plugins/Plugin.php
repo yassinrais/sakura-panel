@@ -210,17 +210,23 @@ class Plugin implements  \SakuraPanel\Library\SharedConstInterface
 			
 			$p = $this->getPluginSysPath($this->name)."views/";
 			if (!is_dir($p)) return false;
+			
+			$scanned_dir = \SakuraPanel\Functions\_fullScanDirs($p.'*');
 
-			foreach (scandir($p) as $file_name) {
+
+			foreach ($scanned_dir as $file) {
+
+
+				$file_name = explode($p, $file)[1];
+				
 				$file_dest = $view_dir . $file_name;
 				$file_source = $p . $file_name;
+				
+				if (is_dir($file_source) && !is_dir($file_dest))
+					mkdir($file_dest, 0775 , true);
 
-				if (!in_array($file_name, ['.','..'])) {
-					if (is_dir($file_source) && !is_dir($file_dest)) {
-						mkdir($file_dest, 0775 , true);
-					}elseif (is_file($file_source))
-						copy($file_source, $file_dest);
-				}
+				if (is_file($file_source))
+					copy($file_source, $file_dest);
 			}
 		}	
 	}

@@ -79,3 +79,31 @@ if (!function_exists('_downloadZipFile')) {
 		return $r;
 	}
 }
+
+if (!function_exists('_sortDirFiles')) {
+	function _sortDirFiles($dir)
+	{
+	        $sortedData = array();
+	        foreach(scandir($dir) as $file)
+	        {
+	                if(is_file($dir.'/'.$file))
+	                        array_push($sortedData, $file);
+	                else
+	                        array_unshift($sortedData, $file);
+	        }
+	        return $sortedData;
+	}
+}
+if ( ! function_exists('_fullScanDirs'))
+{
+    // Does not support flag GLOB_BRACE        
+   function _fullScanDirs($pattern, $flags = 0)
+   {
+     $files = glob($pattern, $flags);
+     foreach (glob(dirname($pattern).'/*', GLOB_ONLYDIR|GLOB_NOSORT) as $dir)
+     {
+       $files = array_merge($files, _fullScanDirs($dir.'/'.basename($pattern), $flags));
+     }
+     return $files;
+   }
+}
