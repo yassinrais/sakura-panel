@@ -212,8 +212,14 @@ class Plugin implements  \SakuraPanel\Library\SharedConstInterface
 			if (!is_dir($p)) return false;
 
 			foreach (scandir($p) as $file_name) {
-				if (!in_array($file_name, ['.','..'])){ // if its not a . .. path : copy files
-					copy($p . $file_name, $view_dir . $file_name);
+				$file_dest = $view_dir . $file_name;
+				$file_source = $p . $file_name;
+
+				if (!in_array($file_name, ['.','..'])) {
+					if (is_dir($file_source) && !is_dir($file_dest)) {
+						mkdir($file_dest, 0775 , true);
+					}elseif (is_file($file_source))
+						copy($file_source, $file_dest);
 				}
 			}
 		}	
@@ -315,7 +321,6 @@ class Plugin implements  \SakuraPanel\Library\SharedConstInterface
  		}
 
 
- 		var_dump($sqlStatus);
  		return true;
  	}
 

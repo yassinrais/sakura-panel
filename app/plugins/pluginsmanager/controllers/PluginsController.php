@@ -21,8 +21,8 @@ use SakuraPanel\Plugins\PluginsManager\Forms\PluginsForm;
 class PluginsController extends MemberControllerBase
 {
 
-	// private $plugins_server = "https://raw.githubusercontent.com/yassinrais/sakura-plugins/master/";
-	private $plugins_server = "http://127.0.0.1:8080/";
+	private $plugins_server = "https://raw.githubusercontent.com/yassinrais/sakura-plugins/master/";
+	// private $plugins_server = "http://127.0.0.1:8080/";
 
 	public function initialize(){
 		parent::initialize();

@@ -30,7 +30,7 @@
                     <div class="bg-sakura py-2 mt-3 collapse-inner ">
                       <h6 class="collapse-header">Sub Menu</h6>
                       {% for sm in it['sub'] %}
-                        <a class="collapse-item" href="{{ sm['url'] | e }}">{{ sm['title'] | e }}</a>
+                        <a class="collapse-item" href="{{ sm['url'] | e }}">{% if sm['icon'] is defined %}<i class="fa-fw {{ sm['icon'] | e }}"></i>{% endif %} {{ sm['title'] | e }}</a>
                       {% endfor %}
                     </div>
                   </div>
