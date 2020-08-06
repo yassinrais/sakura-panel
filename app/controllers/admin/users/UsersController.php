@@ -12,7 +12,7 @@ use SakuraPanel\Models\User\{
 	Users
 };
 
-use SakuraPanel\Library\DataTable\DataTable;
+use SakuraPanel\Library\DataTables\DataTable;
 
 
 /**

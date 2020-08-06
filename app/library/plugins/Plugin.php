@@ -6,7 +6,7 @@ use SakuraPanel\Plugins\PluginsManager\Models\Plugins;
 /**
  * Plugin
  */
-class Plugin
+class Plugin implements  \SakuraPanel\Library\SharedConstInterface
 {
 	protected $title = "Plugin";
 	protected $name = "plugin";
@@ -17,8 +17,11 @@ class Plugin
 	protected $access = "*";
 	protected $routes = [];
 	protected $menus = [];
+	protected $installation_cb;
 
-	private $di;
+
+	protected $sqlFiles = ["install"=>[] , "update"=>[]];
+	protected $di;
 
 	/**
 	 * Init Plugin configs
@@ -135,7 +138,8 @@ class Plugin
 		$this->loadRoutes();
 		$this->loadMenu();
 		$this->checkDb();
-	}
+	} 
+
 
 	/**
 	 * load plugin routes
@@ -233,8 +237,95 @@ class Plugin
 					$this->di->getLogger()->warning(json_encode($plugin));
 				}
 			}
+
+			$this->checkInstallation($plugin);
 		}
 	}
+
+	/**
+	 * method :: checkInstallation
+	 */
+	private function checkInstallation($plugin)
+	{
+		if (!$plugin || $plugin->installed == $this::ACTIVE) return;
+
+		// install files sql
+		$sqlToInstall = $this->sqlFiles['install'] ?? false;
+ 		$sqlStatus = [];
+
+ 		if ($sqlToInstall) {
+ 			// install files
+ 			foreach (is_array($sqlToInstall) ? $sqlToInstall : [$sqlToInstall] as $file) {
+				$sqlStatus[] = (bool) $this->uploadSql($file);
+ 			}
+ 		}
+ 		if (in_array(false, $sqlStatus)) {
+ 			$this->di->get('flashSession')->error("[Plugin : SQL] Plugin `{$this->name}` Installation failed ! ");
+ 			return;
+ 		}
+ 		$plugin->installed = $this::ACTIVE;
+ 		$plugin->save();
+ 	}
+
+
+ 	/**
+ 	 * uploadSql :: read & execute sql files 
+ 	 */
+ 	private function uploadSql($sqlFile)
+ 	{
+		if (is_file($sqlFile)) {
+			try {
+				return $this->execSqlDump(file_get_contents($sqlFile));
+			} catch (Exception $e) {
+				$this->di->getLogger()->error($e->getMessage());
+				return false;
+			}
+		}
+		return false;
+ 	}
+
+
+ 	/**
+ 	 * Execute sql 
+ 	 */
+ 	private function execSqlDump($content)
+ 	{
+ 		if (!$this->di) throw new \Exception("Unknown di factory !");
+ 		
+ 		return $this->di->get('db')->execute($content);
+ 	}
+ 	/**
+ 	 * Delete Plugin
+ 	 */
+ 	public function delete()
+ 	{
+ 		// install files sql
+		$sqlToDelete = $this->sqlFiles['delete'] ?? false;
+ 		$sqlStatus = [];
+
+ 		if ($sqlToDelete) {
+ 			// install files
+ 			foreach (is_array($sqlToDelete) ? $sqlToDelete : [$sqlToDelete] as $file) {
+				$sqlStatus[] = (bool) $this->uploadSql($file);
+ 			}
+ 		}
+ 		if (in_array(false, $sqlStatus)) {
+ 			$this->di->get('flashSession')->error("[Plugin : SQL] Plugin `{$this->name}` Delete failed ! ");
+ 			return false;
+ 		}
+
+
+ 		var_dump($sqlStatus);
+ 		return true;
+ 	}
+
+ 	/**
+ 	 * Add sql o sqlFiles
+ 	 */
+ 	public function addSql(array $files)
+ 	{
+ 		$this->sqlFiles = array_merge_recursive($this->sqlFiles, $files);
+ 	}
 
 	/**
 	 * Helpers

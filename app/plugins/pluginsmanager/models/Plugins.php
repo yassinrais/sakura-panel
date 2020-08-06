@@ -57,6 +57,12 @@ class Plugins extends \ModelBase
      *
      * @var integer
      */
+    public $installed = 0;
+
+    /**
+     *
+     * @var integer
+     */
     public $status;
 
     /**

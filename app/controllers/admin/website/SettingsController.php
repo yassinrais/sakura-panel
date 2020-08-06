@@ -12,7 +12,7 @@ use SakuraPanel\Models\App\{
 	SiteConfigs
 };
 
-use SakuraPanel\Library\DataTable\DataTable;
+use SakuraPanel\Library\DataTables\DataTable;
 
 
 /**

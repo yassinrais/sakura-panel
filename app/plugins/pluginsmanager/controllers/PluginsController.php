@@ -11,7 +11,7 @@ use SakuraPanel\Plugins\PluginsManager\Models\{
 	Plugins
 };
 
-use SakuraPanel\Library\DataTable\DataTable;
+use SakuraPanel\Library\DataTables\DataTable;
 
 use SakuraPanel\Plugins\PluginsManager\Forms\PluginsForm;
 
@@ -21,7 +21,8 @@ use SakuraPanel\Plugins\PluginsManager\Forms\PluginsForm;
 class PluginsController extends MemberControllerBase
 {
 
-	private $plugins_server = "https://raw.githubusercontent.com/yassinrais/sakura-plugins/master/";
+	// private $plugins_server = "https://raw.githubusercontent.com/yassinrais/sakura-plugins/master/";
+	private $plugins_server = "http://127.0.0.1:8080/";
 
 	public function initialize(){
 		parent::initialize();
@@ -191,6 +192,13 @@ class PluginsController extends MemberControllerBase
 				$sys_dir = $this->getPluginSysPath($plugin_name);
 
 				/**
+				 * Delete Plugin (sql)
+				 */
+				$di_plugin = $this->plugins->get($row->name);
+				// if ($di_plugin) 
+					$di_plugin->delete();
+				
+				/**
 				 * Delete plugin folders
 				 */
 				if (is_dir($view_dir)) 
@@ -236,8 +244,8 @@ class PluginsController extends MemberControllerBase
 		if ($row)
 			return $this->ajax->error(strip_tags($row->title).': Plugin Already Installed')->sendResponse();
 
-		if ( !preg_match('/^[a-z0-9]{5,31}$/', $plugin) )
-			return $this->ajax->error("Plugin ".strip_tags($plugin)."Name is invalid !")->sendResponse();
+		if ( !preg_match('/^[a-z0-9]{2,31}$/', $plugin) )
+			return $this->ajax->error("Plugin ".strip_tags($plugin)." Name is invalid !")->sendResponse();
 
 
 		// get plugin info
@@ -265,7 +273,6 @@ class PluginsController extends MemberControllerBase
 					$unzip = $this->unzipPlugin($plugin_info, $zipFileSavePath);
 					if (!$unzip) 
 						return $this->ajax->error('Unzipping plugin failed ! ')->sendResponse();
-
 
 					$row = new Plugins();
 					foreach (['image','name','title','description','author','version','tags'] as $key) {

@@ -28,9 +28,9 @@ class PluginsManager extends \ControllerBase
 	 * @param $default = null
 	 * @return $info
 	 */
-	public function get($key , $default = null)
+	public function get($key)
 	{
-		return $this->plugins[$key] ?? $default;
+		return $this->plugins[$key] ?? false;
 	}
 
 	/**
