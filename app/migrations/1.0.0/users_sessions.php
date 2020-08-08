@@ -77,7 +77,7 @@ class UsersSessionsMigration_100 extends Migration
                 ],
                 'options' => [
                     'TABLE_TYPE' => 'BASE TABLE',
-                    'AUTO_INCREMENT' => '5',
+                    'AUTO_INCREMENT' => '11',
                     'ENGINE' => 'MyISAM',
                     'TABLE_COLLATION' => 'utf8_bin'
                 ],

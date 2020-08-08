@@ -13,16 +13,7 @@ $debug->listen();
 
 
 try {
-    /**
-     * vendor include 
-     */
-    include BASE_PATH . '/vendor/autoload.php';
 
-    /**
-     * Env Loader
-     */
-    $dotenv = Dotenv\Dotenv::createUnsafeImmutable(BASE_PATH);
-    $dotenv->load();
 
     /**
      * The FactoryDefault Dependency Injector automatically registers

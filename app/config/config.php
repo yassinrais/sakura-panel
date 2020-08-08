@@ -8,13 +8,29 @@ defined('BASE_PATH') || define('BASE_PATH', getenv('BASE_PATH') ?: realpath(dirn
 defined('APP_PATH') || define('APP_PATH', BASE_PATH . '/app');
 
 
+/**
+ * vendor include 
+ */
+include BASE_PATH . '/vendor/autoload.php';
+
+/**
+ * Env Loader
+ */
+$dotenv = Dotenv\Dotenv::createUnsafeImmutable(BASE_PATH);
+$dotenv->load();
+
+
+/**
+ * Set Configs
+ */
+
 $configs = array(
     'database' => [
         'adapter'     => getenv('DB_ADAPTER')   ?: 'Mysql',
         'host'        => getenv('DB_HOST')      ?: 'localhost',
         'username'    => getenv('DB_USER')      ?: 'root',
         'password'    => getenv('DB_PASS')      ?: '',
-        'dbname'      => getenv('DB_NAME')      ?: 'sakura_panel',
+        'dbname'      => getenv('DB_NAME')      ?: '',
         'charset'     => getenv('DB_CHARSET')   ?: 'utf8',
     ],
     'application' => [

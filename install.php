@@ -10,6 +10,220 @@ declare(strict_types=1);
 
 
 /**
+ * Install
+ */
+class Install 
+{
+    const SLEEP_TIME = 0;
+    protected $configs = [];
+
+	protected $cache_dirs = [
+		'cache/',
+		'cache/plugins/',
+		'cache/shared/',
+		'cache/global/',
+		'cache/security/',
+		'cache/sessions/',
+        'cache/views/',
+		'.phalcon/',
+	];
+	function __construct()
+	{
+	}
+
+	public function run()
+	{
+        $tests = ['checkPhalcon','createCacheFolders','createEnvFile','checkDatabaseEnv','migrationDatabase'];
+        foreach ($tests as $name) {
+            if (method_exists($this, $name)) {
+                if (!$this->{$name}()){
+                    Console::bell();
+                    Console::line();
+                    exit(Console::print("Please check that you have the minimum requirement !"));
+                }
+            }
+        }
+	}
+ 
+
+	private function createCacheFolders()
+	{
+		Console::line();
+		Console::log('[CACHE] Create cache dirs ...' , "cyan");
+		/**
+		 * Create Cache Dirs
+		 */
+        $tests = [];
+		foreach ($this->cache_dirs as $dir){
+			if (!is_dir($dir)) {
+                $tests[] = $mkdir = mkdir($dir , 0775 , true);
+                if ( $mkdir ) {
+					Console::print(Console::yellow($dir) . Console::green(" > Created !  ") , "CACHE" );
+				}else{
+					Console::print(Console::yellow($dir) . Console::red(" > Creation Failed!") , "CACHE" );
+				}
+			}else{
+				Console::print(Console::yellow($dir) . Console::purple(" > already exists !") , "CACHE" );
+			}
+		}
+        sleep($this::SLEEP_TIME);
+
+        return !in_array(false, $tests);
+	}
+
+	private function checkPhalcon(){
+		Console::print("Check if Phalcon::4.0.3 extension !" ,"EXTENSION","yellow");
+	   
+
+       if (class_exists("\Phalcon\Version")) {
+            $v = explode(".", \Phalcon\Version::get().".");
+
+            if ("{$v[0]}.{$v[1]}" == "4.0") {
+
+                Console::print("The Phalcon Extension version 4.0 exists !","EXTENSION","green");
+                sleep($this::SLEEP_TIME);
+
+                return true;
+            }   
+
+       }
+
+       Console::print("The Phalcon Extension PHP does not exists ! ","EXTENSION","red");
+       return false;
+    }
+
+	private function createEnvFile()
+	{
+		Console::line();
+		$envex = ".env.example";
+		$env = ".env";
+    
+        $this->configs = [];
+
+		if (file_exists($envex)) {
+			
+			$envContent = file_get_contents($envex);
+			if (file_exists($env)) {
+                $env_configs_file = explode("\n", str_replace("\r", "", file_get_contents($env)));
+                foreach ($env_configs_file as $line) {
+                    $c = explode("=", $line."=");
+
+                    $k = $c[0];
+                    $v = $c[1];
+
+                    if (empty($k)) continue;
+                    $v = str_split($v);
+                    $closet = ($v[count($v)-1].$v[0] === '""') ? true : false;
+
+                    $this->configs[$k] = $closet ? substr($c[1], 1 , count($v)-2): $c[1];
+
+                }
+				Console::print(Console::yellow($env) . Console::red(" file already exists !") ,"CONFIGS");
+
+				echo Console::cyan("[CONFIGS] ").Console::yellow("Do you confirm to rewrite the file [N/y] ?");
+                $rewrite = readline();
+				if (!in_array(strtoupper($rewrite), ["Y","YES","OK","CONFIRM"]) || $rewrite === "") {
+					Console::print(Console::bold("Skip"). Console::yellow(" Rewriting file $env") ,"CONFIGS" , "red");
+                    return file_exists($env);
+				}
+			}
+
+            $env_lines = explode("\n", str_replace("\n\n", "\n", str_replace("\r", "", $envContent)));
+            $configs_lines = [];
+
+            Console::print("Rewriting file $env" ,"CONFIGS","yellow");
+            foreach ($env_lines as $line) {
+                $c = explode("=", $line."=");
+
+                $k = $c[0];
+                $v = $c[1];
+
+                if (empty($k)) continue;
+
+                $v = str_split($v);
+                $closet = ($v[count($v)-1].$v[0] === '""') ? true : false;
+                $val =  $closet ? substr($c[1], 1 , count($v)-2): $c[1];
+
+                if (!empty($this->configs[$k])) 
+                    $val = $this->configs[$k];
+
+                echo Console::cyan("[CONFIGS] : ") .Console::purple($k) . " -> Value [".Console::cyan($val)."] : ";
+                $rd = readline();
+
+                $this->configs[$k] = $rd !== "" ? $rd : $val;
+                
+                if ($rd !== "") $val = $rd;
+
+                if (preg_match('/[^a-z_\-0-9]/i', $val)) 
+                    $val = '"'.str_replace("\"", '\"', $rd).'"';
+                
+                $configs_lines[] = "$k=$val";
+            }
+			
+            Console::print("Create `$env` file ... Ctrl + C to cancel ! ","CONFIGS","yellow");
+            sleep($this::SLEEP_TIME); // to give user the control to cancel the cli
+
+            $env_final_content = "";
+            if (file_put_contents($env, implode("\n", $configs_lines))){
+                Console::print("The `$env` file was created successfully !","CONFIGS","green");
+            }else{
+                Console::print("There is a problem creating `$env` file ! ","CONFIGS","red");
+                return false;
+            }
+
+			// read if exists or not
+		}else{
+			Console::print(".env.example file was not found  !" ,"CONFIGS","red");
+		}
+
+
+        return file_exists($env);
+	}
+
+    public function checkDatabaseEnv()
+    {
+        Console::line();
+        $dbName = $this->configs['DB_NAME'] ?? null;
+        $dbHost = $this->configs['DB_HOST'] ?? null;
+        $dbUser = $this->configs['DB_USER'] ?? null;
+        $dbPass = $this->configs['DB_PASS'] ?? null;
+        
+        Console::print("Check Database information ($dbName,$dbHost,$dbUser)  ...","DATABASE","cyan");
+
+        try {
+            $dbConnection = @new mysqli($dbHost , $dbUser , $dbPass , $dbName);
+                
+            if (!$dbConnection->connect_error) 
+                return true;
+            else
+                Console::print(Console::bold((string) $dbConnection->connect_error),"DATABASE","yellow");
+
+        } catch (Exception $e) {
+            Console::print(Console::bold($e->getMessage()),"DATABASE","yellow");
+        }
+        Console::print("Incorrect database information !","DATABASE","red");
+        return !$dbConnection->connect_error;
+    }
+
+    public function migrationDatabase()
+    {
+        Console::print("Migration the models tables to Database  ..." ,"MIGRATION","cyan");
+        Console::print("Execute : `phalcon migration run` ...","MIGRATION","yellow");
+
+        ob_start();
+        system("phalcon migration run");
+        $ex = ob_get_contents();
+        ob_clean();
+
+        $ex = strtolower(preg_replace('/\s\s+/', ' ',$ex));
+
+        return strpos($ex, "up to date");
+    }
+
+}
+
+
+/**
  * CLI Colors
  */
 class Console {
@@ -128,101 +342,18 @@ class Console {
     public static function line($count = 30) {
         echo str_repeat("-", $count)."\n";
     }
- 	
+    
 
-	public static function print($msg , $type = "GENERAL" , $color = "yellow")
-	{
-		Console::log(Console::cyan("[{$type}]") . Console::{$color}(" : $msg"));
-	}
+    public static function print($msg , $type = "GENERAL" , $color = "yellow")
+    {
+        Console::log(Console::cyan("[{$type}] : ") . Console::{$color}("$msg"));
+    }
 }
-/**
- * Install
- */
-class Install 
-{
-	protected $cache_dirs = [
-		'cache/',
-		'cache/plugins/',
-		'cache/shared/',
-		'cache/global/',
-		'cache/security/',
-		'cache/sessions/',
-		'cache/views/',
-	];
-	function __construct()
-	{
-	}
-
-	public function run()
-	{
-		$this->createCacheFolders();
-		$this->createEnvFile();
-	}
- 
-
-	private function createCacheFolders()
-	{
-		Console::line();
-		Console::log('[CACHE] Create cache dirs ...' , "cyan");
-		/**
-		 * Create Cache Dirs
-		 */
-		sleep(1);
-		foreach ($this->cache_dirs as $dir){
-			if (!is_dir($dir)) {
-				if ( mkdir($dir , 0775 , true) ) {
-					Console::print("Create $dir Done !  " , "CACHE" , "green");
-				}else{
-					Console::print("Create $dir Failed!  " , "CACHE" , "red");
-				}
-			}else{
-				Console::print("$dir already existed !  " , "CACHE" , "purple");
-			}
-		}
-
-		Console::bell();
-	}
-
-	private function checkPhalcon(){
-		Console::print("Check if Phalcon::4.0.3 extension !" ,"CONFIGS","red");
-	}
-
-	private function createEnvFile()
-	{
-		Console::line();
-		$envex = ".env.example";
-		$env = ".env";
-
-		if (file_exists($envex)) {
-			
-			$envContent = file_get_contents($envex);
-
-			if (file_exists($env)) {
-				Console::print("$env file already existed !" ,"CONFIGS","red");
-
-				Console::print(Console::yellow("Do you confirm to rewrite the file ? ","CONFIGS"));
-				$rewrite = readline();
-				if (!in_array(strtoupper($rewrite), ["Y","YES","OK","CONFIRM"])) {
-					Console::print(Console::bold("Skip"). Console::yellow(" Rewriting file $env") ,"CONFIGS" , "red");
-					return;
-				}
-			}
-			Console::print("Rewriting file $env" ,"CONFIGS","yellow");
-			sleep(2); // to give user the control to cancel the cli
-
-			// read if existed
-
-		}else{
-			Console::print(".env.example file was nout founded  !" ,"CONFIGS","red");
-		}
-	}
-
-}
-
-
 /**
  * Run installer 
  */
 $installer = new Install();
 
 $installer->run();
+
+

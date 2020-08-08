@@ -6,9 +6,9 @@ use Phalcon\Db\Reference;
 use Phalcon\Migrations\Mvc\Model\Migration;
 
 /**
- * Class UsersMigration_102
+ * Class PluginsMigration_100
  */
-class UsersMigration_102 extends Migration
+class PluginsMigration_100 extends Migration
 {
     /**
      * Define the table structure
@@ -17,7 +17,7 @@ class UsersMigration_102 extends Migration
      */
     public function morph()
     {
-        $this->morphTable('users', [
+        $this->morphTable('plugins', [
                 'columns' => [
                     new Column(
                         'id',
@@ -30,40 +30,55 @@ class UsersMigration_102 extends Migration
                         ]
                     ),
                     new Column(
-                        'username',
+                        'name',
                         [
                             'type' => Column::TYPE_VARCHAR,
                             'notNull' => true,
-                            'size' => 100,
+                            'size' => 255,
                             'after' => 'id'
                         ]
                     ),
                     new Column(
-                        'email',
+                        'title',
                         [
                             'type' => Column::TYPE_VARCHAR,
                             'notNull' => true,
                             'size' => 255,
-                            'after' => 'username'
+                            'after' => 'name'
                         ]
                     ),
                     new Column(
-                        'password',
+                        'description',
                         [
-                            'type' => Column::TYPE_VARCHAR,
-                            'notNull' => true,
-                            'size' => 255,
-                            'after' => 'email'
+                            'type' => Column::TYPE_TEXT,
+                            'size' => 1,
+                            'after' => 'title'
                         ]
                     ),
                     new Column(
-                        'role_name',
+                        'author',
                         [
                             'type' => Column::TYPE_VARCHAR,
-                            'default' => "geust",
-                            'notNull' => true,
+                            'default' => "Unknown",
                             'size' => 255,
-                            'after' => 'password'
+                            'after' => 'description'
+                        ]
+                    ),
+                    new Column(
+                        'version',
+                        [
+                            'type' => Column::TYPE_VARCHAR,
+                            'default' => "v1.0.0",
+                            'size' => 10,
+                            'after' => 'author'
+                        ]
+                    ),
+                    new Column(
+                        'image',
+                        [
+                            'type' => Column::TYPE_TEXT,
+                            'size' => 1,
+                            'after' => 'version'
                         ]
                     ),
                     new Column(
@@ -72,17 +87,8 @@ class UsersMigration_102 extends Migration
                             'type' => Column::TYPE_INTEGER,
                             'default' => "0",
                             'notNull' => true,
-                            'size' => 2,
-                            'after' => 'role_name'
-                        ]
-                    ),
-                    new Column(
-                        'fullname',
-                        [
-                            'type' => Column::TYPE_VARCHAR,
-                            'default' => "Unnamed",
-                            'size' => 255,
-                            'after' => 'status'
+                            'size' => 1,
+                            'after' => 'image'
                         ]
                     ),
                     new Column(
@@ -91,15 +97,15 @@ class UsersMigration_102 extends Migration
                             'type' => Column::TYPE_INTEGER,
                             'default' => "0",
                             'notNull' => true,
-                            'size' => 11,
-                            'after' => 'fullname'
+                            'size' => 255,
+                            'after' => 'status'
                         ]
                     ),
                     new Column(
                         'created_ip',
                         [
                             'type' => Column::TYPE_VARCHAR,
-                            'size' => 100,
+                            'size' => 200,
                             'after' => 'created_at'
                         ]
                     ),
@@ -109,7 +115,7 @@ class UsersMigration_102 extends Migration
                             'type' => Column::TYPE_INTEGER,
                             'default' => "0",
                             'notNull' => true,
-                            'size' => 11,
+                            'size' => 255,
                             'after' => 'created_ip'
                         ]
                     ),
@@ -117,7 +123,7 @@ class UsersMigration_102 extends Migration
                         'updated_ip',
                         [
                             'type' => Column::TYPE_VARCHAR,
-                            'size' => 100,
+                            'size' => 200,
                             'after' => 'updated_at'
                         ]
                     )
@@ -127,7 +133,7 @@ class UsersMigration_102 extends Migration
                 ],
                 'options' => [
                     'TABLE_TYPE' => 'BASE TABLE',
-                    'AUTO_INCREMENT' => '2',
+                    'AUTO_INCREMENT' => '14',
                     'ENGINE' => 'MyISAM',
                     'TABLE_COLLATION' => 'utf8_bin'
                 ],
