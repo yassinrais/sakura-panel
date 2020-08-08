@@ -14,8 +14,9 @@ declare(strict_types=1);
  */
 class Install 
 {
-    const SLEEP_TIME = 0;
+    const SLEEP_TIME = 2;
     protected $configs = [];
+    protected $info ;
 
 	protected $cache_dirs = [
 		'cache/',
@@ -27,15 +28,55 @@ class Install
         'cache/views/',
 		'.phalcon/',
 	];
-	function __construct()
+	
+    function __construct()
 	{
+        $this->info = $this->getConfigs();
 	}
 
+    public function getConfigs()
+    {
+        $f = @file_get_contents('composer.json') ?: null;
+        if (!is_null($f)) {
+            try {
+                $c = json_decode($f);
+                return $c;
+            } catch (Exception $e) {
+                
+            }
+        }
+
+        return (object) [ 'description'=>'Sakura Panel Project','version'=>'1.0.0','license'=>'MIT' ,
+        'authors'=>(object) [
+            ['name'=>'Yassine Rais']
+        ]];
+    }
 	public function run()
 	{
-        $tests = ['checkPhalcon','createCacheFolders','createEnvFile','checkDatabaseEnv','migrationDatabase'];
+        Console::line(intval(strlen($this->info->description) *1.2),'.');
+        Console::bell();
+        Console::print(Console::light_cyan($this->info->description),"SAKURA");
+        Console::print(Console::light_cyan("Version : ".$this->info->version),"SAKURA");
+        Console::print(Console::light_cyan("License : ".$this->info->license),"SAKURA");
+        Console::print(Console::light_cyan("Author  : ".$this->info->authors[0]->name),"SAKURA");
+        Console::line(intval(strlen($this->info->description) *1.2),'.');
+        echo "\n";
+        Console::line(40,'-');
+        Console::print(Console::light_green("Start Installation ! "),"SAKURA");
+        Console::print(Console::yellow("Thanks you for using Sakura Panel !"),"SAKURA");
+        Console::line(40,'-');
+        echo Console::cyan("[SAKURA] : "). Console::green("Do you Confirm To Start Installation [N/y] ?");
+        
+        if (!in_array(strtoupper(readline()), ["YES","Y","OK"])) {
+            Console::bell();
+            Console::print("The Installation was cancelled ! ","SAKURA","green");
+            return;
+        }
+
+        $tests = ['checkPhalcon','createCacheFolders','createEnvFile','checkDatabaseEnv','migrationDatabase','composerInstaller'];
         foreach ($tests as $name) {
             if (method_exists($this, $name)) {
+                Console::line(1,"\n");
                 if (!$this->{$name}()){
                     Console::bell();
                     Console::line();
@@ -43,13 +84,23 @@ class Install
                 }
             }
         }
+
+        Console::line(1,"\n");
+        Console::line(40,'-');
+        Console::bell();
+        Console::print(Console::light_green("Installation was successfully !"),"SAKURA");
+        Console::print("Enjoy Sakura Panel ♥","SAKURA","purple");
+        Console::print(Console::yellow("Thanks you for using Sakura Panel !"),"SAKURA");
+        Console::print(Console::bold("Dont Forget to support us ♥ ! "),"SAKURA","red");
+        Console::print(Console::bold("https://neutrapp.com/page/sakura"),"SAKURA","cyan");
+        Console::line(40,'-');
 	}
  
 
 	private function createCacheFolders()
 	{
 		Console::line();
-		Console::log('[CACHE] Create cache dirs ...' , "cyan");
+		Console::log('[CACHE] Create cache dirs ...' , "yellow");
 		/**
 		 * Create Cache Dirs
 		 */
@@ -188,26 +239,31 @@ class Install
         $dbUser = $this->configs['DB_USER'] ?? null;
         $dbPass = $this->configs['DB_PASS'] ?? null;
         
-        Console::print("Check Database information ($dbName,$dbHost,$dbUser)  ...","DATABASE","cyan");
+        Console::print("Check Database information ($dbName,$dbHost,$dbUser)  ...","DATABASE","yellow");
 
         try {
             $dbConnection = @new mysqli($dbHost , $dbUser , $dbPass , $dbName);
                 
             if (!$dbConnection->connect_error) 
-                return true;
+                {
+                    Console::print("Database information are correct !","DATABASE","red");
+                    return true;
+                }            
             else
-                Console::print(Console::bold((string) $dbConnection->connect_error),"DATABASE","yellow");
+                Console::print(Console::bold((string) $dbConnection->connect_error),"DATABASE","red");
 
         } catch (Exception $e) {
-            Console::print(Console::bold($e->getMessage()),"DATABASE","yellow");
+            Console::print(Console::bold($e->getMessage()),"DATABASE","red");
         }
+
         Console::print("Incorrect database information !","DATABASE","red");
         return !$dbConnection->connect_error;
     }
 
     public function migrationDatabase()
     {
-        Console::print("Migration the models tables to Database  ..." ,"MIGRATION","cyan");
+        Console::line();
+        Console::print("Migration the models tables to Database  ..." ,"MIGRATION","yellow");
         Console::print("Execute : `phalcon migration run` ...","MIGRATION","yellow");
 
         ob_start();
@@ -217,7 +273,25 @@ class Install
 
         $ex = strtolower(preg_replace('/\s\s+/', ' ',$ex));
 
-        return strpos($ex, "up to date");
+        Console::print($ex, "MIGRATION","light_gray");
+        return strpos($ex, "up to date") > -1 || strpos($ex, "successfully");
+    }
+
+    public function composerInstaller()
+    {
+        Console::line();
+        Console::print("Composer Installer  ..." ,"COMPOSER","yellow");
+        Console::print("Execute : `phalcon migration run` ...","COMPOSER","yellow");
+
+        ob_start();
+        system("composer install");
+        $ex = ob_get_contents();
+        ob_clean();
+
+        $ex = strtolower(preg_replace('/\s\s+/', ' ',$ex));
+
+        Console::print($ex, "COMPOSER","light_gray");
+        return strpos($ex, "nothing to install or update") > -1 || strpos($ex, "generating autoload files");
     }
 
 }
@@ -339,8 +413,8 @@ class Console {
      * @param  integer $count Bell play count
      * @return string         Bell play string
      */
-    public static function line($count = 30) {
-        echo str_repeat("-", $count)."\n";
+    public static function line($count = 40 , $char = '-') {
+        echo str_repeat($char, $count)."\n";
     }
     
 
