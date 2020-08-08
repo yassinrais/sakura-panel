@@ -73,7 +73,7 @@ class Install
             return;
         }
 
-        $tests = ['checkPhalcon','createCacheFolders','createEnvFile','checkDatabaseEnv','migrationDatabase','composerInstaller'];
+        $tests = ['checkPhalcon','createCacheFolders','createEnvFile','checkDatabaseEnv','migrationDatabase'];
         foreach ($tests as $name) {
             if (method_exists($this, $name)) {
                 Console::line(1,"\n");
@@ -275,23 +275,6 @@ class Install
 
         Console::print($ex, "MIGRATION","light_gray");
         return strpos($ex, "up to date") > -1 || strpos($ex, "successfully");
-    }
-
-    public function composerInstaller()
-    {
-        Console::line();
-        Console::print("Composer Installer  ..." ,"COMPOSER","yellow");
-        Console::print("Execute : `phalcon migration run` ...","COMPOSER","yellow");
-
-        ob_start();
-        system("composer install");
-        $ex = ob_get_contents();
-        ob_clean();
-
-        $ex = strtolower(preg_replace('/\s\s+/', ' ',$ex));
-
-        Console::print($ex, "COMPOSER","light_gray");
-        return strpos($ex, "nothing to install or update") > -1 || strpos($ex, "generating autoload files");
     }
 
 }
