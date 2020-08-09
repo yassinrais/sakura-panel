@@ -42,25 +42,6 @@ $configs['route_groups'] = array(
 
 
 
-        'users'=>[
-                'url'=>['/#/@/','/#/@', '/#/@/:action', '/#/@/:action/:params'],
-                'controller'=>'\SakuraPanel\Controllers\Admin\Users\Users',
-                'action'=> 1 , 
-                'params'=> 2 , 
-                'access' => ['admins' => ['*'] ]
-        ],
-
-
-        'website-settings'=>[
-                'url'=>['/#/@/','/#/@', '/#/@/:action', '/#/@/:action/:params'],
-                'controller'=>'\SakuraPanel\Controllers\Admin\Website\Settings',
-                'action'=> 1 , 
-                'params'=> 2 , 
-                'access' => ['admins' => ['*'] ]
-        ],
-
-
-
 
         'logout'=>[
                 'url'=>['/#/@','/#/@/','/#/@/:params'],
@@ -82,5 +63,26 @@ $configs['route_groups'] = array(
         ],
 
     ],
+
+
+    "admin"=>[
+
+        'users'=>[
+                'url'=>['/#/@/','/#/@', '/#/@/:action', '/#/@/:action/:params'],
+                'controller'=>'\SakuraPanel\Controllers\Admin\Users\Users',
+                'action'=> 1 , 
+                'params'=> 2 , 
+                'access' => ['admins' => ['*'] ]
+        ],
+
+        'website-settings'=>[
+                'url'=>['/#/@/','/#/@', '/#/@/:action', '/#/@/:action/:params'],
+                'controller'=>'\SakuraPanel\Controllers\Admin\Website\Settings',
+                'action'=> 1 , 
+                'params'=> 2 , 
+                'access' => ['admins' => ['*'] ]
+        ],
+
+    ]
      
 );
