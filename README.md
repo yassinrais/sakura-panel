@@ -26,7 +26,8 @@
 1. You need to install Php(+^7.2) and Phalcon (+^4.0.1) on your *machine*
 2. git clone [https://github.com/yassinrais/sakura-panel.git](https://github.com/yassinrais/sakura-panel.git) repository into your *machine*
 3. Run ``composer install`` to install php dependencies (vendor)
-4. Copy ``.env.example`` to ``.env`` and edit the configs
+3. (**for Unix OS**) Run ``chmod +x ./sakura-cli.sh`` , ``./sakura-cli.sh`` With *cli/bash*
+5. (**for Windows OS**) Run ``sakura-cli.bat`` with *cmd/powershell*
 5. Enjoy ! Sakura Panel ♥ 
 
 
