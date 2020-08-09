@@ -41,7 +41,7 @@ class SettingsController extends MemberControllerBase
 		$row = SiteConfigs::findFirstById($id);
 		if (!$row) {
 			$this->flashSession->error('Unknown config ID: '.intval($id));
-			return $this->response->redirect('member/website-settings');
+			return $this->response->redirect('admin/website-settings');
 		}
 		
 		$form = new SiteConfigsForm($row);
@@ -59,7 +59,7 @@ class SettingsController extends MemberControllerBase
 
 				if ($row->save()) {
 					$this->flashSession->success('Config Updated Successffully ');
-					return $this->response->redirect('member/website-settings');
+					return $this->response->redirect('admin/website-settings');
 				}else{
 					$this->flashSession->error('Error !' . implode(" & ", $row->getMessages()));
 				}
@@ -95,12 +95,12 @@ class SettingsController extends MemberControllerBase
 
           $dataTables->addCustomColumn('actions' , function ($key , $data)
           {
-          	return "<a class='btn btn-info btn-sakura btn-sm' href='member/website-settings/edit/$data[id]'><i class='fa fa-pencil'></i>Edit</a>";
+          	return "<a class='btn btn-info btn-sakura btn-sm' href='admin/website-settings/edit/$data[id]'><i class='fa fa-pencil'></i>Edit</a>";
           });
 
           $dataTables->sendResponse();
         }else{
-        	return $this->response->redirect('member/website-settings');
+        	return $this->response->redirect('admin/website-settings');
         }
 	}
 
