@@ -1,55 +1,72 @@
 <?php
 declare(strict_types=1);
 
+/**
+ * Phalcon depend
+ */
 use \Phalcon\Mvc\Model;
-use \SakuraPanel\Library\SharedConstInterface;
-use Phalcon\Mvc\Model\Behavior\SoftDelete;
+use \Phalcon\Mvc\Model\Behavior\SoftDelete;
 
+/**
+ * Sakura Shared const list
+ */
+use \SakuraPanel\Library\SharedConstInterface;
+
+/**
+ * This is the base model for all used models 
+ * features:
+ * 		dynamic auto fill date create/update/delete
+ *		dynamic safe delete rows
+ *		dynamic set ip 
+ *		status decode (getStatusInfo / isActive)
+ *		Sahred constant from SharedConstInterface
+ */
 class ModelBase extends Model implements SharedConstInterface
 {
 
 	protected $client_ip;
 
-	public function skipAllAttributes()
-	{
-		$metadata = $this->getModelsMetaData();
-		$attributes = $metadata->getAttributes($this);
-
-		$this->skipAttributes($attributes);
-	}
-
-	public function getSourceByName($name = null)
+	/**
+	 * Get the table name 
+	 * @param $name : string 
+	 * @return $name : string
+	 */
+	public function getSourceByName(string $name = null): string
 	{
 		return $this->getDI()->getConfig()->tables->{$name} ?? $name;
 	}
 
-
+	/**
+	 * Dynamic Method to auto fill created_* columns
+	 */
 	public function beforeCreate()
 	{
-	 	if (!empty($this->created_at) || isset($this->created_at)) {
+	 	if (property_exists(self::class, 'created_at') || !empty($this->created_at) || isset($this->created_at)) {
 			// Set the creation date / ip
 		    $this->created_at = (int) time();
 		    $this->created_ip = $this->getIp();
 		}
 
 	}
-
+	/**
+	 * Dynamic Method to auto fill updated_* columns
+	 */
 	public function beforeUpdate()
 	{
 
-		if (!empty($this->updated_at) || isset($this->updated_at)) {
+	 	if (property_exists(self::class, 'updated_at') || !empty($this->updated_at) || isset($this->updated_at)) {
 		    $this->updated_at = (int) time();
 		    $this->updated_ip = $this->getIp();
 		}
 
 	}
 
-
-	public function beforeDelete(){
-
-
-
-        if (!empty($this->_safe_delete) && $this->_safe_delete == true) {
+	/**
+	 * Dynamic Method to auto Safe Delete & Fill updated_* columns
+	 */
+	public function beforeDelete()
+	{
+        if (property_exists(self::class, '_safe_delete') && !empty($this->_safe_delete) && $this->_safe_delete == true) {
 
               $this->addBehavior(
                     new SoftDelete([    'field' => 'status',        'value' => $this::DELETED     ])
@@ -63,35 +80,43 @@ class ModelBase extends Model implements SharedConstInterface
 
         }
 	
-  }
+    }
 
 
 	/**
-	* @return $ip : string
-	*/
-	public function getIp()
+	 * Getter clinet_ip 
+	 * @return $ip : string
+	 */
+	public function getIp() : string
 	{
 	    return $this->client_ip ?: "Unknown";
 	}
 	
 	/**
-	* @param $request / $ip
-	*/
-	public function setIp($request=null)
+	 * Setter client_ip
+	 * @param $request / $ip : mixed
+	 */
+	public function setIp($request=null) : void
 	{
 	    $this->client_ip = is_string($request) ? $request : ((!is_null($request) && !empty($request->getClientAddress())) ? $request->getClientAddress() : null);
 	} 
 
 
 	/**
-	 * get status by id
+	 * get status info by self::status
+	 * @return $status : object
 	 */
-	public function getStatusInfo()
+	public function getStatusInfo() : object
 	{
 		return self::getStatusById($this->status);
 	}
 
-	public static function getStatusById($status)
+	/**
+	 * Static :: Get Status by the id
+	 * @param $status : mixed
+	 * @return $status : object 
+	 */
+	public static function getStatusById($status) : object
 	{
 		$info = (object) [
 			'title'=>'Unknown',
