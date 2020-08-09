@@ -9,17 +9,12 @@ use \SakuraPanel\Library\SharedConstInterface;
 class ControllerBase extends Controller implements SharedConstInterface
 {
 
-	public function jsonStatus($status ='success', $msg ='Unknown msg! ',$type = 'success')
-	{
-		return [
-  			'type'=>$type,
-  			'msg'=>$msg,
-  			'status'=>$status,
-  		];
-	}
-
-
-	public function cleanPath(string $path)
+	/**
+	 * Clean Path slashDupicate
+	 * @param $path : string
+	 * @return $path_clean : string
+	 */
+	public function cleanPath(string $path) : string
 	{
 		return preg_replace('#/+#','/',$path);
 	}

@@ -16,7 +16,8 @@ class Install
 {
     const SLEEP_TIME = 2;
     protected $configs = [];
-    protected $info ;
+    protected $info;
+    protected $db;
 
 	protected $cache_dirs = [
 		'cache/',
@@ -73,7 +74,7 @@ class Install
             return;
         }
 
-        $tests = ['checkPhalcon','createCacheFolders','createEnvFile','checkDatabaseEnv','migrationDatabase'];
+        $tests = ['checkPhalcon','createCacheFolders','createEnvFile','checkDatabaseEnv','migrationDatabase','createAdminAccount'];
         foreach ($tests as $name) {
             if (method_exists($this, $name)) {
                 Console::line(1,"\n");
@@ -243,7 +244,7 @@ class Install
 
         try {
             $dbConnection = @new mysqli($dbHost , $dbUser , $dbPass , $dbName);
-                
+            $this->db = $dbConnection;
             if (!$dbConnection->connect_error) 
                 {
                     Console::print("Database information are correct !","DATABASE","red");
@@ -277,6 +278,34 @@ class Install
         return strpos($ex, "up to date") > -1 || strpos($ex, "successfully");
     }
 
+    public function createAdminAccount()
+    {
+        Console::line();
+        Console::print("Create an Administrator account ..." ,"ADMIN","yellow");
+
+        $inputs = [
+            'fullname'=>'Full Name',
+            'email'=>'Email',
+            'password'=>'Password',
+            'cpassword'=>'Confirm Password',
+        ];
+
+        if (!$this->db) {
+            Console::print('Db Connection missed ! ','ADMIN','red');
+            return false;
+        }
+
+        $user = [];
+
+        foreach ($inputs as $key => $title) {
+            echo Console::yellow('Enter '.$title.' : ');
+            $user[$key] = readline();
+        }
+
+
+        var_dump($user);
+        exit;
+    }
 }
 
 

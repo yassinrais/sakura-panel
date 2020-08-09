@@ -1,7 +1,7 @@
 $('#users-dataTable').DataTable({
     serverSide: true,
     ajax: {
-        url: '/member/users/ajax',
+        url: '/admin/users/ajax',
         method: 'POST'
     },
     columns: [
@@ -13,7 +13,7 @@ $('#users-dataTable').DataTable({
 $('#wsettings-dataTable').DataTable({
     serverSide: true,
     ajax: {
-        url: '/member/website-settings/ajax',
+        url: '/admin/website-settings/ajax',
         method: 'POST'
     },
     columns: [
