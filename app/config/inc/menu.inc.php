@@ -25,7 +25,7 @@ $configs['menu'] = [
 			"users"=>[
 				"title"=>"Users",
 				"icon"=>"fas fa-users",
-				"url"=>"member/users",
+				"url"=>"admin/users",
 
 
 				"access"=>"admins",
@@ -34,7 +34,7 @@ $configs['menu'] = [
 			"website-settings"=>[
 				"title"=>"Website Settings",
 				"icon"=>"fas fa-cogs",
-				"url"=>"member/website-settings",
+				"url"=>"admin/website-settings",
 
 
 				"access"=>"admins",
