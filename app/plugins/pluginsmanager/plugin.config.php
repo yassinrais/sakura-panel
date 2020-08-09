@@ -7,10 +7,10 @@ $plugin = new Plugin();
 $plugin->initPluginByJson(dirname(__FILE__)."/plugin.config.json");
 
 $plugin->addRoute(
-	"member", 
+	"admin", 
 	"plugins" ,
 	[
-		'url'=>['/#/@','/#/@/','/#/@/:action','/#/@/:action/:params'],
+		'url'=>['/#/@/:action','/#/@/:action/:params'],
 	    'controller'=>"\SakuraPanel\Plugins\\${groupName}\Controllers\Plugins",
 	    'action'=>1 , 
 	    'params'=>2 , 
@@ -22,7 +22,7 @@ $plugin->addRoute(
 	[
 		"title"=>"Plugins Manager",
 		"icon"=>"fas fa-box",
-		"url"=>"member/plugins/all",
+		"url"=>"admin/plugins/all",
 		"access"=>"admins",
 	]
 );
