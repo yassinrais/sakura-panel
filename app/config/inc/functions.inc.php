@@ -4,7 +4,6 @@ namespace SakuraPanel\Functions;
 /**
  * Delete dir : danger dont please put an empty path : else you will remove your root 
  */
-
 if (!function_exists('_deleteDir')) 
 {
 	function _deleteDir(string $path) {
@@ -18,6 +17,9 @@ if (!function_exists('_deleteDir'))
 
 }
 
+/**
+ * Check if an url file is a zip by reading first 4 bytes
+ */
 if (!function_exists('_isUrlAZipFile')) {
 	function _isUrlAZipFile(string $url)
 	{
@@ -56,7 +58,9 @@ if (!function_exists('_isUrlAZipFile')) {
 	}
 }
 
-
+/**
+ * Download a file zip by usin two methods : curl or file_get_contents
+ */
 if (!function_exists('_downloadZipFile')) {
 	function _downloadZipFile(string $url, string $filepath){
 		$fp = fopen($filepath, 'w+');
@@ -80,6 +84,9 @@ if (!function_exists('_downloadZipFile')) {
 	}
 }
 
+/**
+ * Scan & Sroted Dirs/Files by order racine to sub files
+ */
 if (!function_exists('_sortDirFiles')) {
 	function _sortDirFiles($dir)
 	{
@@ -94,6 +101,10 @@ if (!function_exists('_sortDirFiles')) {
 	        return $sortedData;
 	}
 }
+
+/**
+ * Full Scan dir by pattern & $flags
+ */
 if ( ! function_exists('_fullScanDirs'))
 {
     // Does not support flag GLOB_BRACE        
@@ -106,4 +117,13 @@ if ( ! function_exists('_fullScanDirs'))
      }
      return $files;
    }
+}
+
+/**
+ * Remove Duplicate slashes in a path
+ */
+if (!function_exists('_cleanPath')) {
+	function _cleanPath(string $path){
+		return preg_replace('#/+#','/',$path);
+	}
 }
