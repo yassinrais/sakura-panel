@@ -1,6 +1,9 @@
 <?php 
+declare(strict_types=1);
 
 namespace SakuraPanel\Library\Plugins;
+
+
 use SakuraPanel\Plugins\PluginsManager\Models\Plugins;
 
 /**
@@ -343,11 +346,11 @@ class Plugin implements  \SakuraPanel\Library\SharedConstInterface
 	 */
 	public function getPluginViewPath()
 	{
-		return $this::cleanPath($this->di->getConfig()->application->viewsDir . "/plugins/{$this->name}/");
+		return \SakuraPanel\Functions\_cleanPath($this->di->getConfig()->application->viewsDir . "/plugins/{$this->name}/");
 	}
 	public function getPluginSysPath()
 	{
-		return $this::cleanPath($this->di->getConfig()->application->pluginsDir . "/{$this->name}/");
+		return \SakuraPanel\Functions\_cleanPath($this->di->getConfig()->application->pluginsDir . "/{$this->name}/");
 	}
 
 	public function cleanPath(string $path)
