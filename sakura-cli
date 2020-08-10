@@ -8,16 +8,70 @@ declare(strict_types=1);
  * 
  */
 
+use Phalcon\Di\FactoryDefault;
+
+define('BASE_PATH', dirname(__FILE__));
+define('APP_PATH', BASE_PATH . '/app');
+
+
+
+/**
+ * Di factory to load models
+ */
+$di = new FactoryDefault();
+
+
+/**
+ * Read services
+ */
+include APP_PATH . '/config/services.php';
+
+/**
+ * Get config service for use in inline setup below
+ */
+$config = $di->getConfig();
+
+/**
+ * Include Autoloader
+ */
+include APP_PATH . '/config/loader.php';
+
+
+/**
+ * 
+ * Run installer 
+ * 
+ */
+$installer = new Install();
+
+$installer->run(
+    getopt('a:')['a'] ?? 'unknown'
+);
+
+
+
+
+
+
+/*******
+ *****
+ ****
+ * Installer / Console Class
+ ****
+ *****
+ *******/
+
 
 /**
  * Install
  */
 class Install 
 {
-    const SLEEP_TIME = 2;
+    const SLEEP_TIME = 0;
     protected $configs = [];
     protected $info;
     protected $db;
+    protected $user;
 
 	protected $cache_dirs = [
 		'cache/',
@@ -34,6 +88,36 @@ class Install
 	{
         $this->info = $this->getConfigs();
 	}
+
+	public function run($action = "install")
+	{
+        Console::line(intval(strlen($this->info->description) *1.2),'.');
+        Console::print(Console::light_cyan($this->info->description),"SAKURA");
+        Console::print(Console::light_cyan("Version : ".$this->info->version),"SAKURA");
+        Console::print(Console::light_cyan("License : ".$this->info->license),"SAKURA");
+        Console::print(Console::light_cyan("Author  : ".$this->info->authors[0]->name),"SAKURA");
+        Console::line(intval(strlen($this->info->description) *1.2),'.');
+        echo "\n";
+        
+        switch ($action) {
+            case 'install':
+                $this->startInstallation();
+                break;
+            case 'adduser':
+                if (!$this->readEnvConfigs()) return;
+                if (!$this->checkDatabaseEnv()) return;
+                if (!$this->createAdminAccount()) return;
+                break;
+            case 'help':
+                $this->printSakuraHelp();
+                break;
+            default:
+                exit(Console::print("Unknown Action `{$action}` ! Failed ."));
+                break;
+        }
+
+	}
+
 
     public function getConfigs()
     {
@@ -52,16 +136,9 @@ class Install
             ['name'=>'Yassine Rais']
         ]];
     }
-	public function run()
-	{
-        Console::line(intval(strlen($this->info->description) *1.2),'.');
-        Console::bell();
-        Console::print(Console::light_cyan($this->info->description),"SAKURA");
-        Console::print(Console::light_cyan("Version : ".$this->info->version),"SAKURA");
-        Console::print(Console::light_cyan("License : ".$this->info->license),"SAKURA");
-        Console::print(Console::light_cyan("Author  : ".$this->info->authors[0]->name),"SAKURA");
-        Console::line(intval(strlen($this->info->description) *1.2),'.');
-        echo "\n";
+     
+    public function startInstallation()
+    {
         Console::line(40,'-');
         Console::print(Console::light_green("Start Installation ! "),"SAKURA");
         Console::print(Console::yellow("Thanks you for using Sakura Panel !"),"SAKURA");
@@ -74,7 +151,7 @@ class Install
             return;
         }
 
-        $tests = ['checkPhalcon','createCacheFolders','createEnvFile','checkDatabaseEnv','migrationDatabase','createAdminAccount'];
+        $tests = ['checkPhalcon','createCacheFolders','createEnvFile','checkDatabaseEnv','migrationDatabase'];
         foreach ($tests as $name) {
             if (method_exists($this, $name)) {
                 Console::line(1,"\n");
@@ -83,6 +160,8 @@ class Install
                     Console::line();
                     exit(Console::print("Please check that you have the minimum requirement !"));
                 }
+            }else{
+                exit(Console::print("Method $name does not exists !"));
             }
         }
 
@@ -95,9 +174,7 @@ class Install
         Console::print(Console::bold("Dont Forget to support us ♥ ! "),"SAKURA","red");
         Console::print(Console::bold("https://neutrapp.com/page/sakura"),"SAKURA","cyan");
         Console::line(40,'-');
-	}
- 
-
+    }
 	private function createCacheFolders()
 	{
 		Console::line();
@@ -144,6 +221,26 @@ class Install
        return false;
     }
 
+    public function readEnvConfigs()
+    {
+        $env_configs_file = explode("\n", str_replace("\r", "", file_get_contents(".env")));
+        foreach ($env_configs_file as $line) {
+            $c = explode("=", $line."=");
+
+            $k = $c[0];
+            $v = $c[1];
+
+            if (empty($k)) continue;
+            $v = str_split($v);
+            $closet = ($v[count($v)-1].$v[0] === '""') ? true : false;
+
+            $this->configs[$k] = $closet ? substr($c[1], 1 , count($v)-2): $c[1];
+
+        }
+
+
+        return file_exists(".env");
+    }
 	private function createEnvFile()
 	{
 		Console::line();
@@ -156,21 +253,8 @@ class Install
 			
 			$envContent = file_get_contents($envex);
 			if (file_exists($env)) {
-                $env_configs_file = explode("\n", str_replace("\r", "", file_get_contents($env)));
-                foreach ($env_configs_file as $line) {
-                    $c = explode("=", $line."=");
-
-                    $k = $c[0];
-                    $v = $c[1];
-
-                    if (empty($k)) continue;
-                    $v = str_split($v);
-                    $closet = ($v[count($v)-1].$v[0] === '""') ? true : false;
-
-                    $this->configs[$k] = $closet ? substr($c[1], 1 , count($v)-2): $c[1];
-
-                }
 				Console::print(Console::yellow($env) . Console::red(" file already exists !") ,"CONFIGS");
+                $this->readEnvConfigs();
 
 				echo Console::cyan("[CONFIGS] ").Console::yellow("Do you confirm to rewrite the file [N/y] ?");
                 $rewrite = readline();
@@ -235,10 +319,13 @@ class Install
     public function checkDatabaseEnv()
     {
         Console::line();
-        $dbName = $this->configs['DB_NAME'] ?? null;
-        $dbHost = $this->configs['DB_HOST'] ?? null;
-        $dbUser = $this->configs['DB_USER'] ?? null;
-        $dbPass = $this->configs['DB_PASS'] ?? null;
+        $env = ".env";
+        if (!is_file($env)) return;
+
+        $dbName = $this->configs['DB_NAME'] ?? 'test';
+        $dbHost = $this->configs['DB_HOST'] ?? 'localhost';
+        $dbUser = $this->configs['DB_USER'] ?? 'root';
+        $dbPass = $this->configs['DB_PASS'] ?? '';
         
         Console::print("Check Database information ($dbName,$dbHost,$dbUser)  ...","DATABASE","yellow");
 
@@ -247,7 +334,7 @@ class Install
             $this->db = $dbConnection;
             if (!$dbConnection->connect_error) 
                 {
-                    Console::print("Database information are correct !","DATABASE","red");
+                    Console::print("Database information are correct !","DATABASE","green");
                     return true;
                 }            
             else
@@ -263,18 +350,21 @@ class Install
 
     public function migrationDatabase()
     {
+
         Console::line();
         Console::print("Migration the models tables to Database  ..." ,"MIGRATION","yellow");
         Console::print("Execute : `phalcon migration run` ...","MIGRATION","yellow");
 
+
         ob_start();
         system("phalcon migration run");
         $ex = ob_get_contents();
+        $ex = strtolower(preg_replace('/\s\s+/', ' ',$ex));
         ob_clean();
 
-        $ex = strtolower(preg_replace('/\s\s+/', ' ',$ex));
 
         Console::print($ex, "MIGRATION","light_gray");
+
         return strpos($ex, "up to date") > -1 || strpos($ex, "successfully");
     }
 
@@ -285,9 +375,9 @@ class Install
 
         $inputs = [
             'fullname'=>'Full Name',
+            'username'=>'Username',
             'email'=>'Email',
             'password'=>'Password',
-            'cpassword'=>'Confirm Password',
         ];
 
         if (!$this->db) {
@@ -295,17 +385,40 @@ class Install
             return false;
         }
 
-        $user = [];
-
+        $user = new \SakuraPanel\Models\User\Users;
+        $user->role_name = "admins";
+        $user->setIp('0.0.0.0');
+        $user->status = $user::ACTIVE;
+        
         foreach ($inputs as $key => $title) {
-            echo Console::yellow('Enter '.$title.' : ');
-            $user[$key] = readline();
+            echo  Console::yellow('         -> Enter '.$title.' : ');
+            $user->$key = readline();
         }
 
 
-        var_dump($user);
-        exit;
+        if ($user->save()) {
+            Console::print("User Created Successfully ! ","ADMIN","green");
+            return true;
+        }
+        foreach ($user->getMessages() as $msg) 
+            Console::print("User Creation failed >> Error : $msg","ADMIN","red");
+
+        return false;
     }
+
+
+    public function printSakuraHelp()
+    {
+        Console::print(" # To Install Sakura Panel : ","HELP","yellow");
+        Console::print(Console::cyan(" --> Run :") . Console::light_purple(" composer install")   ,"HELP");
+        Console::print(Console::cyan(" --> Run :") . Console::light_purple(" sakura-cli -a install") ,"HELP");
+        Console::line();
+        Console::print(" # To Add User to Sakura Panel : ","HELP","yellow");
+        Console::print(Console::cyan(" --> Run :") . Console::light_purple(" sakura-cli -a adduser") ,"HELP");
+        Console::line();
+
+    }
+
 }
 
 
@@ -435,11 +548,5 @@ class Console {
         Console::log(Console::cyan("[{$type}] : ") . Console::{$color}("$msg"));
     }
 }
-/**
- * Run installer 
- */
-$installer = new Install();
-
-$installer->run();
 
 
