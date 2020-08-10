@@ -100,7 +100,7 @@ class Users extends \ModelBase
             new Uniqueness(
                 [
                     'model'   => $this,
-                    'message' => 'Please enter a correct email address',
+                    'message' => 'This email address already used !',
                 ]
             )
         );
@@ -124,6 +124,8 @@ class Users extends \ModelBase
     public function initialize()
     {
         $this->setSource($this->getSourceByName("users"));
+        
+        $this->keepSnapshots(true);
     }
 
     /**
@@ -150,6 +152,14 @@ class Users extends \ModelBase
 
     public function beforeUpdate()
     {
+        parent::beforeUpdate();
+        if ($this->hasChanged('password')) 
+            $this->password = $this->getDI()->getSecurity()->hash($this->password);
+    }
+
+    public function beforeCreate()
+    {
+        parent::beforeCreate();
         $this->password = $this->getDI()->getSecurity()->hash($this->password);
     }
 

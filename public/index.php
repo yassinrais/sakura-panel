@@ -10,11 +10,11 @@ define('APP_PATH', BASE_PATH . '/app');
 
 try {
 
-
     /**
      * The FactoryDefault Dependency Injector automatically registers
      * the services that provide a full stack framework.
      */
+    
     $di = new FactoryDefault();
 
     /**
@@ -37,19 +37,22 @@ try {
      */
     include APP_PATH . '/config/loader.php';
 
-
     /**
      * Get plguins service for use in inline setup below
      */
     $di->getPlugins()->loadPlugins();
-
 
     /**
      * Handle the request
      */
     $application = new \Phalcon\Mvc\Application($di);
 
+    /**
+     * Print the content of application
+     */
     echo $application->handle($_SERVER['REQUEST_URI'])->getContent();
+
+
 } catch (\Exception $e) {
     if (getenv('APP_DEBUG') == true) {
         // move this after calling $di Factory
