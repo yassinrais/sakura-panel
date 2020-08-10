@@ -15,20 +15,21 @@
 
 ## 📗 About
 
-<p>Sakura Panel , a Script made with PHP (phalcon framework) and run in apache/nginx </p>
-<p>The idea of the panel is to manage your website easy, by adding custom plugins without touching the skeleton source code</p>
-<p style="font-style: italic;">The origine idea was to create a discord bots panel <a href="https://github.com/yassinrais/sakura-core/" target="_blank">Sakura Core</a>... </p>
+<p>Sakura panel , A script made with PHP ([Phalcon FrameWork](https://phalcon.io/)) and can run on both apache and nginx or any php service. </p>
+<p>The idea of this panel is to make it possible to manage your website, server, bot or anything you want just by adding plugins that allow you to do that without touching the main source code of the panel making it faster more secure and more reliable with a fantastic easy on eyes ui.</p>
+<p style="font-style: italic;">This panel idea started as a normal panel for <a href="https://github.com/yassinrais/sakura-core/" target="_blank">Sakura Core</a> but it ended up something even bigger ... </p>
 
 
 
 ## ⚙️ Installation :
 
-1. You need to install Php(+^7.2) and Phalcon (+^4.0.1) on your *machine*
-2. git clone [https://github.com/yassinrais/sakura-panel.git](https://github.com/yassinrais/sakura-panel.git) repository into your *machine*
+1. First you need to install php v 7.2+ and Phalcon v 4.0.1+ in your *Machine*
+2. Then execute ``git clone https://github.com/yassinrais/sakura-panel.git``  repository into your *machine*
 3. Run ``composer install`` to install php dependencies (vendor)
-3. (**for Unix OS**) Run ``chmod +x ./sakura-cli.sh`` , ``./sakura-cli.sh`` With *cli/bash*
-5. (**for Windows OS**) Run ``sakura-cli.bat`` with *cmd/powershell*
-5. Enjoy ! Sakura Panel ♥ 
+3. (**For Unix OS**) Run ``chmod +x ./sakura-cli.sh`` then ``./sakura-cli.sh  -a install`` With *cli/bash* 
+    Or if you're (**a Windows OS**) Run ``sakura-cli -a install`` with *cmd/powershell*
+5. Run ``sakura-cli -a adduser`` to add a new user as administrator.
+6. Enjoy ! Sakura Panel ♥ 
 
 
 ## 👥 Contributors :
@@ -41,13 +42,12 @@
 Please see the **[LICENSE](LICENSE)** included in this repository for a full copy of the MIT license, which this project is licensed under.
 
 
-## ♥ ScreenShot(s) :
+## 📷 ScreenShot(s) :
 
-<img src="https://i.imgur.com/gqIUI9S.png">
-<img src="https://i.imgur.com/wYY1DhB.png">
-<img src="https://i.imgur.com/LZD1pjD.png">
-<img src="https://i.imgur.com/frPgvz5.png">
-<img src="https://i.imgur.com/EPVEaEN.png">
-<img src="https://i.imgur.com/SRShWZh.png">
-<img src="https://i.imgur.com/KWbZBny.png">
-<img src="https://i.imgur.com/qVSnZdn.png">
+<img src="https://i.imgur.com/Yh5qTzF.png" style="width: 100%">
+<img src="https://i.imgur.com/ikhXqAv.png" style="width: 100%">
+<img src="https://i.imgur.com/I1owzuW.png" style="width: 100%">
+<img src="https://i.imgur.com/xhdwP7G.png" style="width: 100%">
+
+
+<h4>For more screenshots <a href="https://imgur.com/a/Sz0G95m" target="_blank"> click here </a> - hosted in imgur.com !</h4>
