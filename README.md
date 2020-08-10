@@ -15,7 +15,7 @@
 
 ## 📗 About
 
-<p>Sakura panel , A script made with PHP ([Phalcon FrameWork](https://phalcon.io/)) and can run on both apache and nginx or any php service. </p>
+<p>Sakura panel , A script made with PHP ( <a href="https://phalcon.io/" target="_blank">Phalcon FrameWork</a> ) and can run on both apache and nginx or any php service. </p>
 <p>The idea of this panel is to make it possible to manage your website, server, bot or anything you want just by adding plugins that allow you to do that without touching the main source code of the panel making it faster more secure and more reliable with a fantastic easy on eyes ui.</p>
 <p style="font-style: italic;">This panel idea started as a normal panel for <a href="https://github.com/yassinrais/sakura-core/" target="_blank">Sakura Core</a> but it ended up something even bigger ... </p>
 
