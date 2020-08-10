@@ -5,9 +5,6 @@ $router = $di->getRouter();
 // Define your routes here
 
 
-$router->handle($_SERVER['REQUEST_URI']);
-
-
 $configs = $di->getConfig();
 
 
@@ -32,4 +29,4 @@ foreach ($configs->route_groups as $prefix => $rgroups) {
 }
 
 
-$router->handle($_SERVER['REQUEST_URI']);
+$router->handle($_SERVER['REQUEST_URI'] ?? '/');
