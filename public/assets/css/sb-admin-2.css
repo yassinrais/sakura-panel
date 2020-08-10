@@ -10142,7 +10142,7 @@ a:focus {
 }
 
 .topbar {
-  height: 4.375rem;
+  height: 2.95rem;
 }
 
 .topbar #sidebarToggleTop {
@@ -10451,7 +10451,7 @@ a:focus {
 
 @media (min-width: 768px) {
   .sidebar {
-    width: 14rem !important;
+    width: 12rem !important;
   }
   .sidebar .nav-item .collapse {
     position: relative;
@@ -10512,7 +10512,7 @@ a:focus {
   }
   .sidebar.toggled {
     overflow: visible;
-    width: 6.5rem !important;
+    width: 5.5rem !important;
   }
   .sidebar.toggled .nav-item .collapse {
     position: absolute;
@@ -10543,8 +10543,8 @@ a:focus {
   }
   .sidebar.toggled .nav-item .nav-link {
     text-align: center;
-    padding: 0.75rem 1rem;
-    width: 6.5rem;
+    padding: 0.75rem 0rem;
+    width: 5.5rem;
   }
   .sidebar.toggled .nav-item .nav-link span {
     font-size: 0.9em;
