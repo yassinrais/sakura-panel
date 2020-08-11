@@ -4,7 +4,7 @@ declare(strict_types=1);
  *
  *
  *  SakuraPanel >> neutrapp.com/page/sakura
- * 			   	>> Project Installation
+ *              >> Project Installation
  * 
  */
 
@@ -12,29 +12,6 @@ use Phalcon\Di\FactoryDefault;
 
 define('BASE_PATH', dirname(__FILE__));
 define('APP_PATH', BASE_PATH . '/app');
-
-
-
-/**
- * Di factory to load models
- */
-$di = new FactoryDefault();
-
-
-/**
- * Read services
- */
-include APP_PATH . '/config/services.php';
-
-/**
- * Get config service for use in inline setup below
- */
-$config = $di->getConfig();
-
-/**
- * Include Autoloader
- */
-include APP_PATH . '/config/loader.php';
 
 
 /**
@@ -73,24 +50,24 @@ class Install
     protected $db;
     protected $user;
 
-	protected $cache_dirs = [
-		'cache/',
-		'cache/plugins/',
-		'cache/shared/',
-		'cache/global/',
-		'cache/security/',
-		'cache/sessions/',
+    protected $cache_dirs = [
+        'cache/',
+        'cache/plugins/',
+        'cache/shared/',
+        'cache/global/',
+        'cache/security/',
+        'cache/sessions/',
         'cache/views/',
-		'.phalcon/',
-	];
-	
+        '.phalcon/',
+    ];
+    
     function __construct()
-	{
+    {
         $this->info = $this->getConfigs();
-	}
+    }
 
-	public function run($action = "install")
-	{
+    public function run($action = "install")
+    {
         Console::line(intval(strlen($this->info->description) *1.2),'.');
         Console::print(Console::light_cyan($this->info->description),"SAKURA");
         Console::print(Console::light_cyan("Version : ".$this->info->version),"SAKURA");
@@ -116,7 +93,7 @@ class Install
                 break;
         }
 
-	}
+    }
 
 
     public function getConfigs()
@@ -175,34 +152,34 @@ class Install
         Console::print(Console::bold("https://neutrapp.com/page/sakura"),"SAKURA","cyan");
         Console::line(40,'-');
     }
-	private function createCacheFolders()
-	{
-		Console::line();
-		Console::log('[CACHE] Create cache dirs ...' , "yellow");
-		/**
-		 * Create Cache Dirs
-		 */
+    private function createCacheFolders()
+    {
+        Console::line();
+        Console::log('[CACHE] Create cache dirs ...' , "yellow");
+        /**
+         * Create Cache Dirs
+         */
         $tests = [];
-		foreach ($this->cache_dirs as $dir){
-			if (!is_dir($dir)) {
+        foreach ($this->cache_dirs as $dir){
+            if (!is_dir($dir)) {
                 $tests[] = $mkdir = mkdir($dir , 0775 , true);
                 if ( $mkdir ) {
-					Console::print(Console::yellow($dir) . Console::green(" > Created !  ") , "CACHE" );
-				}else{
-					Console::print(Console::yellow($dir) . Console::red(" > Creation Failed!") , "CACHE" );
-				}
-			}else{
-				Console::print(Console::yellow($dir) . Console::purple(" > already exists !") , "CACHE" );
-			}
-		}
+                    Console::print(Console::yellow($dir) . Console::green(" > Created !  ") , "CACHE" );
+                }else{
+                    Console::print(Console::yellow($dir) . Console::red(" > Creation Failed!") , "CACHE" );
+                }
+            }else{
+                Console::print(Console::yellow($dir) . Console::purple(" > already exists !") , "CACHE" );
+            }
+        }
         sleep($this::SLEEP_TIME);
 
         return !in_array(false, $tests);
-	}
+    }
 
-	private function checkPhalcon(){
-		Console::print("Check if Phalcon::4.0.3 extension !" ,"EXTENSION","yellow");
-	   
+    private function checkPhalcon(){
+        Console::print("Check if Phalcon::4.0.3 extension !" ,"EXTENSION","yellow");
+       
 
        if (class_exists("\Phalcon\Version")) {
             $v = explode(".", \Phalcon\Version::get().".");
@@ -223,6 +200,28 @@ class Install
 
     public function readEnvConfigs()
     {
+        
+        /**
+         * Di factory to load models
+         */
+        $di = new FactoryDefault();
+
+
+        /**
+         * Read services
+         */
+        include APP_PATH . '/config/services.php';
+
+        /**
+         * Get config service for use in inline setup below
+         */
+        $config = $di->getConfig();
+
+        /**
+         * Include Autoloader
+         */
+        include APP_PATH . '/config/loader.php';
+
         $env_configs_file = explode("\n", str_replace("\r", "", file_get_contents(".env")));
         foreach ($env_configs_file as $line) {
             $c = explode("=", $line."=");
@@ -241,28 +240,28 @@ class Install
 
         return file_exists(".env");
     }
-	private function createEnvFile()
-	{
-		Console::line();
-		$envex = ".env.example";
-		$env = ".env";
+    private function createEnvFile()
+    {
+        Console::line();
+        $envex = ".env.example";
+        $env = ".env";
     
         $this->configs = [];
 
-		if (file_exists($envex)) {
-			
-			$envContent = file_get_contents($envex);
-			if (file_exists($env)) {
-				Console::print(Console::yellow($env) . Console::red(" file already exists !") ,"CONFIGS");
+        if (file_exists($envex)) {
+            
+            $envContent = file_get_contents($envex);
+            if (file_exists($env)) {
+                Console::print(Console::yellow($env) . Console::red(" file already exists !") ,"CONFIGS");
                 $this->readEnvConfigs();
 
-				echo Console::cyan("[CONFIGS] ").Console::yellow("Do you confirm to rewrite the file [N/y] ?");
+                echo Console::cyan("[CONFIGS] ").Console::yellow("Do you confirm to rewrite the file [N/y] ?");
                 $rewrite = readline();
-				if (!in_array(strtoupper($rewrite), ["Y","YES","OK","CONFIRM"]) || $rewrite === "") {
-					Console::print(Console::bold("Skip"). Console::yellow(" Rewriting file $env") ,"CONFIGS" , "red");
+                if (!in_array(strtoupper($rewrite), ["Y","YES","OK","CONFIRM"]) || $rewrite === "") {
+                    Console::print(Console::bold("Skip"). Console::yellow(" Rewriting file $env") ,"CONFIGS" , "red");
                     return file_exists($env);
-				}
-			}
+                }
+            }
 
             $env_lines = explode("\n", str_replace("\n\n", "\n", str_replace("\r", "", $envContent)));
             $configs_lines = [];
@@ -295,7 +294,7 @@ class Install
                 
                 $configs_lines[] = "$k=$val";
             }
-			
+            
             Console::print("Create `$env` file ... Ctrl + C to cancel ! ","CONFIGS","yellow");
             sleep($this::SLEEP_TIME); // to give user the control to cancel the cli
 
@@ -307,14 +306,14 @@ class Install
                 return false;
             }
 
-			// read if exists or not
-		}else{
-			Console::print(".env.example file was not found  !" ,"CONFIGS","red");
-		}
+            // read if exists or not
+        }else{
+            Console::print(".env.example file was not found  !" ,"CONFIGS","red");
+        }
 
 
         return file_exists($env);
-	}
+    }
 
     public function checkDatabaseEnv()
     {
