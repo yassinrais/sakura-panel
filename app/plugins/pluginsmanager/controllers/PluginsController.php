@@ -212,6 +212,91 @@ class PluginsController extends MemberControllerBase
       	return $this->ajax->sendResponse();
 	}
 
+	/**
+	 * Update Plugin : ajax
+	 */
+	public function updateAction()
+	{
+		$this->ajax->disableArray();
+		
+		$resp = $this->ajax->error('Unknown Plugin !');
+		$plugin = strtolower((string) $this->request->get('id'));
+
+		$row = Plugins::findFirstByName($plugin);
+
+		if (!$row)
+			return $this->ajax->error(strip_tags($row->title).': Plugin undefined in database ')->sendResponse();
+
+		if ( !preg_match('/^[a-z0-9]{2,31}$/', $plugin) )
+			return $this->ajax->error("Plugin ".strip_tags($plugin)." Name is invalid !")->sendResponse();
+
+
+		// get plugin info
+		$plugin_info_json = $this->getRequestContent("{$this->plugins_server}{$plugin}/".self::PLUGIN_CONFIG_JSON);
+
+		try {
+			$plugin_info = json_decode($plugin_info_json);
+
+			if (!empty($plugin_info->name)) {
+				$this->ajax->setData($plugin_info);
+				
+				$zipFileUrl = "{$this->plugins_server}{$plugin}/{$plugin}.zip";
+
+				if (!\SakuraPanel\Functions\_isUrlAZipFile($zipFileUrl)) {
+					$this->ajax->error("Plugin ($zipFileUrl) file is not a zip file ");
+				}else{
+					$zipFileSavePath = $this->config->application->pluginsCacheDir . $plugin . ".zip";
+
+					$download = \SakuraPanel\Functions\_downloadZipFile($zipFileUrl , $zipFileSavePath);
+
+					if (!$download) 
+						return $this->ajax->error("Download plugin failed ! $zipFileUrl")->sendResponse();
+					
+
+					$unzip = $this->unzipPlugin($plugin_info, $zipFileSavePath);
+					if (!$unzip) 
+						return $this->ajax->error('Unzipping plugin failed ! ')->sendResponse();
+
+					// update plugin info
+					foreach (['image','name','title','description','author','version','tags'] as $key) 
+						if (isset($plugin_info->$key)) 
+							$row->$key = $plugin_info->$key;
+
+
+					$row->status = $this::ACTIVE;
+					$row->setIp($this->request);
+
+					if ($row->save()) {
+						return $this->response->redirect($this->page->get('base_route').'/updatePlugin/'.urlencode($row->name));
+					}else{
+						foreach ($row->getMessages() as $msg)
+							$this->ajax->error($msg);
+					}
+				}
+
+				return $this->ajax->sendResponse();
+			}
+		} catch (Exception $e) {
+			return $this->ajax->error('Invalid Plugins info\'s '. $e->getMessage())->sendResponse();
+		}
+
+      	return $this->ajax->sendResponse();
+	}
+
+	public function updatePluginAction(string $plugin_name = null)
+	{
+		$plugin_name = strtolower(strip_tags(urldecode($plugin_name)));
+		$p = $this->plugins->get($plugin_name);
+
+		if (!$p)
+			return $this->ajax->error($plugin_name .' : Unknown Plugin name')->sendResponse();
+		
+		if ($p->update())
+			return $this->ajax->success("Plugin {$p->get('name')} updated successfully !")->sendResponse();
+		
+		return $this->ajax->error(implode(" , ", $this->flashSession->getMessages()))->sendResponse();
+	}
+
 	/*********
 	 ****** 
 	 **** 

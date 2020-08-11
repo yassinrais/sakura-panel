@@ -21,6 +21,7 @@ class Plugin implements  \SakuraPanel\Library\SharedConstInterface
 	protected $routes = [];
 	protected $menus = [];
 	protected $installation_cb;
+	protected $plugin = null;
 
 
 	protected $sqlFiles = ["install"=>[] , "update"=>[]];
@@ -47,6 +48,11 @@ class Plugin implements  \SakuraPanel\Library\SharedConstInterface
 		$this->status = true;
 	}
 
+	/**
+	 * Init plugin info by path
+	 * @param $path : string
+	 * @return $bool : bool
+	 */
 	public function initPluginByJson(string $path ="")
 	{
 		$this->status = 0;
@@ -70,6 +76,8 @@ class Plugin implements  \SakuraPanel\Library\SharedConstInterface
 
 		return (json_last_error() == JSON_ERROR_NONE);
 	}
+
+	
 	/**
 	 * Get an attribute value (i dont use method magic __get)
 	 * @param $key : string 
@@ -238,30 +246,33 @@ class Plugin implements  \SakuraPanel\Library\SharedConstInterface
 	 */
 	public function checkDb()
 	{
-		if (class_exists(Plugins::class)) {
-			$plugin = Plugins::findFirstByName($this->name);
 
-			if (!$plugin) {
-				$plugin = new Plugins();
+		if (class_exists(Plugins::class)) {
+			$this->plugin = Plugins::findFirstByName($this->name);
+
+			if (!$this->plugin) {
+				$this->plugin = new Plugins();
 				foreach (['name','author','version','title','image','description'] as $key) 
 					if ($this->get($key)) 
-						$plugin->{$key} = $this->{$key};
+						$this->plugin->{$key} = $this->{$key};
 
-				if (!$plugin->save()){
-					$this->di->getLogger()->warning("Plugin {$this->name} can not added to plugins table ! (".implode(",", $plugin->getMessages()).")");
-					$this->di->getLogger()->warning(json_encode($plugin));
+				if (!$this->plugin->save()){
+					$this->di->getLogger()->warning("Plugin {$this->name} can not added to plugins table ! (".implode(",", $this->plugin->getMessages()).")");
+					$this->di->getLogger()->warning(json_encode($this->plugin));
 				}
 			}
 
-			$this->checkInstallation($plugin);
+			$this->checkInstallation();
 		}
 	}
 
 	/**
 	 * method :: checkInstallation
 	 */
-	private function checkInstallation($plugin)
+	private function checkInstallation()
 	{
+		$plugin = $this->plugin;
+
 		if (!$plugin || $plugin->installed == $this::ACTIVE) return;
 
 		// install files sql
@@ -279,7 +290,7 @@ class Plugin implements  \SakuraPanel\Library\SharedConstInterface
  			return;
  		}
  		$plugin->installed = $this::ACTIVE;
- 		$plugin->save();
+ 		return $plugin->save();
  	}
 
 
@@ -332,6 +343,33 @@ class Plugin implements  \SakuraPanel\Library\SharedConstInterface
 
  		return true;
  	}
+
+ 	/**
+ 	 * Update Plugin
+ 	 */
+ 	public function update()
+	{
+		$plugin = $this->plugin;
+		if (!$plugin) return false;
+
+		// update files sql
+		$sqlToUpdate = $this->sqlFiles['update'] ?? false;
+ 		$sqlStatus = [];
+
+ 		if ($sqlToUpdate) {
+ 			// update files
+ 			foreach (is_array($sqlToUpdate) ? $sqlToUpdate : [$sqlToUpdate] as $file) {
+				$sqlStatus[] = (bool) $this->uploadSql($file);
+ 			}
+ 		}
+ 		if (in_array(false, $sqlStatus)) {
+ 			$this->di->get('flashSession')->error("[Plugin : SQL] Plugin `{$plugin->name}` Updated failed ! ");
+ 			return;
+ 		}
+ 		$plugin->setIp($this->di->get('request'));
+ 		return $plugin->save();
+ 	}
+
 
  	/**
  	 * Add sql o sqlFiles
