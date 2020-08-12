@@ -223,8 +223,10 @@ class Install
         if (!is_dir($p)) return false;
 
         $scanned_dir = \SakuraPanel\Functions\_fullScanDirs($p.'*');
+        $plugin_new_config_json = $plugin_new_dir . $config_file_json;
 
 
+        $config->group = ucfirst($config->name);
         foreach ($scanned_dir as $file) {
 
 
@@ -236,11 +238,16 @@ class Install
             if (is_dir($file_source) && !is_dir($file_dest))
                 mkdir($file_dest, 0775 , true);
 
-            if (is_file($file_source))
-                copy($file_source, $file_dest);
+            if (is_file($file_source)) {
+                $file_dest_content = file_get_contents($file_source);
+                foreach ($config as $key => $val) {
+                    $file_dest_content = str_replace("__{$key}__", $val, $file_dest_content);
+                    $file_dest = str_replace("__{$key}__", $val, $file_dest);
+                }
+                file_put_contents($file_dest, $file_dest_content);
+            }
         }
 
-        $plugin_new_config_json = $plugin_new_dir . $config_file_json;
         if (!is_file($plugin_new_config_json))
             unlink($plugin_new_config_json);
 

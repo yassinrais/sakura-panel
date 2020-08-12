@@ -31,6 +31,10 @@
 5. Run ``sakura-cli -a adduser`` to add a new user as administrator.
 6. Enjoy ! Sakura Panel ♥ 
 
+## ➕ CLI Usage :
+	* Install Script ``sakura-cli -a install``  
+	* Add New Admin  ``sakura-cli -a adduser``  
+	* Create Plugin  ``sakura-cli -a create-plugin``  
 
 ## 👥 Contributors :
 
@@ -48,6 +52,6 @@ Please see the **[LICENSE](LICENSE)** included in this repository for a full cop
 <img src="https://i.imgur.com/ikhXqAv.png" style="width: 100%">
 <img src="https://i.imgur.com/I1owzuW.png" style="width: 100%">
 <img src="https://i.imgur.com/xhdwP7G.png" style="width: 100%">
-
+<img src="https://i.imgur.com/Zd0llYV.png" style="width: 100%">
 
 <h4>For more screenshots <a href="https://imgur.com/a/Sz0G95m" target="_blank"> click here </a> - hosted in imgur.com !</h4>
