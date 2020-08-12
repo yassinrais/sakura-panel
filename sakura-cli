@@ -13,6 +13,8 @@ use Phalcon\Di\FactoryDefault;
 define('BASE_PATH', dirname(__FILE__));
 define('APP_PATH', BASE_PATH . '/app');
 
+include APP_PATH . '/config/inc/functions.inc.php';
+
 
 /**
  * 
@@ -49,7 +51,7 @@ class Install
     protected $info;
     protected $db;
     protected $user;
-
+    protected $templates = "./cli/templates/";
     protected $cache_dirs = [
         'cache/',
         'cache/plugins/',
@@ -85,6 +87,9 @@ class Install
                 if (!$this->checkDatabaseEnv()) return;
                 if (!$this->createAdminAccount()) return;
                 break;
+            case 'create-plugin':
+                $this->createPlugin();
+                break;
             case 'help':
                 $this->printSakuraHelp();
                 break;
@@ -95,24 +100,6 @@ class Install
 
     }
 
-
-    public function getConfigs()
-    {
-        $f = @file_get_contents('composer.json') ?: null;
-        if (!is_null($f)) {
-            try {
-                $c = json_decode($f);
-                return $c;
-            } catch (Exception $e) {
-                
-            }
-        }
-
-        return (object) [ 'description'=>'Sakura Panel Project','version'=>'1.0.0','license'=>'MIT' ,
-        'authors'=>(object) [
-            ['name'=>'Yassine Rais']
-        ]];
-    }
      
     public function startInstallation()
     {
@@ -152,6 +139,147 @@ class Install
         Console::print(Console::bold("https://neutrapp.com/page/sakura"),"SAKURA","cyan");
         Console::line(40,'-');
     }
+
+
+    public function createAdminAccount()
+    {
+        Console::line();
+        Console::print("Create an Administrator account ..." ,"ADMIN","yellow");
+
+        $inputs = [
+            'fullname'=>'Full Name',
+            'username'=>'Username',
+            'email'=>'Email',
+            'password'=>'Password',
+        ];
+
+        if (!$this->db) {
+            Console::print('Db Connection missed ! ','ADMIN','red');
+            return false;
+        }
+
+        $user = new \SakuraPanel\Models\User\Users;
+        $user->role_name = "admins";
+        $user->setIp('0.0.0.0');
+        $user->status = $user::ACTIVE;
+        
+        foreach ($inputs as $key => $title) {
+            echo  Console::yellow('         -> Enter '.$title.' : ');
+            $user->$key = readline();
+        }
+
+
+        if ($user->save()) {
+            Console::print("User Created Successfully ! ","ADMIN","green");
+            return true;
+        }
+        foreach ($user->getMessages() as $msg) 
+            Console::print("User Creation failed >> Error : $msg","ADMIN","red");
+
+        return false;
+    }
+
+
+    public function createPlugin()
+    {
+        Console::line();
+        Console::print("Create a Plugin ..." ,"CREATE-PLUGIN","yellow");
+        
+        $plugin_tpl = $this->templates . "create-plugin/";
+        if (!is_dir($plugin_tpl)) 
+            return Console::print("Templates not found ! ","CREATE-PLUGIN","red");
+        $config_file_json = "plugin.config.json";
+        $tpl_plugin_config = $plugin_tpl.$config_file_json;
+
+        if (!is_file($tpl_plugin_config)) 
+            return Console::print("Plugin Config Template not found ! ","CREATE-PLUGIN","red");
+
+        $config = json_decode(file_get_contents($tpl_plugin_config));
+
+        $inputs = $config;
+
+        foreach ($inputs as $key => $val) {
+            echo  Console::yellow("         -> Enter $key [$val] : ");
+            $config->$key = readline() ?: $val;
+            if ($key == "name") {
+                 if (!preg_match("/^[a-z0-9]*([a-z0-9][_-]{0,1})*[a-z0-9]$/", $config->name))
+                    return Console::print("Plugin name must be an alphanumeric (no spaces , no special characters, no upper cases)","CREATE-PLUGIN","red");
+            }
+        }
+
+
+        $plugin_new_dir = "app/plugins/{$config->name}/";
+        
+        $p = $plugin_tpl;
+
+        if (is_dir($plugin_new_dir)) {
+            Console::print("The are a plugin folder has the same name ! Do you confirm to rewrite plugin files ?","CREATE-PLUGIN","yellow");
+            if (!in_array(strtoupper(readline()), ['Y','YES','OK','OKEY'])) 
+                return Console::print("Process was cancelled !","CREATE-PLUGIN","red");
+        }
+
+
+        @mkdir($plugin_new_dir , 0775 , true);
+        if (!is_dir($p)) return false;
+
+        $scanned_dir = \SakuraPanel\Functions\_fullScanDirs($p.'*');
+
+
+        foreach ($scanned_dir as $file) {
+
+
+            $file_name = explode($p, $file)[1];
+            
+            $file_dest = $plugin_new_dir . $file_name;
+            $file_source = $p . $file_name;
+            
+            if (is_dir($file_source) && !is_dir($file_dest))
+                mkdir($file_dest, 0775 , true);
+
+            if (is_file($file_source))
+                copy($file_source, $file_dest);
+        }
+
+        $plugin_new_config_json = $plugin_new_dir . $config_file_json;
+        if (!is_file($plugin_new_config_json))
+            unlink($plugin_new_config_json);
+
+        if (file_put_contents($plugin_new_config_json, json_encode($config))) 
+            return Console::print("Plugin Created Successfully ! ","CREATE-PLUGIN","green");
+
+        return Console::print("creation `Plugin Config` failed ! ","CREATE-PLUGIN","red");
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+    public function getConfigs()
+    {
+        $f = @file_get_contents('composer.json') ?: null;
+        if (!is_null($f)) {
+            try {
+                $c = json_decode($f);
+                return $c;
+            } catch (Exception $e) {
+                
+            }
+        }
+
+        return (object) [ 'description'=>'Sakura Panel Project','version'=>'1.0.0','license'=>'MIT' ,
+        'authors'=>(object) [
+            ['name'=>'Yassine Rais']
+        ]];
+    }
+
+
     private function createCacheFolders()
     {
         Console::line();
@@ -366,45 +494,6 @@ class Install
 
         return strpos($ex, "up to date") > -1 || strpos($ex, "successfully");
     }
-
-    public function createAdminAccount()
-    {
-        Console::line();
-        Console::print("Create an Administrator account ..." ,"ADMIN","yellow");
-
-        $inputs = [
-            'fullname'=>'Full Name',
-            'username'=>'Username',
-            'email'=>'Email',
-            'password'=>'Password',
-        ];
-
-        if (!$this->db) {
-            Console::print('Db Connection missed ! ','ADMIN','red');
-            return false;
-        }
-
-        $user = new \SakuraPanel\Models\User\Users;
-        $user->role_name = "admins";
-        $user->setIp('0.0.0.0');
-        $user->status = $user::ACTIVE;
-        
-        foreach ($inputs as $key => $title) {
-            echo  Console::yellow('         -> Enter '.$title.' : ');
-            $user->$key = readline();
-        }
-
-
-        if ($user->save()) {
-            Console::print("User Created Successfully ! ","ADMIN","green");
-            return true;
-        }
-        foreach ($user->getMessages() as $msg) 
-            Console::print("User Creation failed >> Error : $msg","ADMIN","red");
-
-        return false;
-    }
-
 
     public function printSakuraHelp()
     {
