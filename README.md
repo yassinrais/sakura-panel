@@ -32,9 +32,9 @@
 6. Enjoy ! Sakura Panel ♥ 
 
 ## ➕ CLI Usage :
-	* Install Script ``sakura-cli -a install``  
-	* Add New Admin  ``sakura-cli -a adduser``  
-	* Create Plugin  ``sakura-cli -a create-plugin``  
+* Install Script ``sakura-cli -a install``  
+* Add New Admin  ``sakura-cli -a adduser``  
+* Create Plugin  ``sakura-cli -a create-plugin``  
 
 ## 👥 Contributors :
 
