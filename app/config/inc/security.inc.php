@@ -14,6 +14,7 @@ $configs['security'] = [
 	// max attemps
 	'auth_suspend_max_attemps'=> getenv('SECURITY_AUTH_SUSPEND_MAX_ATTEMPS') ??  2, // max 5 try 
 	'auth_banned_max_attemps'=> getenv('SECURITY_AUTH_BANNED_MAX_ATTEMPS') ??  2, // max 5 try 
+	'auth_suspend_coef'=> getenv('SECURITY_AUTH_SUSPEND_COEF') ??  2, // tota attemps x 2 
 
 	// delays
 	'activation_send_delay'=> getenv('SECURITY_SEND_ACTIVATION_DELAY') ?? 1  * 60  ,// 1 minute

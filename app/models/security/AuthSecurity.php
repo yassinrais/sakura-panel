@@ -31,6 +31,12 @@ class AuthSecurity extends \ModelBase
 
     /**
      *
+     * @var integer
+     */
+    public $suspend_expire;
+
+    /**
+     *
      * @var string
      */
     public $ip;
@@ -115,10 +121,11 @@ class AuthSecurity extends \ModelBase
         $ip = $ip ?: -1;
         
         return parent::findFirst([
-            'ip = ?0 AND suspend = ?1',
+            'ip = ?0 AND suspend = ?1 AND suspend_expire > ?2',
             'bind'=>[
                 $ip,
-                self::ACTIVE
+                self::ACTIVE,
+                time()
             ]
         ]) ?: false;
     }
@@ -146,6 +153,12 @@ class AuthSecurity extends \ModelBase
             if (($row->attemps - $row->last_attemps) >= $configs->auth_suspend_max_attemps){
                 $row->suspend = self::ACTIVE;
                 $row->last_attemps = $row->attemps;
+                $row->suspend_expire = time() + (
+                  $row->attemps 
+                  * 60 * 1 
+                  * $configs->auth_suspend_coef^2
+                );
+                   // 1 minute * t_attemps * coef^2
             }
 
             if ($row->attemps >= $configs->auth_banned_max_attemps)
@@ -174,5 +187,16 @@ class AuthSecurity extends \ModelBase
             return $row->delete();
         
         return false;
+    }
+
+
+    /**
+     * Get Suspend Time
+     * @return string : $time
+     */
+    public function getTimeRest()
+    {
+        return 
+            $this->getTimeFormate(abs($this->suspend_expire - time()));
     }
 }

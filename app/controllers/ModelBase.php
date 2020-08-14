@@ -162,4 +162,21 @@ class ModelBase extends Model implements SharedConstInterface
 		return ( $this->status ?? null ) == $this::ACTIVE; 
 	}
 	
+	public function getTimeFormate(int $secs = 0)
+	{
+	    $dt = new DateTime('@' . $secs, new DateTimeZone('UTC'));
+	    $x = array('days'    => $dt->format('z'),
+	                 'hours'   => $dt->format('G'),
+	                 'minutes' => $dt->format('i'),
+	                 'seconds' => $dt->format('s'));
+
+	    $d = [];
+	    foreach ($x as $key => $value) {
+	    	if ($value > 0) {
+	    		$d[] = "$value $key";
+	    	}
+	    }
+
+	    return implode(", ", $d);
+	}
 }

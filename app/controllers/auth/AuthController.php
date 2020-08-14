@@ -52,47 +52,52 @@ class AuthController extends PageControllerBase
         $this->view->disable();
 
         // check if ip is banned
-        if (AuthSecurity::isIpBanned($this->client_ip)) {
-            $this->ajax->error('Access denied. you are banned from this service !');
+        $isbanned = AuthSecurity::isIpBanned($this->client_ip);
+
+        if ($isbanned) {
             // fake sleep
             sleep($this->config->security->auth_fake_delay);
-        }elseif (AuthSecurity::isIpSuspend($this->client_ip)) {
-            $this->ajax->warning('You are suspended , because of the many attempts !');
+
+            return $this->ajax->error('Access denied. you are banned from this service !')->sendResponse();
+        }
+
+        $suspended = AuthSecurity::isIpSuspend($this->client_ip);
+        if ($suspended) {
             // fake sleep
             sleep($this->config->security->auth_fake_delay);
+            
+            return $this->ajax->warning('You are suspended , because of the many attempts ! Time Rest '.$suspended->getTimeRest())->sendResponse();
+        }
+
+
+        $form = $this->view->form;
+        if (!$form->isValid($_POST)) {
+            foreach ($form->getMessages() as $msg) 
+                $this->ajax->error((string) $msg);
         }else{
+            $user = Users::findFirstByEmail((string) $this->request->getPost('email'));
 
-
-            $form = $this->view->form;
-            if (!$form->isValid($_POST)) {
-                foreach ($form->getMessages() as $msg) 
-                    $this->ajax->error((string) $msg);
-            }else{
-                $user = Users::findFirstByEmail((string) $this->request->getPost('email'));
-
-                if ($user && $this->security->checkHash($this->request->getPost('password') , $user->password)) {
-                    if ($user->isActive()) {
-                        $this->setUserSession($user , $this->request->getPost('remember') ?? false);
-                        $this->ajax->success('Login successful. redirecting ... ');
-                        AuthSecurity::deleteByIp($this->client_ip);
-                    }else{
-                        // mesage
-                        $this->ajax->{$user->getStatusInfo()->type}('Your account is '. $user->getStatusInfo()->title);
-
-                        // fake time x 20%
-                        sleep(intval($this->config->security->auth_fake_delay*0.2));
-                    }
+            if ($user && $this->security->checkHash($this->request->getPost('password') , $user->password)) {
+                if ($user->isActive()) {
+                    $this->setUserSession($user , $this->request->getPost('remember') ?? false);
+                    $this->ajax->success('Login successful. redirecting ... ');
+                    AuthSecurity::deleteByIp($this->client_ip);
                 }else{
-                    AuthSecurity::increaseAttempsByIp($this->client_ip);
+                    // mesage
+                    $this->ajax->{$user->getStatusInfo()->type}('Your account is '. $user->getStatusInfo()->title);
 
                     // fake time x 20%
                     sleep(intval($this->config->security->auth_fake_delay*0.2));
-
-                    // mesage
-                    $this->ajax->error('Wrong information ! ');
                 }
-            }
+            }else{
+                AuthSecurity::increaseAttempsByIp($this->client_ip);
 
+                // fake time x 20%
+                sleep(intval($this->config->security->auth_fake_delay*0.2));
+
+                // mesage
+                $this->ajax->error('Wrong information ! ');
+            }
         }
 
         return $this->ajax->sendResponse();
