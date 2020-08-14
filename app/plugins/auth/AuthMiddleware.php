@@ -7,6 +7,8 @@ use \SakuraPanel\Models\User\{
     UsersSessions,
     Users
 };
+use \SakuraPanel\Models\Security\AuthSecurity;
+
 
 // AuthMiddleware lib
 use \Sid\Phalcon\AuthMiddleware\MiddlewareInterface;
@@ -76,7 +78,13 @@ class AuthMiddleware extends \ControllerBase implements MiddlewareInterface , Sh
     {
         $auth = false;
 
+        // check if ip is banned
+        if (AuthSecurity::isIpBanned($this->request->getClientAddress())) {
+            $this->flash->error('You are banned from our services ! ');
+            return false;
+        }
 
+        // check session
         if ($this->session->has($this->authKey)) { 
             $auth = $this::getUserSession();
             if(!$auth) $this::clearUserSession();
@@ -242,4 +250,6 @@ class AuthMiddleware extends \ControllerBase implements MiddlewareInterface , Sh
         $random = new \Phalcon\Security\Random();
         return $random->base64($size);
     }
+
+
 }

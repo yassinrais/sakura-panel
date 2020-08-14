@@ -7,6 +7,7 @@ use \SakuraPanel\Controllers\Pages\PageControllerBase;
 
 use \SakuraPanel\Forms\LoginForm;
 use \SakuraPanel\Models\User\{Users , UsersSessions};
+use \SakuraPanel\Models\Security\AuthSecurity;
 use \Phalcon\Http\Response;
 
 /**
@@ -25,12 +26,12 @@ class AuthController extends PageControllerBase
     public function initialize(){
         parent::initialize();
 
+        $this->client_ip = $this->request->getClientAddress();
+
         $this->page->set('body.class','bg-gradient-primary');
+        $this->assetsPack->footer->addJs('assets/js/auth.js');
 
         $this->view->setMainView('auth/index');
-        
-        $this->assetsPack->footer->addJs('assets/js/auth.js');
-        
         $this->view->form = new LoginForm();
     }
 	public function indexAction(){
@@ -50,23 +51,49 @@ class AuthController extends PageControllerBase
     {
         $this->view->disable();
 
-        $form = $this->view->form;
-        if (!$form->isValid($_POST)) {
-            foreach ($form->getMessages() as $msg) 
-                $this->ajax->error((string) $msg);
+        // check if ip is banned
+        if (AuthSecurity::isIpBanned($this->client_ip)) {
+            $this->ajax->error('Access denied. you are banned from this service !');
+            // fake sleep
+            sleep($this->config->security->auth_fake_delay);
+        }elseif (AuthSecurity::isIpSuspend($this->client_ip)) {
+            $this->ajax->warning('You are suspended , because of the many attempts !');
+            // fake sleep
+            sleep($this->config->security->auth_fake_delay);
         }else{
-            $user = Users::findFirstByEmail((string) $this->request->getPost('email'));
 
-            if ($user && $this->security->checkHash($this->request->getPost('password') , $user->password)) {
-                if ($user->isActive()) {
-                    $this->setUserSession($user , $this->request->getPost('remember') ?? false);
-                    $this->ajax->success('Login successful. redirecting ... ');
-                }else
-                    $this->ajax->{$user->getStatusInfo()->type}('Your account is '. $user->getStatusInfo()->title);
-            }else
-                $this->ajax->error('Wrong information ! ');
+
+            $form = $this->view->form;
+            if (!$form->isValid($_POST)) {
+                foreach ($form->getMessages() as $msg) 
+                    $this->ajax->error((string) $msg);
+            }else{
+                $user = Users::findFirstByEmail((string) $this->request->getPost('email'));
+
+                if ($user && $this->security->checkHash($this->request->getPost('password') , $user->password)) {
+                    if ($user->isActive()) {
+                        $this->setUserSession($user , $this->request->getPost('remember') ?? false);
+                        $this->ajax->success('Login successful. redirecting ... ');
+                        AuthSecurity::deleteByIp($this->client_ip);
+                    }else{
+                        // mesage
+                        $this->ajax->{$user->getStatusInfo()->type}('Your account is '. $user->getStatusInfo()->title);
+
+                        // fake time x 20%
+                        sleep(intval($this->config->security->auth_fake_delay*0.2));
+                    }
+                }else{
+                    AuthSecurity::increaseAttempsByIp($this->client_ip);
+
+                    // fake time x 20%
+                    sleep(intval($this->config->security->auth_fake_delay*0.2));
+
+                    // mesage
+                    $this->ajax->error('Wrong information ! ');
+                }
+            }
+
         }
-
 
         return $this->ajax->sendResponse();
     }

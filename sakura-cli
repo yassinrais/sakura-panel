@@ -13,7 +13,7 @@ use Phalcon\Di\FactoryDefault;
 define('BASE_PATH', dirname(__FILE__));
 define('APP_PATH', BASE_PATH . '/app');
 
-include APP_PATH . '/config/inc/functions.inc.php';
+include_once APP_PATH . '/config/inc/functions.inc.php';
 
 
 /**

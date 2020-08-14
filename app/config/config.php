@@ -9,9 +9,9 @@ defined('APP_PATH') || define('APP_PATH', BASE_PATH . '/app');
 
 
 /**
- * vendor include 
+ * vendor include_once 
  */
-include BASE_PATH . '/vendor/autoload.php';
+include_once BASE_PATH . '/vendor/autoload.php';
 
 /**
  * Env Loader
@@ -62,46 +62,46 @@ $configs = array(
 /**
  *      Logger
  */
-include ('inc/logger.inc.php');
+include_once ('inc/logger.inc.php');
 
 
 /**
  *      Tables
  */
-include ('inc/tables.inc.php');
+include_once ('inc/tables.inc.php');
 
 
 /**
  *      Routers
  */
-include ('inc/routes.inc.php');
+include_once ('inc/routes.inc.php');
 
 
 
 /**
  *      Mailer
  */
-include ('inc/mail.inc.php');
+include_once ('inc/mail.inc.php');
 
 
 
 /**
  *      Security
  */
-include ('inc/security.inc.php');
+include_once ('inc/security.inc.php');
 
 
 /**
  *      Cache
  */
-include ('inc/cache.inc.php');
+include_once ('inc/cache.inc.php');
 
 
 
 /**
  *      Menu
  */
-include ('inc/menu.inc.php');
+include_once ('inc/menu.inc.php');
 
 
 /**
@@ -109,7 +109,7 @@ include ('inc/menu.inc.php');
  *      _function_name...
  *
  */
-include ('inc/functions.inc.php');
+include_once ('inc/functions.inc.php');
 
 
 // return configs

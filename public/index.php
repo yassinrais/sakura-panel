@@ -54,7 +54,7 @@ try {
 
 
 } catch (\Exception $e) {
-    if (getenv('APP_DEBUG') == true) {
+    if (getenv('APP_DEBUG')) {
         // move this after calling $di Factory
         $debug = new \Phalcon\Debug();
         $debug->listen();
@@ -62,5 +62,6 @@ try {
         echo $e->getMessage() . '<br>';
         echo '<pre>' . $e->getTraceAsString() . '</pre>';
     }else 
+        echo $e->getMessage() . '<br>';
         exit('Error ! please contact support ! ');
 }

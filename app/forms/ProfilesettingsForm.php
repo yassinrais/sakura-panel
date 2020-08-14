@@ -65,6 +65,7 @@ class ProfilesettingsForm extends BaseForm
             new StringLength(
                 [
                     'min'            => $this->config->security->min_password_length ?? 10,
+                    'max'            => $this->config->security->max_password_length ?? 100,
                     'messageMinimum' => 'New Password is too short',
                     'allowEmpty'=>true,
                 ]
