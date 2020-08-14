@@ -1,23 +1,27 @@
 <?php 
+/**
+ *
+ * Security Configs 
+ * Configurations
+ *
+ */
 
 $configs['security'] = [
 	// validation
-	'mailValidationLength' => getenv('SECURITY_MAIL_ACTTOKEN_LENGTH') ?: 15,
-	'resetPasswordKeyLength' => getenv('SECURITY_RESET_PASSTOKEN_LENGTH') ?: 50,
+	'mail_activation_token_length' => getenv('SECURITY_MAIL_ACTTOKEN_LENGTH') ?: 15,
+	'password_reset_token_lenth' => getenv('SECURITY_RESET_PASSTOKEN_LENGTH') ?: 50,
 
-	// expiration
-	'authResetExpirationDelay' => getenv('SECURITY_EXPIRE_RESET_DELAY') ?: 60 * 60 *  24 * 1 , // 1 day 
-	'authActivateExpirationDelay' => getenv('SECURITY_EXPIRE_ACTIVATION_DELAY') ?: 60 * 60 *  24 * 10 , // 10 day 
-	
-	// security
-	'securityCacheLifeTime' => 60 * 60 * 24 * 30,
-	'maxAuthAttemps'=> getenv('SECURITY_MAX_AUTH_ATTEMPS') ?:  2, // max 5 try 
-	'authTTL' => getenv('SECURITY_AUTH_TTL') ?: 60 * 10, //(10 minutes)
-	'activationMailDelay'=> getenv('SECURITY_SEND_ACTIVATION_DELAY') ?: 1  * 60  ,// 1 minute
-	'fakeFailsDelay'=> rand(0, (int)getenv('SECURITY_FAKE_FAILS_DELAY') ?: 6), // 5 seconds
+	// max attemps
+	'auth_suspend_max_attemps'=> getenv('SECURITY_AUTH_SUSPEND_MAX_ATTEMPS') ?:  2, // max 5 try 
+	'auth_banned_max_attemps'=> getenv('SECURITY_AUTH_BANNED_MAX_ATTEMPS') ?:  2, // max 5 try 
 
+	// delays
+	'activation_send_delay'=> getenv('SECURITY_SEND_ACTIVATION_DELAY') ?: 1  * 60  ,// 1 minute
+	'auth_fake_delay'=> rand(0, (int)getenv('SECURITY_AUTH_FAKE_DELAY') ?: 6), // 5 seconds
 
-	'min_password_length'=> 5,
+	// password 
+	'min_password_length'=> getenv('SECURITY_PASSWORD_MIN_LENGTH') ?: 5  ,// 1 minute
+	'max_password_length'=> getenv('SECURITY_PASSWORD_MAX_LENGTH') ?: 60  ,// 1 minute
 ];
 
 // for new we are not interested
