@@ -91,9 +91,15 @@ include ('inc/mail.inc.php');
 include ('inc/security.inc.php');
 
 
+/**
+ *      Cache
+ */
+include ('inc/cache.inc.php');
+
+
 
 /**
- *      Security
+ *      Menu
  */
 include ('inc/menu.inc.php');
 
