@@ -251,8 +251,7 @@ $di->setShared('securityCache' , function () use ($di)
     $serializerFactory = new SerializerFactory();
 
     $options = [
-        // 'defaultSerializer' => 'Json',
-        'lifetime'          => intval( $config->security->securityCacheLifeTime ) ?? 60 * 60 * 24 * 30 ,
+        'lifetime'          => intval( $config->cache->security_life_time ) ,
         'storageDir' => $config->application->securityCacheDir ?? BASE_PATH . '/cache/security/',
     ];
 
@@ -271,8 +270,7 @@ $di->setShared('modelsCache' , function () use ($di)
     $serializerFactory = new SerializerFactory();
 
     $options = [
-        // 'defaultSerializer' => 'Json',
-        'lifetime'          => 1 * 60 ,  //10seconds 
+        'lifetime'          => intval( $config->cache->model_life_time ),  
         'storageDir' => $config->application->globalCacheDir ?? BASE_PATH . '/cache/global/',
     ];
 
@@ -289,8 +287,7 @@ $di->setShared('cache' , function () use ($di)
     $serializerFactory = new SerializerFactory();
 
     $options = [
-        // 'defaultSerializer' => 'Json',
-        'lifetime'          => 1 * 60 * 60  ,  //10seconds 
+        'lifetime'          => intval( $config->cache->shared_life_time ),   
         'storageDir' => $config->application->cacheDir ?? BASE_PATH . '/cache/shared/',
     ];
 
