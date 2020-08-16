@@ -359,17 +359,18 @@ class Install
 
         $env_configs_file = explode("\n", str_replace("\r", "", file_get_contents(".env")));
         foreach ($env_configs_file as $line) {
-            $c = explode("=", $line."=");
+            if (strpos($line, "=") && str_split($line)[0] !== "#") {
+                $c = explode("=", $line."=");
 
-            $k = $c[0];
-            $v = $c[1];
+                $k = $c[0];
+                $v = $c[1];
 
-            if (empty($k)) continue;
-            $v = str_split($v);
-            $closet = ($v[count($v)-1].$v[0] === '""') ? true : false;
+                if (empty($k)) continue;
+                $v = str_split($v);
+                $closet = ($v[count($v)-1].$v[0] === '""') ? true : false;
 
-            $this->configs[$k] = $closet ? substr($c[1], 1 , count($v)-2): $c[1];
-
+                $this->configs[$k] = $closet ? substr($c[1], 1 , count($v)-2): $c[1];
+            }
         }
 
 
@@ -403,31 +404,35 @@ class Install
 
             Console::print("Rewriting file $env" ,"CONFIGS","yellow");
             foreach ($env_lines as $line) {
-                $c = explode("=", $line."=");
+                if (strpos($line, "=") && str_split($line)[0] !== "#") {
+                    $c = explode("=", $line."=");
 
-                $k = $c[0];
-                $v = $c[1];
+                    $k = $c[0];
+                    $v = $c[1];
 
-                if (empty($k)) continue;
+                    if (empty($k)) continue;
 
-                $v = str_split($v);
-                $closet = ($v[count($v)-1].$v[0] === '""') ? true : false;
-                $val =  $closet ? substr($c[1], 1 , count($v)-2): $c[1];
+                    $v = str_split($v);
+                    $closet = ($v[count($v)-1].$v[0] === '""') ? true : false;
+                    $val =  $closet ? substr($c[1], 1 , count($v)-2): $c[1];
 
-                if (!empty($this->configs[$k])) 
-                    $val = $this->configs[$k];
+                    if (!empty($this->configs[$k])) 
+                        $val = $this->configs[$k];
 
-                echo Console::cyan("[CONFIGS] : ") .Console::purple($k) . " -> Value [".Console::cyan($val)."] : ";
-                $rd = readline();
+                    echo Console::cyan("[CONFIGS] : ") .Console::purple($k) . " -> Value [".Console::cyan($val)."] : ";
+                    $rd = readline();
 
-                $this->configs[$k] = $rd !== "" ? $rd : $val;
-                
-                if ($rd !== "") $val = $rd;
+                    $this->configs[$k] = $rd !== "" ? $rd : $val;
+                    
+                    if ($rd !== "") $val = $rd;
 
-                if (preg_match('/[^a-z_\-0-9]/i', $val)) 
-                    $val = '"'.str_replace("\"", '\"', $rd).'"';
-                
-                $configs_lines[] = "$k=$val";
+                    if (preg_match('/[^a-z_\-0-9]/i', $val)) 
+                        $val = '"'.str_replace("\"", '\"', $rd).'"';
+                    
+                    $configs_lines[] = "$k=$val";
+                }else{
+                    $configs_lines[] = $line;
+                }
             }
             
             Console::print("Create `$env` file ... Ctrl + C to cancel ! ","CONFIGS","yellow");
