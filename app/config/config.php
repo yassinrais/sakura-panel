@@ -38,12 +38,14 @@ $configs = array(
         'controllersDir' => APP_PATH . '/controllers/',
         'modelsDir'      => APP_PATH . '/models/',
         'migrationsDir'  => APP_PATH . '/migrations/',
+        'pluginsDir'     => APP_PATH . '/plugins/',
+        'libraryDir'     => APP_PATH . '/library/',
+        'formsDir'      => APP_PATH . '/forms/',
         
         'viewsDir'       => APP_PATH . '/views/default/',
         'widgetsPath'    => APP_PATH. '/views/default/widgets/',
-        
-        'pluginsDir'     => APP_PATH . '/plugins/',
-        'libraryDir'     => APP_PATH . '/library/',
+
+
         'cacheDir'       => BASE_PATH . '/cache/shared/',
         'cacheViewsDir'       => BASE_PATH . '/cache/views/',
         'cacheSessionsDir' => BASE_PATH . '/cache/sessions/',
