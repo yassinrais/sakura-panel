@@ -1,2 +1,3 @@
-#!/usr/bin
+#!/usr/bin/env bash
+
 php "sakura-cli" $*
