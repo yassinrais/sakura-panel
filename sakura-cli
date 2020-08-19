@@ -511,12 +511,14 @@ class Install
     {
         Console::print(" # To Install Sakura Panel : ","HELP","yellow");
         Console::print(Console::cyan(" --> Run :") . Console::light_purple(" composer install")   ,"HELP");
-        Console::print(Console::cyan(" --> Run :") . Console::light_purple(" sakura-cli -a install") ,"HELP");
+        Console::print(Console::cyan(" --> Run :") . Console::light_purple(" sakura-cli install") ,"HELP");
         Console::line();
         Console::print(" # To Add User to Sakura Panel : ","HELP","yellow");
-        Console::print(Console::cyan(" --> Run :") . Console::light_purple(" sakura-cli -a adduser") ,"HELP");
+        Console::print(Console::cyan(" --> Run :") . Console::light_purple(" sakura-cli adduser") ,"HELP");
         Console::line();
-
+        Console::print(" # To Create Plugin : ","HELP","yellow");
+        Console::print(Console::cyan(" --> Run :") . Console::light_purple(" sakura-cli create-plugin") ,"HELP");
+        Console::line();
     }
 
 }
