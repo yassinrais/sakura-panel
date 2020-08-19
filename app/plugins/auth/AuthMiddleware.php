@@ -21,20 +21,20 @@ class AuthMiddleware extends \ControllerBase implements MiddlewareInterface , Sh
     private $authKey = "user";
     private $authKeyRemember = "user_rm";
     private $authKeyRememberLength = 50;
-    private $auth_data = ['id','username','email' , 'role_name'];
+    private $auth_data = ['id','username','email' , 'role_name','status'];
 
     protected $user;
-    protected $isLogged = false;
+    protected $authUser = false;
     // check role / acl permissions
     public function beforeExecuteRoute(Dispatcher $dispatcher)
     {
-        $this->isLogged = $this->isLoggedIn();
+        $this->authUser = $this->isLoggedIn();
 
         $controllerName = $dispatcher->getControllerName();
         // Check if the user have permission to the current option
         $actionName = $dispatcher->getActionName();
         
-        $role_name = $this->isLogged->role_name  ?? $this::ROLE_DEFAULT;
+        $role_name = $this->authUser->role_name  ?? $this::ROLE_DEFAULT;
 
 
         if (!$this->acl->isAllowed($role_name, $controllerName, $actionName)) {
@@ -54,8 +54,8 @@ class AuthMiddleware extends \ControllerBase implements MiddlewareInterface , Sh
     public function authenticate() : bool
     {
 
-        $this->isLogged = $this->isLoggedIn();
-        if (!$this->isLogged) {
+        $this->authUser = $this->isLoggedIn();
+        if (!$this->authUser) {
             
             $this->flashSession->error(
                 "You must be logged in."
@@ -67,7 +67,22 @@ class AuthMiddleware extends \ControllerBase implements MiddlewareInterface , Sh
             $this->response->redirect(
                 "auth/login"
             );
-
+            return false;
+        }
+        if ($this->authUser->status != $this::ACTIVE){
+            $this::clearUserSession();
+            
+            if ($this->request->isAjax())
+                return $this->ajax->error("Your account is ". $Users::getStatusById($this->authUser->status)->title)->sendResponse();
+            else
+                $this->flashSession->error(
+                    "Your account is ". Users::getStatusById($this->authUser->status)->title
+                );
+            
+            $this->response->redirect(
+                "auth/login?disabledStatus"
+            );
+            die;
             return false;
         }
 
@@ -149,8 +164,7 @@ class AuthMiddleware extends \ControllerBase implements MiddlewareInterface , Sh
     {
 
         $ds = $this->session->remove($this->authKey);
-        $dc = $this->cookies->set($this->authKeyRemember,null);
-        $dc = $this->cookies->get($this->authKeyRemember)->delete();
+        $dc = $this->cookies->get($this->authKeyRemember)->delete() && $this->cookies->set($this->authKeyRemember,null);
 
         return $ds && $dc;
     }
