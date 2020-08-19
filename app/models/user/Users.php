@@ -5,7 +5,8 @@ use Phalcon\Validation;
 use Phalcon\Validation\Validator\{
     Email as EmailValidator ,
     Uniqueness ,
-    Regex
+    Regex,
+    InclusionIn
 };
 
 class Users extends \ModelBase
@@ -121,6 +122,28 @@ class Users extends \ModelBase
             )
         );
 
+        $validator->add(
+            'role_name',
+            new InclusionIn(
+                [
+                    "message" => "The role must be ". implode(",",$this::ROLES_LIST),
+                    "domain"  => array_keys($this::ROLES_LIST),
+                ]
+            )
+        );
+
+        $validator->add(
+            'status',
+            new InclusionIn(
+                [
+                    "message" => "The :field must be ". implode(",",$this::STATUS_LIST),
+                    "domain"  => array_keys($this::STATUS_LIST),
+                ]
+            )
+        );
+
+        
+
         return $this->_ignore_validation || $this->validate($validator);
     }
 
@@ -169,4 +192,42 @@ class Users extends \ModelBase
         $this->password = $this->getDI()->getSecurity()->hash($this->password);
     }
 
+    /** 
+     * Get User Role By Name    
+     * @param string $role 
+     * @return object $info 
+     */
+    public static function getRoleByName(string $name = null)
+    {
+        $info = (object) [
+			'title'=>'Unknown',
+			'icon'=>'close',
+			'id'=>-2,
+			'type'=>'error',
+			'color'=>'danger',
+		];
+		switch ($name) {
+			
+			case self::ADMIN:
+				$info->title = "Admin";
+				$info->icon = "user-secret";
+				$info->color = "danger";
+				break;
+			
+			case self::MEMBER:
+				$info->title = "Member";
+				$info->icon = "user-circle-o";
+				$info->color = "success";
+				break;
+			
+			case self::GEUST:
+				$info->title = "Geust";
+				$info->icon = "user";
+				$info->color = "warning";
+				break;
+
+		}
+
+		return (object) $info;
+    }
 }

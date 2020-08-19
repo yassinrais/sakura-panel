@@ -11,6 +11,7 @@
             <th>#ID</th>
             <th>Full Name</th>
             <th>Email</th>
+            <th>Role</th>
             <th>Status</th>
             <th>Actions</th>
           </thead>

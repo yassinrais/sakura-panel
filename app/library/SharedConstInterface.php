@@ -12,6 +12,11 @@ interface SharedConstInterface {
 	const ACTIVE = 1;
 	const SUSPENDED = 2;
 
+	// roles
+	const ADMIN = "admins";
+	const MEMBER = "members";
+	const GEUST = "geusts";
+
 	// status : enable/disable
 	const DISABLED = self::INACTIVE;
 	const ENABLED = self::ACTIVE;
@@ -20,11 +25,19 @@ interface SharedConstInterface {
 	const DB_READ_KEY = 'model_read';
 
 
+	// status
 	const STATUS_LIST = [
       self::INACTIVE => 'InActive',
       self::ACTIVE => 'Active',
       self::SUSPENDED => 'Suspended',
       self::DELETED => 'Deleted',
+    ];
+
+	// roles
+	const ROLES_LIST = [
+      self::ADMIN => 'Admin',
+      self::MEMBER => 'Member',
+      self::GEUST => 'Geust',
     ];
 
 	// date

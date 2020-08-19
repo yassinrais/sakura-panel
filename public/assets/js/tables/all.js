@@ -8,6 +8,7 @@ $('#users-dataTable').DataTable({
         {data: "id"},
         {data: "fullname"},
         {data: "email"},
+        {data: "c_role"},
         {data: "c_status"},
         {data: "c_actions"},
     ]
@@ -32,7 +33,8 @@ $('body').on('click','.table-action-btn' , function () {
    let e = $(this);
 
    let id = e.data('id');
-   let action = e.data('action');
+   let action =  e.data('action');
+   let title = e.attr('title') ? e.attr('title') : action;
    let path = e.data('path');
    let cb = e.data('cb');
 
@@ -46,7 +48,7 @@ $('body').on('click','.table-action-btn' , function () {
 
     tableAction.fire({
       title: 'Are you sure?',
-      text: `Do you confirm to ${action} ${id} ?`,
+      text: `Do you confirm to \`${title}\` ${id} ?`,
       icon: 'warning',
       showCancelButton: true,
       confirmButtonText: 'Yes, do it!',
