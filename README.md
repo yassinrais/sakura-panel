@@ -36,6 +36,25 @@
 * Add New Admin  ``sakura-cli adduser``  
 * Create Plugin  ``sakura-cli create-plugin``  
 
+## 📈 Performance Tests : 
+------------ Test 1 -------------
+* Load 3 Plugins 
+```php
+  $start = microtime(true);
+  $di->getPlugins()->loadPlugins();
+  echo (microtime(true) - $start)/1000 . "s";
+```
+* Result>> Take ~ ``0.00032733201980591 seconds``
+
+------------ Test 2 -------------
+* Application Handle
+```php
+  $start = microtime(true);
+  echo $application->handle($_SERVER['REQUEST_URI'])->getContent();
+  echo (microtime(true) - $start)/1000 . "s";
+```
+* Result>> Take ~ ``6.4398050308228E-5 seconds``
+
 ## 👥 Contributors :
 
 * Yassine Rais | Dev | [GitHub](https://github.com/yassinrais) [Website](https://neutrapp.com)
