@@ -136,7 +136,7 @@ class Install
         Console::print("Enjoy Sakura Panel ♥","SAKURA","purple");
         Console::print(Console::yellow("Thanks you for using Sakura Panel !"),"SAKURA");
         Console::print(Console::bold("Dont Forget to support us ♥ ! "),"SAKURA","red");
-        Console::print(Console::bold("https://neutrapp.com/page/sakura"),"SAKURA","cyan");
+        Console::print(Console::bold("https://github.com/yassinrais/sakura-panel"),"SAKURA","cyan");
         Console::line(40,'-');
     }
 
