@@ -43,7 +43,7 @@ class PageInfoManager extends \ControllerBase
 	 */
 	public function getMenu()
 	{
-		$access = $this->di->get('user')->role_name ?? "geusts";
+		$access = $this->di->get('user')->role_name ?? "guests";
 
 		$this->menu = [];
 

@@ -60,7 +60,7 @@ class UsersMigration_100 extends Migration
                         'role_name',
                         [
                             'type' => Column::TYPE_VARCHAR,
-                            'default' => "geust",
+                            'default' => "guest",
                             'notNull' => true,
                             'size' => 255,
                             'after' => 'password'

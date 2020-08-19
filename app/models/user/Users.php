@@ -220,8 +220,8 @@ class Users extends \ModelBase
 				$info->color = "success";
 				break;
 			
-			case self::GEUST:
-				$info->title = "Geust";
+			case self::GUEST:
+				$info->title = "Guest";
 				$info->icon = "user";
 				$info->color = "warning";
 				break;

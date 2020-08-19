@@ -1,6 +1,6 @@
 <?php 
 /**
- * Acl For Roles (Admins / Members / Geusts)
+ * Acl For Roles (Admins / Members / Guests)
  */
 use Phalcon\Acl\Adapter\Memory;
 use Phalcon\Acl\Component;
@@ -12,11 +12,11 @@ $acl = new Memory();
 
 $roleAdmins     = new Role('admins', 'Administrator Access');
 $roleMembers    = new Role('members', 'Members Access'); 
-$roleGeusts     = new Role('geusts', 'Geusts Access'); 
+$roleGuests     = new Role('guests', 'Guests Access'); 
 
 $acl->addRole($roleAdmins);
 $acl->addRole($roleMembers);
-$acl->addRole($roleGeusts);
+$acl->addRole($roleGuests);
 
 $acl->setDefaultAction(\Phalcon\Acl\Enum::DENY);
 

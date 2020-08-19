@@ -15,7 +15,7 @@ interface SharedConstInterface {
 	// roles
 	const ADMIN = "admins";
 	const MEMBER = "members";
-	const GEUST = "geusts";
+	const GUEST = "guests";
 
 	// status : enable/disable
 	const DISABLED = self::INACTIVE;
@@ -37,7 +37,7 @@ interface SharedConstInterface {
 	const ROLES_LIST = [
       self::ADMIN => 'Admin',
       self::MEMBER => 'Member',
-      self::GEUST => 'Geust',
+      self::GUEST => 'Guest',
     ];
 
 	// date
@@ -47,7 +47,7 @@ interface SharedConstInterface {
 
 
 	// acl 
-	const ROLE_DEFAULT = "geusts";
+	const ROLE_DEFAULT = "guests";
 
 
 	// plugins
