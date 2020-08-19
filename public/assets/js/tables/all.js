@@ -24,7 +24,6 @@ $('#wsettings-dataTable').DataTable({
         {data: "key"},
         {data: "val"},
         {data: "type"},
-        {data: "actions"},
         {data: "c_actions"},
     ]
 });

@@ -93,9 +93,9 @@ class SettingsController extends MemberControllerBase
           
           $dataTables->fromBuilder($builder);
 
-          $dataTables->addCustomColumn('actions' , function ($key , $data)
+          $dataTables->addCustomColumn('c_actions' , function ($key , $data)
           {
-          	return "<a class='btn btn-info btn-sakura btn-sm' href='admin/website-settings/edit/$data[id]'><i class='fa fa-pencil'></i>Edit</a>";
+			  return  "<a class='btn btn-info btn-sakura btn-sm' href='admin/website-settings/edit/$data[id]'><i class='fa fa-pencil'></i>Edit</a>";
           });
 
           $dataTables->sendResponse();
