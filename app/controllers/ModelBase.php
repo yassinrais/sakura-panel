@@ -25,6 +25,7 @@ class ModelBase extends Model implements SharedConstInterface
 {
 
 	protected $client_ip;
+	protected $_ignore_validation = false;
 
 	/**
 	 * Get the table name 
@@ -66,7 +67,9 @@ class ModelBase extends Model implements SharedConstInterface
 	 */
 	public function beforeDelete()
 	{
-        if (property_exists(self::class, '_safe_delete') && !empty($this->_safe_delete) && $this->_safe_delete == true) {
+        if ((
+			property_exists(self::class, '_safe_delete') || property_exists(static::class, '_safe_delete')
+		) && !empty($this->_safe_delete) && $this->_safe_delete == true) {
 
               $this->addBehavior(
                     new SoftDelete([    'field' => 'status',        'value' => $this::DELETED     ])
@@ -76,7 +79,9 @@ class ModelBase extends Model implements SharedConstInterface
               );
               $this->addBehavior(
                     new SoftDelete([    'field' => 'deleted_ip',    'value' => $this::getIp()     ])
-              );
+			  );
+			  
+			  $this->_ignore_validation = true;
 
         }
 	
@@ -178,5 +183,20 @@ class ModelBase extends Model implements SharedConstInterface
 	    }
 
 	    return implode(", ", $d);
+	}
+
+
+	/**	
+	 * Method to disable validation 
+	 */
+	public function disableValidation(){
+		$this->_ignore_validation = true;
+	}
+
+	/**	
+	 * Method to enable validation 
+	 */
+	public function enableValidation(){
+		$this->_ignore_validation = false;
 	}
 }

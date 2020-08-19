@@ -77,6 +77,12 @@ class Users extends \ModelBase
      */
     public $updated_ip;
 
+
+    /** 
+     * Safe Delete
+     */
+    public $_safe_delete = true;
+
     /**
      * Validations and business logic
      *
@@ -115,7 +121,7 @@ class Users extends \ModelBase
             )
         );
 
-        return $this->validate($validator);
+        return $this->_ignore_validation || $this->validate($validator);
     }
 
     /**

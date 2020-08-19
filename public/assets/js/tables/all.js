@@ -7,7 +7,9 @@ $('#users-dataTable').DataTable({
     columns: [
         {data: "id"},
         {data: "fullname"},
-        {data: "email"}
+        {data: "email"},
+        {data: "c_status"},
+        {data: "c_actions"},
     ]
 });
 $('#wsettings-dataTable').DataTable({
@@ -21,7 +23,8 @@ $('#wsettings-dataTable').DataTable({
         {data: "key"},
         {data: "val"},
         {data: "type"},
-        {data: "actions"}
+        {data: "actions"},
+        {data: "c_actions"},
     ]
 });
 

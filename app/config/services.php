@@ -319,17 +319,19 @@ $di->set(
                  if (getenv('APP_DEBUG') !== true) {
                     switch ($exception->getCode()) {
                         case DispatcherException::EXCEPTION_HANDLER_NOT_FOUND:
+                            if ($this->getRequest()->isAjax()) return $this->getResponse()->send();
                             $dispatcher->forward(
                                 array(
-                                        'controller' => '\SakuraPanel\Controllers\Pages\PageErrors',
+                                    'controller' => '\SakuraPanel\Controllers\Pages\PageErrors',
                                     'action'     => 'Page404',
                                 )
                             );
                             return false;
                         case DispatcherException::EXCEPTION_ACTION_NOT_FOUND:
+                            if ($this->getRequest()->isAjax()) return $this->getResponse()->send();
                             $dispatcher->forward(
                                 array(
-                                        'controller' => '\SakuraPanel\Controllers\Pages\PageErrors',
+                                    'controller' => '\SakuraPanel\Controllers\Pages\PageErrors',
                                     'action'     => 'Page404',
                                 )
                             );
