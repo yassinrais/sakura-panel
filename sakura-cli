@@ -24,7 +24,7 @@ include_once APP_PATH . '/config/inc/functions.inc.php';
 $installer = new Install();
 
 $installer->run(
-    getopt('a:')['a'] ?? 'unknown'
+    $argv[1] ?? 'help'
 );
 
 

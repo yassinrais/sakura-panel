@@ -26,15 +26,15 @@
 1. First you need to install php v 7.2+ and Phalcon v 4.0.1+ in your *Machine*
 2. Then execute ``git clone https://github.com/yassinrais/sakura-panel.git``  repository into your *machine*
 3. Run ``composer install`` to install php dependencies (vendor)
-3. (**For Unix OS**) Run ``chmod +x ./sakura-cli.sh`` then ``./sakura-cli.sh  -a install`` With *cli/bash* 
-    Or if you're (**a Windows OS**) Run ``sakura-cli -a install`` with *cmd/powershell*
-5. Run ``sakura-cli -a adduser`` to add a new user as administrator.
+3. (**For Unix OS**) Run ``chmod +x ./sakura-cli.sh`` then ``./sakura-cli.sh  install`` With *cli/bash* 
+    Or if you're (**a Windows OS**) Run ``sakura-cli install`` with *cmd/powershell*
+5. Run ``sakura-cli adduser`` to add a new user as administrator.
 6. Enjoy ! Sakura Panel ♥ 
 
 ## ➕ CLI Usage :
-* Install Script ``sakura-cli -a install``  
-* Add New Admin  ``sakura-cli -a adduser``  
-* Create Plugin  ``sakura-cli -a create-plugin``  
+* Install Script ``sakura-cli install``  
+* Add New Admin  ``sakura-cli adduser``  
+* Create Plugin  ``sakura-cli create-plugin``  
 
 ## 👥 Contributors :
 
