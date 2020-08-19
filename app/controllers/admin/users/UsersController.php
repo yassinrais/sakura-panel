@@ -88,17 +88,14 @@ class UsersController extends MemberControllerBase
             ->sendResponse();
         }
     }
-    
-    public function editAction($id = null)
+	
+	/**
+	 * Add New Row
+	 */
+    public function createAction()
 	{
-		$row = Users::findFirstById($id);
-		if (!$row) {
-			$this->flashSession->error('Unknown User ID: '.intval($id));
-			return $this->response->redirect('admin/users');
-		}
-		
+		$row = new Users();
 		$form = new UsersForm($row);
-
 
 		if (!empty($this->request->isPost())) {
 			if (false === $form->isValid($_POST)) {
@@ -111,13 +108,58 @@ class UsersController extends MemberControllerBase
 				$form->bind($_POST, $row);
 
 				if ($row->save()) {
-					$this->flashSession->success('User Updated Successffully ');
+					$row->password = null;
+					$this->flashSession->success("User {$row->username} created  Successffully ");
 					return $this->response->redirect('admin/users');
 				}else{
 					$this->flashSession->error('Error !' . implode(" & ", $row->getMessages()));
 				}
 			}
 		}else{
+			$form->bind($row->toArray() , $row);
+		}
+
+
+		$this->view->form = $form;
+		$this->view->row = $row;
+
+		$this->view->pick('admin/users/form');
+    }
+	
+	/**
+	 * Edit Row
+	 */
+    public function editAction($id = null)
+	{
+		$row = Users::findFirstById($id);
+		if (!$row) {
+			$this->flashSession->error('Unknown User ID: '.intval($id));
+			return $this->response->redirect('admin/users');
+		}
+		
+		$form = new UsersForm($row);
+		
+		if (!empty($this->request->isPost())) {
+			if (false === $form->isValid($_POST)) {
+			    $messages = $form->getMessages();
+
+			    foreach ($messages as $message) {
+			        $this->flashSession->warning((string) $message);
+			    }
+			}else{
+				if(empty($_POST['password']))
+					unset($_POST['password']);
+				
+				$form->bind($_POST, $row);
+				if ($row->save()) {
+					$this->flashSession->success('User Updated Successffully ');
+					return $this->response->redirect('admin/users');
+				}else{
+					$this->flashSession->error('Error ! ' . implode(" & ", $row->getMessages()));
+				}
+			}
+		}else{
+			$row->password = null;
 			$form->bind($row->toArray() , $row);
 		}
 

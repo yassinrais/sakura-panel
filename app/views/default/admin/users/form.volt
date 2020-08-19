@@ -6,11 +6,20 @@
             </div>
             <div class="card-body">
                 <form method="post" >
-                    <div class="form-group"><label>Full Name</label> {{ form.render('fullname') }} </div>
-                    <div class="form-group"><label>Username</label> {{ form.render('username') }} </div>
-                    <div class="form-group"><label>Email</label> {{ form.render('email') }} </div>
-                    <div class="form-group"><label>Role</label> {{ form.render('role_name') }} </div>
-                    <div class="form-group"><label>Status</label> {{ form.render('status') }} </div>
+                    <div class="form-group pt-3">
+                        <label class="text-primary h5" ><b>Personnel :</b></label>
+                        <div class="form-group mt-3"><label>Full Name</label> {{ form.render('fullname') }} </div>
+                    </div>
+                    <div class="form-group pt-3">
+                        <label class="text-primary h5" ><b>Authentification :</b></label>
+                        <div class="form-group mt-3"><label>Role</label> {{ form.render('role_name') }} </div>
+                        <div class="form-group"><label>Username</label> {{ form.render('username') }} </div>
+                        <div class="form-group"><label>Email</label> {{ form.render('email') }} </div>
+                        <div class="form-group"><label>Password</label> {{ form.render('password') }} </div>
+                    </div>
+
+                    
+                    <div class="form-group pt-4"><label>Status</label> {{ form.render('status') }} </div>
     
                     <div class="form-group"><button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> Save</button></div>
                 </form>

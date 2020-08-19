@@ -8,6 +8,7 @@ use Phalcon\Forms\Element\Email;
 use Phalcon\Forms\Element\Text;
 use Phalcon\Forms\Element\Hidden;
 use Phalcon\Forms\Element\Select;
+use Phalcon\Forms\Element\Password;
 
 // controllers / models
 use SakuraPanel\Forms\BaseForm;
@@ -46,21 +47,34 @@ class UsersForm extends BaseForm
           ]
         );
         $username->addFilter('string');
+        /**
+          *
+          * Text Input
+          *
+          */
+         $email = new Email(
+           'email',
+           [
+             'required'=>true,
+             'class'=>"form-control",
+             'placeholder'=>'Email',
+           ]
+         );
+         $email->addFilter('string');
+
        /**
          *
-         * Text Input
+         * Password Input
          *
          */
-        $email = new Email(
-          'email',
+        $password = new Password(
+          'password',
           [
-            'required'=>true,
             'class'=>"form-control",
-            'placeholder'=>'Email',
+            'placeholder'=>'New Password',
           ]
         );
-        $email->addFilter('string');
-
+ 
         /**
          *
          * Select
@@ -76,7 +90,7 @@ class UsersForm extends BaseForm
             'class'=>"form-control",
           ]
         );
-        $email->addFilter('string');
+        $role->addFilter('string');
 
            /**
          * 
@@ -99,6 +113,7 @@ class UsersForm extends BaseForm
      	$this->add($fullname);
      	$this->add($username);
      	$this->add($email);
+     	$this->add($password);
      	$this->add($role);
 
      	$this->add($status);

@@ -142,8 +142,6 @@ class Users extends \ModelBase
             )
         );
 
-        
-
         return $this->_ignore_validation || $this->validate($validator);
     }
 
@@ -216,7 +214,7 @@ class Users extends \ModelBase
 			
 			case self::MEMBER:
 				$info->title = "Member";
-				$info->icon = "user-circle-o";
+				$info->icon = "user-circle";
 				$info->color = "success";
 				break;
 			
