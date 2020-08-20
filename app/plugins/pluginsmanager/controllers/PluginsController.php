@@ -161,19 +161,22 @@ class PluginsController extends MemberControllerBase
 			return $this->ajax->error("Plugin ".strip_tags($plugin)." Name is invalid !")->sendResponse();
 
 
+		$plugins_path_url = "{$this->plugins_server}{$plugin}/".self::PLUGIN_CONFIG_JSON."?i=".rand();
 		// get plugin info
-		$plugin_info_json = $this->getRequestContent("{$this->plugins_server}{$plugin}/".self::PLUGIN_CONFIG_JSON);
+		$plugin_info_json = $this->getRequestContent($plugins_path_url);
 
 		try {
 			$plugin_info = json_decode($plugin_info_json);
 
 			if (!empty($plugin_info->name)) {
-				$this->ajax->setData($plugin_info);
+				$this->ajax->setData(['json'=>$plugin_info,'path'=>$plugins_path_url]);
 				
 				$zipFileUrl = $plugin_info->zip ?? null;
 				if(!$zipFileUrl)
 					return $this->ajax->error('Unknown Plugin zip path file !')->sendResponse();
-					
+
+				$zipFileUrl = "{$this->plugins_server}{$zipFileUrl}";
+
 				if (!\SakuraPanel\Functions\_isUrlAZipFile($zipFileUrl)) {
 					$this->ajax->error("Plugin ($zipFileUrl) file is not a zip file ");
 				}else{
@@ -233,16 +236,22 @@ class PluginsController extends MemberControllerBase
 			return $this->ajax->error("Plugin ".strip_tags($plugin)." Name is invalid !")->sendResponse();
 
 
+		$plugins_path_url = "{$this->plugins_server}{$plugin}/".self::PLUGIN_CONFIG_JSON."?i=".rand();
 		// get plugin info
-		$plugin_info_json = $this->getRequestContent("{$this->plugins_server}{$plugin}/".self::PLUGIN_CONFIG_JSON);
+		$plugin_info_json = $this->getRequestContent($plugins_path_url);
 
 		try {
 			$plugin_info = json_decode($plugin_info_json);
 
+		
 			if (!empty($plugin_info->name)) {
-				$this->ajax->setData($plugin_info);
+				$this->ajax->setData(['json'=>$plugin_info,'path'=>$plugins_path_url]);
 				
-				$zipFileUrl = "{$this->plugins_server}{$plugin}/{$plugin}.zip";
+				$zipFileUrl = $plugin_info->zip ?? null;
+				if(!$zipFileUrl)
+					return $this->ajax->error('Unknown Plugin zip path file !')->sendResponse();
+
+				$zipFileUrl = "{$this->plugins_server}{$zipFileUrl}";
 
 				if (!\SakuraPanel\Functions\_isUrlAZipFile($zipFileUrl)) {
 					$this->ajax->error("Plugin ($zipFileUrl) file is not a zip file ");
