@@ -167,4 +167,22 @@ class Plugins extends \ModelBase
         return parent::findFirst($parameters);
     }
 
+
+    public function beforeUpdate()
+    {
+        $this->getDI()->get('cache')->delete($this->getCacheKey());
+        parent::beforeUpdate();
+    }
+
+    public function beforeDelete()
+    {
+        $this->getDI()->get('cache')->delete($this->getCacheKey());
+        parent::beforeDelete();
+    }
+
+
+    public function getCacheKey()
+    {
+        return 'plugin-'.sha1($this->name);
+    }
 }

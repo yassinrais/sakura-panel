@@ -170,8 +170,10 @@ class PluginsController extends MemberControllerBase
 			if (!empty($plugin_info->name)) {
 				$this->ajax->setData($plugin_info);
 				
-				$zipFileUrl = "{$this->plugins_server}{$plugin}/{$plugin}.zip";
-
+				$zipFileUrl = $plugin_info->zip ?? null;
+				if(!$zipFileUrl)
+					return $this->ajax->error('Unknown Plugin zip path file !')->sendResponse();
+					
 				if (!\SakuraPanel\Functions\_isUrlAZipFile($zipFileUrl)) {
 					$this->ajax->error("Plugin ($zipFileUrl) file is not a zip file ");
 				}else{
@@ -213,7 +215,7 @@ class PluginsController extends MemberControllerBase
 	}
 
 	/**
-	 * Update Plugin : ajax
+	 * ² Plugin : ajax
 	 */
 	public function updateAction()
 	{
@@ -285,6 +287,8 @@ class PluginsController extends MemberControllerBase
 
 	public function updatePluginAction(string $plugin_name = null)
 	{
+		$this->ajax->disableArray();
+
 		$plugin_name = strtolower(strip_tags(urldecode($plugin_name)));
 		$p = $this->plugins->get($plugin_name);
 
@@ -294,7 +298,7 @@ class PluginsController extends MemberControllerBase
 		if ($p->update())
 			return $this->ajax->success("Plugin {$p->get('name')} updated successfully !")->sendResponse();
 		
-		return $this->ajax->error(implode(" , ", $this->flashSession->getMessages()))->sendResponse();
+		return $this->ajax->error("Erro Updating Row Plugin :". implode(" , ", $this->flashSession->getMessages()))->sendResponse();
 	}
 
 	/*********

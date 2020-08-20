@@ -82,13 +82,23 @@ class PluginsMigration_103 extends Migration
                         ]
                     ),
                     new Column(
-                        'status',
+                        'installed',
                         [
                             'type' => Column::TYPE_INTEGER,
                             'default' => "0",
                             'notNull' => true,
                             'size' => 1,
                             'after' => 'image'
+                        ]
+                    ),
+                    new Column(
+                        'status',
+                        [
+                            'type' => Column::TYPE_INTEGER,
+                            'default' => "0",
+                            'notNull' => true,
+                            'size' => 1,
+                            'after' => 'installed'
                         ]
                     ),
                     new Column(

@@ -23,6 +23,7 @@ class Plugin implements  \SakuraPanel\Library\SharedConstInterface
 	protected $installation_cb;
 	protected $plugin = null;
 
+	const CACHE_LIFE_TIME = 60 * 60 * 5; // 5 hours
 
 	protected $sqlFiles = ["install"=>[] , "update"=>[]];
 	protected $di;
@@ -246,34 +247,42 @@ class Plugin implements  \SakuraPanel\Library\SharedConstInterface
 	 */
 	public function checkDb()
 	{
-
 		if (class_exists(Plugins::class)) {
-			$this->plugin = Plugins::findFirstByName($this->name);
-
-			if (!$this->plugin) {
-				$this->plugin = new Plugins();
+			$plugin = Plugins::findFirst([
+				'name = ?0',	
+				'bind'=>[ $this->name ],
+				'cache'=>[
+					'service'=>'cache',
+					'lifetime'=>$this::CACHE_LIFE_TIME,
+					'key'=>'plugin-'.sha1($this->name)
+				]
+			]);
+				
+			if (!$plugin) {
+				$plugin = new Plugins();
 				foreach (['name','author','version','title','image','description'] as $key) 
 					if ($this->get($key)) 
-						$this->plugin->{$key} = $this->{$key};
+						$plugin->{$key} = $this->{$key};
 
-				if (!$this->plugin->save()){
-					$this->di->getLogger()->warning("Plugin {$this->name} can not added to plugins table ! (".implode(",", $this->plugin->getMessages()).")");
-					$this->di->getLogger()->warning(json_encode($this->plugin));
+				if (!$plugin->save()){
+					$this->di->getLogger()->warning("Plugin {$this->name} can not added to plugins table ! (".implode(",", $plugin->getMessages()).")");
+					$this->di->getLogger()->warning(json_encode($plugin));
 				}
 			}
 
-			$this->checkInstallation();
+			$this->plugin = $plugin;
+
+			$this->checkInstallation($plugin);
 		}
 	}
 
 	/**
 	 * method :: checkInstallation
 	 */
-	private function checkInstallation()
+	private function checkInstallation($plugin = null)
 	{
-		$plugin = $this->plugin;
-
-		if (!$plugin || $plugin->installed == $this::ACTIVE) return;
+		$plugin = $plugin != null ? $plugin: $this->plugin;
+		if ($plugin == null || $plugin->installed == $this::ACTIVE) return;
 
 		// install files sql
 		$sqlToInstall = $this->sqlFiles['install'] ?? false;
@@ -287,10 +296,20 @@ class Plugin implements  \SakuraPanel\Library\SharedConstInterface
  		}
  		if (in_array(false, $sqlStatus)) {
  			$this->di->get('flashSession')->error("[Plugin : SQL] Plugin `{$this->name}` Installation failed ! ");
- 			return;
- 		}
- 		$plugin->installed = $this::ACTIVE;
- 		return $plugin->save();
+			$this->di->get('logger')->error("[Plugin : SQL] Plugin `{$this->name}` Installation failed ! ");
+			return;
+ 		}else{
+			$this->di->get('logger')->info("[Plugin : SQL] Installation Plugin `{$this->name}` Total Sql Upload Success ! ".count($sqlStatus));
+		}
+		 
+		$plugin->installed = $this::ACTIVE;
+		
+		$save  = $plugin->save();
+
+		if (!$save)
+			$this->di->get('logger')->error("[Plugin : Model] Plugin `{$this->name}` Save Installed failed ! ");
+
+		return $save;
  	}
 
 
@@ -350,7 +369,10 @@ class Plugin implements  \SakuraPanel\Library\SharedConstInterface
  	public function update()
 	{
 		$plugin = $this->plugin;
-		if (!$plugin) return false;
+		if (!$plugin) {
+			$this->di->get('flashSession')->error('Unknown plugin value in Plugin Object');
+			return false;
+		}
 
 		// update files sql
 		$sqlToUpdate = $this->sqlFiles['update'] ?? false;
@@ -358,16 +380,21 @@ class Plugin implements  \SakuraPanel\Library\SharedConstInterface
 
  		if ($sqlToUpdate) {
  			// update files
- 			foreach (is_array($sqlToUpdate) ? $sqlToUpdate : [$sqlToUpdate] as $file) {
+ 			foreach (is_array($sqlToUpdate) ? $sqlToUpdate : [$sqlToUpdate] as $file) 
 				$sqlStatus[] = (bool) $this->uploadSql($file);
- 			}
  		}
  		if (in_array(false, $sqlStatus)) {
  			$this->di->get('flashSession')->error("[Plugin : SQL] Plugin `{$plugin->name}` Updated failed ! ");
- 			return;
+ 			return false;
  		}
- 		$plugin->setIp($this->di->get('request'));
- 		return $plugin->save();
+		$plugin->setIp($this->di->get('request'));
+		
+		if(!$plugin->save()){
+			$this->di->get('flashSession')->error("[Plugin : SQL] Plugin `{$plugin->name}` Updated failed ! ");
+			return false;
+		}
+		 
+ 		return true;
  	}
 
 
