@@ -75,8 +75,15 @@ $di->setShared('db', function () {
     if ($config->database->adapter == 'Postgresql') {
         unset($params['charset']);
     }
-
-    return new $class($params);
+    $connection = new \stdClass();
+    try{
+        $connection = new $class($params);
+    }catch(\Exception $e){
+        $this->getLogger()->error($e->getMessage());
+        
+        die("Database Connection Failed ! Contact Webmaster .");
+    }
+    return $connection;
 });
 
 
