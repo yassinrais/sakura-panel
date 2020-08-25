@@ -51,7 +51,7 @@ class AuthMiddleware extends \ControllerBase implements MiddlewareInterface , Sh
         }
     }
 
-    public function authenticate()
+    public function authenticate() : bool
     {
 
         $this->authUser = $this->isLoggedIn();
@@ -61,8 +61,10 @@ class AuthMiddleware extends \ControllerBase implements MiddlewareInterface , Sh
                 "You must be logged in."
             );
 
-            if ($this->request->isAjax())
-                return $this->ajax->error('You must be logged in ! ')->sendResponse();
+            if ($this->request->isAjax()){
+                $this->ajax->error('You must be logged in ! ')->sendResponse();
+                return false;
+            }
 
             $this->response->redirect(
                 "auth/login"
@@ -72,9 +74,11 @@ class AuthMiddleware extends \ControllerBase implements MiddlewareInterface , Sh
         if ($this->authUser->status != $this::ACTIVE){
             $this::clearUserSession();
             
-            if ($this->request->isAjax())
-                return $this->ajax->error("Your account is ". $Users::getStatusById($this->authUser->status)->title)->sendResponse();
-            else
+            if ($this->request->isAjax()){
+                $this->ajax->error("Your account is ". $Users::getStatusById($this->authUser->status)->title)->sendResponse();
+                return false;
+            }
+            else 
                 $this->flashSession->error(
                     "Your account is ". Users::getStatusById($this->authUser->status)->title
                 );
@@ -82,7 +86,6 @@ class AuthMiddleware extends \ControllerBase implements MiddlewareInterface , Sh
             $this->response->redirect(
                 "auth/login?disabledStatus"
             );
-            die;
             return false;
         }
 
