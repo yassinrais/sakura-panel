@@ -46,4 +46,5 @@ foreach ($configs->route_groups as $prefix => $rgroup) {
     }
 }
 
+var_dump($acl);
 return $acl;

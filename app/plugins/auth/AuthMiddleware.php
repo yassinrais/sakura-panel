@@ -51,7 +51,7 @@ class AuthMiddleware extends \ControllerBase implements MiddlewareInterface , Sh
         }
     }
 
-    public function authenticate() : bool
+    public function authenticate()
     {
 
         $this->authUser = $this->isLoggedIn();

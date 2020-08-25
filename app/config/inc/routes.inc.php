@@ -72,7 +72,7 @@ $configs['route_groups'] = array(
                 'controller'=>'\SakuraPanel\Controllers\Admin\Users\Users',
                 'action'=> 1 , 
                 'params'=> 2 , 
-                'access' => ['admins' => ['*'] ]
+                'access' => ['admins' => ['index' ] ]
         ],
 
         'website-settings'=>[
