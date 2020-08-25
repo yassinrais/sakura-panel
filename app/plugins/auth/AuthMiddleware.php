@@ -38,7 +38,13 @@ class AuthMiddleware extends \ControllerBase implements MiddlewareInterface , Sh
 
 
         if (!$this->acl->isAllowed($role_name, $controllerName, $actionName)) {
-            $this->flash->notice($role_name.'::::: You don\'t have access to this module: ' . $controllerName . ':' . $actionName);
+            if (!$this->request->isAjax()){
+                $this->flashSession->error($role_name.' -  You don\'t have access to this module: ' . $controllerName . ':' . $actionName);
+               
+                $this->response->redirect('../404');
+            }else{
+                $this->ajax->error($role_name.' -  You don\'t have access to this module: ' . $controllerName . ':' . $actionName)->sendResponse();
+            }
             
             if (!$this->acl->isAllowed($role_name, $controllerName, 'index')) {
                 if ($this->request->isAjax())

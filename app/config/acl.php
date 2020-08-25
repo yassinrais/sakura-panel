@@ -26,15 +26,23 @@ foreach ($configs->route_groups as $prefix => $rgroup) {
         if (!$page->access)
             break;
 
-        $acl_item = $page->access;
-        foreach ($acl_item as $acl_names => $actions) {
+        $acl_item = is_object($page->access) ? $page->access : [$page->access];
 
+        foreach ($acl_item as $acl_names => $actions) {
+            if (is_int($acl_names)){
+                // check if  array is associative or sequential
+                $acl_names = $actions;
+                $actions = ["*"];
+            }
+            
             $urls = is_object($page->url) ? $page->url : (object) [$page->url];
             $controller =  str_replace('[M]', 'Sakura\Controllers\Member', $page->controller );
             $roles_alloweds = explode("|", $acl_names ?: "*");
 
-            $actions = is_array($actions) && !empty($actions->toArray()) ? $actions->toArray() : ['*'];
-    
+            $actions = is_object($actions) && method_exists($actions , 'toArray') ? $actions->toArray() : $actions;
+
+            $actions = is_array($actions) && !empty($actions) ? $actions : [$actions ?: '*'];
+
             $acl->addComponent(
                 $controller,
                 $actions
@@ -45,5 +53,4 @@ foreach ($configs->route_groups as $prefix => $rgroup) {
         }
     }
 }
-
 return $acl;

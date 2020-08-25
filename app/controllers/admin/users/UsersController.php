@@ -34,7 +34,6 @@ class UsersController extends MemberControllerBase
 
 	public function ajaxAction()
 	{
-		if ($this->request->isAjax()) {
           $builder = $this->modelsManager->createBuilder()
                           ->columns('id, fullname, email, status ,role_name')
                           ->from(Users::class);
@@ -86,7 +85,6 @@ class UsersController extends MemberControllerBase
                 return $actions;
             })
             ->sendResponse();
-        }
     }
 	
 	/**

@@ -14,12 +14,12 @@ $configs['route_groups'] = array(
         "404"=>[
             'url'=>['/404','/#/','/404/(.*)'],
             'controller'=>'SakuraPanel\Controllers\Pages\PageErrors','action'=>'Page404',
-            'access'=>['*']
+            'access'=> '*'
         ],
         "503"=>[
             'url'=>['/503','/#/','/503/(.*)'],
             'controller'=>'SakuraPanel\Controllers\Pages\PageErrors','action'=>'Page503',
-            'access' => ['*']
+            'access' => '*'
         ],
     ],
 
@@ -30,14 +30,14 @@ $configs['route_groups'] = array(
                 'url'=>['/#','/#/','/#/@'],
                 'controller'=>'\SakuraPanel\Controllers\Member\Dashboard',
                 'action'=>'index' , 
-                'access' => ['members|admins' => ['*'] ]
+                'access' => 'members|admins'
         ],
 
         'settings'=>[
                 'url'=>['/#/@','/#/@/'],
                 'controller'=>'\SakuraPanel\Controllers\Member\Account\Profilesettings',
                 'action'=>'index' , 
-                'access' => ['members|admins' => ['*'] ]
+                'access' => 'members|admins'
         ],
 
 
@@ -48,7 +48,7 @@ $configs['route_groups'] = array(
                 'controller'=>'\SakuraPanel\Controllers\Member\Auth',
                 'action'=>'logout', 
                 'params'=>2 , 
-                'access' => ['members|admins' => ['*'] ]
+                'access' => 'members|admins' 
         ],
 
 
@@ -59,7 +59,7 @@ $configs['route_groups'] = array(
                 'action'=>1, 
                 'params' =>2 , 
                 'token' => 3, 
-                'access' => ['*' => ['*'] ]
+                'access' => '*'
         ],
 
     ],
@@ -72,7 +72,7 @@ $configs['route_groups'] = array(
                 'controller'=>'\SakuraPanel\Controllers\Admin\Users\Users',
                 'action'=> 1 , 
                 'params'=> 2 , 
-                'access' => ['admins' => ['index' ] ]
+                'access' => 'admins'
         ],
 
         'website-settings'=>[
@@ -80,7 +80,7 @@ $configs['route_groups'] = array(
                 'controller'=>'\SakuraPanel\Controllers\Admin\Website\Settings',
                 'action'=> 1 , 
                 'params'=> 2 , 
-                'access' => ['admins' => ['*'] ]
+                'access' => 'admins'
         ],
 
     ]

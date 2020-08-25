@@ -175,15 +175,24 @@ class Plugin implements  \SakuraPanel\Library\SharedConstInterface
 		                $routeConfig
 		            );
 		        }
-		        $acl_item = is_array($page->access) ? $page->access : [$page->access];
+				
+				$acl_item = is_array($page->access) ? $page->access : [$page->access];
+				
 		        foreach ($acl_item as $acl_names => $actions) {
-
+					if (is_int($acl_names)){
+						// check if  array is associative or sequential
+						$acl_names = $actions;
+						$actions = ["*"];
+					}
+					
 		            $urls = is_object($page->url) ? $page->url : (object) [$page->url];
 		            $controller =  str_replace('[M]', 'Sakura\Controllers\Member', $page->controller );
 		            $roles_alloweds = explode("|", $acl_names ?: "*");
 
-		            $actions = is_object($actions) && !empty($actions->toArray()) ? $actions->toArray() : ['*'];
-		    
+					$actions = is_object($actions) && method_exists($actions , 'toArray') ? $actions->toArray() : $actions;
+
+					$actions = is_array($actions) && !empty($actions) ? $actions : [$actions ?: '*'];
+
 		            $acl->addComponent(
 		                $controller,
 		                $actions
