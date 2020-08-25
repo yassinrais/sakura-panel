@@ -136,7 +136,9 @@ class AjaxManager extends \ControllerBase
 			'data'=>$this->data
 		]);
 		
-
-		return $this->response->send();
+		if (true !== $this->response->isSent()) {
+			return $this->response->send();
+		}
+		return $this->response;
 	}
 }
