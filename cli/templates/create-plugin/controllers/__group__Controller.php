@@ -11,7 +11,7 @@ use SakuraPanel\Controllers\Member\{
 
 // use SakuraPanel\Plugins\__group__\Forms\{FormName1 , FormName2};
 
-// use SakuraPanel\Library\DataTables\DataTable;
+// use SakuraPanel\Library\Datatables\DataTable;
 
 /**
  * __group__Controller

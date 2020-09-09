@@ -8,7 +8,7 @@ use SakuraPanel\Forms\Users\UsersForm;
 
 use SakuraPanel\Models\User\Users;
 
-use SakuraPanel\Library\DataTables\DataTable;
+use SakuraPanel\Library\Datatables\DataTable;
 
 
 /**

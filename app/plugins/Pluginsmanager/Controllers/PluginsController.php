@@ -12,7 +12,7 @@ use SakuraPanel\Plugins\PluginsManager\Models\{
 	Plugins
 };
 
-use SakuraPanel\Library\DataTables\DataTable;
+use SakuraPanel\Library\Datatables\DataTable;
 
 use SakuraPanel\Plugins\PluginsManager\Forms\PluginsForm;
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace SakuraPanel\Library\DataTables;
+namespace SakuraPanel\Library\Datatables;
 
 class ParamsParser extends \Phalcon\Di\Injectable
 {
