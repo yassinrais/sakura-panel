@@ -1,6 +1,6 @@
 <?php
 
-namespace SakuraPanel\Library\DataTables\Adapters;
+namespace SakuraPanel\Library\Datatables\Adapters;
 
 use Phalcon\Paginator\Adapter\QueryBuilder as PQueryBuilder;
 
