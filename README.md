@@ -37,7 +37,7 @@
 * Create Plugin  ``sakura-cli create-plugin``  
 
 ## 📈 Performance Tests : 
------------- Test 1 -------------
+### Test 1:
 * Load 3 Plugins 
 ```php
   $start = microtime(true);
@@ -46,7 +46,7 @@
 ```
 * Result>> Take ~ ``0.00032733201980591 seconds``
 
------------- Test 2 -------------
+### Test 2:
 * Application Handle
 ```php
   $start = microtime(true);
@@ -54,6 +54,11 @@
   echo (microtime(true) - $start)/1000 . "s";
 ```
 * Result>> Take ~ ``6.4398050308228E-5 seconds``
+
+### Test 3:
+* Dashboard Request : 
+* Result : 291ms (page loaded) / ~ 70ms (TTFB)
+* ScreenShot: <a href="https://i.imgur.com/v1hwhLc.png" target="_blank">https://i.imgur.com/v1hwhLc.png</a>
 
 ## 👥 Contributors :
 
@@ -67,6 +72,7 @@ Please see the **[LICENSE](LICENSE)** included in this repository for a full cop
 
 ## 📷 ScreenShot(s) :
 
+<img src="https://i.imgur.com/CtrHowg.png" style="wdith: 100%">
 <img src="https://i.imgur.com/Yh5qTzF.png" style="width: 100%">
 <img src="https://i.imgur.com/ikhXqAv.png" style="width: 100%">
 <img src="https://i.imgur.com/I1owzuW.png" style="width: 100%">
