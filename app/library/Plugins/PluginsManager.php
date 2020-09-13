@@ -4,9 +4,9 @@ namespace SakuraPanel\Library\Plugins;
 
 
 /**
- * PluginsManager
+ * Pluginsmanager
  */
-class PluginsManager extends \ControllerBase
+class Pluginsmanager extends \ControllerBase
 {
 	private $plugins = [];
 	
@@ -46,7 +46,7 @@ class PluginsManager extends \ControllerBase
 	/**
 	 * Add Plugin
 	 * @param $plugin : Plugin
-	 * @return $this : PluginsManager
+	 * @return $this : Pluginsmanager
 	 */
 	public function addPlugin($plugin)
 	{
@@ -62,7 +62,7 @@ class PluginsManager extends \ControllerBase
 
 	/**
 	 * Load Plugins
-	 * @return $this : PluginsManager
+	 * @return $this : Pluginsmanager
 	 */
 	public function loadPlugins()
 	{

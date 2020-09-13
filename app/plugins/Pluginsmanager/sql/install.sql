@@ -46,7 +46,7 @@ CREATE TABLE IF NOT EXISTS `plugins` (
 --
 
 INSERT INTO `plugins` (`id`, `name`, `title`, `description`, `author`, `version`, `image`, `status`, `created_at`, `created_ip`, `updated_at`, `updated_ip`) VALUES
-(1, 'pluginsmanager', 'Plugins Manager', NULL, 'Yassin Rais', '1.0.1', NULL, 1, 1596640149, 'Unknown', 0, NULL);
+(1, 'Pluginsmanager', 'Plugins Manager', NULL, 'Yassin Rais', '1.0.1', NULL, 1, 1596640149, 'Unknown', 0, NULL);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

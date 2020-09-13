@@ -4,7 +4,7 @@ declare(strict_types=1);
 namespace SakuraPanel\Library\Plugins;
 
 
-use SakuraPanel\Plugins\PluginsManager\Models\Plugins;
+use SakuraPanel\Plugins\Pluginsmanager\Models\Plugins;
 
 /**
  * Plugin

@@ -1,5 +1,5 @@
 <?php
-namespace SakuraPanel\Plugins\PluginsManager\Forms;
+namespace SakuraPanel\Plugins\Pluginsmanager\Forms;
 
 
 // form elements

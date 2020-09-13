@@ -1,6 +1,6 @@
 <?php 
 
-namespace SakuraPanel\Plugins\PluginsManager\Controllers;
+namespace SakuraPanel\Plugins\Pluginsmanager\Controllers;
 
 
 
@@ -8,13 +8,13 @@ use SakuraPanel\Controllers\Member\{
 	MemberControllerBase
 };
 
-use SakuraPanel\Plugins\PluginsManager\Models\{
+use SakuraPanel\Plugins\Pluginsmanager\Models\{
 	Plugins
 };
 
 use SakuraPanel\Library\Datatables\DataTable;
 
-use SakuraPanel\Plugins\PluginsManager\Forms\PluginsForm;
+use SakuraPanel\Plugins\Pluginsmanager\Forms\PluginsForm;
 
 /**
  * PluginsController
@@ -41,7 +41,7 @@ class PluginsController extends MemberControllerBase
 	public function allAction()
 	{
 		$this->page->set('title', 'Plugins Manager');
-		return $this->view->pick('plugins/pluginsmanager/index');
+		return $this->view->pick('plugins/Pluginsmanager/index');
 	}	
 
 
