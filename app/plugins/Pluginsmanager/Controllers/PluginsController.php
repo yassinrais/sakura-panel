@@ -301,7 +301,7 @@ class PluginsController extends MemberControllerBase
 	{
 		$this->ajax->disableArray();
 
-		$plugin_name = strtolower(strip_tags(urldecode($plugin_name)));
+		$plugin_name = strip_tags(urldecode($plugin_name));
 		$p = $this->plugins->get($plugin_name);
 
 		if (!$p)
