@@ -36,7 +36,6 @@ class AuthMiddleware extends \ControllerBase implements MiddlewareInterface , Sh
         
         $role_name = $this->authUser->role_name  ?? $this::ROLE_DEFAULT;
 
-        $this->logger->info("$role_name $controllerName $actionName");
         if (!$this->acl->isAllowed($role_name, $controllerName, $actionName)) {
             if (!$this->request->isAjax()){
                 $this->flashSession->error($role_name.' -  You don\'t have access to this module: ' . $controllerName . ':' . $actionName);
