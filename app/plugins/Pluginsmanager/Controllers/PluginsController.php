@@ -22,17 +22,20 @@ use SakuraPanel\Plugins\Pluginsmanager\Forms\PluginsForm;
 class PluginsController extends MemberControllerBase
 {
 
-	private $plugins_server = "https://raw.githubusercontent.com/yassinrais/sakura-plugins/master/";
-	// private $plugins_server = "http://127.0.0.1:8080/";
+	private $plugins_server =  "https://raw.githubusercontent.com/yassinrais/sakura-plugins/master/";
 
 	public function initialize(){
 		parent::initialize();
 		
-		$this->page->set('base_route' , 'admin/plugins');
 		$this->page->set('title', 'Plugins Manager');
+		$this->page->set('base_route' , 'admin/plugins');
         $this->page->set('description','Install & Uninstall plugins from your website .');
 		
-        $this->view->dataTable = true;
+		$this->view->dataTable = true;
+		
+		if (getenv("PLUGINS_MANAGER_REPO"))
+			$this->plugins_server = getenv("PLUGINS_MANAGER_REPO");
+
 	}
 
 	/**
@@ -323,13 +326,14 @@ class PluginsController extends MemberControllerBase
 	public function getRequestContent($url)
 	{
 	 
-		$curl = new \Curl\Curl();
-		$curl->get($url);
-		$content = $curl->rawResponse;
-		$curl->setTimeout(1);
+		$content = file_get_contents($url);
 		if (!$content) 
-			$content = file_get_contents($url);
-
+		{
+			$curl = new \Curl\Curl();
+			$curl->get($url);
+			$content = $curl->rawResponse;
+			$curl->setTimeout(5);
+		}
 		return $content;
 	}
 
