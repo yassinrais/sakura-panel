@@ -152,7 +152,7 @@ class PluginsController extends MemberControllerBase
 	{
 		$this->ajax->disableArray();
 		
-		$plugin = strtolower((string) $this->request->get('id'));
+		$plugin = (string) $this->request->get('id');
 
 		$row = Plugins::findFirstByName($plugin);
 
@@ -160,7 +160,7 @@ class PluginsController extends MemberControllerBase
 		if ($row)
 			return $this->ajax->error(strip_tags($row->title).': Plugin Already Installed')->sendResponse();
 
-		if ( !preg_match('/^[a-z0-9]{2,31}$/', $plugin) )
+		if ( !preg_match('/^[a-zA-Z0-9]{2,31}$/', $plugin) )
 			return $this->ajax->error("Plugin ".strip_tags($plugin)." Name is invalid !")->sendResponse();
 
 
@@ -227,7 +227,7 @@ class PluginsController extends MemberControllerBase
 	{
 		$this->ajax->disableArray();
 		
-		$plugin = strtolower((string) $this->request->get('id'));
+		$plugin = (string) $this->request->get('id');
 
 		$row = Plugins::findFirstByName($plugin);
 		$resp = $this->ajax->error("{$plugin} : Unknown Plugin !");
@@ -235,7 +235,7 @@ class PluginsController extends MemberControllerBase
 		if (!$row)
 			return $this->ajax->error(strip_tags($row->title).': Plugin undefined in database ')->sendResponse();
 
-		if ( !preg_match('/^[a-z0-9]{2,31}$/', $plugin) )
+		if ( !preg_match('/^[a-zA-Z0-9]{2,31}$/', $plugin) )
 			return $this->ajax->error("Plugin ".strip_tags($plugin)." Name is invalid !")->sendResponse();
 
 
