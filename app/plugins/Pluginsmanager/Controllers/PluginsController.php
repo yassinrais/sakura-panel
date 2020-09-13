@@ -152,11 +152,11 @@ class PluginsController extends MemberControllerBase
 	{
 		$this->ajax->disableArray();
 		
-		$resp = $this->ajax->error('Unknown Plugin !');
 		$plugin = strtolower((string) $this->request->get('id'));
 
 		$row = Plugins::findFirstByName($plugin);
 
+		$resp = $this->ajax->error("{$plugin} : Unknown Plugin !");
 		if ($row)
 			return $this->ajax->error(strip_tags($row->title).': Plugin Already Installed')->sendResponse();
 
@@ -227,10 +227,10 @@ class PluginsController extends MemberControllerBase
 	{
 		$this->ajax->disableArray();
 		
-		$resp = $this->ajax->error('Unknown Plugin !');
 		$plugin = strtolower((string) $this->request->get('id'));
 
 		$row = Plugins::findFirstByName($plugin);
+		$resp = $this->ajax->error("{$plugin} : Unknown Plugin !");
 
 		if (!$row)
 			return $this->ajax->error(strip_tags($row->title).': Plugin undefined in database ')->sendResponse();
