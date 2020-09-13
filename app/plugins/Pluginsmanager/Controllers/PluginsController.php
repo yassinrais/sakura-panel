@@ -221,7 +221,7 @@ class PluginsController extends MemberControllerBase
 	}
 
 	/**
-	 * ² Plugin : ajax
+	 * Plugin : ajax
 	 */
 	public function updateAction()
 	{
@@ -331,9 +331,10 @@ class PluginsController extends MemberControllerBase
 		{
 			$curl = new \Curl\Curl();
 			$curl->get($url);
-			$content = $curl->rawResponse;
 			$curl->setTimeout(5);
+			$content = $curl->rawResponse;
 		}
+
 		return $content;
 	}
 

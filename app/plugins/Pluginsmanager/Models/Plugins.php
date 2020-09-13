@@ -127,7 +127,7 @@ class Plugins extends \ModelBase
             'name',
             new Regex(
                 [
-                  "pattern" => "/^[a-z0-9]*([a-z0-9][_-]{0,1})*[a-z0-9]$/",
+                  "pattern" => "/^[a-zA-Z0-9]*([a-zA-Z0-9][_-]{0,1})*[a-zA-Z0-9]$/",
                   "message" => 'The :field is invalid',
                 ]
             )
