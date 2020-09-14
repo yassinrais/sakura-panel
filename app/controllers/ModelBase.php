@@ -153,10 +153,6 @@ class ModelBase extends Model implements SharedConstInterface
 				$info->icon = "minus";
 				$info->color = "warning";
 				break;
-
-			default:
-				
-				break;
 		}
 
 		return (object) $info;

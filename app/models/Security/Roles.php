@@ -95,4 +95,20 @@ class Roles extends \ModelBase
         return parent::findFirst($parameters);
     }
 
+
+    /** 
+     * Get Role 
+     * @param $name | String
+     * @return $role | Roles Model
+     */
+    public static function getRoleByName($name)
+    {
+        return self::findFirst([
+            'name = ?0',
+            'bind'=>[
+                $name
+            ]
+        ]);
+    }
+
 }

@@ -47,21 +47,24 @@ class RolesForm extends BaseForm
             ]
           );
           $title->addFilter('string');
-        /**
-         *
-         * Text Input
+
+          
+          
+           /**
+         * 
+         * Stats Select
          *
          */
-        $type = new Text(
-            'type',
-            [
-              'required'=>true,
-              'class'=>"form-control",
-              'placeholder'=>'Type',
-            ]
-          );
-          $type->addFilter('string');
-             
+        $type = new Select(
+          'type',
+          [
+            'Select Type Role'=>$this::ROLES_LIST
+          ],
+          [
+            'required'=>true,
+            'class'=>"form-control",
+          ]
+        );
  
            /**
          * 
