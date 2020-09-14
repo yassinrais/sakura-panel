@@ -34,7 +34,8 @@ class PageControllerBase extends AuthMiddleware implements SharedConstInterface
 			->addJs('assets/vendor/bootstrap/js/bootstrap.bundle.min.js')
 			->addJs('assets/vendor/jquery-easing/jquery.easing.min.js')
 			->addJs('assets/vendor/sweet-alert2/sweetalert2.all.min.js')
-			->addJs('assets/js/sb-admin-2.min.js');
+			->addJs('assets/js/sb-admin-2.min.js')
+			->addJs('assets/js/custom.js');
 
 
 		$aDataTables = $this->assets->collection('dataTable')

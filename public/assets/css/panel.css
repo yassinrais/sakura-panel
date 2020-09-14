@@ -1,3 +1,138 @@
 .img-profile{
 	background: rgba(25,25,25,0.15);
 }
+
+.card,.card-header,.card-footer {
+	border-radius: 3!important;
+	border:none;
+}
+
+.card {
+	border:1px solid #f191af26;
+	box-shadow:2px 1px 0 3px #f191af12;
+}
+
+.card-header {
+	color:#FFF;
+	border:none;
+	background-color:#f191afc7;
+}
+
+.sakura-icolor {
+	color:#FFF;
+}
+
+.sakura-color {
+	color:#f091af;
+}
+
+.sakura-bg {
+	background:url(../img/nav-bg-1.jpg);
+	background-size: auto;
+	background-position:right;
+	background-repeat:no-repeat;
+	background-attachment: fixed;
+
+}
+
+.sakura-bgx {
+	background-color:#252525d5;
+	height:100%;
+}
+
+.sidebar a span {
+	font-size:1rem;
+}
+
+.alert {
+	border-radius: 3!important;
+	color:rgba(25,25,25,0.85);
+}
+
+.alert-danger {
+	background:#f19191;
+}
+
+.alert-success {
+	background:#91f192;
+}
+
+.alert-warning {
+	background:#f1d691;
+}
+
+.alert-info {
+background:#91bdf1;
+}
+
+[type="search"],.custom-select {
+	border:none;
+	color:#FFF;
+	border-radius: 3px;
+	background-color:#f191afe5;
+}
+
+.btn-sakura {
+	background:#f191afe5;
+	color:#FFF!important;
+	border-color:#f191afff;
+}
+
+.btn-sakura:active,.btn-sakura:hover {
+	background:#f191afff;
+	border-color:#f191afff;
+}
+
+.card-header .text-primary {
+	color:#FFF!important;
+}
+
+.swal2-actions button {
+	margin:0 5px;
+}
+
+/**
+* rounded	
+*/
+
+.br-5{
+	border-radius: 2px;
+}
+.plugin-logo{
+	width: 100px;
+	height: 100px;
+
+	max-width:100%;
+	background-image: url(data:image/gif;base64,0);
+	background-size: cover;
+	background-position: center; 
+}
+
+.bg-sakura{
+	background: rgba(25,25,25, 0.25);
+}
+
+.bg-sakura a{
+	color:white !important;
+}
+.bg-sakura a:hover{
+	color:rgb(25,25,25) !important;
+}
+
+.sidebar.toggled .nav-item .nav-link span{
+	display: none;
+}
+
+
+.sidebar.toggled .nav-item .nav-link:hover > span{
+	min-width: 187px;
+	display: block;
+	position: absolute;
+	left: 100%;
+	z-index: 9;
+	background: rgb(25 25 25 / 70%);
+	padding: 15px;
+	border: none;
+	border-radius: 0px 3px 3px 0;
+	top: 0;
+}
