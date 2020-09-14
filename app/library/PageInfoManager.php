@@ -43,7 +43,10 @@ class PageInfoManager extends \ControllerBase
 	 */
 	public function getMenu()
 	{
-		$access = $this->di->get('user')->role_name ?? "guests";
+		$access = $this->di->get('user')->role_name ??  $this->acl->getActiveRole() ?? "guests";
+		
+		$listAccess = $this->acl->getInherits($access);
+		$listAccess[] = $access;
 
 		$this->menu = [];
 
@@ -52,25 +55,33 @@ class PageInfoManager extends \ControllerBase
 			$this->menu[$category] = $this->menu[$category] ?? ['items'=>[] , 'order'=>$menu['order'] ?? 999 ];
 
 			foreach ($menu['items'] ?? [] as $name => $info) {
-				if (empty($info['access']) || (!is_array($info['access'])) && in_array($access, explode("|", strtolower($info['access']))) || $info['access'] === "*") {
-					if (!empty($info['sub'])) {
-						$ninfo = [];
-						foreach ($info['sub'] as $sub) {
-							if (empty($sub['access']) || in_array($access, explode("|", strtolower($sub['access']))) || $sub['access'] === "*") 
-								$ninfo[] = $sub;
+				foreach($listAccess as $i => $access){
+					if (empty($info['access']) || (!is_array($info['access'])) && in_array($access, explode("|", strtolower($info['access']))) || $info['access'] === "*") {
+						if (!empty($info['sub'])) {
+							$ninfo = [];
+							foreach ($info['sub'] as $sub) {
+								if (empty($sub['access']) || in_array($access, explode("|", strtolower($sub['access']))) || $sub['access'] === "*") 
+									$ninfo[] = $sub;
+							}
+							$info['sub'] = $ninfo;
 						}
-						$info['sub'] = $ninfo;
+						$this->menu[$category]['items'] = array_merge_recursive(
+							$this->menu[$category]['items'] ?? [],
+							[
+								$name => $info
+							]
+						);
+						// if found access break 
+						break;
 					}
-					$this->menu[$category]['items'] = array_merge_recursive(
-						$this->menu[$category]['items'] ?? [],
-						[
-							$name => $info
-						]
-					);
 				}
 			}
 			if (!empty($this->menu[$category]['order']) && is_array($this->menu[$category]['order'])) 
-					$this->menu[$category]['order'] = end($this->menu[$category]['order']);
+					{
+						$orders = $this->menu[$category]['order'];
+						arsort($orders);
+						$this->menu[$category]['order'] = end($orders);
+					}
 			else 
 				$this->menu[$category]['order'] = $this->menu[$category]['order'] ?? $order;
 		}
@@ -110,7 +121,7 @@ class PageInfoManager extends \ControllerBase
 	        foreach ($sortable_array as $k => $v) {
 	            $new_array[$k] = $array[$k];
 	        }
-	    }
+		}
 
 	    return $new_array;
 	}

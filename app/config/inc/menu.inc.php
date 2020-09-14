@@ -19,32 +19,8 @@ $configs['menu'] = [
 		]
 	],
 
-	"admin"=>[
-		"order"=>899,
-		"items"=>[
-			"users"=>[
-				"title"=>"Users",
-				"icon"=>"fas fa-users",
-				"url"=>"admin/users",
-
-
-				"access"=>"admins",
-			],
-
-			"website-settings"=>[
-				"title"=>"Website Settings",
-				"icon"=>"fas fa-cogs",
-				"url"=>"admin/website-settings",
-
-
-				"access"=>"admins",
-			],
-
-		]
-	],
-
 	"account"=>[
-		"order"=>9999,
+		"order"=>998,
 		"items"=>[
 
 			"settings"=>[
@@ -67,6 +43,40 @@ $configs['menu'] = [
 				"access"=>"*",
 			],
 		]
-	]
+	],
+	
+
+	"admin"=>[
+		"order"=>999,
+		"items"=>[
+			"users"=>[
+				"title"=>"Users",
+				"icon"=>"fas fa-users",
+				"url"=>"admin/users",
+
+
+				"access"=>"admins",
+			],
+
+			"roles"=>[
+				"title"=>"Roles",
+				"icon"=>"fas fa-user-secret",
+				"url"=>"admin/roles",
+
+
+				"access"=>"admins",
+			],
+
+			"website-settings"=>[
+				"title"=>"Website Settings",
+				"icon"=>"fas fa-cogs",
+				"url"=>"admin/website-settings",
+
+
+				"access"=>"admins",
+			],
+
+		]
+	],
 
 ];

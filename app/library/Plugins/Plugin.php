@@ -121,22 +121,25 @@ class Plugin implements  \SakuraPanel\Library\SharedConstInterface
 	 * @param $category : string
 	 * @param $name : string
 	 * @param $configs : array
-	 * @param $order : int
+	 * @param $order : mixed
 	 * @return $this : Plugin
 	 */
-	public function addMenu(string $category , string $name , array $configs = [] , int $order = 555)
+	public function addMenu(string $category , string $name , array $configs = [] , $order = true)
 	{
 		$category = strtolower($category);
 		
 		if (empty($this->menus[$category]))
-			$this->menus[$category] = ['items'=>[] , 'order'=>0];
+			$this->menus[$category] = ['items'=>[] , 'order'=> INF];
 
 		if (empty($this->menus[$category]['items'][$name])) 
 			$this->menus[$category]['items'][$name]= [];
 
 		$this->menus[$category]['items'] = array_merge_recursive( $this->menus[$category]['items'], [$name=>$configs]);
-		// $this->menus[$category]['order'] = $order;
-		
+		if (is_numeric($order))
+			$this->menus[$category]['order'] = $order;
+		elseif($order)
+			$this->menus[$category]['order'] = count($this->menus) + 1;
+
 		return $this;
 	}
 

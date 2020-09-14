@@ -75,6 +75,14 @@ $configs['route_groups'] = array(
                 'access' => 'admins'
         ],
 
+        'roles'=>[
+            'url'=>['/#/@/','/#/@', '/#/@/:action', '/#/@/:action/:params'],
+            'controller'=>'\SakuraPanel\Controllers\Admin\Users\Roles',
+            'action'=> 1 , 
+            'params'=> 2 , 
+            'access' => 'admins'
+        ],
+
         'website-settings'=>[
                 'url'=>['/#/@/','/#/@', '/#/@/:action', '/#/@/:action/:params'],
                 'controller'=>'\SakuraPanel\Controllers\Admin\Website\Settings',

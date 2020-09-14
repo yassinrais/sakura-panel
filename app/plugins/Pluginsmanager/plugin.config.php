@@ -24,7 +24,8 @@ $plugin->addRoute(
 		"icon"=>"fas fa-box",
 		"url"=>"admin/plugins/all",
 		"access"=>"admins",
-	]
+	],
+	false
 );
 
 

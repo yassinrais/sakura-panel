@@ -9,6 +9,9 @@ use Phalcon\Validation\Validator\{
     InclusionIn
 };
 
+
+use SakuraPanel\Models\Security\Roles;
+
 class Users extends \ModelBase
 {
 
@@ -92,6 +95,7 @@ class Users extends \ModelBase
     public function validation()
     {
         $validator = new Validation();
+        $roles = $this->getDI()->getAcl()->getRolesArray();
 
         $validator->add(
             'email',
@@ -126,8 +130,8 @@ class Users extends \ModelBase
             'role_name',
             new InclusionIn(
                 [
-                    "message" => "The role must be ". implode(",",$this::ROLES_LIST),
-                    "domain"  => array_keys($this::ROLES_LIST),
+                    "message" => "The role must be ". implode(",",$roles),
+                    "domain"  => array_keys($roles),
                 ]
             )
         );
@@ -199,10 +203,10 @@ class Users extends \ModelBase
     {
         $info = (object) [
 			'title'=>'Unknown',
-			'icon'=>'close',
+			'icon'=>'info',
 			'id'=>-2,
-			'type'=>'error',
-			'color'=>'danger',
+			'type'=>'info',
+			'color'=>'info',
 		];
 		switch ($name) {
 			
@@ -224,6 +228,9 @@ class Users extends \ModelBase
 				$info->color = "warning";
 				break;
 
+            default :
+                $info->title = (Roles::getRoleByName($name) ?: new Roles())->title;
+                break;
 		}
 
 		return (object) $info;
