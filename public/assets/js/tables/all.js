@@ -13,6 +13,21 @@ $('#users-dataTable').DataTable({
         {data: "c_actions"},
     ]
 });
+$('#roles-dataTable').DataTable({
+  serverSide: true,
+  ajax: {
+      url: '/admin/roles/ajax',
+      method: 'POST'
+  },
+  columns: [
+      {data: "id"},
+      {data: "title"},
+      {data: "name"},
+      {data: "type"},
+      {data: "c_status"},
+      {data: "c_actions"},
+  ]
+});
 $('#wsettings-dataTable').DataTable({
     serverSide: true,
     ajax: {

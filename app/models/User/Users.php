@@ -92,6 +92,7 @@ class Users extends \ModelBase
     public function validation()
     {
         $validator = new Validation();
+        $roles = $this->getDI()->getAcl()->getRolesArray();
 
         $validator->add(
             'email',
@@ -126,8 +127,8 @@ class Users extends \ModelBase
             'role_name',
             new InclusionIn(
                 [
-                    "message" => "The role must be ". implode(",",$this::ROLES_LIST),
-                    "domain"  => array_keys($this::ROLES_LIST),
+                    "message" => "The role must be ". implode(",",$roles),
+                    "domain"  => array_keys($roles),
                 ]
             )
         );

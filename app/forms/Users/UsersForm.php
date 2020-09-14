@@ -80,10 +80,11 @@ class UsersForm extends BaseForm
          * Select
          *
          */
+
         $role = new Select(
           'role_name',
           [
-            'Select Role'=>$this::ROLES_LIST
+            'Select Role'=> $this->getDI()->getAcl()->getRolesArray()
           ],
           [
             'required'=>true,

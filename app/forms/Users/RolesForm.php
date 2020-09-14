@@ -1,0 +1,93 @@
+<?php
+namespace SakuraPanel\Forms\Users;
+
+
+// form elements
+use Phalcon\Forms\Form;
+use Phalcon\Forms\Element\Email;
+use Phalcon\Forms\Element\Text;
+use Phalcon\Forms\Element\Hidden;
+use Phalcon\Forms\Element\Select;
+use Phalcon\Forms\Element\Password;
+
+// controllers / models
+use SakuraPanel\Forms\BaseForm;
+
+class RolesForm extends BaseForm
+{
+    public function initialize()
+    {
+      parent::initialize();
+       
+       /**
+         *
+         * Text Input
+         *
+         */
+        $name = new Text(
+            'name',
+            [
+              'required'=>true,
+              'class'=>"form-control",
+              'placeholder'=>'Name',
+            ]
+          );
+          $name->addFilter('string');
+        /**
+         *
+         * Text Input
+         *
+         */
+        $title = new Text(
+            'title',
+            [
+              'required'=>true,
+              'class'=>"form-control",
+              'placeholder'=>'Title',
+            ]
+          );
+          $title->addFilter('string');
+        /**
+         *
+         * Text Input
+         *
+         */
+        $type = new Text(
+            'type',
+            [
+              'required'=>true,
+              'class'=>"form-control",
+              'placeholder'=>'Type',
+            ]
+          );
+          $type->addFilter('string');
+             
+ 
+           /**
+         * 
+         * Stats Select
+         *
+         */
+        $status = new Select(
+            'status',
+            [
+              'Select Status'=>$this::STATUS_LIST
+            ],
+            [
+              'required'=>true,
+              'class'=>"form-control",
+            ]
+          );
+  
+    
+        // add Validators
+     	$this->add($name);
+     	$this->add($title);
+     	$this->add($type);
+
+     	$this->add($status);
+
+    }
+
+
+}

@@ -2,17 +2,23 @@
 /**
  * Acl For Roles (Admins / Members / Guests)
  */
-use Phalcon\Acl\Adapter\Memory;
 use Phalcon\Acl\Component;
 use Phalcon\Acl\Role;
+
+use SakuraPanel\Library\RoleMemory as Memory;
+use SakuraPanel\Models\Security\Roles;
 
 $configs = $di->getConfig();
 
 $acl = new Memory();
 
-$roleAdmins     = new Role('admins', 'Administrator Access');
-$roleMembers    = new Role('members', 'Members Access'); 
-$roleGuests     = new Role('guests', 'Guests Access'); 
+
+/** 
+ * General Roles
+ */
+$roleAdmins     = new Role('admins', 'Administrator');
+$roleMembers    = new Role('members', 'Members'); 
+$roleGuests     = new Role('guests', 'Guests'); 
 
 $acl->addRole($roleAdmins);
 $acl->addRole($roleMembers);
@@ -53,4 +59,25 @@ foreach ($configs->route_groups as $prefix => $rgroup) {
         }
     }
 }
+
+
+
+/** 
+ * Custom Roles From Database
+ */
+$roles = Roles::find([
+    'status = ?0',
+    'bind'=>[ Roles::ACTIVE ],
+]);
+
+foreach($roles as $row){
+    $role = new Role($row->name , $row->title);
+    
+    if (!empty($row->type))
+        $acl->addRole($role , $row->type);
+}
+
+
+
+//  return acl instance
 return $acl;
