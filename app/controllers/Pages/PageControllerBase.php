@@ -25,8 +25,9 @@ class PageControllerBase extends AuthMiddleware implements SharedConstInterface
 			->addCss('assets/vendor/fontawesome-free/css/all.min.css')
 			->addCss('assets/css/sb-admin-2.css')
 			->addCss('assets/vendor/sweet-alert2/sweetalert2.min.css')
-			->addCss('assets/css/custom.css')
-			->addCss('assets/css/panel.css');
+			->addCss('assets/css/panel.css')
+			->addCss('assets/custom/custom.css')
+			;
 
 		$aFooter = $this->assets->collection('footer')
 			->addJs('assets/vendor/jquery/jquery.min.js')
@@ -35,7 +36,7 @@ class PageControllerBase extends AuthMiddleware implements SharedConstInterface
 			->addJs('assets/vendor/jquery-easing/jquery.easing.min.js')
 			->addJs('assets/vendor/sweet-alert2/sweetalert2.all.min.js')
 			->addJs('assets/js/sb-admin-2.min.js')
-			->addJs('assets/js/custom.js');
+			->addJs('assets/custom/custom.js');
 
 
 		$aDataTables = $this->assets->collection('dataTable')

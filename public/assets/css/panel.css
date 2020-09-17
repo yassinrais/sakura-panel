@@ -1,3 +1,45 @@
+/**	
+ * Scroll
+ */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-button {
+  width: 0px;
+  height: 0px;
+}
+::-webkit-scrollbar-thumb {
+  background: #ffaeae;
+  border: 0px none #ffffff;
+  border-radius: 0px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #e090a5;
+}
+::-webkit-scrollbar-thumb:active {
+  background: #f191af;
+}
+::-webkit-scrollbar-track {
+  background: #ffffff;
+  border: 0px none #ffffff;
+  border-radius: 0px;
+}
+::-webkit-scrollbar-track:hover {
+  background: #ffffff;
+}
+::-webkit-scrollbar-track:active {
+  background: #ffffff;
+}
+::-webkit-scrollbar-corner {
+  background: transparent;
+}
+
+
+/**
+ * Elements
+ */
+
 .img-profile{
 	background: rgba(25,25,25,0.15);
 }
@@ -8,7 +50,7 @@
 }
 
 .card {
-	border:1px solid #f191af26;
+	border:none;
 	box-shadow:2px 1px 0 3px #f191af12;
 }
 
@@ -135,4 +177,12 @@ background:#91bdf1;
 	border: none;
 	border-radius: 0px 3px 3px 0;
 	top: 0;
+}
+
+
+.sidebar .nav-item .collapse, .sidebar .nav-item .collapsing{
+	width: 100%; padding: 0px; margin: 0px;
+}
+.sidebar .nav-item .collapse > .collapse-inner, .sidebar .nav-item .collapsing > .collapse-inner{
+    border-top: #ffffff40 solid 3px;
 }

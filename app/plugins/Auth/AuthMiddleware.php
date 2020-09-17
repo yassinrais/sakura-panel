@@ -33,7 +33,7 @@ class AuthMiddleware extends \ControllerBase implements MiddlewareInterface , Sh
         $controllerName = $dispatcher->getControllerName();
         // Check if the user have permission to the current option
         $actionName = $dispatcher->getActionName();
-        
+
         $role_name = $this->authUser->role_name  ?? $this::ROLE_DEFAULT;
 
         if (!$this->acl->isAllowed($role_name, $controllerName, $actionName)) {

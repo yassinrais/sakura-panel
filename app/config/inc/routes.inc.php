@@ -13,12 +13,12 @@ $configs['route_groups'] = array(
     'error'=>[
         "404"=>[
             'url'=>['/404','/#/','/404/(.*)'],
-            'controller'=>'SakuraPanel\Controllers\Pages\PageErrors','action'=>'Page404',
+            'controller'=>'\SakuraPanel\Controllers\Pages\PageErrors','action'=>'Page404',
             'access'=> '*'
         ],
         "503"=>[
             'url'=>['/503','/#/','/503/(.*)'],
-            'controller'=>'SakuraPanel\Controllers\Pages\PageErrors','action'=>'Page503',
+            'controller'=>'\SakuraPanel\Controllers\Pages\PageErrors','action'=>'Page503',
             'access' => '*'
         ],
     ],
@@ -86,6 +86,14 @@ $configs['route_groups'] = array(
         'website-settings'=>[
                 'url'=>['/#/@/','/#/@', '/#/@/:action', '/#/@/:action/:params'],
                 'controller'=>'\SakuraPanel\Controllers\Admin\Website\Settings',
+                'action'=> 1 , 
+                'params'=> 2 , 
+                'access' => 'admins'
+        ],
+
+        'website-theme'=>[
+                'url'=>['/#/@/','/#/@', '/#/@/:action', '/#/@/:action/:params'],
+                'controller'=>'\SakuraPanel\Controllers\Admin\Website\Theme',
                 'action'=> 1 , 
                 'params'=> 2 , 
                 'access' => 'admins'

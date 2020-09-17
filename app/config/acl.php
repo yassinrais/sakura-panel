@@ -42,7 +42,9 @@ foreach ($configs->route_groups as $prefix => $rgroup) {
             }
             
             $urls = is_object($page->url) ? $page->url : (object) [$page->url];
-            $controller =  str_replace('[M]', 'Sakura\Controllers\Member', $page->controller );
+            
+            $controller = is_numeric($page->controller) ? (($page->namespace ?: "")) : $page->controller  ;
+
             $roles_alloweds = explode("|", $acl_names ?: "*");
 
             $actions = is_object($actions) && method_exists($actions , 'toArray') ? $actions->toArray() : $actions;

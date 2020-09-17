@@ -14,10 +14,7 @@ foreach ($configs->route_groups as $prefix => $rgroups) {
         $urls = is_object($page->url) ? $page->url : (object) [$page->url];
         foreach ($urls as $url) {
             $route = [
-                'controller' => 
-                    str_replace('[M]', 'Sakura\Controllers\Member', 
-                        $page->controller
-                    ),
+                'controller' => $page->controller ,
                 'action'     => (!empty($page->action)) ? $page->action : 'index',
                 'params'     => (!empty($page->params)) ? $page->params : null,
             ];
