@@ -3,7 +3,7 @@
     "description": "Sakura Panel , a Script made with PHP (phalcon framework) and run in apache/nginx",
     "type": "project",
     "license": "MIT",
-    "version":"1.1.7",
+    "version":"1.1.8",
     "authors": [
         {
             "name": "Yassine Rais",
