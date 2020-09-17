@@ -8,5 +8,5 @@ use \SakuraPanel\Library\SharedConstInterface;
 
 class ControllerBase extends Controller implements SharedConstInterface
 {
-
+    
 }

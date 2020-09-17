@@ -43,6 +43,20 @@ $('#wsettings-dataTable').DataTable({
     ]
 });
 
+$('#theme-dataTable').DataTable({
+  serverSide: true,
+  ajax: {
+      url: '/admin/website-theme/ajax',
+      method: 'POST'
+  },
+  columns: [
+      {data: "name"},
+      {data: "size"},
+      {data: "type"},
+      {data: "c_actions"},
+  ]
+});
+
 $('body').on('click','.table-action-btn' , function () {
    let e = $(this);
 

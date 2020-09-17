@@ -55,7 +55,11 @@ $configs = array(
         'baseUri'        => '/',
         // server configs  doesnt exist in cli ("request" :@ to ignore undefined vars) 
         'baseURL'        => ((!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' || @$_SERVER['SERVER_PORT'] == 443) ? "https://" : "http://"). @$_SERVER['HTTP_HOST'] . "/",
-    ]
+    ],
+    'theme'=>[
+        'path'=> BASE_PATH . '/public/assets/custom/',
+        'uri'=> 'assets/custom/',
+    ],
 );
 
 

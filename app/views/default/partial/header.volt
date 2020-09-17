@@ -12,7 +12,7 @@
 
   {{ assets.outputCss('header') }}
   {% if dataTable is defined %}{{ assets.outputCss('dataTable') }}{% endif %}
-
+  {{ assets.outputCss('customcss') }}
 
 
   <base href="{{ url() }}">

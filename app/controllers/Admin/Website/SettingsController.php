@@ -98,9 +98,9 @@ class SettingsController extends MemberControllerBase
 			  return  "<a class='btn btn-info btn-sakura btn-sm' href='admin/website-settings/edit/$data[id]'><i class='fa fa-pencil'></i>Edit</a>";
           });
 
-          $dataTables->sendResponse();
+          	return $dataTables->sendResponse();
         }else{
-        	return $this->response->redirect('admin/website-settings');
+			return $this->ajax->disableArray()->error('Only Ajax Method is alowed ! ')->sendResponse();
         }
 	}
 

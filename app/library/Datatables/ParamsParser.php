@@ -32,7 +32,7 @@ class ParamsParser extends \Phalcon\Di\Injectable
 
     public function setPage()
     {
-        $this->page = (int) (floor($this->params['start'] / $this->params['length']) + 1);
+        $this->page = (int) (floor($this->params['start'] / ($this->params['length'] ?: 1)) + 1);
     }
 
     public function getPage()

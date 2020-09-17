@@ -19,6 +19,50 @@ $configs['menu'] = [
 		]
 	],
 
+
+	"admin"=>[
+		"order"=>990,
+		"items"=>[
+			"users"=>[
+				"title"=>"Users",
+				"icon"=>"fas fa-users",
+				"url"=>"admin/users",
+
+
+				"access"=>"admins",
+			],
+
+			"roles"=>[
+				"title"=>"Roles",
+				"icon"=>"fas fa-user-secret",
+				"url"=>"admin/roles",
+
+
+				"access"=>"admins",
+			],
+
+			"website"=>[
+				"title"=>"Website Settings",
+				"icon"=>"fas fa-cogs",
+				"url"=>"#",
+				"sub"=>[
+					"settings"=>[
+						"title"=>"Information",
+						"icon"=>"fas fa-cogs",
+						"url"=>"admin/website-settings"
+					],
+					"theme"=>[
+						"title"=>"Theme",
+						"icon"=>"fas fa-fill",
+						"url"=>"admin/website-theme"
+					],
+				],
+				"access"=>"admins",
+			],
+
+		]
+	],
+	
 	"account"=>[
 		"order"=>998,
 		"items"=>[
@@ -45,38 +89,5 @@ $configs['menu'] = [
 		]
 	],
 	
-
-	"admin"=>[
-		"order"=>999,
-		"items"=>[
-			"users"=>[
-				"title"=>"Users",
-				"icon"=>"fas fa-users",
-				"url"=>"admin/users",
-
-
-				"access"=>"admins",
-			],
-
-			"roles"=>[
-				"title"=>"Roles",
-				"icon"=>"fas fa-user-secret",
-				"url"=>"admin/roles",
-
-
-				"access"=>"admins",
-			],
-
-			"website-settings"=>[
-				"title"=>"Website Settings",
-				"icon"=>"fas fa-cogs",
-				"url"=>"admin/website-settings",
-
-
-				"access"=>"admins",
-			],
-
-		]
-	],
 
 ];

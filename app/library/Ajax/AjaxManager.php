@@ -40,10 +40,14 @@ class AjaxManager extends \ControllerBase
 	public function disableArray()
 	{
 		$this->msg_array = false;
+		
+		return $this;
 	}
 	public function enableArray()
 	{
 		$this->msg_array = false;
+
+		return $this;
 	}
 	/**
 	 * set ajax attributes
@@ -141,4 +145,5 @@ class AjaxManager extends \ControllerBase
 		}
 		return $this->response;
 	}
+
 }

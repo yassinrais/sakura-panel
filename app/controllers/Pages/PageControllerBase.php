@@ -7,14 +7,18 @@ use \Phalcon\Mvc\Controller;
 
 use \SakuraPanel\Library\SharedConstInterface;
 use \SakuraPanel\Plugins\Auth\AuthMiddleware;
-
+use \SakuraPanel\Controllers\Admin\Website\ThemeController;
 
 /**
  * PageControllerBase
  */
 class PageControllerBase extends AuthMiddleware implements SharedConstInterface
 {
-	public $assetsPack;
+	protected $assetsPack;
+    protected $allowedFileTypes = [
+        "css","js","min.js","min.css","ttf","otf","jpg","png","jpeg"
+    ];
+
 
 	public function initialize()
 	{
@@ -25,7 +29,6 @@ class PageControllerBase extends AuthMiddleware implements SharedConstInterface
 			->addCss('assets/vendor/fontawesome-free/css/all.min.css')
 			->addCss('assets/css/sb-admin-2.css')
 			->addCss('assets/vendor/sweet-alert2/sweetalert2.min.css')
-			->addCss('assets/css/custom.css')
 			->addCss('assets/css/panel.css');
 
 		$aFooter = $this->assets->collection('footer')
@@ -35,7 +38,7 @@ class PageControllerBase extends AuthMiddleware implements SharedConstInterface
 			->addJs('assets/vendor/jquery-easing/jquery.easing.min.js')
 			->addJs('assets/vendor/sweet-alert2/sweetalert2.all.min.js')
 			->addJs('assets/js/sb-admin-2.min.js')
-			->addJs('assets/js/custom.js');
+			->addJs('assets/custom/custom.js');
 
 
 		$aDataTables = $this->assets->collection('dataTable')
@@ -48,10 +51,102 @@ class PageControllerBase extends AuthMiddleware implements SharedConstInterface
 		$this->assetsPack->header = $aHeader;
 		$this->assetsPack->footer = $aFooter;
 		$this->assetsPack->dataTable = $aDataTables;
+
+		$this->addCustomAssets();
+	}
+
+	/**
+	 * 
+	 * Method For Custom Assets 
+	 * Responsable about creating and merge the custom scripts/styles 
+	 * 
+	 */
+	public function addCustomAssets()
+	{
+		$c = $this->getThemeFiles();
+		$p = $this->getCustomFilesPath();
+
+		// create new collection custom
+		$assetCss = $this->assets->collection('customcss');
+		$assetJs = $this->assets->collection('customjs');
+
+		foreach($c as $f){
+			switch ($f['type']){
+				case 'css':
+					$assetCss->addCss($f['path']);
+				break;
+				case 'js':
+					$assetJs->addJs($f['path']);
+				break;
+			}
+		}
+		$assetCss->addFilter( new \Phalcon\Assets\Filters\Cssmin() );
+		$assetJs->addFilter( new \Phalcon\Assets\Filters\Jsmin() );
+
+		$assetCss->setTargetPath("assets/css/custom.min.css")
+				->setTargetUri("assets/css/custom.min.css")
+				->join(true);
+		
+		$assetJs->setTargetPath("assets/js/custom.min.js")
+				->setTargetUri("assets/js/custom.min.js")
+				->join(true);
+
+		$this->assetsPack->customCss = $assetCss;
+		$this->assetsPack->customJs = $assetJs;
+	} 
+
+	
+	/** 
+     * get the custom files path 
+     * @return $path | String
+     */
+    public function getCustomFilesPath()
+    {
+        return $this->config->theme->path ?? "public/assets/custom/";
+	}
+
+	/** 
+     * Get Allowed File to Edit/Delete
+     * @return $files | Array
+     */
+    public function getThemeFiles() : Array
+    {
+        $files = [];
+
+        $dirFiles = \SakuraPanel\Functions\_sortDirFiles($this->getCustomFilesPath());
+
+        foreach($dirFiles as $file){
+            $filePath = $this->getCustomFilesPath() . $file;
+
+            if (!in_array($file, ['.','..'])){
+                $type = pathinfo($file, PATHINFO_EXTENSION);
+                if (in_array($type, $this->allowedFileTypes)){
+                    $fsize = \SakuraPanel\Functions\_convertSize(filesize($filePath));
+                    $mtype = mime_content_type($filePath);
+
+                    $files[$filePath] = [
+                        "name"=> $file,
+                        "type"=> $type,
+                        "mtype"=> $mtype,
+						"size"=> $fsize,
+						"path"=> $filePath,
+                        "link"=> urlencode($filePath)
+                    ];
+                }
+            }
+        }
+
+        return $files;
 	}
 	
+	
+	
+	/**	
+	 * Default Index Action
+	 */
 	public function indexAction()
 	{
 		return '404';
 	}
+
 }
