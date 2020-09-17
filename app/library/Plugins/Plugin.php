@@ -69,8 +69,8 @@ class Plugin implements  \SakuraPanel\Library\SharedConstInterface
 				$plugin->name ?? 'unammed',
 				$plugin->version ?? '1.0.0',
 				$plugin->author ?? 'Anonymous',
-				(array) ($plugin->others ?? []),
-			);			
+				(array) ($plugin->others ?? [])
+			);
 
 		}catch(\Exception $e){
 		}
@@ -78,10 +78,10 @@ class Plugin implements  \SakuraPanel\Library\SharedConstInterface
 		return (json_last_error() == JSON_ERROR_NONE);
 	}
 
-	
+
 	/**
 	 * Get an attribute value (i dont use method magic __get)
-	 * @param $key : string 
+	 * @param $key : string
 	 * @return $value : mixed
 	 */
 	public function get(string $key)
