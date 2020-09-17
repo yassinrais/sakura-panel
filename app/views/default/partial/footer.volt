@@ -24,6 +24,8 @@
 		{{ assets.outputJs('footer') }}
   		
   		{% if dataTable is defined %}{{ assets.outputJs('dataTable') }}{% endif %}
+  	
+	  	{{ assets.outputJs('customjs') }}
 		
 	</body>
 </html>

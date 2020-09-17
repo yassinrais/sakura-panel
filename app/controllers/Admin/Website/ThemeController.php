@@ -12,10 +12,6 @@ use SakuraPanel\Forms\Website\ThemeFileForm;
  */
 class ThemeController extends MemberControllerBase
 {
-    protected $allowedFileTypes = [
-        "css","js","min.js","min.css","ttf","otf","jpg","png","jpeg"
-    ];
-
 
     // Implement common logic
     public function initialize(){
@@ -41,10 +37,6 @@ class ThemeController extends MemberControllerBase
     public function ajaxAction()
     {
         if ($this->request->isAjax() || getenv('DEV_MODE') == "true" ) {
-            $builder = $this->modelsManager->createBuilder()
-                            ->columns('id, key, val, type')
-                            ->from(SiteConfigs::class);
-  
             $dataTables = new DataTable();
   
             $dataTables->setOptions([
@@ -53,7 +45,21 @@ class ThemeController extends MemberControllerBase
             $dataTables->setIngoreUpperCase(true);
             
     
-            $dataTables->fromArray($this->getThemeFiles());
+            $dataTables->fromArray(call_user_func(function(){
+                $files = (object) $this->getThemeFiles();
+                $data = [];
+                foreach($files as $i => $f){
+                    $f = (object) $f;
+                    $data[]=[
+                        "name"=> "<b>{$f->name}</b><br><small>{$f->path}</small>",
+                        "type"=> "<b>{$f->type}</b> : {$f->mtype}",
+                        "size"=> "<b>{$f->size}</b>",
+                        "link"=> urlencode($f->path ?? "")
+                    ];
+                }
+
+                return $data;
+            }) );
   
             $dataTables->addCustomColumn('c_actions' , function ($key , $data)
             {
@@ -131,46 +137,7 @@ class ThemeController extends MemberControllerBase
         return $this->view->pick('admin/website/editFile');
     }
 
-    /** 
-     * get the custom files path 
-     * @return $path | String
-     */
-    public function getPath()
-    {
-        return $this->config->theme->path ?? "public/assets/custom/";
-    }
-
-    /** 
-     * Get Allowed File to Edit/Delete
-     * @return $files | Array
-     */
-    public function getThemeFiles() : Array
-    {
-        $files = [];
-
-        $dirFiles = \SakuraPanel\Functions\_sortDirFiles($this->getPath());
-
-        foreach($dirFiles as $file){
-            $filePath = $this->getPath() . $file;
-
-            if (!in_array($file, ['.','..'])){
-                $type = pathinfo($file, PATHINFO_EXTENSION);
-                if (in_array($type, $this->allowedFileTypes)){
-                    $fsize = \SakuraPanel\Functions\_convertSize(filesize($filePath));
-                    $mmtype = mime_content_type($filePath);
-
-                    $files[$filePath] = [
-                        "name"=> "<b>$file</b><br><small>{$this->getPath()}$file</small>",
-                        "type"=> "<b>$type</b> : $mmtype",
-                        "size"=> "<b>$fsize</b>",
-                        "link"=> urlencode($filePath)
-                    ];
-                }
-            }
-        }
-
-        return $files;
-    }
+    
 
 
     public function createAction()
