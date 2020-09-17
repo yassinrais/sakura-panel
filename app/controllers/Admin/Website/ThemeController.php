@@ -63,7 +63,9 @@ class ThemeController extends MemberControllerBase
   
             $dataTables->addCustomColumn('c_actions' , function ($key , $data)
             {
-                return  "<a class='btn btn-info btn-sakura btn-sm' href='admin/website-theme/edit/file?f=$data[link]'><i class='fa fa-pencil'></i>Edit</a>";
+                return  "<span  onclick='window.location.href=\"admin/website-theme/edit/file?f=".urlencode($data['link'])."\"' 
+                         title='Edit'  class='ml-1 btn btn-info btn-circle btn-sm '><i class='fas fa-pencil-alt'></i></span>
+                <span title='Delete' data-action ='delete' data-id='".urldecode($data['link'])."' class='ml-1 btn btn-danger btn-circle btn-sm table-action-btn'><i class='fas fa-trash'></i></span>";
             });
   
                 return $dataTables->sendResponse();
@@ -138,6 +140,30 @@ class ThemeController extends MemberControllerBase
     }
 
     
+    /** 
+     * Delete Action
+     * file will be deleted if is a custom one 
+     * else deletion is denied ! 
+     */
+    public function deleteAction()
+    {
+        $this->ajax->disableArray();
+        $file = (urldecode($this->request->get('id') ?: ""));
+
+        if (!$this->getThemeFiles()[$file])
+            return $this->ajax->error('This file is not allowed to delete !')->sendResponse();
+
+
+        try{
+            unlink($file);
+
+            $this->ajax->success('File Deleted successfully ! ');
+        }catch(Exception $e){
+            $this->ajax->error((string) $e->getMessage());
+        }
+
+        return $this->ajax->sendResponse();
+    }
 
 
     public function createAction()
