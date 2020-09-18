@@ -2,11 +2,12 @@
 
 namespace SakuraPanel\Library;
 
+use SakuraPanel\Controllers\ControllerBase;
 
 /**
  * PageInfoManager
  */
-class PageInfoManager extends \ControllerBase
+class PageInfoManager extends ControllerBase
 {
 	private $info = [
 		'title'=>'',

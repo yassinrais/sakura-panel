@@ -2,11 +2,12 @@
 
 namespace SakuraPanel\Library\Plugins;
 
+use SakuraPanel\Controllers\ControllerBase;
 
 /**
  * Pluginsmanager
  */
-class Pluginsmanager extends \ControllerBase
+class Pluginsmanager extends ControllerBase
 {
 	private $plugins = [];
 	

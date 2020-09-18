@@ -5,7 +5,7 @@ namespace SakuraPanel\Controllers\Auth;
 use \SakuraPanel\Controllers\Pages\PageControllerBase;
 
 
-use \SakuraPanel\Forms\LoginForm;
+use \SakuraPanel\Forms\Auth\LoginForm;
 use \SakuraPanel\Models\User\{Users , UsersSessions};
 use \SakuraPanel\Models\Security\AuthSecurity;
 use \Phalcon\Http\Response;

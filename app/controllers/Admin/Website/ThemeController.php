@@ -43,11 +43,10 @@ class ThemeController extends MemberControllerBase
                 'limit'=> abs((int) $this->request->get('length'))
             ]);
             $dataTables->setIngoreUpperCase(true);
-            
     
             $dataTables->fromArray(call_user_func(function(){
-                $files = (object) $this->getThemeFiles();
                 $data = [];
+                $files = (object) $this->getThemeFiles();
                 foreach($files as $i => $f){
                     $f = (object) $f;
                     $data[]=[
@@ -170,13 +169,13 @@ class ThemeController extends MemberControllerBase
     {
         $form = new ThemeFileForm();
 
-
         if ($this->request->has('action')){
+            $path = $this->getCustomFilesPath();
             $data = $this->request->getPost();
 
             if ($form->isValid($data)){
                 $fileName = $data["name"] . "." . $data['type'];
-                $filePath = $this->getPath() . $fileName ;
+                $filePath = $path . $fileName ;
 
                 if (is_file($filePath)){
                     $this->flashSession->error("File `$fileName` already exists ! ");

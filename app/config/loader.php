@@ -28,12 +28,15 @@ $loader->registerNamespaces(array(
 	'SakuraPanel\\Plugins'=>APP_PATH. '/plugins/',
 
 	/**
-	 *	Base Shared
+	 *	Models
 	 */
 	'SakuraPanel\\Models' => APP_PATH . '/models/',
+
+
+	/**	
+	 * Controllers
+	 */
 	'SakuraPanel\\Controllers' => APP_PATH . '/controllers/',
-
-
 
 	/**
 	 * Form - Views

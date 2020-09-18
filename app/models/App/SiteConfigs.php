@@ -2,7 +2,10 @@
 
 namespace SakuraPanel\Models\App;
 
-class SiteConfigs extends \ModelBase
+use SakuraPanel\Models\ModelBase;
+
+
+class SiteConfigs extends ModelBase
 {
 
     /**

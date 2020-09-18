@@ -94,6 +94,9 @@ class Install
             case 'help':
                 $this->printSakuraHelp();
                 break;
+            case 'test':
+                $this->startTests();
+                break;
             default:
                 exit(Console::print("Unknown Action `{$action}` ! Failed ."));
                 break;
@@ -102,7 +105,7 @@ class Install
     }
 
      
-    public function startInstallation()
+    protected function startInstallation()
     {
         Console::line(40,'-');
         Console::print(Console::light_green("Start Installation ! "),"SAKURA");
@@ -142,7 +145,7 @@ class Install
     }
 
 
-    public function createAdminAccount()
+    protected function createAdminAccount()
     {
         Console::line();
         Console::print("Create an Administrator account ..." ,"ADMIN","yellow");
@@ -181,7 +184,7 @@ class Install
     }
 
 
-    public function createPlugin()
+    protected function createPlugin()
     {
         Console::line();
         Console::print("Create a Plugin ..." ,"CREATE-PLUGIN","yellow");
@@ -259,6 +262,12 @@ class Install
     }
 
 
+    /** 
+     * Run Dev Tests
+     */
+    protected function startTests(){
+        Console::print('Test ClI is not avaialable for this moment !!'  ,'TESTS','red');
+    }
 
 
 
@@ -268,8 +277,7 @@ class Install
 
 
 
-
-    public function getConfigs()
+    protected function getConfigs()
     {
         $f = @file_get_contents('composer.json') ?: null;
         if (!is_null($f)) {
@@ -334,7 +342,7 @@ class Install
        return false;
     }
 
-    public function readEnvConfigs()
+    protected function readEnvConfigs()
     {
         
         /**
@@ -456,7 +464,7 @@ class Install
         return file_exists($env);
     }
 
-    public function checkDatabaseEnv()
+    protected function checkDatabaseEnv()
     {
         Console::line();
         $env = ".env";
@@ -488,7 +496,7 @@ class Install
         return !$dbConnection->connect_error;
     }
 
-    public function migrationDatabase()
+    protected function migrationDatabase()
     {
 
         Console::line();
@@ -508,7 +516,7 @@ class Install
         return strpos($ex, "up to date") > -1 || strpos($ex, "successfully");
     }
 
-    public function printSakuraHelp()
+    protected function printSakuraHelp()
     {
         Console::print(" # To Install Sakura Panel : ","HELP","yellow");
         Console::print(Console::cyan(" --> Run :") . Console::light_purple(" composer install")   ,"HELP");
@@ -650,6 +658,7 @@ class Console {
     {
         Console::log(Console::cyan("[{$type}] : ") . Console::{$color}("$msg"));
     }
+
 }
 
 

@@ -3,7 +3,10 @@
  * ProfilesettingsForm
  */
 
-namespace SakuraPanel\Forms;
+namespace SakuraPanel\Forms\Users;
+
+use SakuraPanel\Forms\BaseForm;
+
 
 use Phalcon\Forms\Form; 
 use Phalcon\Forms\Element\{
@@ -22,7 +25,7 @@ use Phalcon\Validation\Validator\{
 };
 
 
-class ProfilesettingsForm extends BaseForm
+class ProfileSettingsForm extends BaseForm
 {
     public function initialize()
     {

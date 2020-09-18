@@ -1,8 +1,9 @@
 <?php
 namespace SakuraPanel\Models\Security;
 
+use SakuraPanel\Models\ModelBase;
 
-class AuthSecurity extends \ModelBase
+class AuthSecurity extends ModelBase
 {
 
     /**

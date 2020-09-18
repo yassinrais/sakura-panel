@@ -3,14 +3,12 @@ declare(strict_types=1);
 
 namespace SakuraPanel\Controllers\Admin\Website;
 
-use SakuraPanel\Controllers\Member\MemberControllerBase;
-use SakuraPanel\Forms\{
-	SiteConfigsForm
-};
+use SakuraPanel\Models\App\SiteConfigs;
 
-use SakuraPanel\Models\App\{
-	SiteConfigs
-};
+use SakuraPanel\Forms\Website\SiteConfigsForm;
+
+use SakuraPanel\Controllers\Member\MemberControllerBase;
+
 
 use SakuraPanel\Library\Datatables\DataTable;
 

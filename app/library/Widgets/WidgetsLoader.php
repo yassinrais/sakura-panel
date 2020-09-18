@@ -1,10 +1,12 @@
 <?php 
 
 namespace SakuraPanel\Library\Widgets;
+
+use SakuraPanel\Controllers\ControllerBase;
 /**
  * WidgetsLoader
  */
-class WidgetsLoader extends \ControllerBase
+class WidgetsLoader extends ControllerBase
 {
 	private $widgetsPath;
 	protected $widgets = [];

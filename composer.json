@@ -11,8 +11,23 @@
         }
     ],
     "require": {
-        "vlucas/phpdotenv": "^5.1",
+        "vlucas/phpdotenv": "^4.0",
         "sidroberts/phalcon-authmiddleware": "^3.0",
         "php-curl-class/php-curl-class": "^8.8"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "9.0",
+        "phalcon/incubator-test": "v1.0.0-alpha.1",
+        "codeception/codeception": "^4.1"
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "SakuraPanel\\Controllers\\":"app/controllers",
+            "SakuraPanel\\Models\\":"app/models",
+            "SakuraPanel\\Forms\\":"app/forms",
+            "SakuraPanel\\Plugins\\":"app/plugins",
+            "SakuraPanel\\Library\\":"app/library",
+            "Tests\\": "tests"
+        }
     }
 }

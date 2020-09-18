@@ -1,8 +1,9 @@
 <?php
 namespace SakuraPanel\Models\Security;
 
+use SakuraPanel\Models\ModelBase;
 
-class Roles extends \ModelBase
+class Roles extends ModelBase
 {
 
     /**

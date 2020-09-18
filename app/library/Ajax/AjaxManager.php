@@ -2,11 +2,12 @@
 
 namespace SakuraPanel\Library\Ajax;
 
+use SakuraPanel\Controllers\ControllerBase;
 
 /**
  * AjaxManager
  */
-class AjaxManager extends \ControllerBase
+class AjaxManager extends ControllerBase
 {
 	private $messages = [];
 	private $data = [];
