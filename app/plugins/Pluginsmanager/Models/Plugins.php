@@ -3,11 +3,13 @@ declare(strict_types=1);
 
 namespace SakuraPanel\Plugins\Pluginsmanager\Models;
 
+use SakuraPanel\Models\ModelBase;
+
 use Phalcon\Validation;
 use Phalcon\Validation\Validator\{ Between , Ip as IpValidator , PresenceOf , Email as EmailValidateur  , StringLength , Regex , Numericality , Callback  , InclusionIn };
 
 
-class Plugins extends \ModelBase
+class Plugins extends ModelBase
 {
 
     

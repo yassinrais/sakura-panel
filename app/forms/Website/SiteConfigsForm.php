@@ -1,9 +1,12 @@
 <?php 
+declare(strict_types=1);
 /**
  * SiteConfigsForm
  */
 
-namespace SakuraPanel\Forms;
+namespace SakuraPanel\Forms\Website;
+
+use SakuraPanel\Forms\BaseForm;
 
 use Phalcon\Forms\Form; 
 use Phalcon\Forms\Element\{

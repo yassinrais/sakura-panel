@@ -2,6 +2,8 @@
 
 namespace SakuraPanel\Library;
 
+use SakuraPanel\Controllers\ControllerBase;
+
 use \SakuraPanel\Models\App\{
 	SiteConfigs
 };
@@ -10,7 +12,7 @@ use \SakuraPanel\Models\App\{
 /**
  * SiteManager
  */
-class SiteManager extends \ControllerBase
+class SiteManager extends ControllerBase
 {
 	public $settings = [];
 	public $create = true;

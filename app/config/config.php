@@ -16,7 +16,7 @@ include_once BASE_PATH . '/vendor/autoload.php';
 /**
  * Env Loader
  */
-$dotenv = Dotenv\Dotenv::createUnsafeImmutable(BASE_PATH);
+$dotenv = Dotenv\Dotenv::createImmutable(BASE_PATH);
 $dotenv->load();
 
 

@@ -1,6 +1,8 @@
 <?php
 namespace SakuraPanel\Models\User;
 
+use SakuraPanel\Models\ModelBase;
+
 use Phalcon\Validation;
 use Phalcon\Validation\Validator\{
     Email as EmailValidator ,
@@ -12,7 +14,7 @@ use Phalcon\Validation\Validator\{
 
 use SakuraPanel\Models\Security\Roles;
 
-class Users extends \ModelBase
+class Users extends ModelBase
 {
 
     /**

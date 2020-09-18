@@ -4,14 +4,12 @@ declare(strict_types=1);
 namespace SakuraPanel\Controllers\Member\Account;
 
 use SakuraPanel\Controllers\Member\MemberControllerBase;
-use SakuraPanel\Forms\{
-	ProfilesettingsForm
-};
+use SakuraPanel\Forms\Users\ProfileSettingsForm;
 
 /**
  * Profilesettings
  */
-class ProfilesettingsController extends MemberControllerBase
+class ProfileSettingsController extends MemberControllerBase
 {
     // Implement common logic
     public function initialize(){
@@ -19,7 +17,7 @@ class ProfilesettingsController extends MemberControllerBase
 
         $this->page->set('title','Profile Settings');
 	
-		$this->form = new ProfilesettingsForm($this->user);
+		$this->form = new ProfileSettingsForm($this->user);
 		$this->form->bind($this->user->toArray() ,$this->user);
     }
 	public function indexAction()

@@ -1,6 +1,8 @@
 <?php 
 namespace SakuraPanel\Plugins\Auth;
 
+use SakuraPanel\Controllers\ControllerBase;
+
 // sakura lib 
 use \SakuraPanel\Library\SharedConstInterface;
 use \SakuraPanel\Models\User\{
@@ -16,7 +18,7 @@ use \Sid\Phalcon\AuthMiddleware\MiddlewareInterface;
 // phalcon
 use \Phalcon\Mvc\Dispatcher;
 
-class AuthMiddleware extends \ControllerBase implements MiddlewareInterface , SharedConstInterface
+class AuthMiddleware extends ControllerBase implements MiddlewareInterface , SharedConstInterface
 {
     private $authKey = "user";
     private $authKeyRemember = "user_rm";
