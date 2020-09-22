@@ -10,7 +10,7 @@
         let btn = form.find('*[type=submit]');
 
         let _obtn = btn.html();
-        btn.html("<i class='fas fa-spin fa-clock'></i> Login...");
+        btn.html("<i class='fas fa-spin fa-clock'></i>");
 
         $('.auth-msgs').html("");
         $.ajax({
