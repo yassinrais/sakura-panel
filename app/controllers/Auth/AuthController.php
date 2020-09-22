@@ -28,7 +28,6 @@ class AuthController extends PageControllerBase
 
         $this->client_ip = $this->request->getClientAddress();
 
-        $this->page->set('body.class','bg-gradient-primary');
         $this->assetsPack->footer->addJs('assets/js/auth.js');
 
         $this->view->setMainView('auth/index');
