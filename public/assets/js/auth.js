@@ -1,32 +1,49 @@
-$('.auth-login').on('submit',function (e) {
-	e.preventDefault();
+(function ($) {
+    "use strict";
 
-    var form = $(this);
-    var url = form.attr('action');
-    
-    let btn = form.find('*[type=submit]');
+    $('.auth-form').on('submit',function (e) {
+        e.preventDefault();
 
-    let _obtn = btn.html();
-    btn.html("<i class='fas fa-spin fa-clock'></i> Login...");
+        var form = $(this);
+        var url = form.attr('action');
+        
+        let btn = form.find('*[type=submit]');
 
-    $('.auth-msgs').html("");
-    $.ajax({
-       type: "POST",
-       url: url,
-       data: form.serialize(), // serializes the form's elements.
-       success: function(data)
-       {
-           for(var i in data.msg)
-          	$('.auth-msgs').append('<div class="alert alert-'+ (i === "error" ? "danger" : i)+'">'+data.msg[i]+"</div>");
-          	if (data.status == "success") window.location.reload();
+        let _obtn = btn.html();
+        btn.html("<i class='fas fa-spin fa-clock'></i> Login...");
 
-       		btn.html(_obtn);
+        $('.auth-msgs').html("");
+        $.ajax({
+        type: "POST",
+        url: url,
+        data: form.serialize(), // serializes the form's elements.
+        success: function(data)
+        {
+            for(var i in data.msg)
+                $('.auth-msgs').append('<div class="alert alert-'+ (i === "error" ? "danger" : i)+'">'+data.msg[i]+"</div>");
+                if (data.status == "success") window.location.reload();
 
-       },
-	    error: function(){
-          	$('.auth-msgs').html('<div class="alert alert-warning">Somthing wrong ! please reload this page </div>');
-       		btn.html(_obtn);
-	    },
-	    timeout: 5000 // sets timeout to 3 seconds
-     });
-});
+                btn.html(_obtn);
+
+        },
+            error: function(){
+                $('.auth-msgs').html('<div class="alert alert-warning">Somthing wrong ! please reload this page </div>');
+                btn.html(_obtn);
+            },
+            timeout: 5000 // sets timeout to 3 seconds
+        });
+    });
+
+    $('.input').each(function(){
+        $(this).on('blur', function(){
+            if($(this).val().trim() != "") {
+                $(this).addClass('has-val');
+            }
+            else {
+                $(this).removeClass('has-val');
+            }
+        })    
+    })
+
+
+})(jQuery);

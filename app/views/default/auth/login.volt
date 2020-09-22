@@ -1,66 +1,54 @@
-  <div class="container pt-5">
-
-    <!-- Outer Row -->
-    <div class="row justify-content-center">
-
-      <div class="col-xl-6 col-lg-6 col-md-6">
-
-        <div class="card o-hidden border-0 shadow-lg my-5">
-          <div class="card-body p-0">
-            <!-- Nested Row within Card Body -->
-            <div class="row">
-              <div class="col-lg-12">
-                <div class="p-5">
-                  <div class="text-center">
-                    <img src="assets/img/sakura-icon.png" class="img-responsive rounded-circle mb-3" width="80px">
-                    <h1 class="h4 text-gray-900 mb-4"><b>Authentification</b></h1>
-                    <h1 class="h4 text-gray-900 mb-4">Sign In</h1>
-                  </div>
-                  <form class="user auth-login" action="auth/ajaxLogin" method="post">
-                    <div class="auth-msgs form-group">
-                      {{ flashSession.output() }}
-                      {{ flash.output() }}
-                    </div>
-                    <div class="form-group">
-                      {{ 
-                        form.render('email' , [ "class":"form-control form-control-user", "aria-describedby":"emailHelp" ,"placeholder":"Enter Email Address..." ])
-                      }}
-                    </div>
-                    <div class="form-group">
-                      {{ 
-                        form.render('password' , [ "class":"form-control form-control-user", "aria-describedby":"emailHelp" ,"placeholder":"Enter Password..." ])
-                      }}
-                    </div>
-                    {{
-                      form.render('csrf' , ['value': security.getToken()])
-                    }}
-                    <div class="form-group">
-                      <div class="custom-control custom-checkbox small">
-                        {{
-                          form.render('remember', ["class":"custom-control-input","id":"checkbox_rmb"])
-                        }}
-                        <label class="custom-control-label" for="checkbox_rmb">Remember Me</label>
-                      </div>
-                    </div>
-                    <button type="submit" name="action" value="login" class="btn btn-primary btn-user btn-block">
-                      Login
-                    </button>
-                  </form>
-                  <!-- <hr> -->
-                  <!-- <div class="text-center">
-                    <a class="small" href="forgot-password.html">Forgot Password?</a>
-                  </div>
-                  <div class="text-center">
-                    <a class="small" href="register.html">Create an Account!</a>
-                  </div> -->
-                </div>
-              </div>
+<div class="row auth-row">
+    <div class="auth-lside d-none d-lg-block col-lg-7">
+      <div class="auth-back"></div>
+    </div>
+    <div class="auth-rside  vcenter-item col-12 col-lg-5">
+      <div class="p-5 ">
+        <div class="text-center">
+          <h1 class="pb-3 text-gray-900 mb-4">Login to continue</h1>
+        </div>
+        <form class="user auth-form" action="auth/ajaxLogin" method="post">
+          <div class="auth-msgs form-group">
+            {{ flashSession.output() }}
+            {{ flash.output() }}
+          </div>
+          <div class="wrap-input validate-input">
+            {{ 
+              form.render('email' , [ "class":"input", "id":"","aria-describedby":"emailHelp" ,"placeholder":"" ])
+            }}
+            <span class="focus-input"></span>
+            <span class="label-input">Email</span>
+          </div>
+          <div class="wrap-input validate-input">
+            <span class="focus-input"></span>
+            {{ 
+              form.render('password' , [ "class":"input", "id":"","aria-describedby":"emailHelp" ,"placeholder":"" ])
+            }}
+            <span class="focus-input"></span>
+            <span class="label-input">Password</span>
+          </div>
+          {{
+            form.render('csrf' , ['value': security.getToken()])
+          }}
+          <div class="form-group">
+            <div class="custom-control custom-checkbox small">
+              {{
+                form.render('remember', ["class":"custom-control-input","id":"checkbox_rmb"])
+              }}
+              <label class="custom-control-label" for="checkbox_rmb">Remember Me</label>
             </div>
           </div>
+          <button type="submit" name="action" value="login" class="btn btn-primary btn-user btn-block">
+            Login
+          </button>
+        </form>
+        <!-- <hr> -->
+        <!-- <div class="text-center">
+          <a class="small" href="forgot-password.html">Forgot Password?</a>
         </div>
-
+        <div class="text-center">
+          <a class="small" href="register.html">Create an Account!</a>
+        </div> -->
       </div>
-
     </div>
-
-  </div>
+</div>
