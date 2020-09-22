@@ -206,8 +206,7 @@
 	 width: 100%;
 	 height:100vh;
 	 background-color: rgba(25,25,25,0.1);
-	 background:url(https://static.vecteezy.com/system/resources/previews/000/144/006/original/vector-sakura-in-watercolor-illustration.jpg);
-	 /* background-image: url('../img/auth-back.jpg'); */
+	 background-image: url('../img/auth-back.jpg');
 	 background-size: cover;
  }
  .auth-row .auth-lside {
@@ -215,7 +214,9 @@
 	 margin:0;
  }
  .auth-row *{
-	 width: 100%;
+	width: 100%;
+ }
+ .auth-row h1,h2,h3,p,input,input::placeholder,label,.btn{
 	 font-family: 'Poppins';
  }
 
