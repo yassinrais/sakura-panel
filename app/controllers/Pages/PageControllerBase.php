@@ -52,6 +52,8 @@ class PageControllerBase extends AuthMiddleware implements SharedConstInterface
 		$this->assetsPack->dataTable = $aDataTables;
 
 		$this->addCustomAssets();
+
+		$this->view->t = $this->locale;
 	}
 
 	/**

@@ -8,7 +8,7 @@ $plugin->initPluginByJson(dirname(__FILE__)."/plugin.config.json");
 
 $plugin->addRoute(
 	"member", 
-	"__name__" ,
+	"__route__" ,
 	[
 		'url'=>['/#/@','/#/@/','/#/@/:action','/#/@/:action/:params'],
 	    'controller'=>"\SakuraPanel\Plugins\\${groupName}\Controllers\__group__",
@@ -19,11 +19,11 @@ $plugin->addRoute(
 )
 ->addMenu(
 	"__title__",
-	"__name__",
+	"__route__",
 	[
 		"title"=>"__title__",
 		"icon"=>"fas fa-box",
-		"url"=>"member/__name__",
+		"url"=>"member/__route__",
 		"access"=>"admins",
 	]
 )

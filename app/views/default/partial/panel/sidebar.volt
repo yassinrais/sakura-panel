@@ -17,20 +17,20 @@
         {% for k,m in menu %}
           {% if m['items'] is defined and m['items'] | length %}
             <div class="sidebar-heading pt-3 mt-3">
-              {{ k }}
+              {{ locale._(ucfirst(k)) }}
             </div>
             {% for it in m['items'] %}
               {% if it['sub'] is defined and it['sub'] | length %}
                 <li class="nav-item">
                   <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapse{{ loop.index }}" aria-expanded="true" aria-controls="collapse{{ loop.index }}">
                     <i class="fas fa-fw fa-{{ it['icon'] }}"></i>
-                    <span>{{ it['title'] | e}}</span>
+                    <span>{{ locale._(it['title'] | e) }}</span>
                   </a>
-                  <div id="collapse{{ loop.index }}" class="collapse" aria-labelledby="{{ it['title'] | e }}" data-parent="#accordionSidebar">
+                  <div id="collapse{{ loop.index }}" class="collapse" aria-labelledby="{{ locale._(it['title'] | e) }}" data-parent="#accordionSidebar">
                     <div class="bg-sakura py-2 mt-3 collapse-inner ">
                       <h6 class="collapse-header">Sub Menu</h6>
                       {% for sm in it['sub'] %}
-                        <a class="collapse-item" href="{{ sm['url'] | e }}">{% if sm['icon'] is defined %}<i class="fa-fw {{ sm['icon'] | e }}"></i>{% endif %} {{ sm['title'] | e }}</a>
+                        <a class="collapse-item" href="{{ sm['url'] | e }}">{% if sm['icon'] is defined %}<i class="fa-fw {{ sm['icon'] | e }}"></i>{% endif %} {{ locale._(sm['title'] | e) }}</a>
                       {% endfor %}
                     </div>
                   </div>
@@ -39,7 +39,7 @@
               <li class="nav-item <?=(strpos(@$_GET['_url'] ?: 'url', (!empty($it['url']) ? $it['url'] : 'unknown')) > -1) ? 'active':''; ?>">
                   <a class="nav-link" {% if it['url'] is defined %}href="{{ url(it['url']) }}"{% endif %} {% if it['attrs'] is defined %}{{ it['attrs'] }}{% endif %}>
                     <i class="{{ it['icon'] }} fa-fw"></i>
-                    <span>{{ it['title'] | e }}</span>
+                    <span>{{ locale._(it['title'] | e) }}</span>
                   </a>
                 </li>
               {% endif %}

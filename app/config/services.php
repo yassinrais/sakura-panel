@@ -128,11 +128,9 @@ $di->setShared('view', function () {
             });
 
             $c->addFunction('str_replace','str_replace');
-
             $c->addFunction('getenv','getenv');
-            
             $c->addFunction('var_dump','var_dump');
-            
+            $c->addFunction('ucfirst','ucfirst');
             $c->addFunction('class_exists','class_exists');
             
             return $volt;
@@ -384,6 +382,17 @@ $di->setShared('site', function () {
 });
 
 /**
+ * Set Website Config : name , title , etc , set controller
+ */
+$di->setShared('translator', function(){
+    return $translator = new \SakuraPanel\Library\Translator\Locale();
+});
+
+$di->setShared('locale', function() use($di) {
+    return $di->get('translator')->getTranslator();
+});
+
+/**
  * Page Config : name , title , etc , set controller
  */
 $di->setShared('page', function () {
@@ -408,7 +417,7 @@ $di->setShared('ajax', function () {
 
 
 /**
- * @TODO : Delete / Replace  
+ * @TODO : Delete / Replace  / Permissions
  * Widgets test : deleted soon !
  */
 $di->set(
