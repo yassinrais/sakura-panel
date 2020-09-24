@@ -1,7 +1,43 @@
 {
-    "list of users": "Utilisateurs",
+    "Dashboard":"Tableau de bord",
+
+    "Save":"Enregistrer",
+    "Logout":"Déconnexion",
+    "Login":"Se connecter",
+    "Cancel":"Annuler",
+
+    "Name":"Nom",
+    "Size":"Taille",
+
+    "Full Name":"Nom Complete",
+    "New Password":"Nouveau mot de passe",
+    "Confirm Password":"Confirmez le mot de passe",
+    "Current Password":"Mot de passe actuel",
+
+    "Email":"Email",
+    "Password":"Mot de passe",
     "Settings":"Paramètres",
-    "Dashboard":"Panel",
+
+    "Roles":"Rôles",
+    "Plugins":"Plugins",
+    "Users":"Utilisateurs",
+
+    "New":"Nouveau",
+    "File":"Fichier",
+    "Action":"Action",
+
+    "Information":"Information",
+    "Theme":"Thème",
+    
+    "Remember Me":"Souvenir de moi",
+
+    "Theme Settings":"Réglage des thèmes",
+    "Website Settings":"Paramètres du Site",
+    "Profile Settings":"Paramètres de profil",
+
+    "Plugins Manager":"Gestionnaire des plugins",
+    "list of users": "Utilisateurs",
+    "Profile Information":"Informations sur le profil",
     "Your Full Name":"Votre Nom Complete",
     "Login to continue":"Connectez-vous"
 }
