@@ -315,8 +315,8 @@ class Plugin implements  \SakuraPanel\Library\SharedConstInterface
 	 */
 	private function checkInstallation($plugin = null)
 	{
-		$plugin = $plugin != null ? $plugin: $this->plugin;
-		if ($plugin == null || $plugin->installed == $this::ACTIVE) return;
+		$plugin = $plugin !== null ? $plugin : $this->plugin;
+		if ($plugin !== null && $plugin->installed == $this::ACTIVE) return;
 
 		// install files sql
 		$sqlToInstall = $this->sqlFiles['install'] ?? false;
