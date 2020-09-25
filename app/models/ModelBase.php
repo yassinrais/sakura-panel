@@ -197,4 +197,86 @@ class ModelBase extends Model implements SharedConstInterface
 	public function enableValidation(){
 		$this->_ignore_validation = false;
 	}
+
+	/**	
+	 * Get Random Token
+	 */
+	public static function generateToken($l = 100)
+	{
+		$random = new \Phalcon\Security\Random();
+
+		return $random->base58($l);
+	}
+
+	/**	
+	 * Clear Cache by key
+	 */
+	public function clearCache($key = null)
+	{
+		$key = md5($key);
+		$modelCache = $this->getDI()->get('modelsCache');
+		
+		$keys = $modelCache->queryKeys($key);
+		if (is_array($keys))
+			foreach ($keys as $k )
+				$modelCache->delete($k);
+				
+	}
+
+
+	/**	
+	 * generatedKeyCache by 
+	 * @param $paramters | array
+	 */
+	protected static function generateCacheKey(array $parameters)
+    {
+        $uniqueKey = [];
+
+        foreach ($parameters as $key => $value) {
+            if (true === is_scalar($value)) {
+                $uniqueKey[] = $key . ':' . $value;
+            } elseif (true === is_array($value)) {
+                $uniqueKey[] = sprintf(
+                    '%s:[%s]',
+                    $key,
+                    self::generateCacheKey($value)
+                );
+            }
+        }
+
+        return self::class .'x'. md5(join(',', $uniqueKey));
+	}
+	
+	/**	
+	 * Generated Cache Key & return the new parametres
+	 * @param $parameters | array 
+	 * @return $parameters | array
+	 */
+	protected static function checkCacheParameters($parameters = null)
+    {
+
+        if (null !== $parameters && getenv('DEV_MODE') != "true") {
+            if (true !== is_array($parameters)) {
+                $parameters = [$parameters];
+            }
+    
+            if (true !== isset($parameters['cache'])) {
+                $parameters['cache'] = [
+                    'key'      => self::generateCacheKey($parameters)
+                ];
+            }
+        }
+        
+        return $parameters;
+	}
+	
+	/**	
+	 * Get Model Attributes
+	 * @return $attributes | array, phalcon object
+	 */
+	public function getAttributes()
+	{
+		$metaData = $this->getModelsMetaData();
+		return $metaData->getAttributes($this);
+	}
 }

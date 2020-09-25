@@ -336,3 +336,10 @@ input.input {
 	min-height: 48px;
 	border-radius: 10px !important;
 }
+
+/**	
+*	Update template
+*/
+.sidebar .logo{
+	max-width: 100%;
+}
