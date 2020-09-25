@@ -2,7 +2,7 @@
 <!-- DataTales Example -->
   <div class="card shadow mt-0 mb-4">
     <div class="card-header py-3">
-      <h6 class="m-0 font-weight-bold">Users List</h6>
+      <h6 class="m-0 font-weight-bold">{{ locale._('list of users') }}</h6>
     </div>
     <div class="card-body">
       <div class="table-responsive">

@@ -213,7 +213,7 @@
 	 padding: 0;
 	 margin:0;
  }
- .auth-row *{
+ .auth-row div{
 	width: 100%;
  }
  .auth-row h1,h2,h3,p,input,input::placeholder,label,.btn{

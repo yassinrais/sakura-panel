@@ -152,6 +152,7 @@ class Plugin implements  \SakuraPanel\Library\SharedConstInterface
 		$this->loadViews();
 		$this->loadRoutes();
 		$this->loadMenu();
+		$this->loadTranslations();
 		$this->checkDb();
 	} 
 
@@ -220,6 +221,27 @@ class Plugin implements  \SakuraPanel\Library\SharedConstInterface
 		$di->getConfig()->menu = array_merge_recursive( $di->getConfig()->menu->toArray() , (array) $this->menus);
 	}
 	
+	/**	
+	 * Load Translations
+	 */
+	private function loadTranslations()
+	{
+		$f = $this->getPluginSysPath()."translations/";
+
+		if (is_dir($f)){
+			$language = $this->di->getTranslator()->getLanguage();
+			$file = $f . $language . ".json";
+			
+			if (is_file($file)){
+				try{
+					$this->di->getTranslator()->addTranslations(json_decode(file_get_contents($file) , true));
+				}catch(\Exception $e){
+					$this->di->getLogger()->warning("Translations json decode failed ! '{$e->getMessage()}'");
+					// exception
+				}
+			}
+		}
+	}
 
 	/**
      * check views exist or not  
@@ -227,19 +249,19 @@ class Plugin implements  \SakuraPanel\Library\SharedConstInterface
 	private function loadViews()
 	{
 
-		$view_dir = $this->getPluginViewPath($this->name);
+
+		$view_dir = $this->getPluginViewPath();
 		
 		if (!is_dir($view_dir) || getenv('DEV_MODE') == true) {
 			@mkdir($view_dir , 0775 , true);
 			
-			$p = $this->getPluginSysPath($this->name)."views/";
+			$p = $this->getPluginSysPath()."views/";
 			if (!is_dir($p)) return false;
 			
 			$scanned_dir = \SakuraPanel\Functions\_fullScanDirs($p.'*');
 
 
 			foreach ($scanned_dir as $file) {
-
 
 				$file_name = explode($p, $file)[1];
 				
@@ -423,7 +445,7 @@ class Plugin implements  \SakuraPanel\Library\SharedConstInterface
 	 */
 	public function getPluginViewPath()
 	{
-		return \SakuraPanel\Functions\_cleanPath($this->di->getConfig()->application->viewsDir . "/plugins/{$this->name}/");
+		return \SakuraPanel\Functions\_cleanPath($this->di->getConfig()->application->viewsDir . "/plugins/".strtolower($this->name)."/");
 	}
 	public function getPluginSysPath()
 	{

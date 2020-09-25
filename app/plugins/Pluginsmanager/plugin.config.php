@@ -20,7 +20,7 @@ $plugin->addRoute(
 	"Admin",
 	"plugins",
 	[
-		"title"=>"Plugins Manager",
+		"title"=>"Plugins",
 		"icon"=>"fas fa-box",
 		"url"=>"admin/plugins/all",
 		"access"=>"admins",

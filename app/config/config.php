@@ -40,7 +40,8 @@ $configs = array(
         'migrationsDir'  => APP_PATH . '/migrations/',
         'pluginsDir'     => APP_PATH . '/plugins/',
         'libraryDir'     => APP_PATH . '/library/',
-        'formsDir'      => APP_PATH . '/forms/',
+        'formsDir'       => APP_PATH . '/forms/',
+        'translateDir'   => APP_PATH . '/translations/',
         
         'viewsDir'       => APP_PATH . '/views/default/',
         'widgetsPath'    => APP_PATH. '/views/default/widgets/',

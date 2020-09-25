@@ -206,8 +206,8 @@ class Install
             echo  Console::yellow("         -> Enter $key [$val] : ");
             $config->$key = readline() ?: $val;
             if ($key == "name") {
-                 if (!preg_match("/^[a-z0-9]*([a-z0-9][_-]{0,1})*[a-z0-9]$/", $config->name))
-                    return Console::print("Plugin name must be an alphanumeric (no spaces , no special characters, no upper cases)","CREATE-PLUGIN","red");
+                 if (!preg_match("/^[a-z0-9]*([a-zA-Z0-9][_-]{0,1})*[a-zA-Z0-9]$/", $config->name))
+                    return Console::print("Plugin name must be an alphanumeric (no spaces , no special characters)","CREATE-PLUGIN","red");
             }
         }
 
@@ -231,6 +231,8 @@ class Install
 
 
         $config->group = ucfirst($config->name);
+        $config->route = strtolower($config->name);
+
         foreach ($scanned_dir as $file) {
 
 

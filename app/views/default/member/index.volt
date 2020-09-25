@@ -20,12 +20,12 @@
       <div class="container-fluid">
         <!-- Page Heading -->
         <div class="d-sm-flex align-items-center justify-content-between mb-2">
-          <h1 class="h3 mb-0 text-gray-800">{{ page.get('title') }}</h1>
-          <a href="javascript:window.history.go(-1)" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-arrow-left fa-sm text-white-50"></i> Go Back</a>
+          <h1 class="h3 mb-0 text-gray-800">{{ locale._(page.get('title')) }}</h1>
+          <a href="javascript:window.history.go(-1)" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-arrow-left fa-sm text-white-50"></i> {{ locale._("Go back") }}</a>
         </div>
         <div class="d-sm-flex align-items-center justify-content-between mb-4">
          {% if page.get('description', null) !== null %}
-          <p class="mb-4">{{ page.get('description') }}</p>
+          <p class="mb-4">{{ locale._(page.get('description')) }}</p>
          {% endif %}
         </div>
 
@@ -41,7 +41,7 @@
     <footer class="sticky-footer bg-white">
       <div class="container my-auto">
         <div class="copyright text-center my-auto">
-          <span>Copyright &copy; {{ site.get('app-name') }} 2020
+          <span>{{ locale._("Copyright") }} &copy; {{ site.get('app-name') }} 2020-{{ date('Y') }}
           </span>
         </div>
       </div>
