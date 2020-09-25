@@ -32,7 +32,7 @@ class __group__Controller extends MemberControllerBase
 	// index page
 	public function indexAction()
 	{
-		$this->view->pick('plugins/__name__/index');
+		$this->view->pick('plugins/__route__/index');
 	}
 
 
