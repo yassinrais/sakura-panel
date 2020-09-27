@@ -144,6 +144,7 @@ $di->setShared('view', function () {
             $c->addFunction('var_dump','var_dump');
             $c->addFunction('ucfirst','ucfirst');
             $c->addFunction('class_exists','class_exists');
+            $c->addFunction('explode','explode');
             
             return $volt;
         },

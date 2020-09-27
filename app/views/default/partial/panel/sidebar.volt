@@ -29,11 +29,11 @@
               {% for it in m['items'] %}
                 {% if it['sub'] is defined and it['sub'] | length %}
                   <li class="nav-item">
-                    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapse{{ loop.index }}" aria-expanded="true" aria-controls="collapse{{ loop.index }}">
+                    <a class="nav-link " href="#" data-toggle="collapse" data-target="#collapse{{ loop.index }}" aria-expanded="true" aria-controls="collapse{{ loop.index }}">
                       <i class="fas fa-fw fa-{{ it['icon'] }}"></i>
                       <span>{{ locale._(it['title'] | e) }}</span>
                     </a>
-                    <div id="collapse{{ loop.index }}" class="collapse" aria-labelledby="{{ locale._(it['title'] | e) }}" data-parent="#accordionSidebar">
+                    <div id="collapse{{ loop.index }}" class="collapse {{ ( explode(it['url'],request.get('_url')) ) ? 'show':''}}" aria-labelledby="{{ locale._(it['title'] | e) }}" data-parent="#accordionSidebar">
                       <div class="bg-sakura py-2 mt-3 collapse-inner ">
                         <h6 class="collapse-header">Sub Menu</h6>
                         {% for sm in it['sub'] %}
