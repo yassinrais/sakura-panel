@@ -96,7 +96,7 @@ $('body').on('click','.table-action-btn' , function () {
                      data = a;
                 }
                 tableAction.fire(
-                  (action.charAt(0).toUpperCase()) + action.substr(1,action.length) + ' Action',
+                  (title.charAt(0).toUpperCase()) + title.substr(1,title.length) + ' Action',
                   typeof data.msg === "string" ? data.msg : (data.msg[data.status] ? data.msg[data.status] : "Error parsing response message"),
                   (data.status !== "danger") ? data.status : "error"
                 );
