@@ -172,8 +172,9 @@ if (! function_exists('_convertSize')){
  */
 if (!function_exists('_getTimeAgo')){
 	function _getTimeAgo($datetime, $full = false) {
+		$date = is_numeric($datetime) ? date("Y-m-d H:i:s",$datetime) : $datetime;
 		$now = new \DateTime;
-		$ago = new \DateTime((is_int($datetime) ? '@':'') . $datetime);
+		$ago = new \DateTime($date);
 		$diff = $now->diff($ago);
 	
 		$diff->w = floor($diff->d / 7);
