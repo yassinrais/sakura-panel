@@ -44,7 +44,7 @@ class ModelBase extends Model implements SharedConstInterface
 	 */
 	public function beforeCreate()
 	{
-	 	if (property_exists(self::class, 'created_at') || !empty($this->created_at) || isset($this->created_at)) {
+	 	if (property_exists($this, 'created_at') || !empty($this->created_at) || isset($this->created_at)) {
 			// Set the creation date / ip
 		    $this->created_at = (int) time();
 		    $this->created_ip = $this->getIp();
@@ -57,7 +57,7 @@ class ModelBase extends Model implements SharedConstInterface
 	public function beforeUpdate()
 	{
 
-	 	if (property_exists(self::class, 'updated_at') || !empty($this->updated_at) || isset($this->updated_at)) {
+	 	if (property_exists($this, 'updated_at') || !empty($this->updated_at) || isset($this->updated_at)) {
 		    $this->updated_at = (int) time();
 		    $this->updated_ip = $this->getIp();
 		}
@@ -70,7 +70,7 @@ class ModelBase extends Model implements SharedConstInterface
 	public function beforeDelete()
 	{
         if ((
-			property_exists(self::class, '_safe_delete') || property_exists(static::class, '_safe_delete')
+			property_exists($this, '_safe_delete') || property_exists(static::class, '_safe_delete')
 		) && !empty($this->_safe_delete) && $this->_safe_delete == true) {
 
               $this->addBehavior(
