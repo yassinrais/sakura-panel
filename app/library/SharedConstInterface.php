@@ -41,7 +41,7 @@ interface SharedConstInterface {
     ];
 
 	// date
-	const DATE_FORMAT = "y-m-d";	
+	const DATE_FORMAT = "Y-m-d";	
 	const TIME_FORMAT = "H:i:s";	
 	const DATE_TIME_FORMAT = "y-m-d H:i:s";	
 
