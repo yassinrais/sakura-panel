@@ -2,16 +2,17 @@
 /**
  * Acl For Roles (Admins / Members / Guests)
  */
-use Phalcon\Acl\Component;
 use Phalcon\Acl\Role;
+use Phalcon\Acl\Component;
+use Phalcon\Acl\Exception as AclException;
 
 use SakuraPanel\Library\RoleMemory as Memory;
 use SakuraPanel\Models\Security\Roles;
 
 $configs = $di->getConfig();
 
+    
 $acl = new Memory();
-
 
 /** 
  * General Roles
