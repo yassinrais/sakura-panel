@@ -169,6 +169,10 @@ if (! function_exists('_convertSize')){
  * echo time_elapsed_string('2013-05-01 00:22:35');
  * echo time_elapsed_string('1367367755'); # timestamp input
  * echo time_elapsed_string('2013-05-01 00:22:35', true);
+ * 
+ * @param $datetime | mixed
+ * @param $full | bool
+ * @return $date | string 
  */
 if (!function_exists('_getTimeAgo')){
 	function _getTimeAgo($datetime, $full = false) {
@@ -198,6 +202,6 @@ if (!function_exists('_getTimeAgo')){
 		}
 	
 		if (!$full) $string = array_slice($string, 0, 1);
-		return $string ? implode(', ', $string) . ' ago' : 'just now';
+		return $string ? implode(', ', $string) . ((time() - strtotime($date) <= 0) ? '': ' ago') : 'just now';
 	}
 }

@@ -13,9 +13,9 @@ interface SharedConstInterface {
 	const SUSPENDED = 2;
 
 	// roles
-	const ADMIN = "admins";
-	const MEMBER = "members";
-	const GUEST = "guests";
+	const ROLE_ADMIN = "admins";
+	const ROLE_MEMBER = "members";
+	const ROLE_GUEST = "guests";
 
 	// status : enable/disable
 	const DISABLED = self::INACTIVE;
@@ -35,13 +35,13 @@ interface SharedConstInterface {
 
 	// roles
 	const ROLES_LIST = [
-      self::ADMIN => 'Admin',
-      self::MEMBER => 'Member',
-      self::GUEST => 'Guest',
+      self::ROLE_ADMIN => 'Admin',
+      self::ROLE_MEMBER => 'Member',
+      self::ROLE_GUEST => 'Guest',
     ];
 
 	// date
-	const DATE_FORMAT = "y-m-d";	
+	const DATE_FORMAT = "Y-m-d";	
 	const TIME_FORMAT = "H:i:s";	
 	const DATE_TIME_FORMAT = "y-m-d H:i:s";	
 

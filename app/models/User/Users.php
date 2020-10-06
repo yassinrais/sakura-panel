@@ -212,19 +212,19 @@ class Users extends ModelBase
 		];
 		switch ($name) {
 			
-			case self::ADMIN:
+			case self::ROLE_ADMIN:
 				$info->title = "Admin";
 				$info->icon = "user-secret";
 				$info->color = "danger";
 				break;
 			
-			case self::MEMBER:
+			case self::ROLE_MEMBER:
 				$info->title = "Member";
 				$info->icon = "user-circle";
 				$info->color = "success";
 				break;
 			
-			case self::GUEST:
+			case self::ROLE_GUEST:
 				$info->title = "Guest";
 				$info->icon = "user";
 				$info->color = "warning";

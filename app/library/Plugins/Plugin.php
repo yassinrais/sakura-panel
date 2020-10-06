@@ -3,14 +3,18 @@ declare(strict_types=1);
 
 namespace SakuraPanel\Library\Plugins;
 
+use Phalcon\Acl\Exception as AclException;
 
 use SakuraPanel\Plugins\Pluginsmanager\Models\Plugins;
+use SakuraPanel\Models\Security\Roles;
 
 /**
  * Plugin
  */
 class Plugin implements  \SakuraPanel\Library\SharedConstInterface
 {
+	const ACL_EXCEPTION_INVALIDE_ROLE = 0;
+
 	protected $title = "Plugin";
 	protected $name = "plugin";
 	protected $version = "1.0.0";
@@ -203,7 +207,24 @@ class Plugin implements  \SakuraPanel\Library\SharedConstInterface
 		            );
 
 		            foreach ($roles_alloweds as $name)
-		                $acl->allow($name , $controller , $actions);
+		                try{
+							$acl->allow($name , $controller , $actions);
+						}catch(AclException $e){
+							$this->di->getLogger()->warning("Acl Exception ! '{$e->getMessages()}'");
+
+							if($e->getCode() === $this::ACL_EXCEPTION_INVALIDE_ROLE){
+								$this->di->get('flashSession')->error("Invalide role name : $name !");
+							}
+							if (getenv('ACL_ROLE_AUTOINSERT') == true){
+								$role = Roles::findFirstByName($name) ?: new Roles();
+								$role->name = $name;
+								$role->type = $this::ROLE_MEMBER;
+								if (!$role->save()){
+									$this->di->getLogger()->warning("Auto Role create ! '".implode(",", $role->getMessages())."'");
+									$this->di->get('flashSession')->error(implode(",", $role->getMessages()));
+								}
+							}
+						}
 		        }
 		    }
 		}
