@@ -210,7 +210,7 @@ class Plugin implements  \SakuraPanel\Library\SharedConstInterface
 		                try{
 							$acl->allow($name , $controller , $actions);
 						}catch(AclException $e){
-							$this->di->getLogger()->warning("Acl Exception ! '{$e->getMessages()}'");
+							$this->di->getLogger()->warning("Acl Exception ! '{$e->getMessage()}'");
 
 							if($e->getCode() === $this::ACL_EXCEPTION_INVALIDE_ROLE){
 								$this->di->get('flashSession')->error("Invalide role name : $name !");
