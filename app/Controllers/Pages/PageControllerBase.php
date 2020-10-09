@@ -1,13 +1,13 @@
 <?php 
 declare(strict_types=1);
 
-namespace SakuraPanel\Controllers\Pages;
+namespace Sakura\Controllers\Pages;
 
 use \Phalcon\Mvc\Controller;
 
-use \SakuraPanel\Library\SharedConstInterface;
-use \SakuraPanel\Plugins\Auth\AuthMiddleware;
-use \SakuraPanel\Controllers\Admin\Website\ThemeController;
+use \Sakura\Library\SharedConstInterface;
+use \Sakura\Plugins\Auth\AuthMiddleware;
+use \Sakura\Controllers\Admin\Website\ThemeController;
 
 /**
  * PageControllerBase
@@ -114,7 +114,7 @@ class PageControllerBase extends AuthMiddleware implements SharedConstInterface
     {
         $files = [];
 
-        $dirFiles = \SakuraPanel\Functions\_sortDirFiles($this->getCustomFilesPath());
+        $dirFiles = \Sakura\Functions\_sortDirFiles($this->getCustomFilesPath());
 
         foreach($dirFiles as $file){
             $filePath = $this->getCustomFilesPath() . $file;
@@ -122,7 +122,7 @@ class PageControllerBase extends AuthMiddleware implements SharedConstInterface
             if (!in_array($file, ['.','..'])){
                 $type = pathinfo($file, PATHINFO_EXTENSION);
                 if (in_array($type, $this->allowedFileTypes)){
-                    $fsize = \SakuraPanel\Functions\_convertSize(filesize($filePath));
+                    $fsize = \Sakura\Functions\_convertSize(filesize($filePath));
                     $mtype = mime_content_type($filePath);
 
                     $files[$filePath] = [

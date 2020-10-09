@@ -1,13 +1,13 @@
 <?php
 
-namespace SakuraPanel\Providers;
+namespace Sakura\Providers;
 
 use Phalcon\Mvc\Model\Metadata\Memory;
 
 /**
- * \App\Providers\ModelsMetadataServiceProvider
+ * \Sakura\Providers\ModelsMetadataServiceProvider
  *
- * @package App\Providers
+ * @package Sakura\Providers
  */
 class ModelsMetadataServiceProvider extends AbstractServiceProvider
 {

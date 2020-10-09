@@ -1,13 +1,13 @@
 <?php
 
-namespace SakuraPanel\Providers;
+namespace Sakura\Providers;
 
 use Phalcon\Tag;
 
 /**
- * \App\Providers\TagServiceProvider
+ * \Sakura\Providers\TagServiceProvider
  *
- * @package App\Services
+ * @package Sakura\Services
  */
 class TagServiceProvider extends AbstractServiceProvider
 {

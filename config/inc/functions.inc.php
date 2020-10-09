@@ -1,5 +1,5 @@
 <?php 
-namespace SakuraPanel\Functions;
+namespace Sakura\Functions;
 
 /**
  * Delete dir : danger dont please put an empty path : else you will remove your root 

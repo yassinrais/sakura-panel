@@ -1,5 +1,5 @@
 <?php
-namespace SakuraPanel\Library;
+namespace Sakura\Library;
 
 use Phalcon\Acl\Adapter\Memory;
 

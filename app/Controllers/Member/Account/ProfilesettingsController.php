@@ -1,10 +1,10 @@
 <?php 
 declare(strict_types=1);
 
-namespace SakuraPanel\Controllers\Member\Account;
+namespace Sakura\Controllers\Member\Account;
 
-use SakuraPanel\Controllers\Member\MemberControllerBase;
-use SakuraPanel\Forms\Users\ProfileSettingsForm;
+use Sakura\Controllers\Member\MemberControllerBase;
+use Sakura\Forms\Users\ProfileSettingsForm;
 
 /**
  * Profilesettings

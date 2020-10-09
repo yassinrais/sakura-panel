@@ -1,11 +1,11 @@
 <?php
 
-namespace SakuraPanel\Providers;
+namespace Sakura\Providers;
 
 /**
- * \App\Providers\PhpTemplateEngineServiceProvider
+ * \Sakura\Providers\PhpTemplateEngineServiceProvider
  *
- * @package App\Providers
+ * @package Sakura\Providers
  */
 class RouterServiceProvider extends AbstractServiceProvider
 {

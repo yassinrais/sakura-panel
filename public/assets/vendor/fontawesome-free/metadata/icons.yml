@@ -126,7 +126,7 @@ adn:
   changes:
     - '3.2'
     - 5.0.0
-  label: App.net
+  label: Sakura.net
   search:
     terms: []
   styles:
@@ -593,7 +593,7 @@ ankh:
 app-store:
   changes:
     - 5.0.0
-  label: App Store
+  label: Sakura Store
   search:
     terms: []
   styles:
@@ -603,7 +603,7 @@ app-store:
 app-store-ios:
   changes:
     - 5.0.0
-  label: iOS App Store
+  label: iOS Sakura Store
   search:
     terms: []
   styles:
@@ -21054,7 +21054,7 @@ whatsapp:
   changes:
     - '4.3'
     - 5.0.0
-  label: What's App
+  label: What's Sakura
   search:
     terms: []
   styles:
@@ -21064,7 +21064,7 @@ whatsapp:
 whatsapp-square:
   changes:
     - 5.0.0
-  label: What's App Square
+  label: What's Sakura Square
   search:
     terms: []
   styles:

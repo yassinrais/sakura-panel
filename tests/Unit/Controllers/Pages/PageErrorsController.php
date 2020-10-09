@@ -6,7 +6,7 @@ namespace Tests\Unit\Controllers\Pages;
 use Phalcon\Mvc\Controller;
 
 use Codeception\Test\Unit;
-use SakuraPanel\Controllers\Pages\PageErrorsController;
+use Sakura\Controllers\Pages\PageErrorsController;
 
 final class PageErrorsControllerTest extends Unit
 {

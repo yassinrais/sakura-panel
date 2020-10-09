@@ -1,6 +1,6 @@
 <?php
 
-use SakuraPanel\Providers;
+use Sakura\Providers;
 
 return [
     // Application Service Providers

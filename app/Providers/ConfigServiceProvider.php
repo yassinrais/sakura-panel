@@ -1,13 +1,13 @@
 <?php
 
-namespace SakuraPanel\Providers;
+namespace Sakura\Providers;
 
 use Phalcon\Config;
 
 /**
- * \App\Providers\ConfigServiceProvider
+ * \Sakura\Providers\ConfigServiceProvider
  *
- * @package App\Providers
+ * @package Sakura\Providers
  */
 class ConfigServiceProvider extends AbstractServiceProvider
 {

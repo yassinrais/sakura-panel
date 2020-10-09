@@ -1,6 +1,6 @@
 <?php 
 
-namespace SakuraPanel\Library\Plugins;
+namespace Sakura\Library\Plugins;
 
 
 class Exception extends \Phalcon\Exception 

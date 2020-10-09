@@ -6,7 +6,7 @@ namespace Tests\Unit\Library\Plugins;
 use Phalcon\Exception as PException;
 
 use Codeception\Test\Unit;
-use SakuraPanel\Library\Plugins\Exception;
+use Sakura\Library\Plugins\Exception;
 
 final class ExceptionTest extends Unit
 {

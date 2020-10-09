@@ -1,7 +1,7 @@
 <?php
-namespace SakuraPanel\Models\User;
+namespace Sakura\Models\User;
 
-use SakuraPanel\Models\ModelBase;
+use Sakura\Models\ModelBase;
 
 use Phalcon\Validation;
 use Phalcon\Validation\Validator\{
@@ -12,7 +12,7 @@ use Phalcon\Validation\Validator\{
 };
 
 
-use SakuraPanel\Models\Security\Roles;
+use Sakura\Models\Security\Roles;
 
 class Users extends ModelBase
 {

@@ -1,9 +1,9 @@
 <?php
 declare(strict_types=1);
 
-namespace SakuraPanel\Plugins\Pluginsmanager\Models;
+namespace Sakura\Plugins\Pluginsmanager\Models;
 
-use SakuraPanel\Models\ModelBase;
+use Sakura\Models\ModelBase;
 
 use Phalcon\Validation;
 use Phalcon\Validation\Validator\{ Between , Ip as IpValidator , PresenceOf , Email as EmailValidateur  , StringLength , Regex , Numericality , Callback  , InclusionIn };

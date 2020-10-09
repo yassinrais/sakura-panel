@@ -3,7 +3,7 @@ declare(strict_types=1);
 /**
  *
  *
- *  SakuraPanel >> neutrapp.com/page/sakura
+ *  Sakura >> neutrapp.com/page/sakura
  *              >> Project Installation
  * 
  */
@@ -162,7 +162,7 @@ class Install
             return false;
         }
 
-        $user = new \SakuraPanel\Models\User\Users;
+        $user = new \Sakura\Models\User\Users;
         $user->role_name = "admins";
         $user->setIp('0.0.0.0');
         $user->status = $user::ACTIVE;
@@ -226,7 +226,7 @@ class Install
         @mkdir($plugin_new_dir , 0775 , true);
         if (!is_dir($p)) return false;
 
-        $scanned_dir = \SakuraPanel\Functions\_fullScanDirs($p.'*');
+        $scanned_dir = \Sakura\Functions\_fullScanDirs($p.'*');
         $plugin_new_config_json = $plugin_new_dir . $config_file_json;
 
 

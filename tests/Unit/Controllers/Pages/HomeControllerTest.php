@@ -6,7 +6,7 @@ namespace Tests\Unit\Controllers\Pages;
 use Phalcon\Mvc\Controller;
 
 use Codeception\Test\Unit;
-use SakuraPanel\Controllers\Pages\HomeController;
+use Sakura\Controllers\Pages\HomeController;
 
 final class HomeControllerTest extends Unit
 {

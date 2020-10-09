@@ -1,5 +1,5 @@
 <?php
-namespace SakuraPanel\Forms\Users;
+namespace Sakura\Forms\Users;
 
 
 // form elements
@@ -11,7 +11,7 @@ use Phalcon\Forms\Element\Select;
 use Phalcon\Forms\Element\Password;
 
 // controllers / models
-use SakuraPanel\Forms\BaseForm;
+use Sakura\Forms\BaseForm;
 
 class RolesForm extends BaseForm
 {

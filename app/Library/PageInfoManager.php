@@ -1,8 +1,8 @@
 <?php 
 
-namespace SakuraPanel\Library;
+namespace Sakura\Library;
 
-use SakuraPanel\Controllers\ControllerBase;
+use Sakura\Controllers\ControllerBase;
 
 /**
  * PageInfoManager

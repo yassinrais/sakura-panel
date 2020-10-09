@@ -1,13 +1,13 @@
 <?php
 
-namespace SakuraPanel\Providers;
+namespace Sakura\Providers;
 
 use Phalcon\Db\Adapter\Pdo\Mysql;
 
 /**
- * \App\Providers\DatabaseServiceProvider
+ * \Sakura\Providers\DatabaseServiceProvider
  *
- * @package App\Providers
+ * @package Sakura\Providers
  */
 class DatabaseServiceProvider extends AbstractServiceProvider
 {

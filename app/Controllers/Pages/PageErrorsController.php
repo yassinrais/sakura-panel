@@ -1,7 +1,7 @@
 <?php 
 declare(strict_types=1);
 
-namespace SakuraPanel\Controllers\Pages;
+namespace Sakura\Controllers\Pages;
 
 
 class PageErrorsController extends PageControllerBase{

@@ -1,5 +1,5 @@
 <?php
-namespace SakuraPanel\Library\Translator;
+namespace Sakura\Library\Translator;
 
 use Phalcon\Di\Injectable;
 use Phalcon\Translate\Adapter\NativeArray;

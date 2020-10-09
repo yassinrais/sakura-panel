@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace SakuraPanel\Models;
+namespace Sakura\Models;
 
 /**
  * Phalcon depend
@@ -12,7 +12,7 @@ use \Phalcon\Mvc\Model\Behavior\SoftDelete;
 /**
  * Sakura Shared const list
  */
-use \SakuraPanel\Library\SharedConstInterface;
+use \Sakura\Library\SharedConstInterface;
 
 /**
  * This is the base model for all used models 

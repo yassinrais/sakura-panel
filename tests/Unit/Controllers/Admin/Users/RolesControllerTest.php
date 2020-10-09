@@ -8,7 +8,7 @@ namespace Tests\Unit\Controllers\Admin\Users;
 use Phalcon\Mvc\Controller;
 
 use Codeception\Test\Unit;
-use SakuraPanel\Controllers\Admin\Users\RolesController;
+use Sakura\Controllers\Admin\Users\RolesController;
 
 final class RolesControllerTest extends Unit
 {

@@ -1,13 +1,13 @@
 <?php
 
-namespace SakuraPanel\Providers;
+namespace Sakura\Providers;
 
 use Phalcon\Escaper;
 
 /**
- * \App\Providers\EscaperServiceProvider
+ * \Sakura\Providers\EscaperServiceProvider
  *
- * @package App\Providers
+ * @package Sakura\Providers
  */
 class EscaperServiceProvider extends AbstractServiceProvider
 {

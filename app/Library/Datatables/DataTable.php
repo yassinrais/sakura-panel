@@ -1,9 +1,9 @@
 <?php
-namespace SakuraPanel\Library\Datatables;
+namespace Sakura\Library\Datatables;
 
-use SakuraPanel\Library\Datatables\Adapters\QueryBuilder;
-use SakuraPanel\Library\Datatables\Adapters\ResultSet;
-use SakuraPanel\Library\Datatables\Adapters\ArrayAdapter;
+use Sakura\Library\Datatables\Adapters\QueryBuilder;
+use Sakura\Library\Datatables\Adapters\ResultSet;
+use Sakura\Library\Datatables\Adapters\ArrayAdapter;
 use Phalcon\Http\Response;
 
 class DataTable extends \Phalcon\Di\Injectable

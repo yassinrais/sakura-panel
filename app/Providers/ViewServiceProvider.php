@@ -1,13 +1,13 @@
 <?php
 
-namespace SakuraPanel\Providers;
+namespace Sakura\Providers;
 
 use Phalcon\Mvc\View;
 
 /**
- * \App\Providers\ViewServiceProvider
+ * \Sakura\Providers\ViewServiceProvider
  *
- * @package App\Providers
+ * @package Sakura\Providers
  */
 class ViewServiceProvider extends AbstractServiceProvider
 {

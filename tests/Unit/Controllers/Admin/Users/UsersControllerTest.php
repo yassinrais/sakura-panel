@@ -8,7 +8,7 @@ namespace Tests\Unit\Controllers\Admin\Users;
 use Phalcon\Mvc\Controller;
 
 use Codeception\Test\Unit;
-use SakuraPanel\Controllers\Admin\Users\UsersController;
+use Sakura\Controllers\Admin\Users\UsersController;
 
 final class UsersControllerTest extends Unit
 {

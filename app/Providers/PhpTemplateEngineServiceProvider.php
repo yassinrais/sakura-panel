@@ -1,15 +1,15 @@
 <?php
 
-namespace SakuraPanel\Providers;
+namespace Sakura\Providers;
 
 use Phalcon\DiInterface;
 use Phalcon\Mvc\ViewBaseInterface;
 use Phalcon\Mvc\View\Engine\Php as PhpEngine;
 
 /**
- * \App\Providers\PhpTemplateEngineServiceProvider
+ * \Sakura\Providers\PhpTemplateEngineServiceProvider
  *
- * @package App\Providers
+ * @package Sakura\Providers
  */
 class PhpTemplateEngineServiceProvider extends AbstractServiceProvider
 {

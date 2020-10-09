@@ -1,12 +1,12 @@
 <?php 
 declare(strict_types=1);
 
-namespace SakuraPanel\Controllers\Member;
+namespace Sakura\Controllers\Member;
 
-use SakuraPanel\Models\User\{
+use Sakura\Models\User\{
 	Users
 };
-use SakuraPanel\Models\App\{
+use Sakura\Models\Sakura\{
 	SiteConfigs
 };
 

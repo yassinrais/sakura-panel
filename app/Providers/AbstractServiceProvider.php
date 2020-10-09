@@ -1,16 +1,16 @@
 <?php
 
-namespace App\Providers;
+namespace SakuraPanel\Providers;
 
 use Phalcon\DiInterface;
-use Phalcon\Mvc\User\Component;
+use Phalcon\Di\Injectable;
 
 /**
- * \App\Providers\AbstractServiceProvider
+ * \SakuraPanel\Providers\AbstractServiceProvider
  *
- * @package App\Providers
+ * @package SakuraPanel\Providers
  */
-abstract class AbstractServiceProvider extends Component implements ServiceProviderInterface
+abstract class AbstractServiceProvider extends Injectable implements ServiceProviderInterface
 {
     /**
      * The Service name.

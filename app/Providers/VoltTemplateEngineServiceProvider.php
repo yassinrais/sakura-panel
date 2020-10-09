@@ -1,15 +1,15 @@
 <?php
 
-namespace SakuraPanel\Providers;
+namespace Sakura\Providers;
 
 use Phalcon\DiInterface;
 use Phalcon\Mvc\View\Engine\Volt;
 use Phalcon\Mvc\ViewBaseInterface;
 
 /**
- * \App\Providers\VoltTemplateEngineServiceProvider
+ * \Sakura\Providers\VoltTemplateEngineServiceProvider
  *
- * @package App\Providers
+ * @package Sakura\Providers
  */
 class VoltTemplateEngineServiceProvider extends AbstractServiceProvider
 {

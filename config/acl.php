@@ -6,8 +6,8 @@ use Phalcon\Acl\Role;
 use Phalcon\Acl\Component;
 use Phalcon\Acl\Exception as AclException;
 
-use SakuraPanel\Library\RoleMemory as Memory;
-use SakuraPanel\Models\Security\Roles;
+use Sakura\Library\RoleMemory as Memory;
+use Sakura\Models\Security\Roles;
 
 $configs = $di->getConfig();
 

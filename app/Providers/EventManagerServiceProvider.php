@@ -1,13 +1,13 @@
 <?php
 
-namespace SakuraPanel\Providers;
+namespace Sakura\Providers;
 
 use Phalcon\Events\Manager;
 
 /**
- * \App\Providers\EventManagerServiceProvider
+ * \Sakura\Providers\EventManagerServiceProvider
  *
- * @package App\Providers
+ * @package Sakura\Providers
  */
 class EventManagerServiceProvider extends AbstractServiceProvider
 {

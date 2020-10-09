@@ -1,13 +1,13 @@
 <?php
 
-namespace SakuraPanel\Providers;
+namespace Sakura\Providers;
 
 use Phalcon\Mvc\Dispatcher;
 
 /**
- * \App\Providers\MvcDispatcherServiceProvider
+ * \Sakura\Providers\MvcDispatcherServiceProvider
  *
- * @package App\Providers
+ * @package Sakura\Providers
  */
 class MvcDispatcherServiceProvider extends AbstractServiceProvider
 {
@@ -21,7 +21,7 @@ class MvcDispatcherServiceProvider extends AbstractServiceProvider
      * This namespace is applied to the controller routes in your routes file.
      * @var string
      */
-    protected $namespace = 'App\Http\Controllers';
+    protected $namespace = 'Sakura\Http\Controllers';
 
     /**
      * Register application service.

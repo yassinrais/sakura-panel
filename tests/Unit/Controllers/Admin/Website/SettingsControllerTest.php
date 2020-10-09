@@ -8,7 +8,7 @@ namespace Tests\Unit\Controllers\Admin\Website;
 use Phalcon\Mvc\Controller;
 
 use Codeception\Test\Unit;
-use SakuraPanel\Controllers\Admin\Website\SettingsController;
+use Sakura\Controllers\Admin\Website\SettingsController;
 
 final class SettingsControllerTest extends Unit
 {

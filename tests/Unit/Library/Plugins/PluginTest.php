@@ -5,7 +5,7 @@ namespace Tests\Unit\Library\Plugins;
 
 
 use Codeception\Test\Unit;
-use SakuraPanel\Library\Plugins\Plugin;
+use Sakura\Library\Plugins\Plugin;
 
 final class PluginTest extends Unit
 {

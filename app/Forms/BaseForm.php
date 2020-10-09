@@ -1,10 +1,10 @@
 <?php
-namespace SakuraPanel\Forms;
+namespace Sakura\Forms;
 
 use Phalcon\Forms\Form; 
 use Phalcon\Forms\Element\Hidden;
 
-class BaseForm extends Form implements  \SakuraPanel\Library\SharedConstInterface
+class BaseForm extends Form implements  \Sakura\Library\SharedConstInterface
 {
     public function initialize()
     {

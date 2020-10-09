@@ -1,7 +1,7 @@
 <?php 
 
 
-namespace SakuraPanel\Library;
+namespace Sakura\Library;
 
 use Phalcon\Http\Request as PhalconRequest;
 

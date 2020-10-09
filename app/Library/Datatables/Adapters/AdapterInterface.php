@@ -1,7 +1,7 @@
 <?php
-namespace SakuraPanel\Library\Datatables\Adapters;
+namespace Sakura\Library\Datatables\Adapters;
 
-use SakuraPanel\Library\Datatables\ParamsParser;
+use Sakura\Library\Datatables\ParamsParser;
 
 abstract class AdapterInterface {
 

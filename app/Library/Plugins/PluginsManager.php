@@ -1,8 +1,8 @@
 <?php 
 
-namespace SakuraPanel\Library\Plugins;
+namespace Sakura\Library\Plugins;
 
-use SakuraPanel\Controllers\ControllerBase;
+use Sakura\Controllers\ControllerBase;
 
 /**
  * Pluginsmanager

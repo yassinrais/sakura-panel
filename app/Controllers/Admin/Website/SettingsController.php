@@ -1,16 +1,16 @@
 <?php 
 declare(strict_types=1);
 
-namespace SakuraPanel\Controllers\Admin\Website;
+namespace Sakura\Controllers\Admin\Website;
 
-use SakuraPanel\Models\App\SiteConfigs;
+use Sakura\Models\Sakura\SiteConfigs;
 
-use SakuraPanel\Forms\Website\SiteConfigsForm;
+use Sakura\Forms\Website\SiteConfigsForm;
 
-use SakuraPanel\Controllers\Member\MemberControllerBase;
+use Sakura\Controllers\Member\MemberControllerBase;
 
 
-use SakuraPanel\Library\Datatables\DataTable;
+use Sakura\Library\Datatables\DataTable;
 
 
 /**

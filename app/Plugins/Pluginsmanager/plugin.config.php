@@ -1,6 +1,6 @@
 <?php 
 
-use SakuraPanel\Library\Plugins\Plugin;
+use Sakura\Library\Plugins\Plugin;
 
 $plugin = new Plugin();
 
@@ -11,7 +11,7 @@ $plugin->addRoute(
 	"plugins" ,
 	[
 		'url'=>['/#/@/:action','/#/@/:action/:params'],
-	    'controller'=>"\SakuraPanel\Plugins\\${groupName}\Controllers\Plugins",
+	    'controller'=>"\Sakura\Plugins\\${groupName}\Controllers\Plugins",
 	    'action'=>1 , 
 	    'params'=>2 , 
 	    'access' => ['admins' => ['*'] ]

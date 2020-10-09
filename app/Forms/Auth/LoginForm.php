@@ -1,5 +1,5 @@
 <?php
-namespace SakuraPanel\Forms\Auth;
+namespace Sakura\Forms\Auth;
 
 
 
@@ -11,8 +11,8 @@ use Phalcon\Forms\Element\Check;
 use Phalcon\Forms\Element\Hidden;
 
 // controllers / models
-use SakuraPanel\Forms\BaseForm;
-use SakuraPanel\Models\User\Users;
+use Sakura\Forms\BaseForm;
+use Sakura\Models\User\Users;
 
 
 // validation

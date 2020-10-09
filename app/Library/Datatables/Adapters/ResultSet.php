@@ -1,5 +1,5 @@
 <?php
-namespace SakuraPanel\Library\Datatables\Adapters;
+namespace Sakura\Library\Datatables\Adapters;
 
 use Phalcon\Mvc\Model\Resultset as PhalconResultSet;
 

@@ -20,28 +20,28 @@ $loader->registerNamespaces(array(
 	/**
 	 *	Library
 	 */
-	'SakuraPanel\\Library'=>APP_PATH. '/library/',
+	'Sakura\\Library'=>APP_PATH. '/library/',
 
 	/**
 	 *	Library
 	 */
-	'SakuraPanel\\Plugins'=>APP_PATH. '/plugins/',
+	'Sakura\\Plugins'=>APP_PATH. '/plugins/',
 
 	/**
 	 *	Models
 	 */
-	'SakuraPanel\\Models' => APP_PATH . '/models/',
+	'Sakura\\Models' => APP_PATH . '/models/',
 
 
 	/**	
 	 * Controllers
 	 */
-	'SakuraPanel\\Controllers' => APP_PATH . '/controllers/',
+	'Sakura\\Controllers' => APP_PATH . '/controllers/',
 
 	/**
 	 * Form - Views
 	 */
-	'SakuraPanel\\Forms' => APP_PATH . '/forms/',
+	'Sakura\\Forms' => APP_PATH . '/forms/',
 
 
 ))->register();

@@ -1,8 +1,8 @@
 <?php
 
-namespace SakuraPanel\Models\App;
+namespace Sakura\Models\Sakura;
 
-use SakuraPanel\Models\ModelBase;
+use Sakura\Models\ModelBase;
 
 
 class SiteConfigs extends ModelBase

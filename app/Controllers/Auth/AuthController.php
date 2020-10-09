@@ -1,13 +1,13 @@
 <?php 
 declare(strict_types=1);
 
-namespace SakuraPanel\Controllers\Auth;
-use \SakuraPanel\Controllers\Pages\PageControllerBase;
+namespace Sakura\Controllers\Auth;
+use \Sakura\Controllers\Pages\PageControllerBase;
 
 
-use \SakuraPanel\Forms\Auth\LoginForm;
-use \SakuraPanel\Models\User\{Users , UsersSessions};
-use \SakuraPanel\Models\Security\AuthSecurity;
+use \Sakura\Forms\Auth\LoginForm;
+use \Sakura\Models\User\{Users , UsersSessions};
+use \Sakura\Models\Security\AuthSecurity;
 use \Phalcon\Http\Response;
 
 /**

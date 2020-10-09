@@ -1,8 +1,8 @@
 <?php 
 
-namespace SakuraPanel\Library\Widgets;
+namespace Sakura\Library\Widgets;
 
-use SakuraPanel\Controllers\ControllerBase;
+use Sakura\Controllers\ControllerBase;
 /**
  * WidgetsLoader
  */

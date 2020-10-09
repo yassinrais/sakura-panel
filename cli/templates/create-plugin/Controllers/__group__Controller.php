@@ -1,17 +1,17 @@
 <?php 
-namespace SakuraPanel\Plugins\__group__\Controllers;
+namespace Sakura\Plugins\__group__\Controllers;
 
 
 // auth midleware : MemberControllerBase
-use SakuraPanel\Controllers\Member\{
+use Sakura\Controllers\Member\{
 	MemberControllerBase
 };
 
-// use SakuraPanel\Plugins\__group__\Models\{__group__ , modelName2};
+// use Sakura\Plugins\__group__\Models\{__group__ , modelName2};
 
-// use SakuraPanel\Plugins\__group__\Forms\{FormName1 , FormName2};
+// use Sakura\Plugins\__group__\Forms\{FormName1 , FormName2};
 
-// use SakuraPanel\Library\Datatables\DataTable;
+// use Sakura\Library\Datatables\DataTable;
 
 /**
  * __group__Controller

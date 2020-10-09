@@ -1,8 +1,8 @@
 <?php 
 
-namespace SakuraPanel\Library\Ajax;
+namespace Sakura\Library\Ajax;
 
-use SakuraPanel\Controllers\ControllerBase;
+use Sakura\Controllers\ControllerBase;
 
 /**
  * AjaxManager

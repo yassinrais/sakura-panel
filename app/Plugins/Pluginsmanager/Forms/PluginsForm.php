@@ -1,5 +1,5 @@
 <?php
-namespace SakuraPanel\Plugins\Pluginsmanager\Forms;
+namespace Sakura\Plugins\Pluginsmanager\Forms;
 
 
 // form elements
@@ -11,7 +11,7 @@ use Phalcon\Forms\Element\Hidden;
 use Phalcon\Forms\Element\Select;
 
 // controllers / models
-use SakuraPanel\Forms\BaseForm;
+use Sakura\Forms\BaseForm;
 
 
 // validation

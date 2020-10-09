@@ -1,11 +1,11 @@
 <?php 
 declare(strict_types=1);
 
-namespace SakuraPanel\Controllers\Admin\Website;
+namespace Sakura\Controllers\Admin\Website;
 
-use SakuraPanel\Controllers\Member\MemberControllerBase;
-use SakuraPanel\Library\Datatables\DataTable;
-use SakuraPanel\Forms\Website\ThemeFileForm;
+use Sakura\Controllers\Member\MemberControllerBase;
+use Sakura\Library\Datatables\DataTable;
+use Sakura\Forms\Website\ThemeFileForm;
 
 /**
  * ThemeController

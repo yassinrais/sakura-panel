@@ -1,13 +1,13 @@
 <?php
 
-namespace SakuraPanel\Providers;
+namespace Sakura\Providers;
 
 use Phalcon\Session\Adapter\Files;
 
 /**
- * \App\Providers\SessionServiceProvider
+ * \Sakura\Providers\SessionServiceProvider
  *
- * @package App\Providers
+ * @package Sakura\Providers
  */
 class SessionServiceProvider extends AbstractServiceProvider
 {

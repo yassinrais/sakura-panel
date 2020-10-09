@@ -1,10 +1,10 @@
 <?php 
 
-namespace SakuraPanel\Library;
+namespace Sakura\Library;
 
-use SakuraPanel\Controllers\ControllerBase;
+use Sakura\Controllers\ControllerBase;
 
-use \SakuraPanel\Models\App\{
+use \Sakura\Models\Sakura\{
 	SiteConfigs
 };
 

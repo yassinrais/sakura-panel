@@ -6,7 +6,7 @@ namespace Tests\Unit\Forms\Users;
 use Phalcon\Forms\Form;
 
 use Codeception\Test\Unit;
-use SakuraPanel\Forms\Users\RolesForm;
+use Sakura\Forms\Users\RolesForm;
 
 final class RolesFormTest extends Unit
 {

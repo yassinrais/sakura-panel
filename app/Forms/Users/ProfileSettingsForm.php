@@ -3,9 +3,9 @@
  * ProfilesettingsForm
  */
 
-namespace SakuraPanel\Forms\Users;
+namespace Sakura\Forms\Users;
 
-use SakuraPanel\Forms\BaseForm;
+use Sakura\Forms\BaseForm;
 
 
 use Phalcon\Forms\Form; 

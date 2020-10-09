@@ -1,8 +1,8 @@
 <?php 
 declare(strict_types=1);
 
-namespace SakuraPanel\Controllers\Member;
-use SakuraPanel\Controllers\Pages\{ PageControllerBase };
+namespace Sakura\Controllers\Member;
+use Sakura\Controllers\Pages\{ PageControllerBase };
 /**
  * MemberControllerBase
  */

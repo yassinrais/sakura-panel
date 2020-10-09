@@ -1,13 +1,13 @@
 <?php
 
-namespace SakuraPanel\Providers;
+namespace Sakura\Providers;
 
 use Phalcon\Http\Response;
 
 /**
- * \App\Providers\ResponseServiceProvider
+ * \Sakura\Providers\ResponseServiceProvider
  *
- * @package App\Providers
+ * @package Sakura\Providers
  */
 class ResponseServiceProvider extends AbstractServiceProvider
 {

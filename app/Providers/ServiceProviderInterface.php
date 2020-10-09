@@ -1,13 +1,13 @@
 <?php
 
-namespace SakuraPanel\Providers;
+namespace Sakura\Providers;
 
 use Phalcon\Di\InjectionAwareInterface;
 
 /**
- * \App\Providers\ServiceProviderInterface
+ * \Sakura\Providers\ServiceProviderInterface
  *
- * @package App\Providers
+ * @package Sakura\Providers
  */
 interface ServiceProviderInterface extends InjectionAwareInterface
 {

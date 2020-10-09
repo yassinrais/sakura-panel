@@ -1,5 +1,5 @@
 <?php
-namespace SakuraPanel\Forms\Website;
+namespace Sakura\Forms\Website;
 
 
 // form elements
@@ -8,8 +8,8 @@ use Phalcon\Forms\Element\Text;
 use Phalcon\Forms\Element\Select;
 
 // controllers / models
-use SakuraPanel\Models\User\Users;
-use SakuraPanel\Forms\BaseForm;
+use Sakura\Models\User\Users;
+use Sakura\Forms\BaseForm;
 
 // validation
 use Phalcon\Validation\Validator\{ PresenceOf , StringLength, Regex, InclusionIn};

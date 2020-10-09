@@ -1,20 +1,20 @@
 <?php 
 
-namespace SakuraPanel\Plugins\Pluginsmanager\Controllers;
+namespace Sakura\Plugins\Pluginsmanager\Controllers;
 
 
 
-use SakuraPanel\Controllers\Member\{
+use Sakura\Controllers\Member\{
 	MemberControllerBase
 };
 
-use SakuraPanel\Plugins\Pluginsmanager\Models\{
+use Sakura\Plugins\Pluginsmanager\Models\{
 	Plugins
 };
 
-use SakuraPanel\Library\Datatables\DataTable;
+use Sakura\Library\Datatables\DataTable;
 
-use SakuraPanel\Plugins\Pluginsmanager\Forms\PluginsForm;
+use Sakura\Plugins\Pluginsmanager\Forms\PluginsForm;
 
 /**
  * PluginsController
@@ -127,9 +127,9 @@ class PluginsController extends MemberControllerBase
 				 * Delete plugin folders
 				 */
 				if (is_dir($view_dir)) 
-					\SakuraPanel\Functions\_deleteDir($view_dir);
+					\Sakura\Functions\_deleteDir($view_dir);
 				if (is_dir($sys_dir)) 
-					\SakuraPanel\Functions\_deleteDir($sys_dir);
+					\Sakura\Functions\_deleteDir($sys_dir);
 
 				/**
 				 * Delete row
@@ -180,12 +180,12 @@ class PluginsController extends MemberControllerBase
 
 				$zipFileUrl = "{$this->plugins_server}{$zipFileUrl}";
 
-				if (!\SakuraPanel\Functions\_isUrlAZipFile($zipFileUrl)) {
+				if (!\Sakura\Functions\_isUrlAZipFile($zipFileUrl)) {
 					$this->ajax->error("Plugin ($zipFileUrl) file is not a zip file ");
 				}else{
 					$zipFileSavePath = $this->config->application->pluginsCacheDir . $plugin . ".zip";
 
-					$download = \SakuraPanel\Functions\_downloadZipFile($zipFileUrl , $zipFileSavePath);
+					$download = \Sakura\Functions\_downloadZipFile($zipFileUrl , $zipFileSavePath);
 
 					if (!$download) 
 						return $this->ajax->error("Download plugin failed ! $zipFileUrl")->sendResponse();
@@ -256,12 +256,12 @@ class PluginsController extends MemberControllerBase
 
 				$zipFileUrl = "{$this->plugins_server}{$zipFileUrl}";
 
-				if (!\SakuraPanel\Functions\_isUrlAZipFile($zipFileUrl)) {
+				if (!\Sakura\Functions\_isUrlAZipFile($zipFileUrl)) {
 					$this->ajax->error("Plugin ($zipFileUrl) file is not a zip file ");
 				}else{
 					$zipFileSavePath = $this->config->application->pluginsCacheDir . $plugin . ".zip";
 
-					$download = \SakuraPanel\Functions\_downloadZipFile($zipFileUrl , $zipFileSavePath);
+					$download = \Sakura\Functions\_downloadZipFile($zipFileUrl , $zipFileSavePath);
 
 					if (!$download) 
 						return $this->ajax->error("Download plugin failed ! $zipFileUrl")->sendResponse();
@@ -359,11 +359,11 @@ class PluginsController extends MemberControllerBase
 	*********/
 	public function getPluginViewPath(string $name)
 	{
-		return \SakuraPanel\Functions\_cleanPath($this->config->application->viewsDir . "/plugins/{$name}/");
+		return \Sakura\Functions\_cleanPath($this->config->application->viewsDir . "/plugins/{$name}/");
 	}
 	public function getPluginSysPath(string $name)
 	{
-		return \SakuraPanel\Functions\_cleanPath($this->config->application->pluginsDir . "/{$name}/");
+		return \Sakura\Functions\_cleanPath($this->config->application->pluginsDir . "/{$name}/");
 	}
 
 	public function unzipPlugin($plugin , $path)

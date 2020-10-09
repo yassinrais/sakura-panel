@@ -25,7 +25,7 @@ use \Phalcon\Logger\Formatter\Line as LineFormatter;
 use \Phalcon\Logger\Adapter\Stream as StreamLogger;
 
 // mail
-use SakuraPanel\Library\Mail\Mail;
+use Sakura\Library\Mail\Mail;
 
 // cache
 use Phalcon\Cache\Adapter\Stream;
@@ -53,7 +53,7 @@ $di->setShared('config', function () {
 $di->set(
     'request',
     function () {
-        return new \SakuraPanel\Library\Request();
+        return new \Sakura\Library\Request();
     }
 );
 
@@ -340,7 +340,7 @@ $di->set(
                             if ($this->getRequest()->isAjax()) return $this->getResponse()->send();
                             $dispatcher->forward(
                                 array(
-                                    'controller' => '\SakuraPanel\Controllers\Pages\PageErrors',
+                                    'controller' => '\Sakura\Controllers\Pages\PageErrors',
                                     'action'     => 'Page404',
                                 )
                             );
@@ -349,7 +349,7 @@ $di->set(
                             if ($this->getRequest()->isAjax()) return $this->getResponse()->send();
                             $dispatcher->forward(
                                 array(
-                                    'controller' => '\SakuraPanel\Controllers\Pages\PageErrors',
+                                    'controller' => '\Sakura\Controllers\Pages\PageErrors',
                                     'action'     => 'Page404',
                                 )
                             );
@@ -389,7 +389,7 @@ $di->setShared('mail', function () {
  * Set Website Config : name , title , etc , set controller
  */
 $di->setShared('site', function () {
-    $site =  new \SakuraPanel\Library\SiteManager();
+    $site =  new \Sakura\Library\SiteManager();
     $site->initialize();
     return $site;
 });
@@ -398,7 +398,7 @@ $di->setShared('site', function () {
  * Set Website Config : name , title , etc , set controller
  */
 $di->setShared('translator', function(){
-    return $translator = new \SakuraPanel\Library\Translator\Locale();
+    return $translator = new \Sakura\Library\Translator\Locale();
 });
 
 $di->setShared('locale', function() use($di) {
@@ -409,7 +409,7 @@ $di->setShared('locale', function() use($di) {
  * Page Config : name , title , etc , set controller
  */
 $di->setShared('page', function () {
-    return new \SakuraPanel\Library\PageInfoManager();
+    return new \Sakura\Library\PageInfoManager();
 });
 
 
@@ -417,7 +417,7 @@ $di->setShared('page', function () {
  * Page Config : name , title , etc , set controller
  */
 $di->setShared('plugins', function () {
-    return new \SakuraPanel\Library\Plugins\PluginsManager();
+    return new \Sakura\Library\Plugins\PluginsManager();
 });
 
 
@@ -425,7 +425,7 @@ $di->setShared('plugins', function () {
  * Page Config : name , title , etc , set controller
  */
 $di->setShared('ajax', function () {
-    return new \SakuraPanel\Library\Ajax\AjaxManager();
+    return new \Sakura\Library\Ajax\AjaxManager();
 });
 
 
@@ -437,7 +437,7 @@ $di->set(
     'widgets',
     function () use ($di)
     {
-        $instance = new \SakuraPanel\Library\Widgets\WidgetsLoader();
+        $instance = new \Sakura\Library\Widgets\WidgetsLoader();
         $instance->setWidgetsPath($this->getConfig()->application->widgetsPath);
         $instance->loadWidgets();
         return $instance;

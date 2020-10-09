@@ -1,17 +1,17 @@
 <?php 
 declare(strict_types=1);
 
-namespace SakuraPanel\Library\Plugins;
+namespace Sakura\Library\Plugins;
 
 use Phalcon\Acl\Exception as AclException;
 
-use SakuraPanel\Plugins\Pluginsmanager\Models\Plugins;
-use SakuraPanel\Models\Security\Roles;
+use Sakura\Plugins\Pluginsmanager\Models\Plugins;
+use Sakura\Models\Security\Roles;
 
 /**
  * Plugin
  */
-class Plugin implements  \SakuraPanel\Library\SharedConstInterface
+class Plugin implements  \Sakura\Library\SharedConstInterface
 {
 	const ACL_EXCEPTION_INVALIDE_ROLE = 0;
 
@@ -279,7 +279,7 @@ class Plugin implements  \SakuraPanel\Library\SharedConstInterface
 			$p = $this->getPluginSysPath()."views/";
 			if (!is_dir($p)) return false;
 			
-			$scanned_dir = \SakuraPanel\Functions\_fullScanDirs($p.'*');
+			$scanned_dir = \Sakura\Functions\_fullScanDirs($p.'*');
 
 
 			foreach ($scanned_dir as $file) {
@@ -466,11 +466,11 @@ class Plugin implements  \SakuraPanel\Library\SharedConstInterface
 	 */
 	public function getPluginViewPath()
 	{
-		return \SakuraPanel\Functions\_cleanPath($this->di->getConfig()->application->viewsDir . "/plugins/".strtolower($this->name)."/");
+		return \Sakura\Functions\_cleanPath($this->di->getConfig()->application->viewsDir . "/plugins/".strtolower($this->name)."/");
 	}
 	public function getPluginSysPath()
 	{
-		return \SakuraPanel\Functions\_cleanPath($this->di->getConfig()->application->pluginsDir . "/{$this->name}/");
+		return \Sakura\Functions\_cleanPath($this->di->getConfig()->application->pluginsDir . "/{$this->name}/");
 	}
 
 	public function cleanPath(string $path)

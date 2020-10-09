@@ -1,7 +1,7 @@
 <?php 
 
 
-namespace SakuraPanel\Library;
+namespace Sakura\Library;
 
 
 interface SharedConstInterface {

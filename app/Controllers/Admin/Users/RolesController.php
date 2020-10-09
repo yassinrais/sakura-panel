@@ -1,15 +1,15 @@
 <?php 
 declare(strict_types=1);
 
-namespace SakuraPanel\Controllers\Admin\Users;
+namespace Sakura\Controllers\Admin\Users;
 
-use SakuraPanel\Controllers\Member\MemberControllerBase;
-use SakuraPanel\Forms\Users\RolesForm;
+use Sakura\Controllers\Member\MemberControllerBase;
+use Sakura\Forms\Users\RolesForm;
 
-use SakuraPanel\Models\Security\Roles;
-use SakuraPanel\Models\User\Users;
+use Sakura\Models\Security\Roles;
+use Sakura\Models\User\Users;
 
-use SakuraPanel\Library\Datatables\DataTable;
+use Sakura\Library\Datatables\DataTable;
 
 
 /**

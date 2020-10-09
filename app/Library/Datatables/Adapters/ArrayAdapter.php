@@ -1,6 +1,6 @@
 <?php
 
-namespace SakuraPanel\Library\Datatables\Adapters;
+namespace Sakura\Library\Datatables\Adapters;
 
 class ArrayAdapter extends AdapterInterface {
 

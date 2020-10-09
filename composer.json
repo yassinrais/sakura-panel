@@ -22,11 +22,11 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "SakuraPanel\\Controllers\\":"app/controllers",
-            "SakuraPanel\\Models\\":"app/models",
-            "SakuraPanel\\Forms\\":"app/forms",
-            "SakuraPanel\\Plugins\\":"app/plugins",
-            "SakuraPanel\\Library\\":"app/library",
+            "Sakura\\Controllers\\":"app/controllers",
+            "Sakura\\Models\\":"app/models",
+            "Sakura\\Forms\\":"app/forms",
+            "Sakura\\Plugins\\":"app/plugins",
+            "Sakura\\Library\\":"app/library",
             "Tests\\": "tests"
         }
     }

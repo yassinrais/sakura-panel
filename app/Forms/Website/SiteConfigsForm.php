@@ -4,9 +4,9 @@ declare(strict_types=1);
  * SiteConfigsForm
  */
 
-namespace SakuraPanel\Forms\Website;
+namespace Sakura\Forms\Website;
 
-use SakuraPanel\Forms\BaseForm;
+use Sakura\Forms\BaseForm;
 
 use Phalcon\Forms\Form; 
 use Phalcon\Forms\Element\{
