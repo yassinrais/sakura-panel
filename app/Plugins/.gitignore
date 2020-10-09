@@ -1,0 +1,7 @@
+*/
+!.gitignore
+!auth
+!auth/*
+!Pluginsmanager
+!Pluginsmanager/*
+!Pluginsmanager/*/*
