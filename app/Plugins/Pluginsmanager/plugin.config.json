@@ -1,0 +1,13 @@
+{
+	"name":"Pluginsmanager",
+	"title":"Plugins Manager",
+	"version":"1.0.1",
+	"author":"Yassin Rais",
+	"description":"This plugin allow you to install & use others plugins in your Sakura website ",
+	"image":"https://i.imgur.com/BohQLTH.png",
+	"others":{
+		"require":{
+			"discordbots":"1.0.2"
+		}
+	}
+}
