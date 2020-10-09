@@ -2,7 +2,7 @@
 declare(strict_types=1);
 
 
-use App\Bootstrap;
+use SakuraPanel\Bootstrap;
 
 include dirname(dirname(__FILE__)) . '/bootstrap/autoload.php';
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Providers;
+namespace SakuraPanel\Providers;
 
 use Phalcon\Mvc\View;
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Providers;
+namespace SakuraPanel\Providers;
 
 /**
  * \App\Providers\PhpTemplateEngineServiceProvider
