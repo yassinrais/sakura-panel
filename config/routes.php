@@ -4,7 +4,17 @@ use Phalcon\Mvc\Router;
 
 $router = new Router();
 
-
+/** 
+ * TODO 
+ * REPLACE ROUTE SYSTEM 
+ * 
+ * UPGRADE PLUGIN ROUTER
+ * UPGRADE MEMBER MENU
+ * UPGRADE PERMISSIONS
+ * 
+ * UPGRADE TO USE MULTI TEMPLATES 
+ * 
+ */
 // if ($configs->route_groups)
 // foreach ($configs->route_groups as $prefix => $rgroups) {
 //     foreach ($rgroups as $name => $page) {
