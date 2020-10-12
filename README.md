@@ -12,16 +12,14 @@
     <img alt="License: MIT" src="https://img.shields.io/badge/License-MIT-yellow.svg" target="_blank" />
   </a>
 </p>
+
 ## ⚠ TODO
 
- * TODO 
- * REPLACE ROUTE SYSTEM 
- * 
- * UPGRADE PLUGIN ROUTER
- * UPGRADE MEMBER MENU
- * UPGRADE PERMISSIONS
- * 
- * UPGRADE TO USE MULTI TEMPLATES 
+* REPLACE ROUTE SYSTEM 
+* UPGRADE PLUGIN ROUTER
+* UPGRADE MEMBER MENU
+* UPGRADE PERMISSIONS
+* UPGRADE TO USE MULTI TEMPLATES 
 
 ## 📗 About
 
