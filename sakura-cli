@@ -226,7 +226,7 @@ class Install
         @mkdir($plugin_new_dir , 0775 , true);
         if (!is_dir($p)) return false;
 
-        $scanned_dir = \Sakura\Functions\_fullScanDirs($p.'*');
+        $scanned_dir = \Sakura\Helpers\Functions\_fullScanDirs($p.'*');
         $plugin_new_config_json = $plugin_new_dir . $config_file_json;
 
 

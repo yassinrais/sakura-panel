@@ -2,18 +2,20 @@
 
 namespace Sakura\Providers;
 
+use Phalcon\Http\Request;
+
 /**
- * \Sakura\Providers\PhpTemplateEngineServiceProvider
+ * \Sakura\Providers\RequestServiceProvider
  *
  * @package Sakura\Providers
  */
-class RouterServiceProvider extends AbstractServiceProvider
+class RequestServiceProvider extends AbstractServiceProvider
 {
     /**
      * The Service name.
      * @var string
      */
-    protected $serviceName = 'router';
+    protected $serviceName = 'request';
 
     /**
      * Register application service.
@@ -25,10 +27,7 @@ class RouterServiceProvider extends AbstractServiceProvider
         $this->di->setShared(
             $this->serviceName,
             function () {
-                /** @var \Phalcon\DiInterface  $this */
-                $appPath = $this->getShared('bootstrap')->getApplicationPath();
-
-                return require $appPath . '/config/routes.php';
+                return new Request();
             }
         );
     }

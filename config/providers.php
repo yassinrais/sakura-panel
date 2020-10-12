@@ -7,6 +7,7 @@ return [
     Providers\EventManagerServiceProvider::class,
     Providers\ConfigServiceProvider::class,
     Providers\DatabaseServiceProvider::class,
+    Providers\RequestServiceProvider::class,
     Providers\ModelsMetadataServiceProvider::class,
     Providers\TagServiceProvider::class,
     Providers\EscaperServiceProvider::class,

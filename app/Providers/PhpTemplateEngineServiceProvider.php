@@ -2,7 +2,7 @@
 
 namespace Sakura\Providers;
 
-use Phalcon\DiInterface;
+use Phalcon\Di;
 use Phalcon\Mvc\ViewBaseInterface;
 use Phalcon\Mvc\View\Engine\Php as PhpEngine;
 
@@ -28,7 +28,7 @@ class PhpTemplateEngineServiceProvider extends AbstractServiceProvider
     {
         $this->di->setShared(
             $this->serviceName,
-            function (ViewBaseInterface $view, DiInterface $di = null) {
+            function (ViewBaseInterface $view,Di $di = null) {
                 $engine = new PhpEngine($view, $di);
 
                 return $engine;

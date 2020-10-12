@@ -1,13 +1,5 @@
 <?php
 
-/*
- * Modified: prepend directory path of current file, because of this file own different ENV under between Apache and command line.
- * NOTE: please remove this comment.
- */
-defined('BASE_PATH') || define('BASE_PATH', getenv('BASE_PATH') ?: realpath(dirname(__FILE__) . '/../..'));
-defined('APP_PATH') || define('APP_PATH', BASE_PATH . '/app');
-
-
 /**
  * vendor include_once 
  */
@@ -46,13 +38,8 @@ $configs = array(
         'viewsDir'       => APP_PATH . '/views/default/',
         'widgetsPath'    => APP_PATH. '/views/default/widgets/',
 
+        'compiledSeparator'=>'_',
 
-        'cacheDir'       => BASE_PATH . '/cache/shared/',
-        'cacheViewsDir'       => BASE_PATH . '/cache/views/',
-        'cacheSessionsDir' => BASE_PATH . '/cache/sessions/',
-        'securityCacheDir' => BASE_PATH . '/cache/security/',
-        'pluginsCacheDir' => BASE_PATH . '/cache/plugins/',
-        'globalCacheDir' => BASE_PATH . '/cache/global/',
         'baseUri'        => '/',
         // server configs  doesnt exist in cli ("request" :@ to ignore undefined vars) 
         'baseURL'        => ((!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' || @$_SERVER['SERVER_PORT'] == 443) ? "https://" : "http://"). @$_SERVER['HTTP_HOST'] . "/",
@@ -109,14 +96,6 @@ include_once ('inc/cache.inc.php');
  *      Menu
  */
 include_once ('inc/menu.inc.php');
-
-
-/**
- *      Functions
- *      _function_name...
- *
- */
-include_once ('inc/functions.inc.php');
 
 
 // return configs

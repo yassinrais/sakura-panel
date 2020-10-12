@@ -28,15 +28,15 @@ class VoltTemplateEngineServiceProvider extends AbstractServiceProvider
     {
         $this->di->setShared(
             $this->serviceName,
-            function (ViewBaseInterface $view, DiInterface $di = null) {
+            function (ViewBaseInterface $view, $di = null) {
                 /** @var \Phalcon\DiInterface $this */
-                $config = $this->getShared('config')->volt;
+                $config = $this->getShared('config');
 
                 $volt = new Volt($view, $di);
 
                 $volt->setOptions(
                     [
-                        'compiledPath'      => $config->cacheDir,
+                        'compiledPath'      => $config->cache->views,
                         'compiledSeparator' => $config->compiledSeparator
                     ]
                 );

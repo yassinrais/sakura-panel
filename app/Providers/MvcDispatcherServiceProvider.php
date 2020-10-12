@@ -21,7 +21,7 @@ class MvcDispatcherServiceProvider extends AbstractServiceProvider
      * This namespace is applied to the controller routes in your routes file.
      * @var string
      */
-    protected $namespace = 'Sakura\Http\Controllers';
+    protected $namespace = 'Sakura\Controllers';
 
     /**
      * Register application service.

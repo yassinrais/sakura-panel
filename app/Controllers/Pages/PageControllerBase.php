@@ -114,7 +114,7 @@ class PageControllerBase extends AuthMiddleware implements SharedConstInterface
     {
         $files = [];
 
-        $dirFiles = \Sakura\Functions\_sortDirFiles($this->getCustomFilesPath());
+        $dirFiles = \Sakura\Helpers\Functions\_sortDirFiles($this->getCustomFilesPath());
 
         foreach($dirFiles as $file){
             $filePath = $this->getCustomFilesPath() . $file;
@@ -122,7 +122,7 @@ class PageControllerBase extends AuthMiddleware implements SharedConstInterface
             if (!in_array($file, ['.','..'])){
                 $type = pathinfo($file, PATHINFO_EXTENSION);
                 if (in_array($type, $this->allowedFileTypes)){
-                    $fsize = \Sakura\Functions\_convertSize(filesize($filePath));
+                    $fsize = \Sakura\Helpers\Functions\_convertSize(filesize($filePath));
                     $mtype = mime_content_type($filePath);
 
                     $files[$filePath] = [

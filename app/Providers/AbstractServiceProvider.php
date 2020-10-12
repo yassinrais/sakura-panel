@@ -1,14 +1,14 @@
 <?php
 
-namespace SakuraPanel\Providers;
+namespace Sakura\Providers;
 
-use Phalcon\DiInterface;
+use Phalcon\Di;
 use Phalcon\Di\Injectable;
 
 /**
- * \SakuraPanel\Providers\AbstractServiceProvider
+ * \Sakura\Providers\AbstractServiceProvider
  *
- * @package SakuraPanel\Providers
+ * @package Sakura\Providers
  */
 abstract class AbstractServiceProvider extends Injectable implements ServiceProviderInterface
 {
@@ -23,7 +23,7 @@ abstract class AbstractServiceProvider extends Injectable implements ServiceProv
      *
      * @param DiInterface $di The Dependency Injector.
      */
-    public function __construct(DiInterface $di)
+    public function __construct(Di $di)
     {
         $this->setDI($di);
     }

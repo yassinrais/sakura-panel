@@ -102,13 +102,15 @@ class Bootstrap
      */
     protected function getOutput()
     {
+        $_url = $_GET['_url'] ?? ($_SERVER['REQUEST_URI'] ?? '/');
+        
         if ($this->app instanceof Application) {
-            $response = $this->app->handle();
+            $response = $this->app->handle($_url);
 
             return $response->getContent();
         }
 
-        return $this->app->handle();
+        return  $this->app->handle($_url);
     }
 
     /**

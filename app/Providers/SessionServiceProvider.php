@@ -2,7 +2,9 @@
 
 namespace Sakura\Providers;
 
-use Phalcon\Session\Adapter\Files;
+// session
+use \Phalcon\Session\Adapter\Stream as SessionAdapter;
+use \Phalcon\Session\Manager as SessionManager;
 
 /**
  * \Sakura\Providers\SessionServiceProvider
@@ -24,12 +26,18 @@ class SessionServiceProvider extends AbstractServiceProvider
      */
     public function register()
     {
+        
         $this->di->setShared(
             $this->serviceName,
             function () {
-                $session = new Files();
+               
+                $session = new SessionManager();
+                $files = new SessionAdapter([
+                    'savePath' => sys_get_temp_dir(),
+                ]);
+                $session->setAdapter($files);
                 $session->start();
-
+            
                 return $session;
             }
         );
