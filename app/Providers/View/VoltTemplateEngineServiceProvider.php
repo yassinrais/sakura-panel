@@ -1,6 +1,8 @@
 <?php
 
-namespace Sakura\Providers;
+namespace Sakura\Providers\View;
+
+use Sakura\Providers\AbstractServiceProvider;
 
 use Phalcon\DiInterface;
 use Phalcon\Mvc\View\Engine\Volt;

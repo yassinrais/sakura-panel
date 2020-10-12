@@ -3,22 +3,42 @@
 use Sakura\Providers;
 
 return [
-    // Application Service Providers
-    Providers\EventManagerServiceProvider::class,
-    Providers\ConfigServiceProvider::class,
-    Providers\DatabaseServiceProvider::class,
-    Providers\RequestServiceProvider::class,
-    Providers\ModelsMetadataServiceProvider::class,
-    Providers\TagServiceProvider::class,
-    Providers\EscaperServiceProvider::class,
-    Providers\SessionServiceProvider::class,
-    Providers\MvcDispatcherServiceProvider::class,
-    Providers\VoltTemplateEngineServiceProvider::class,
-    Providers\PhpTemplateEngineServiceProvider::class,
-    Providers\ViewServiceProvider::class,
-    Providers\UrlResolverServiceProvider::class,
-    Providers\RouterServiceProvider::class,
-    Providers\ResponseServiceProvider::class,
+    // Application Managers
+    Providers\Manager\EventManagerServiceProvider::class,
+
+    // config
+    Providers\Config\ConfigServiceProvider::class,
+
+    // auth
+    Providers\Auth\AclServiceProvider::class,
+    
+    // database
+    Providers\Database\DatabaseServiceProvider::class,
+
+    // mvc
+    Providers\Mvc\ModelsManagerServiceProvider::class,
+    Providers\Mvc\ModelsMetadataServiceProvider::class,
+    Providers\Mvc\MvcDispatcherServiceProvider::class,
+
+    // util
+    Providers\Util\TagServiceProvider::class,
+    Providers\Util\EscaperServiceProvider::class,
+    Providers\Util\FlashServiceProvider::class,
+
+    // session
+    Providers\Session\SessionServiceProvider::class,
+    Providers\Session\CookiesServiceProvider::class,
+
+    // view
+    Providers\View\VoltTemplateEngineServiceProvider::class,
+    Providers\View\PhpTemplateEngineServiceProvider::class,
+    Providers\View\ViewServiceProvider::class,
+
+    // request
+    Providers\Http\UrlResolverServiceProvider::class,
+    Providers\Http\RouterServiceProvider::class,
+    Providers\Http\RequestServiceProvider::class,
+    Providers\Http\ResponseServiceProvider::class,
 
     // Third Party Providers
     // ...

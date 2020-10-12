@@ -37,9 +37,9 @@ $router = new Router();
 //     }
 // }
 
-$router->add('/test' , [
-    'controller' => 'index',
-    'action'=>'test'
+$router->add('/auth' , [
+    'controller' => 'Auth\Auth',
+    'action'=>'login'
 ]);
 
 return $router;

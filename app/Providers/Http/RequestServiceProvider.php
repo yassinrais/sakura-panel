@@ -1,21 +1,23 @@
 <?php
 
-namespace Sakura\Providers;
+namespace Sakura\Providers\Http;
 
-use Phalcon\Events\Manager;
+use Sakura\Providers\AbstractServiceProvider;
+
+use Phalcon\Http\Request;
 
 /**
- * \Sakura\Providers\EventManagerServiceProvider
+ * \Sakura\Providers\RequestServiceProvider
  *
  * @package Sakura\Providers
  */
-class EventManagerServiceProvider extends AbstractServiceProvider
+class RequestServiceProvider extends AbstractServiceProvider
 {
     /**
      * The Service name.
      * @var string
      */
-    protected $serviceName = 'eventsManager';
+    protected $serviceName = 'request';
 
     /**
      * Register application service.
@@ -27,10 +29,7 @@ class EventManagerServiceProvider extends AbstractServiceProvider
         $this->di->setShared(
             $this->serviceName,
             function () {
-                $em = new Manager();
-                $em->enablePriorities(true);
-
-                return $em;
+                return new Request();
             }
         );
     }

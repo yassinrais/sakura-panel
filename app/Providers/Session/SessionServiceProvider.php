@@ -1,10 +1,11 @@
 <?php
 
-namespace Sakura\Providers;
+namespace Sakura\Providers\Session;
 
-// session
-use \Phalcon\Session\Adapter\Stream as SessionAdapter;
-use \Phalcon\Session\Manager as SessionManager;
+use Sakura\Providers\AbstractServiceProvider;
+
+use Phalcon\Session\Adapter\Stream as SessionAdapter;
+use Phalcon\Session\Manager as SessionManager;
 
 /**
  * \Sakura\Providers\SessionServiceProvider

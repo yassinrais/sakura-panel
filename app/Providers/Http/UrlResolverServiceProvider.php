@@ -1,8 +1,11 @@
 <?php
 
-namespace Sakura\Providers;
+namespace Sakura\Providers\Http;
 
-use Phalcon\Mvc\Url;
+use Sakura\Providers\AbstractServiceProvider;
+
+
+use \Phalcon\Url;
 
 /**
  * \Sakura\Providers\UrlResolverServiceProvider
@@ -30,7 +33,7 @@ class UrlResolverServiceProvider extends AbstractServiceProvider
                 $url = new Url();
 
                 /** @var \Phalcon\DiInterface $this */
-                $url->setBaseUri($this->getShared('application')->baseUri);
+                $url->setBaseUri($this->getShared('config')->application->baseUri);
 
                 return $url;
             }

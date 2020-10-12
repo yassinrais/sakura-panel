@@ -1,6 +1,8 @@
 <?php
 
-namespace Sakura\Providers;
+namespace Sakura\Providers\Config;
+
+use Sakura\Providers\AbstractServiceProvider;
 
 use Phalcon\Config;
 

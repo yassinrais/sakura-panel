@@ -1,6 +1,8 @@
 <?php
 
-namespace Sakura\Providers;
+namespace Sakura\Providers\Mvc;
+
+use Sakura\Providers\AbstractServiceProvider;
 
 use Phalcon\Mvc\Dispatcher;
 

@@ -1,6 +1,8 @@
 <?php
 
-namespace Sakura\Providers;
+namespace Sakura\Providers\Database;
+
+use Sakura\Providers\AbstractServiceProvider;
 
 /**
  * \Sakura\Providers\DatabaseServiceProvider
@@ -26,6 +28,7 @@ class DatabaseServiceProvider extends AbstractServiceProvider
             $this->serviceName,
             function () {
                 /** @var \Phalcon\Di $this */
+                $config = $this->getConfig();
 
                 $class = 'Phalcon\Db\Adapter\Pdo\\' . $config->database->adapter;
                 $params = [

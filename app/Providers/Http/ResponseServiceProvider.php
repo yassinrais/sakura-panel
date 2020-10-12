@@ -1,6 +1,8 @@
 <?php
 
-namespace Sakura\Providers;
+namespace Sakura\Providers\Http;
+
+use Sakura\Providers\AbstractServiceProvider;
 
 use Phalcon\Http\Response;
 

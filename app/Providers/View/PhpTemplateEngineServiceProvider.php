@@ -1,6 +1,8 @@
 <?php
 
-namespace Sakura\Providers;
+namespace Sakura\Providers\View;
+
+use Sakura\Providers\AbstractServiceProvider;
 
 use Phalcon\Di;
 use Phalcon\Mvc\ViewBaseInterface;

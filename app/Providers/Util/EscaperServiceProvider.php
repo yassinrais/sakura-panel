@@ -1,6 +1,8 @@
 <?php
 
-namespace Sakura\Providers;
+namespace Sakura\Providers\Util;
+
+use Sakura\Providers\AbstractServiceProvider;
 
 use Phalcon\Escaper;
 
