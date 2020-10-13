@@ -6,7 +6,7 @@ namespace Sakura\Controllers\Admin\Users;
 use Sakura\Controllers\Member\MemberControllerBase;
 use Sakura\Forms\Users\RolesForm;
 
-use Sakura\Models\Security\Roles;
+use Sakura\Models\Acl\Roles;
 use Sakura\Models\User\Users;
 
 use Sakura\Library\Datatables\DataTable;

@@ -7,7 +7,7 @@ namespace Sakura\Controllers\Pages;
 class PageErrorsController extends PageControllerBase{
 
 
-	public function Page404Action(){
+	public function e404Action(){
 		if ($this->request->isAjax()) {
 			return '{"message":"an error ocurred"}';
 		}
@@ -15,7 +15,7 @@ class PageErrorsController extends PageControllerBase{
 	}
 
 
-	public function Page503Action()
+	public function e503Action()
 	{
 		if ($this->request->isAjax()) {
 			return '{"message":"an error ocurred"}';

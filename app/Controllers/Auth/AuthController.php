@@ -18,7 +18,6 @@ class AuthController extends PageControllerBase
     // Implement common logic
     public function onConstruct(){
         if ($this->isLoggedIn()){
-            print_r("Redirect to panel ...");
     		return $this->response->redirect('member');
     	}
     }

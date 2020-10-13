@@ -5,12 +5,11 @@ use Sakura\Providers;
 return [
     // Application Managers
     Providers\Manager\EventManagerServiceProvider::class,
+    Providers\Manager\SiteServiceProvider::class,
+    Providers\Manager\PageServiceProvider::class,
 
     // config
     Providers\Config\ConfigServiceProvider::class,
-
-    // auth
-    Providers\Auth\AclServiceProvider::class,
     
     // database
     Providers\Database\DatabaseServiceProvider::class,
@@ -20,10 +19,15 @@ return [
     Providers\Mvc\ModelsMetadataServiceProvider::class,
     Providers\Mvc\MvcDispatcherServiceProvider::class,
 
+    // auth
+    Providers\Auth\AclServiceProvider::class,
+
     // util
     Providers\Util\TagServiceProvider::class,
+    Providers\Util\TranslatorServiceProvider::class,
     Providers\Util\EscaperServiceProvider::class,
     Providers\Util\FlashServiceProvider::class,
+    Providers\Util\LoggerServiceProvider::class,
 
     // session
     Providers\Session\SessionServiceProvider::class,
@@ -39,6 +43,7 @@ return [
     Providers\Http\RouterServiceProvider::class,
     Providers\Http\RequestServiceProvider::class,
     Providers\Http\ResponseServiceProvider::class,
+    Providers\Http\AjaxServiceProvider::class,
 
     // Third Party Providers
     // ...

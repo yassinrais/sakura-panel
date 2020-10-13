@@ -38,8 +38,8 @@ class VoltTemplateEngineServiceProvider extends AbstractServiceProvider
 
                 $volt->setOptions(
                     [
-                        'compiledPath'      => $config->cache->views,
-                        'compiledSeparator' => $config->compiledSeparator
+                        'path'      => $config->volt->path,
+                        'separator' => $config->volt->separator
                     ]
                 );
 

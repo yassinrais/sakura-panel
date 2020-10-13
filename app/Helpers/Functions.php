@@ -1,12 +1,12 @@
 <?php 
-namespace Sakura\Helpers\Functions;
+namespace Sakura\Helpers;
 
-/**
- * Delete dir : danger dont please put an empty path : else you will remove your root 
- */
-if (!function_exists('_deleteDir')) 
-{
-	function _deleteDir(string $path) {
+class Functions {
+	
+	/**
+	 * Delete dir : danger dont please put an empty path : else you will remove your root 
+	 */
+	public static function _deleteDir(string $path) {
 	    if (empty($path)) { 
 	        return false;
 	    }
@@ -15,13 +15,11 @@ if (!function_exists('_deleteDir'))
 	            array_map(__FUNCTION__, glob($path.'/*')) == @rmdir($path);
 	}
 
-}
 
-/**
- * Check if an url file is a zip by reading first 4 bytes
- */
-if (!function_exists('_isUrlAZipFile')) {
-	function _isUrlAZipFile(string $url)
+	/**
+	 * Check if an url file is a zip by reading first 4 bytes
+	 */ 
+	public static function _isUrlAZipFile(string $url)
 	{
 	    $ch = curl_init($url);
 
@@ -40,7 +38,7 @@ if (!function_exists('_isUrlAZipFile')) {
 
 	    $header = '';
 
-	    // write function that receives data from the response
+	    // write public static function that receives data from the response
 	    // aborts the transfer after reading 4 bytes of data
 	    curl_setopt($ch, CURLOPT_WRITEFUNCTION, function($curl, $data) use(&$header) {
 	        $header .= $data;
@@ -55,14 +53,12 @@ if (!function_exists('_isUrlAZipFile')) {
 
 	    // check for the zip magic header, return true if match, false otherwise
 	    return preg_match('/^PK(?:\x03\x04|\x05\x06|0x07\x08)/', $header);
-	}
-}
+	} 
 
-/**
- * Download a file zip by usin two methods : curl or file_get_contents
- */
-if (!function_exists('_downloadZipFile')) {
-	function _downloadZipFile(string $url, string $filepath){
+	/**
+	 * Download a file zip by usin two methods : curl or file_get_contents
+	 */ 
+	public static function _downloadZipFile(string $url, string $filepath){
 		$fp = fopen($filepath, 'w+');
 		$ch = curl_init($url);
 
@@ -81,14 +77,12 @@ if (!function_exists('_downloadZipFile')) {
 		if (!$r)
 			$r = file_put_contents($filepath, file_get_contents($url));
 		return $r;
-	}
-}
+	} 
 
-/**
- * Scan & Sroted Dirs/Files by order racine to sub files
- */
-if (!function_exists('_sortDirFiles')) {
-	function _sortDirFiles($dir)
+	/**
+	 * Scan & Sroted Dirs/Files by order racine to sub files
+	 */ 
+	public static function _sortDirFiles($dir)
 	{
 	        $sortedData = array();
 	        foreach(scandir($dir) as $file)
@@ -99,16 +93,14 @@ if (!function_exists('_sortDirFiles')) {
 	                        array_unshift($sortedData, $file);
 	        }
 	        return $sortedData;
-	}
-}
+	} 
 
-/**
- * Full Scan dir by pattern & $flags
- */
-if ( ! function_exists('_fullScanDirs'))
-{
+	/**
+	 * Full Scan dir by pattern & $flags
+	 */
+
     // Does not support flag GLOB_BRACE        
-   function _fullScanDirs($pattern, $flags = 0)
+   public static function _fullScanDirs($pattern, $flags = 0)
    {
      $files = glob($pattern, $flags);
      foreach (glob(dirname($pattern).'/*', GLOB_ONLYDIR|GLOB_NOSORT) as $dir)
@@ -117,22 +109,18 @@ if ( ! function_exists('_fullScanDirs'))
      }
      return $files;
    }
-}
 
-/**
- * Remove Duplicate slashes in a path
- */
-if (!function_exists('_cleanPath')) {
-	function _cleanPath(string $path){
+	/**
+	 * Remove Duplicate slashes in a path
+	 */
+	public static function _cleanPath(string $path){
 		return preg_replace('#/+#','/',$path);
 	}
-}
-
-/**	
- * Function to convert file size 
- */
-if (! function_exists('_convertSize')){
-	function _convertSize($bytes)
+ 
+	/**	
+	 * public static function to convert file size 
+	 */
+	public static function _convertSize($bytes)
     	{
         if ($bytes >= 1073741824)
         {
@@ -161,21 +149,20 @@ if (! function_exists('_convertSize')){
 
         return $bytes;
 	}
-}
-/**	
- * Time ago (convert seconds to string)
- * -----------
- * Examples
- * echo time_elapsed_string('2013-05-01 00:22:35');
- * echo time_elapsed_string('1367367755'); # timestamp input
- * echo time_elapsed_string('2013-05-01 00:22:35', true);
- * 
- * @param $datetime | mixed
- * @param $full | bool
- * @return $date | string 
- */
-if (!function_exists('_getTimeAgo')){
-	function _getTimeAgo($datetime, $full = false) {
+ 
+	/**	
+	 * Time ago (convert seconds to string)
+	 * -----------
+	 * Examples
+	 * echo time_elapsed_string('2013-05-01 00:22:35');
+	 * echo time_elapsed_string('1367367755'); # timestamp input
+	 * echo time_elapsed_string('2013-05-01 00:22:35', true);
+	 * 
+	 * @param $datetime | mixed
+	 * @param $full | bool
+	 * @return $date | string 
+	 */ 
+	public static function _getTimeAgo($datetime, $full = false) {
 		$date = is_numeric($datetime) ? date("Y-m-d H:i:s",$datetime) : $datetime;
 		$now = new \DateTime;
 		$ago = new \DateTime($date);
@@ -203,5 +190,5 @@ if (!function_exists('_getTimeAgo')){
 	
 		if (!$full) $string = array_slice($string, 0, 1);
 		return $string ? implode(', ', $string) . ((time() - strtotime($date) <= 0) ? '': ' ago') : 'just now';
-	}
+	} 
 }

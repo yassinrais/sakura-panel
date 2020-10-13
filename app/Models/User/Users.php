@@ -12,7 +12,7 @@ use Phalcon\Validation\Validator\{
 };
 
 
-use Sakura\Models\Security\Roles;
+use Sakura\Models\Acl\Roles;
 
 class Users extends ModelBase
 {

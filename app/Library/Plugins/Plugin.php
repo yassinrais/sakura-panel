@@ -6,7 +6,7 @@ namespace Sakura\Library\Plugins;
 use Phalcon\Acl\Exception as AclException;
 
 use Sakura\Plugins\Pluginsmanager\Models\Plugins;
-use Sakura\Models\Security\Roles;
+use Sakura\Models\Acl\Roles;
 
 /**
  * Plugin

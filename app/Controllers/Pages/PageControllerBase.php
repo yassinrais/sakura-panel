@@ -8,7 +8,7 @@ use \Phalcon\Mvc\Controller;
 use \Sakura\Library\SharedConstInterface;
 use \Sakura\Plugins\Auth\AuthMiddleware;
 use \Sakura\Controllers\Admin\Website\ThemeController;
-
+use \Sakura\Helpers\Functions;
 /**
  * PageControllerBase
  */
@@ -53,7 +53,7 @@ class PageControllerBase extends AuthMiddleware implements SharedConstInterface
 
 		$this->addCustomAssets();
 
-		$this->view->t = $this->locale;
+		$this->view->t = $this->translator;
 	}
 
 	/**
@@ -114,7 +114,7 @@ class PageControllerBase extends AuthMiddleware implements SharedConstInterface
     {
         $files = [];
 
-        $dirFiles = \Sakura\Helpers\Functions\_sortDirFiles($this->getCustomFilesPath());
+        $dirFiles = Functions::_sortDirFiles($this->getCustomFilesPath());
 
         foreach($dirFiles as $file){
             $filePath = $this->getCustomFilesPath() . $file;
@@ -122,7 +122,7 @@ class PageControllerBase extends AuthMiddleware implements SharedConstInterface
             if (!in_array($file, ['.','..'])){
                 $type = pathinfo($file, PATHINFO_EXTENSION);
                 if (in_array($type, $this->allowedFileTypes)){
-                    $fsize = \Sakura\Helpers\Functions\_convertSize(filesize($filePath));
+                    $fsize = Functions::_convertSize(filesize($filePath));
                     $mtype = mime_content_type($filePath);
 
                     $files[$filePath] = [

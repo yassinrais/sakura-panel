@@ -1,5 +1,5 @@
 <?php
-namespace Sakura\Models\Security;
+namespace Sakura\Models\Acl;
 
 use Sakura\Models\ModelBase;
 

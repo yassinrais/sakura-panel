@@ -3,6 +3,7 @@
 namespace Sakura;
 
 use Phalcon\Di;
+use Phalcon\Di\FactoryDefault;
 use Phalcon\DiInterface;
 use Phalcon\Mvc\Application;
 use Sakura\Providers\ServiceProviderInterface;
@@ -49,7 +50,7 @@ class Bootstrap
             throw new \InvalidArgumentException('The $applicationPath must be a valid application path');
         }
 
-        $this->di = new Di();
+        $this->di = new FactoryDefault();
         $this->applicationPath = $applicationPath;
 
         $this->di->setShared('bootstrap', $this);

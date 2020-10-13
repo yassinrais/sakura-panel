@@ -1,4 +1,6 @@
 <?php
+
+/****
 declare(strict_types=1);
 
 // flash messages
@@ -39,7 +41,7 @@ use Phalcon\Dispatcher\Exception as DispatcherException;
 
 /**
  * Shared configuration service
- */
+ 
 $di->setShared('config', function () {
 
     return include APP_PATH . "/config/config.php";
@@ -48,7 +50,7 @@ $di->setShared('config', function () {
 
 /** 
  * Request 
- */
+ 
 
 $di->set(
     'request',
@@ -59,7 +61,7 @@ $di->set(
 
 /**
  * The URL component is used to generate all kind of urls in the application
- */
+  
 $di->setShared('url', function () {
     $config = $this->getConfig();
 
@@ -71,7 +73,7 @@ $di->setShared('url', function () {
 
 /**
  * Database connection is created based in the parameters defined in the configuration file
- */
+  
 $di->setShared('db', function () {
     $config = $this->getConfig();
 
@@ -102,7 +104,7 @@ $di->setShared('db', function () {
 
 /**
  * Setting up the view component
- */
+  
 $di->setShared('view', function () {
     $config = $this->getConfig();
 
@@ -157,14 +159,14 @@ $di->setShared('view', function () {
 
 /**
  * If the configuration specify the use of metadata adapter use it or use memory otherwise
- */
+ 
 $di->setShared('modelsMetadata', function () {
     return new MetaDataAdapter();
 });
 
 /**
  * Register the session flash service with the Twitter Bootstrap classes
- */
+
 $di->setShared('flash', function () {
     $escaper = new Escaper();
     $flash = new Flash($escaper);
@@ -181,7 +183,7 @@ $di->setShared('flash', function () {
 
 /**
  * FlashSession 
- */
+
 $di->setShared('flashSession', function () {
     $escaper = new Escaper();
     $flash = new FlashSession($escaper);
@@ -198,7 +200,7 @@ $di->setShared('flashSession', function () {
 
 /**
  * Start the session the first time some component request the session service
- */
+
 $di->setShared('session', function () {
     $session = new SessionManager();
     $files = new SessionAdapter([
@@ -213,7 +215,7 @@ $di->setShared('session', function () {
 /**
  * Security 
  * crypt
- */
+
 $di->setShared('crypt', function() use($di) {
     $crypt = new \Phalcon\Crypt();
     $crypt->setKey('ReallyRandomKey');
@@ -222,7 +224,7 @@ $di->setShared('crypt', function() use($di) {
 
 /**
  * cookies settings
- */
+
 $di->setShared('cookies', function() {
     $cookies = new Phalcon\Http\Response\Cookies();
     $cookies->useEncryption(true);
@@ -234,7 +236,7 @@ $di->setShared('cookies', function() {
 
 /**
  * Logger service
- */
+
 $di->setShared('logger', function ($filename = null, $format = null) {
     $loggerConfigs = $this->getShared('config')->get('logger');
 
@@ -260,7 +262,7 @@ $di->setShared('logger', function ($filename = null, $format = null) {
 
 /**
  * Cache Security
- */
+
 
 $di->setShared('securityCache' , function () use ($di)
 {
@@ -279,7 +281,7 @@ $di->setShared('securityCache' , function () use ($di)
 
 /**
  * global Cache (models)
- */
+
 
 $di->setShared('modelsCache' , function () use ($di)
 {
@@ -297,7 +299,7 @@ $di->setShared('modelsCache' , function () use ($di)
 
 /**
  * shared Cache
- */
+
 $di->setShared('cache' , function () use ($di)
 {
     $config = $this->getConfig();
@@ -315,7 +317,7 @@ $di->setShared('cache' , function () use ($di)
 
 /**
  * acl service
- */
+
 $di->setShared('acl', function () use($di) {
     return include APP_PATH . "/config/acl.php";
 });
@@ -323,7 +325,7 @@ $di->setShared('acl', function () use($di) {
 
 /**
  * Dispatcher : event manager
- */
+
 $di->set(
     'dispatcher',
     function() use ($di) {
@@ -341,7 +343,7 @@ $di->set(
                             $dispatcher->forward(
                                 array(
                                     'controller' => '\Sakura\Controllers\Pages\PageErrors',
-                                    'action'     => 'Page404',
+                                    'action'     => 'e404',
                                 )
                             );
                             return false;
@@ -350,7 +352,7 @@ $di->set(
                             $dispatcher->forward(
                                 array(
                                     'controller' => '\Sakura\Controllers\Pages\PageErrors',
-                                    'action'     => 'Page404',
+                                    'action'     => 'e404',
                                 )
                             );
                             return false;
@@ -378,7 +380,7 @@ $di->set(
 
 /**
  * Mail service
- */
+
 $di->setShared('mail', function () {
 
     return new Mail(); 
@@ -387,7 +389,7 @@ $di->setShared('mail', function () {
 
 /**
  * Set Website Config : name , title , etc , set controller
- */
+
 $di->setShared('site', function () {
     $site =  new \Sakura\Library\SiteManager();
     $site->initialize();
@@ -396,7 +398,7 @@ $di->setShared('site', function () {
 
 /**
  * Set Website Config : name , title , etc , set controller
- */
+
 $di->setShared('translator', function(){
     return $translator = new \Sakura\Library\Translator\Locale();
 });
@@ -407,7 +409,7 @@ $di->setShared('locale', function() use($di) {
 
 /**
  * Page Config : name , title , etc , set controller
- */
+
 $di->setShared('page', function () {
     return new \Sakura\Library\PageInfoManager();
 });
@@ -415,7 +417,7 @@ $di->setShared('page', function () {
 
 /**
  * Page Config : name , title , etc , set controller
- */
+
 $di->setShared('plugins', function () {
     return new \Sakura\Library\Plugins\PluginsManager();
 });
@@ -423,7 +425,7 @@ $di->setShared('plugins', function () {
 
 /**
  * Page Config : name , title , etc , set controller
- */
+
 $di->setShared('ajax', function () {
     return new \Sakura\Library\Ajax\AjaxManager();
 });
@@ -432,7 +434,7 @@ $di->setShared('ajax', function () {
 /**
  * @TODO : Delete / Replace  / Permissions
  * Widgets test : deleted soon !
- */
+
 $di->set(
     'widgets',
     function () use ($di)
@@ -444,3 +446,4 @@ $di->set(
     }
 );
 
+*/
