@@ -8,7 +8,7 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>{{ page.get('title') ? locale._(page.get('title')) ~ ' - '  : '' }}{{ site.get('app-name' , getenv('APP_NAME') ? getenv('APP_NAME') :  'Sakura Panel') }}</title>
+  <title>{{ page.get('title') ? _(page.get('title')) ~ ' - '  : '' }}{{ site.get('app-name' , getenv('APP_NAME') ? getenv('APP_NAME') :  'Sakura Panel') }}</title>
 
   {{ assets.outputCss('header') }}
   {% if dataTable is defined %}{{ assets.outputCss('dataTable') }}{% endif %}

@@ -26,6 +26,10 @@ class TranslatorServiceProvider extends AbstractServiceProvider
      */
     public function register()
     {
-        $this->di->setShared($this->serviceName, Locale::class);
+        $this->di->setShared($this->serviceName, function(){
+            $class = new Locale();
+
+            return $class->getTranslator();
+        });
     }
 }

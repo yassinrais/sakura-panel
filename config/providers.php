@@ -13,6 +13,7 @@ return [
     
     // database
     Providers\Database\DatabaseServiceProvider::class,
+    Providers\Database\ModelsCacheServiceProvider::class,
 
     // mvc
     Providers\Mvc\ModelsManagerServiceProvider::class,

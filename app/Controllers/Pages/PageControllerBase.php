@@ -53,7 +53,6 @@ class PageControllerBase extends AuthMiddleware implements SharedConstInterface
 
 		$this->addCustomAssets();
 
-		$this->view->t = $this->translator;
 	}
 
 	/**

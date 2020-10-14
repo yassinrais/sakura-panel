@@ -16390,7 +16390,7 @@ var moment = createCommonjsModule(function (module, exports) {
     // PARSING
 
     function matchMeridiem (isStrict, locale) {
-        return locale._meridiemParse;
+        return _meridiemParse;
     }
 
     addRegexToken('a',  matchMeridiem);
@@ -16535,7 +16535,7 @@ var moment = createCommonjsModule(function (module, exports) {
         if (!locales[name] && ('object' !== 'undefined') &&
                 module && module.exports) {
             try {
-                oldLocale = globalLocale._abbr;
+                oldLocale = global_abbr;
                 var aliasedRequire = commonjsRequire;
                 aliasedRequire('./locale/' + name);
                 getSetGlobalLocale(oldLocale);
@@ -16569,7 +16569,7 @@ var moment = createCommonjsModule(function (module, exports) {
             }
         }
 
-        return globalLocale._abbr;
+        return global_abbr;
     }
 
     function defineLocale (name, config) {
@@ -16589,7 +16589,7 @@ var moment = createCommonjsModule(function (module, exports) {
                 } else {
                     locale = loadLocale(config.parentLocale);
                     if (locale != null) {
-                        parentConfig = locale._config;
+                        parentConfig = _config;
                     } else {
                         if (!localeFamilies[config.parentLocale]) {
                             localeFamilies[config.parentLocale] = [];
@@ -16630,7 +16630,7 @@ var moment = createCommonjsModule(function (module, exports) {
             // MERGE
             tmpLocale = loadLocale(name);
             if (tmpLocale != null) {
-                parentConfig = tmpLocale._config;
+                parentConfig = tmp_config;
             }
             config = mergeConfigs(parentConfig, config);
             locale = new Locale(config);
@@ -16656,8 +16656,8 @@ var moment = createCommonjsModule(function (module, exports) {
     function getLocale (key) {
         var locale;
 
-        if (key && key._locale && key._locale._abbr) {
-            key = key._locale._abbr;
+        if (key && key._locale && key.__abbr) {
+            key = key.__abbr;
         }
 
         if (!key) {
@@ -16822,8 +16822,8 @@ var moment = createCommonjsModule(function (module, exports) {
                 weekdayOverflow = true;
             }
         } else {
-            dow = config._locale._week.dow;
-            doy = config._locale._week.doy;
+            dow = config.__week.dow;
+            doy = config.__week.doy;
 
             var curWeek = weekOfYear(createLocal(), dow, doy);
 
@@ -18098,7 +18098,7 @@ var moment = createCommonjsModule(function (module, exports) {
         var newLocaleData;
 
         if (key === undefined) {
-            return this._locale._abbr;
+            return this.__abbr;
         } else {
             newLocaleData = getLocale(key);
             if (newLocaleData != null) {
@@ -18446,8 +18446,8 @@ var moment = createCommonjsModule(function (module, exports) {
     addRegexToken('Do', function (isStrict, locale) {
         // TODO: Remove "ordinalParse" fallback in next major release.
         return isStrict ?
-          (locale._dayOfMonthOrdinalParse || locale._ordinalParse) :
-          locale._dayOfMonthOrdinalParseLenient;
+          (_dayOfMonthOrdinalParse || _ordinalParse) :
+          _dayOfMonthOrdinalParseLenient;
     });
 
     addParseToken(['D', 'DD'], DATE);
@@ -18786,7 +18786,7 @@ var moment = createCommonjsModule(function (module, exports) {
         }
 
         var locale = getLocale(),
-            shift = localeSorted ? locale._week.dow : 0;
+            shift = localeSorted ? _week.dow : 0;
 
         if (index != null) {
             return get$1(format, (index + shift) % 7, field, 'day');

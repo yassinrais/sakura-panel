@@ -1,6 +1,6 @@
 <?php
 
-namespace Sakura\Models\Sakura;
+namespace Sakura\Models\App;
 
 use Sakura\Models\ModelBase;
 

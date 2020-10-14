@@ -24,20 +24,20 @@
           {% for k,m in menu %}
             {% if m['items'] is defined and m['items'] | length %}
               <div class="sidebar-heading pt-3 mt-3">
-                {{ locale._(ucfirst(k)) }}
+                {{ _(ucfirst(k)) }}
               </div>
               {% for it in m['items'] %}
                 {% if it['sub'] is defined and it['sub'] | length %}
                 <li class="nav-item {{ ( (explode(page.get('base_route'),it['url']) | length ) > 1 ) ? 'active':''}}">
                     <a class="nav-link " href="#" data-toggle="collapse" data-target="#collapse{{ loop.index }}" aria-expanded="true" aria-controls="collapse{{ loop.index }}">
                       <i class="fas fa-fw fa-{{ it['icon'] }}"></i>
-                      <span>{{ locale._(it['title'] | e) }}</span>
+                      <span>{{ _(it['title'] | e) }}</span>
                     </a>
-                    <div id="collapse{{ loop.index }}" class="collapse {{ ( page.get('base_route') == it['url'] ) ? 'show':''}}" aria-labelledby="{{ locale._(it['title'] | e) }}" data-parent="#accordionSidebar">
+                    <div id="collapse{{ loop.index }}" class="collapse {{ ( page.get('base_route') == it['url'] ) ? 'show':''}}" aria-labelledby="{{ _(it['title'] | e) }}" data-parent="#accordionSidebar">
                       <div class="bg-sakura py-2 mt-3 collapse-inner ">
                         <h6 class="collapse-header">Sub Menu</h6>
                         {% for sm in it['sub'] %}
-                          <a class="collapse-item" href="{{ sm['url'] | e }}">{% if sm['icon'] is defined %}<i class="fa-fw {{ sm['icon'] | e }}"></i>{% endif %} {{ locale._(sm['title'] | e) }}</a>
+                          <a class="collapse-item" href="{{ sm['url'] | e }}">{% if sm['icon'] is defined %}<i class="fa-fw {{ sm['icon'] | e }}"></i>{% endif %} {{ _(sm['title'] | e) }}</a>
                         {% endfor %}
                       </div>
                     </div>
@@ -46,7 +46,7 @@
                 <li class="nav-item {{ ( (explode(page.get('base_route'),it['url']) | length ) > 1 ) ? 'active':''}}">
                     <a class="nav-link" {% if it['url'] is defined %}href="{{ url(it['url']) }}"{% endif %} {% if it['attrs'] is defined %}{{ it['attrs'] }}{% endif %}>
                       <i class="{{ it['icon'] }} fa-fw"></i>
-                      <span>{{ locale._(it['title'] | e) }}</span>
+                      <span>{{ _(it['title'] | e) }}</span>
                     </a>
                   </li>
                 {% endif %}

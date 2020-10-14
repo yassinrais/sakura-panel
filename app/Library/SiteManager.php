@@ -4,7 +4,7 @@ namespace Sakura\Library;
 
 use Sakura\Controllers\ControllerBase;
 
-use \Sakura\Models\Sakura\{
+use \Sakura\Models\App\{
 	SiteConfigs
 };
 

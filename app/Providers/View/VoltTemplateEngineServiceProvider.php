@@ -38,11 +38,34 @@ class VoltTemplateEngineServiceProvider extends AbstractServiceProvider
 
                 $volt->setOptions(
                     [
-                        'path'      => $config->volt->path,
+                        'path'      => $config->cache->views,
                         'separator' => $config->volt->separator
                     ]
                 );
-
+    
+                $c = $volt->getCompiler();
+                $c->addFunction('substr',  function($resolvedArgs, $exprArgs) use ($c) {
+    
+                    $string= $c->expression($exprArgs[0]['expr']);
+    
+                    return 'substr(' . $string . ' , 0 ,' . $c->expression($exprArgs[1]['expr']) . ')';
+                });
+    
+                $c->addFunction('number_format', function ($resolvedArgs, $exprArgs) use ($c) {
+                    $firstArgument = $c->expression($exprArgs[0]['expr']);
+                    return 'number_format(floatval('.$firstArgument."), 2, '.', ' ')";
+                });
+    
+                $c->addFunction('str_replace','str_replace');
+                $c->addFunction('getenv','getenv');
+                $c->addFunction('var_dump','var_dump');
+                $c->addFunction('ucfirst','ucfirst');
+                $c->addFunction('class_exists','class_exists');
+                $c->addFunction('explode','explode');
+                $c->addFunction('_', function ($resolvedArgs, $exprArgs) {
+                    return  $this->getShared('translator')->_($resolvedArgs);
+                });
+                
                 return $volt;
             }
         );
