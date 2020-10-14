@@ -3,6 +3,9 @@ namespace Sakura\Models\Acl;
 
 use Sakura\Models\ModelBase;
 
+/**
+ * Resources == Controllers 
+ */
 class Resources extends ModelBase
 {
 

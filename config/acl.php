@@ -31,7 +31,30 @@ $acl->addRole($roleGuests);
 
 $acl->setDefaultAction(Enum::ALLOW);
 
+$db_roles = Roles::find([
+    'status = ?0',
+    'bind'=>[
+        Roles::ACTIVE
+    ]
+]);
 
+foreach($db_roles as $role){
+    $aclRole = new Role($role->name , $role->description);
+
+    $acl->addRole($aclRole);
+
+    // var_dump(json_encode([
+    //     $role->permissions,
+    //     $role->name
+    // ]));
+
+    if (!empty($role->permissions)){
+        // add allowed permissions
+        
+    }
+}
+
+exit;
 
 
 //  return acl instance

@@ -72,6 +72,19 @@ class Roles extends ModelBase
     public function initialize()
     {
         $this->setSource($this->getSourceByName("roles"));
+
+
+        $this->hasMany(
+            'id',
+            Permissions::class,
+            'role_id',
+            [
+                'alias'=>'permissions',
+                'reusable'=> true
+            ]
+        );
+
+
     }
 
     /**

@@ -3,6 +3,9 @@ namespace Sakura\Models\Acl;
 
 use Sakura\Models\ModelBase;
 
+/** 
+ * Accesses == Actions
+ */
 class Accesses extends ModelBase
 {
 
@@ -25,11 +28,29 @@ class Accesses extends ModelBase
     public $action;
 
     /**
+     *
+     * @var string
+     */
+    public $description;
+
+    /**
      * Initialize method for model.
      */
     public function initialize()
     {
         $this->setSource($this->getSourceByName("resources_accesses"));
+        
+
+        $this->hasOne(
+            'id',
+            Resources::class,
+            'controller_id',
+            [
+                'alias'=> 'controller',
+                'reusable'=> true
+            ]
+        );
+
     }
 
     /**

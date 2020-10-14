@@ -36,6 +36,20 @@ class Permissions extends ModelBase
     public function initialize()
     {
         $this->setSource($this->getSourceByName("role_permissions"));
+        
+
+        $this->hasOne(
+            'id',
+            Resources::class,
+            'controller_id'
+        );
+
+        $this->hasOne(
+            'id',
+            Accesses::class,
+            'access_id'
+        );
+
     }
 
     /**
