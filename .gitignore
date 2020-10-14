@@ -14,4 +14,4 @@
 */dev/*
 *.test.*
 *.ini
-*.gitkeep
+!*.gitkeep
