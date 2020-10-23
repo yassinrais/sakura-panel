@@ -29,7 +29,7 @@ $acl->addRole($roleAdmins);
 $acl->addRole($roleMembers);
 $acl->addRole($roleGuests);
 
-$acl->setDefaultAction(Enum::ALLOW);
+$acl->setDefaultAction(Enum::DENY);
 
 $db_roles = Roles::find([
     'status = ?0',
@@ -42,20 +42,91 @@ foreach($db_roles as $role){
     $aclRole = new Role($role->name , $role->description);
 
     $acl->addRole($aclRole);
+}
 
-    // var_dump(json_encode([
-    //     $role->permissions,
-    //     $role->name
-    // ]));
+/**
+ * Add Resources
+ * To ACL
+ * From DB
+ */
 
-    if (!empty($role->permissions)){
-        // add allowed permissions
-        
+$db_resources = Resources::find([
+    'status = ?0',
+    'bind'=>[
+        Resources::ACTIVE
+    ]
+]);
+    
+foreach($db_resources as $resource){
+    $compenent = new Component($resource->name, $resource->description);
+
+    $actions = $resource->accesses->toArray() ?? [];
+
+    foreach($actions as $access){
+        $acl->addComponent(
+            $compenent,
+            $access["name"]
+        );
+
     }
 }
 
-exit;
+/**
+ * Add Permissions
+ * To ACL
+ * From DB
+ */
 
+ $db_permissions = Permissions::find([
+     'status = ?0',
+     'bind'=>[
+         Permissions::ACTIVE
+     ]
+ ]);
+
+
+ foreach($db_permissions as $permission){
+   
+    
+    $acl->allow(
+        $permission->role->name,
+        $permission->resource->name,
+        $permission->access->name,
+    );
+ }
+
+
+/** 
+ * Add Resources
+ * To ACL
+ * From Configs
+ */
+if  (!empty($configs->acl->public_resources)){
+    foreach($configs->acl->public_resources as $resource){
+
+        // create & add component
+        $compenent = new Component($resource->name , $resource->description);
+
+        // // allow access
+        if (!empty($resource->access))
+            foreach($resource->access as $access){
+                $acl->addComponent($compenent , $access);
+
+                foreach(
+                    (!empty($resource->roles) && $resource->roles !== "*") ? 
+                        ( 
+                            is_string($resource->roles) ? 
+                                explode("|",$resource->roles) : 
+                                $resource->roles
+                        )  : 
+                        ['*']
+                    as $role){
+                        $acl->allow( is_string($role) ? $role : $role->getName() , $resource->name, $access);
+                    }
+                    
+            }
+    }
+}
 
 //  return acl instance
 return $acl;

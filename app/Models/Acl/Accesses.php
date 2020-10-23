@@ -25,7 +25,7 @@ class Accesses extends ModelBase
      *
      * @var string
      */
-    public $action;
+    public $name;
 
     /**
      *
@@ -46,7 +46,17 @@ class Accesses extends ModelBase
             Resources::class,
             'controller_id',
             [
-                'alias'=> 'controller',
+                'alias'=> 'resource',
+                'reusable'=> true
+            ]
+        );
+
+        $this->hasMany(
+            'id',
+            Permissions::class,
+            'access_id',
+            [
+                'alias'=> 'permissions',
                 'reusable'=> true
             ]
         );

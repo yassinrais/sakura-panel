@@ -29,7 +29,7 @@ $configs = array(
         'appDir'         => APP_PATH . '/',
         'controllersDir' => APP_PATH . '/Controllers/',
         'modelsDir'      => APP_PATH . '/Models/',
-        'migrationsDir'  => APP_PATH . '/Migrations/',
+        'migrationsDir'  => BASE_PATH . '/config/migrations/',
         'pluginsDir'     => APP_PATH . '/Plugins/',
         'libraryDir'     => APP_PATH . '/Library/',
         'formsDir'       => APP_PATH . '/Forms/',
@@ -133,10 +133,33 @@ $configs = array(
         'security_life_time'=> 60 * 60 * 24 * 30 , 
         'model_life_time'=> (int) getenv('CAHCE_MODEL_LIFE_TIME') ?: 6, // default 6 seconds
         'shared_life_time'=> (int) getenv('CAHCE_SHARED_LIFE_TIME') ?: 6, // default 6 seconds
+    ],
+
+
+    'acl'=>[
+        'public_resources'=>[
+            [
+                'name' => Pages\PageErrors::class, 
+                'description'=>'Errors Pages' ,
+                'roles'  => '*',
+                'access' => ['*']
+            ],
+            [
+                'name'=> Auth\Auth::class,
+                'description'=>'Auth Pages',
+                'roles' => 'guests',
+                'access' => ['*']
+            ],
+            [
+                'name'=> Member\Dashboard::class,
+                'description'=>'Member Dashboard',
+                'roles' => 'members|admins',
+                'access' => ['*']
+            ],
+        ]
     ]
 
 );
-
 
 /**
  *      Menu

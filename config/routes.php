@@ -5,15 +5,6 @@ use Phalcon\Mvc\Router\Annotations as RouterAnnotations;
 
 $router = new RouterAnnotations(false);
 
-
-$router->add(
-    '/',
-    [
-        'controller' => 'index',
-        'action'     => 'index',
-    ]
-);
-
 $router->add(
     '/auth/:action',
     [
@@ -26,6 +17,14 @@ $router->add(
     [
         'controller' => 'Pages\PageErrors',
         'action'     => 'e404',
+    ]
+);
+
+$router->add(
+    '/member/:controller',
+    [
+        'namespace' => 'Sakura\Controllers\Member',
+        'controller'     => 1,
     ]
 );
 

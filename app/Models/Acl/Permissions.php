@@ -31,6 +31,13 @@ class Permissions extends ModelBase
     public $allowed;
 
     /**
+     *
+     * @var integer
+     */
+    public $status;
+    
+
+    /**
      * Initialize method for model.
      */
     public function initialize()
@@ -39,15 +46,33 @@ class Permissions extends ModelBase
         
 
         $this->hasOne(
-            'id',
+            'controller_id',
             Resources::class,
-            'controller_id'
+            'id',
+            [
+                'alias'=>'resource',
+                'reusable'=> true
+            ]
         );
 
         $this->hasOne(
-            'id',
+            'access_id',
             Accesses::class,
-            'access_id'
+            'id',
+            [
+                'alias'=>'access',
+                'reusable'=> true
+            ]
+        );
+
+        $this->hasOne(
+            'role_id',
+            Roles::class,
+            'id',
+            [
+                'alias'=>'role',
+                'reusable'=> true
+            ]
         );
 
     }

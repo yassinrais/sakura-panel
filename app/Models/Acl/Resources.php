@@ -33,6 +33,16 @@ class Resources extends ModelBase
     public function initialize()
     {
         $this->setSource($this->getSourceByName("resources"));
+
+        $this->hasMany(
+            'id',
+            Accesses::class,
+            'controller_id',
+            [
+                'alias'=>'accesses',
+                'reusable'=> true
+            ]
+        );
     }
 
     /**
