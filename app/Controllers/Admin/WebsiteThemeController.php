@@ -1,16 +1,16 @@
 <?php 
 declare(strict_types=1);
 
-namespace Sakura\Controllers\Admin\Website;
+namespace Sakura\Controllers\Admin;
 
 use Sakura\Controllers\Member\MemberControllerBase;
 use Sakura\Library\Datatables\DataTable;
 use Sakura\Forms\Website\ThemeFileForm;
 
 /**
- * ThemeController
+ * WebsiteThemeController
  */
-class ThemeController extends MemberControllerBase
+class WebsiteThemeController extends MemberControllerBase
 {
 
     // Implement common logic

@@ -5,29 +5,14 @@ use Phalcon\Mvc\Router\Annotations as RouterAnnotations;
 
 $router = new RouterAnnotations(false);
 
-$router->add(
-    '/auth/:action',
-    [
-        'controller' => 'Auth\Auth',
-        'action'     => 1,
-    ]
-);
-$router->add(
-    '/404',
-    [
-        'controller' => 'Pages\PageErrors',
-        'action'     => 'e404',
-    ]
-);
+/** 
+ * Include Routes
+ */
+$routes = glob(__DIR__ . '/routes/*.php');
+foreach($routes as $fileRouter)
+    $router->mount(require $fileRouter);
 
-$router->add(
-    '/member/:controller',
-    [
-        'namespace' => 'Sakura\Controllers\Member',
-        'controller'     => 1,
-    ]
-);
-
+$router->add( '/404', [ 'controller' => 'Pages\PageErrors', 'action'     => 'e404', ]);
 $router->notFound(['controller' => 'Pages\PageErrors','action'=> 'e404',]);
 
 

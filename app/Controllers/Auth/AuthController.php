@@ -80,6 +80,7 @@ class AuthController extends PageControllerBase
                     $this->setUserSession($user , $this->request->getPost('remember') ?? false);
                     $this->ajax->success('Login successful. redirecting ... ');
                     AuthSecurity::deleteByIp($this->client_ip);
+                    return $this->ajax->sendResponse();
                 }else{
                     // mesage
                     $this->ajax->{$user->getStatusInfo()->type}('Your account is '. $user->getStatusInfo()->title);

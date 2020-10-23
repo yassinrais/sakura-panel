@@ -11,7 +11,7 @@
             <th>#ID</th>
             <th>Title</th>
             <th>Name</th>
-            <th>Type</th>
+            <th>Inherit from</th>
             <th>Status</th>
             <th>Actions</th>
           </thead>

@@ -82,7 +82,9 @@ $configs = array(
      * Security configuration
      */
     'security' => [
-            // validation
+        // crypt key 
+        'crypt' => getenv('SECURITY_CRYPT_KEY') ?? 'c9$jjSwv8NfHvS8*3c$#ZERyq6wEjyhr',
+        // validation
         'mail_activation_token_length' => getenv('SECURITY_MAIL_ACTTOKEN_LENGTH') ?? 15,
         'password_reset_token_lenth' => getenv('SECURITY_RESET_PASSTOKEN_LENGTH') ?? 50,
 
@@ -138,24 +140,17 @@ $configs = array(
 
     'acl'=>[
         'public_resources'=>[
-            [
-                'name' => Pages\PageErrors::class, 
-                'description'=>'Errors Pages' ,
-                'roles'  => '*',
-                'access' => ['*']
-            ],
-            [
-                'name'=> Auth\Auth::class,
-                'description'=>'Auth Pages',
-                'roles' => 'guests',
-                'access' => ['*']
-            ],
-            [
-                'name'=> Member\Dashboard::class,
-                'description'=>'Member Dashboard',
-                'roles' => 'members|admins',
-                'access' => ['*']
-            ],
+            [ 'name'    => Sakura\Controllers\Auth\AuthController::class                , 'roles' => 'guests|admins'    , 'access' => ['*'] ],
+
+            [ 'name'    => Sakura\Controllers\Pages\PageErrorsController::class         , 'roles'  => '*'               , 'access' => ['*'] ],
+            [ 'name'    => Sakura\Controllers\Member\DashboardController::class         , 'roles' => 'members|admins'   , 'access' => ['*'] ],
+            [ 'name'    => Sakura\Controllers\Member\ProfileSettingsController::class   , 'roles' => 'members|admins'   , 'access' => ['*'] ],
+
+            [ 'name'    => Sakura\Controllers\Admin\DashboardController::class          , 'roles' => 'admins'           , 'access' => ['*'] ],
+            [ 'name'    => Sakura\Controllers\Admin\WebsiteSettingsController::class    , 'roles' => 'admins'           , 'access' => ['*'] ],
+            [ 'name'    => Sakura\Controllers\Admin\WebsiteThemeController::class       , 'roles' => 'admins'           , 'access' => ['*'] ],
+            [ 'name'    => Sakura\Controllers\Admin\UsersController::class              , 'roles' => 'admins'           , 'access' => ['*'] ],
+            [ 'name'    => Sakura\Controllers\Admin\RolesController::class              , 'roles' => 'admins'           , 'access' => ['*'] ],
         ]
     ]
 

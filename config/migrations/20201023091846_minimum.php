@@ -212,7 +212,7 @@ class Minimum extends Phinx\Migration\AbstractMigration
                 'limit' => MysqlAdapter::INT_REGULAR,
                 'identity' => 'enable',
             ])
-            ->addColumn('controller_id', 'integer', [
+            ->addColumn('resource_id', 'integer', [
                 'null' => false,
                 'limit' => MysqlAdapter::INT_REGULAR,
                 'after' => 'id',
@@ -222,7 +222,7 @@ class Minimum extends Phinx\Migration\AbstractMigration
                 'limit' => 50,
                 'collation' => 'utf8_bin',
                 'encoding' => 'utf8',
-                'after' => 'controller_id',
+                'after' => 'resource_id',
             ])
             ->addColumn('description', 'text', [
                 'null' => true,
@@ -270,7 +270,7 @@ class Minimum extends Phinx\Migration\AbstractMigration
                 'encoding' => 'utf8',
                 'after' => 'title',
             ])
-            ->addColumn('type', 'string', [
+            ->addColumn('inherit', 'string', [
                 'null' => true,
                 'default' => null,
                 'limit' => 100,
@@ -282,7 +282,7 @@ class Minimum extends Phinx\Migration\AbstractMigration
                 'null' => true,
                 'default' => '1',
                 'limit' => MysqlAdapter::INT_REGULAR,
-                'after' => 'type',
+                'after' => 'inherit',
             ])
             ->addColumn('created_at', 'integer', [
                 'null' => true,
@@ -315,7 +315,7 @@ class Minimum extends Phinx\Migration\AbstractMigration
             ->create();
         $this->table('role_permissions', [
                 'id' => false,
-                'primary_key' => ['role_id', 'controller_id', 'access_id'],
+                'primary_key' => ['role_id', 'resource_id', 'access_id'],
                 'engine' => 'MyISAM',
                 'encoding' => 'utf8',
                 'collation' => 'utf8_bin',
@@ -327,7 +327,7 @@ class Minimum extends Phinx\Migration\AbstractMigration
                 'limit' => MysqlAdapter::INT_REGULAR,
                 'identity' => 'enable',
             ])
-            ->addColumn('controller_id', 'integer', [
+            ->addColumn('resource_id', 'integer', [
                 'null' => false,
                 'limit' => MysqlAdapter::INT_REGULAR,
                 'after' => 'role_id',
@@ -335,7 +335,7 @@ class Minimum extends Phinx\Migration\AbstractMigration
             ->addColumn('access_id', 'integer', [
                 'null' => false,
                 'limit' => MysqlAdapter::INT_REGULAR,
-                'after' => 'controller_id',
+                'after' => 'resource_id',
             ])
             ->addColumn('allowed', 'integer', [
                 'null' => false,

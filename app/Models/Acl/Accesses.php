@@ -19,7 +19,7 @@ class Accesses extends ModelBase
      *
      * @var integer
      */
-    public $controller_id;
+    public $resource_id;
 
     /**
      *
@@ -44,7 +44,7 @@ class Accesses extends ModelBase
         $this->hasOne(
             'id',
             Resources::class,
-            'controller_id',
+            'resource_id',
             [
                 'alias'=> 'resource',
                 'reusable'=> true

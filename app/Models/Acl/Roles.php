@@ -34,7 +34,7 @@ class Roles extends ModelBase
      *
      * @var string
      */
-    public $type;
+    public $inherit;
 
     /**
      *

@@ -1,7 +1,7 @@
 <?php 
 declare(strict_types=1);
 
-namespace Sakura\Controllers\Member\Account;
+namespace Sakura\Controllers\Member;
 
 use Sakura\Controllers\Member\MemberControllerBase;
 use Sakura\Forms\Users\ProfileSettingsForm;

@@ -25,12 +25,17 @@ $roleAdmins     = new Role('admins', 'Administrator');
 $roleMembers    = new Role('members', 'Members'); 
 $roleGuests     = new Role('guests', 'Guests'); 
 
-$acl->addRole($roleAdmins);
-$acl->addRole($roleMembers);
-$acl->addRole($roleGuests);
-
 $acl->setDefaultAction(Enum::DENY);
 
+/** 
+ * Current Roles 
+ */
+foreach(['admins','members','guests'] as $roleName)
+    Roles::findOrCreate(['name = :name:' , 'bind'=> ['name'=> $roleName]] , ['title'=> ucfirst($roleName),'description'=> ucfirst($roleName)]);
+
+/** 
+ * Others roles
+ */
 $db_roles = Roles::find([
     'status = ?0',
     'bind'=>[
@@ -43,7 +48,6 @@ foreach($db_roles as $role){
 
     $acl->addRole($aclRole);
 }
-
 /**
  * Add Resources
  * To ACL
@@ -87,7 +91,7 @@ foreach($db_resources as $resource){
 
  foreach($db_permissions as $permission){
    
-    
+    if (!empty($permission->resource) && !empty($permission->role) && !empty($permission->access))
     $acl->allow(
         $permission->role->name,
         $permission->resource->name,
@@ -105,7 +109,7 @@ if  (!empty($configs->acl->public_resources)){
     foreach($configs->acl->public_resources as $resource){
 
         // create & add component
-        $compenent = new Component($resource->name , $resource->description);
+        $compenent = new Component($resource->name);
 
         // // allow access
         if (!empty($resource->access))

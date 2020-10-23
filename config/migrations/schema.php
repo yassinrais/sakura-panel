@@ -891,11 +891,11 @@ return array (
           'IS_GENERATED' => 'NEVER',
           'GENERATION_EXPRESSION' => NULL,
         ),
-        'controller_id' => 
+        'resource_id' => 
         array (
           'TABLE_CATALOG' => 'def',
           'TABLE_NAME' => 'resources_accesses',
-          'COLUMN_NAME' => 'controller_id',
+          'COLUMN_NAME' => 'resource_id',
           'ORDINAL_POSITION' => '2',
           'COLUMN_DEFAULT' => NULL,
           'IS_NULLABLE' => 'NO',
@@ -1096,11 +1096,11 @@ return array (
           'IS_GENERATED' => 'NEVER',
           'GENERATION_EXPRESSION' => NULL,
         ),
-        'type' => 
+        'inherit' => 
         array (
           'TABLE_CATALOG' => 'def',
           'TABLE_NAME' => 'roles',
-          'COLUMN_NAME' => 'type',
+          'COLUMN_NAME' => 'inherit',
           'ORDINAL_POSITION' => '5',
           'COLUMN_DEFAULT' => 'NULL',
           'IS_NULLABLE' => 'YES',
@@ -1301,11 +1301,11 @@ return array (
           'IS_GENERATED' => 'NEVER',
           'GENERATION_EXPRESSION' => NULL,
         ),
-        'controller_id' => 
+        'resource_id' => 
         array (
           'TABLE_CATALOG' => 'def',
           'TABLE_NAME' => 'role_permissions',
-          'COLUMN_NAME' => 'controller_id',
+          'COLUMN_NAME' => 'resource_id',
           'ORDINAL_POSITION' => '2',
           'COLUMN_DEFAULT' => NULL,
           'IS_NULLABLE' => 'NO',
@@ -1423,7 +1423,7 @@ return array (
             'Non_unique' => '0',
             'Key_name' => 'PRIMARY',
             'Seq_in_index' => '2',
-            'Column_name' => 'controller_id',
+            'Column_name' => 'resource_id',
             'Collation' => 'A',
             'Sub_part' => NULL,
             'Packed' => NULL,

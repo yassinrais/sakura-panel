@@ -6,7 +6,7 @@ namespace Sakura\Controllers\Member;
 use Sakura\Models\User\{
 	Users
 };
-use Sakura\Models\Sakura\{
+use Sakura\Models\App\{
 	SiteConfigs
 };
 

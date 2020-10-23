@@ -67,10 +67,10 @@ $configs['menu'] = [
 		"order"=>998,
 		"items"=>[
 
-			"settings"=>[
+			"profile-settings"=>[
 				"title"=>"Settings",
 				"icon"=>"fas fa-user-circle",
-				"url"=>"member/settings",
+				"url"=>"member/profile-settings",
 
 
 				"access"=>"members|admins",

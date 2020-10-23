@@ -218,7 +218,7 @@ class Plugin implements  \Sakura\Library\SharedConstInterface
 							if (getenv('ACL_ROLE_AUTOINSERT') == true){
 								$role = Roles::findFirstByName($name) ?: new Roles();
 								$role->name = $name;
-								$role->type = $this::ROLE_MEMBER;
+								$role->inherit = $this::ROLE_MEMBER;
 								if (!$role->save()){
 									$this->di->getLogger()->warning("Auto Role create ! '".implode(",", $role->getMessages())."'");
 									$this->di->get('flashSession')->error(implode(",", $role->getMessages()));

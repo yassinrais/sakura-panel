@@ -55,10 +55,10 @@ class RolesForm extends BaseForm
          * Stats Select
          *
          */
-        $type = new Select(
-          'type',
+        $inherit = new Select(
+          'inherit',
           [
-            'Select Type Role'=>$this::ROLES_LIST
+            'Inherit Role'=>$this::ROLES_LIST
           ],
           [
             'required'=>true,
@@ -86,7 +86,7 @@ class RolesForm extends BaseForm
         // add Validators
      	$this->add($name);
      	$this->add($title);
-     	$this->add($type);
+     	$this->add($inherit);
 
      	$this->add($status);
 

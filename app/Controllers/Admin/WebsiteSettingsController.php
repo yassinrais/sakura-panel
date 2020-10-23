@@ -1,9 +1,9 @@
 <?php 
 declare(strict_types=1);
 
-namespace Sakura\Controllers\Admin\Website;
+namespace Sakura\Controllers\Admin;
 
-use Sakura\Models\Sakura\SiteConfigs;
+use Sakura\Models\App\SiteConfigs;
 
 use Sakura\Forms\Website\SiteConfigsForm;
 
@@ -16,7 +16,7 @@ use Sakura\Library\Datatables\DataTable;
 /**
  * Settings
  */
-class SettingsController extends MemberControllerBase
+class WebsiteSettingsController extends MemberControllerBase
 {
     // Implement common logic
     public function initialize(){

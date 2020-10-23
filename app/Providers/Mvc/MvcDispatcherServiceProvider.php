@@ -45,34 +45,34 @@ class MvcDispatcherServiceProvider extends AbstractServiceProvider
 
                 $eventsManager = $di->getShared('eventsManager');
 
-                // $eventsManager->attach(
-                //     "dispatch:beforeException",
-                //     function($event, $dispatcher, $exception)
-                //     {
-                //         if (getenv('APP_DEBUG') != "true") {
-                //             switch ($exception->getCode()) {
-                //                 case DispatcherException::EXCEPTION_HANDLER_NOT_FOUND:
-                //                     if ($this->getRequest()->isAjax()) return $this->getResponse()->send();
-                //                     $dispatcher->forward(
-                //                         array(
-                //                             'controller' => 'Pages\PageErrors',
-                //                             'action'     => 'e404',
-                //                         )
-                //                     );
-                //                     return false;
-                //                 case DispatcherException::EXCEPTION_ACTION_NOT_FOUND:
-                //                     if ($this->getRequest()->isAjax()) return $this->getResponse()->send();
-                //                     $dispatcher->forward(
-                //                         array(
-                //                             'controller' => 'Pages\PageErrors',
-                //                             'action'     => 'e404',
-                //                         )
-                //                     );
-                //                     return false;
-                //             }
-                //         }
-                //     }
-                // );
+                $eventsManager->attach(
+                    "dispatch:beforeException",
+                    function($event, $dispatcher, $exception)
+                    {
+                        if (getenv('APP_DEBUG') != "true") {
+                            switch ($exception->getCode()) {
+                                case DispatcherException::EXCEPTION_HANDLER_NOT_FOUND:
+                                    if ($this->getRequest()->isAjax()) return $this->getResponse()->send();
+                                    $dispatcher->forward(
+                                        array(
+                                            'controller' => 'Pages\PageErrors',
+                                            'action'     => 'e404',
+                                        )
+                                    );
+                                    return false;
+                                case DispatcherException::EXCEPTION_ACTION_NOT_FOUND:
+                                    if ($this->getRequest()->isAjax()) return $this->getResponse()->send();
+                                    $dispatcher->forward(
+                                        array(
+                                            'controller' => 'Pages\PageErrors',
+                                            'action'     => 'e404',
+                                        )
+                                    );
+                                    return false;
+                            }
+                        }
+                    }
+                );
 
                 // attach auth event
                 $eventsManager->attach(

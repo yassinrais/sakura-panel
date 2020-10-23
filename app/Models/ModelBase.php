@@ -279,4 +279,26 @@ class ModelBase extends Model implements SharedConstInterface
 		$metaData = $this->getModelsMetaData();
 		return $metaData->getAttributes($this);
 	}
+
+	/**	
+	 * Find or create method
+	 */
+	public static function findOrCreate($parameters = [] , $columnsData = []){
+		$find = self::findFirst($parameters);
+		if ($find)
+			return $find;
+
+		$class = get_called_class();
+		$row = new $class();
+		foreach($parameters['bind'] ?? [] as $column => $value){
+			$row->$column = $value;
+		}
+		foreach($columnsData as $column => $value)
+			$row->$column = $value;
+
+		$row->save();
+		
+
+		return $row;
+	}
 }

@@ -29,6 +29,7 @@ return [
     Providers\Util\EscaperServiceProvider::class,
     Providers\Util\FlashServiceProvider::class,
     Providers\Util\LoggerServiceProvider::class,
+    Providers\Util\CryptServiceProvider::class,
 
     // session
     Providers\Session\SessionServiceProvider::class,

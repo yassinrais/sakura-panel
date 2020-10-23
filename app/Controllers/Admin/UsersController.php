@@ -1,58 +1,48 @@
 <?php 
 declare(strict_types=1);
 
-namespace Sakura\Controllers\Admin\Users;
+namespace Sakura\Controllers\Admin;
 
 use Sakura\Controllers\Member\MemberControllerBase;
-use Sakura\Forms\Users\RolesForm;
+use Sakura\Forms\Users\UsersForm;
 
-use Sakura\Models\Acl\Roles;
 use Sakura\Models\User\Users;
 
 use Sakura\Library\Datatables\DataTable;
 
 
 /**
- * Roles
+ * Users
  */
-class RolesController extends MemberControllerBase
+class UsersController extends MemberControllerBase
 {
     // Implement common logic
     public function initialize(){
     	parent::initialize();
 
-        $this->page->set('title','Roles');
-        $this->page->set('description','Here you can manager all roles in this website <b>Smile☻</b>.');
-        $this->page->set('base_route','admin/roles');
+        $this->page->set('title','Users');
+        $this->page->set('description','Here you can manager all users in this website <b>Smile☻</b>.');
+        $this->page->set('base_route','admin/users');
         $this->view->dataTable = true;
 	
     }
 	public function indexAction()
 	{
 
-		return $this->view->pick('admin/roles/list');
+		return $this->view->pick('admin/users/list');
 	}
 
 	public function ajaxAction()
 	{
           $builder = $this->modelsManager->createBuilder()
-                          ->columns('id, title, name, [type], status')
-                          ->from(Roles::class);
+                          ->columns('id, fullname, email, status ,role_name')
+                          ->from(Users::class);
 
           $dataTables = new DataTable();
           $dataTables->setIngoreUpperCase(true);
           $dataTables->fromBuilder($builder)
-          ->addCustomColumn('name' , function ($key , $data) {
-              $title = ($data['name']);
-               return "<span class='btn btn-primary btn-icon-split btn-sm p-0'>
-               <span class='icon text-white-50'>
-                   <i class='fas fa-info' style='width:20px'></i>
-               </span>
-               <span class='text'>$title</span>
-           </span>";
-           })
-           ->addCustomColumn('type' , function ($key , $data) {
-                $s = Users::getRoleByName($data['type']);
+           ->addCustomColumn('c_role' , function ($key , $data) {
+                $s = Users::getRoleByName($data['role_name']);
                 return "<span class='btn btn-$s->color btn-icon-split btn-sm p-0'>
                 <span class='icon text-white-50'>
                     <i class='fas fa-$s->icon' style='width:20px'></i>
@@ -61,7 +51,7 @@ class RolesController extends MemberControllerBase
             </span>";
             })
            ->addCustomColumn('c_status' , function ($key , $data) {
-                $s = Roles::getStatusById($data['status']);
+                $s = Users::getStatusById($data['status']);
                 return "<span class='btn btn-$s->color btn-icon-split btn-sm p-0'>
                 <span class='icon text-white-50'>
                     <i class='fas fa-$s->icon' style='width:20px'></i>
@@ -102,8 +92,8 @@ class RolesController extends MemberControllerBase
 	 */
     public function createAction()
 	{
-		$row = new Roles();
-		$form = new RolesForm($row);
+		$row = new Users();
+		$form = new UsersForm($row);
 
 		if (!empty($this->request->isPost())) {
 			if (false === $form->isValid($_POST)) {
@@ -118,7 +108,7 @@ class RolesController extends MemberControllerBase
 				if ($row->save()) {
 					$row->password = null;
 					$this->flashSession->success("User {$row->username} created  Successffully ");
-					return $this->response->redirect('admin/roles');
+					return $this->response->redirect('admin/users');
 				}else{
 					$this->flashSession->error('Error !' . implode(" & ", $row->getMessages()));
 				}
@@ -131,7 +121,7 @@ class RolesController extends MemberControllerBase
 		$this->view->form = $form;
 		$this->view->row = $row;
 
-		$this->view->pick('admin/roles/form');
+		$this->view->pick('admin/users/form');
     }
 	
 	/**
@@ -139,13 +129,13 @@ class RolesController extends MemberControllerBase
 	 */
     public function editAction($id = null)
 	{
-		$row = Roles::findFirstById($id);
+		$row = Users::findFirstById($id);
 		if (!$row) {
 			$this->flashSession->error('Unknown User ID: '.intval($id));
-			return $this->response->redirect('admin/roles');
+			return $this->response->redirect('admin/users');
 		}
 		
-		$form = new RolesForm($row);
+		$form = new UsersForm($row);
 		
 		if (!empty($this->request->isPost())) {
 			if (false === $form->isValid($_POST)) {
@@ -161,7 +151,7 @@ class RolesController extends MemberControllerBase
 				$form->bind($_POST, $row);
 				if ($row->save()) {
 					$this->flashSession->success('User Updated Successffully ');
-					return $this->response->redirect('admin/roles');
+					return $this->response->redirect('admin/users');
 				}else{
 					$this->flashSession->error('Error ! ' . implode(" & ", $row->getMessages()));
 				}
@@ -175,7 +165,7 @@ class RolesController extends MemberControllerBase
 		$this->view->form = $form;
 		$this->view->row = $row;
 
-		$this->view->pick('admin/roles/form');
+		$this->view->pick('admin/users/form');
     }
     
     /** 
@@ -186,7 +176,7 @@ class RolesController extends MemberControllerBase
 		if ($this->request->isAjax()) {
 			$id = (int) $this->request->get('id');
 
-			$row = Roles::findFirstById($id);
+			$row = Users::findFirstById($id);
 
 			if (!$row) {
 				return $this->ajax->error('Unknown row id '.$id)->sendResponse();
@@ -205,14 +195,14 @@ class RolesController extends MemberControllerBase
 	}
 
     /** 
-     * Restore Roles before being deleted by cron
+     * Restore Users before being deleted by cron
      */
 	public function restoreAction()
 	{
 		if ($this->request->isAjax()) {
 			$id = (int) $this->request->get('id');
 
-			$row = Roles::findFirstById($id);
+			$row = Users::findFirstById($id);
 			if (!$row) {
 				return $this->ajax->error('Unknown row id '.$id)->sendResponse();
 			}else{
@@ -231,14 +221,14 @@ class RolesController extends MemberControllerBase
 	}
 
     /** 
-     * Active/InActive Roles
+     * Active/InActive Users
      */
 	public function activeAction()
 	{
 		if ($this->request->isAjax()) {
 			$id = (int) $this->request->get('id');
 
-			$row = Roles::findFirstById($id);
+			$row = Users::findFirstById($id);
 			if (!$row) {
 				return $this->ajax->error('Unknown row id '.$id)->sendResponse();
 			}else{

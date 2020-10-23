@@ -16,7 +16,7 @@ class Permissions extends ModelBase
      *
      * @var integer
      */
-    public $controller_id;
+    public $resource_id;
 
     /**
      *
@@ -46,7 +46,7 @@ class Permissions extends ModelBase
         
 
         $this->hasOne(
-            'controller_id',
+            'resource_id',
             Resources::class,
             'id',
             [

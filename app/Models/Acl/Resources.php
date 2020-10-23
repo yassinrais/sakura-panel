@@ -37,7 +37,7 @@ class Resources extends ModelBase
         $this->hasMany(
             'id',
             Accesses::class,
-            'controller_id',
+            'resource_id',
             [
                 'alias'=>'accesses',
                 'reusable'=> true

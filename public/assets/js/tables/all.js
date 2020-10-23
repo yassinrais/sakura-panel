@@ -23,7 +23,7 @@ $('#roles-dataTable').DataTable({
       {data: "id"},
       {data: "title"},
       {data: "name"},
-      {data: "type"},
+      {data: "inherit"},
       {data: "c_status"},
       {data: "c_actions"},
   ]
