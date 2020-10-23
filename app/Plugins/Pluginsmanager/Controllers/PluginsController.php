@@ -127,9 +127,9 @@ class PluginsController extends MemberControllerBase
 				 * Delete plugin folders
 				 */
 				if (is_dir($view_dir)) 
-					\Sakura\Helpers\Functions\_deleteDir($view_dir);
+					\Sakura\Helpers\Functions::_deleteDir($view_dir);
 				if (is_dir($sys_dir)) 
-					\Sakura\Helpers\Functions\_deleteDir($sys_dir);
+					\Sakura\Helpers\Functions::_deleteDir($sys_dir);
 
 				/**
 				 * Delete row
@@ -180,12 +180,12 @@ class PluginsController extends MemberControllerBase
 
 				$zipFileUrl = "{$this->plugins_server}{$zipFileUrl}";
 
-				if (!\Sakura\Helpers\Functions\_isUrlAZipFile($zipFileUrl)) {
+				if (!\Sakura\Helpers\Functions::_isUrlAZipFile($zipFileUrl)) {
 					$this->ajax->error("Plugin ($zipFileUrl) file is not a zip file ");
 				}else{
 					$zipFileSavePath = $this->config->application->pluginsCacheDir . $plugin . ".zip";
 
-					$download = \Sakura\Helpers\Functions\_downloadZipFile($zipFileUrl , $zipFileSavePath);
+					$download = \Sakura\Helpers\Functions::_downloadZipFile($zipFileUrl , $zipFileSavePath);
 
 					if (!$download) 
 						return $this->ajax->error("Download plugin failed ! $zipFileUrl")->sendResponse();
@@ -256,12 +256,12 @@ class PluginsController extends MemberControllerBase
 
 				$zipFileUrl = "{$this->plugins_server}{$zipFileUrl}";
 
-				if (!\Sakura\Helpers\Functions\_isUrlAZipFile($zipFileUrl)) {
+				if (!\Sakura\Helpers\Functions::_isUrlAZipFile($zipFileUrl)) {
 					$this->ajax->error("Plugin ($zipFileUrl) file is not a zip file ");
 				}else{
 					$zipFileSavePath = $this->config->application->pluginsCacheDir . $plugin . ".zip";
 
-					$download = \Sakura\Helpers\Functions\_downloadZipFile($zipFileUrl , $zipFileSavePath);
+					$download = \Sakura\Helpers\Functions::_downloadZipFile($zipFileUrl , $zipFileSavePath);
 
 					if (!$download) 
 						return $this->ajax->error("Download plugin failed ! $zipFileUrl")->sendResponse();
@@ -359,11 +359,11 @@ class PluginsController extends MemberControllerBase
 	*********/
 	public function getPluginViewPath(string $name)
 	{
-		return \Sakura\Helpers\Functions\_cleanPath($this->config->application->viewsDir . "/plugins/{$name}/");
+		return \Sakura\Helpers\Functions::_cleanPath($this->config->application->viewsDir . "/plugins/{$name}/");
 	}
 	public function getPluginSysPath(string $name)
 	{
-		return \Sakura\Helpers\Functions\_cleanPath($this->config->application->pluginsDir . "/{$name}/");
+		return \Sakura\Helpers\Functions::_cleanPath($this->config->application->pluginsDir . "/{$name}/");
 	}
 
 	public function unzipPlugin($plugin , $path)

@@ -18,6 +18,13 @@ $group->setPrefix('/auth');
  * Routes
  */
 
+$group->add( '', [
+    'action'     => 'index',
+]);
+
+/** 
+ * Actions
+ */
 $group->add( '/:action', [
     'action'     => 1,
 ]);

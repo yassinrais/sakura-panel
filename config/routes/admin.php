@@ -41,6 +41,16 @@ $group->add( '/:controller/:action/:params', [
     'params'        => 3,
 ]);
 
+/** 
+ * Plugins
+ */
+
+$group->add('/plugins/:action',[
+    'namespace'     => 'Sakura\Plugins',
+    'controller'    => 'Pluginsmanager\Controllers\Plugins',
+    'action'        => 1
+]);
+
 
 
 return $group;

@@ -151,6 +151,7 @@ $configs = array(
             [ 'name'    => Sakura\Controllers\Admin\WebsiteThemeController::class       , 'roles' => 'admins'           , 'access' => ['*'] ],
             [ 'name'    => Sakura\Controllers\Admin\UsersController::class              , 'roles' => 'admins'           , 'access' => ['*'] ],
             [ 'name'    => Sakura\Controllers\Admin\RolesController::class              , 'roles' => 'admins'           , 'access' => ['*'] ],
+            [ 'name'    => Sakura\Plugins\Pluginsmanager\Controllers\PluginsController::class              , 'roles' => 'admins'           , 'access' => ['*'] ],
         ]
     ]
 

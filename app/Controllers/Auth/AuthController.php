@@ -33,7 +33,7 @@ class AuthController extends PageControllerBase
         $this->view->form = new LoginForm();
     }
 	public function indexAction(){
-		return $this->response->redirect("auth/login?fromIndex");
+		return $this->response->redirect("auth/login?fromI");
 	}	
 
 	public function loginAction()

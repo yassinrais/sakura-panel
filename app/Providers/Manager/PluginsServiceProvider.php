@@ -30,6 +30,7 @@ class PluginsServiceProvider extends AbstractServiceProvider
             $this->serviceName,
             function () {
                 $plugins =  new PluginsManager();
+                $plugins->loadPlugins();
                 return $plugins;
             }
         );

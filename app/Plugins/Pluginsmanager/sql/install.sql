@@ -34,9 +34,9 @@ CREATE TABLE IF NOT EXISTS `plugins` (
   `version` varchar(10) COLLATE utf8_bin DEFAULT 'v1.0.0',
   `image` text COLLATE utf8_bin DEFAULT NULL,
   `status` int(1) NOT NULL DEFAULT 0,
-  `created_at` int(255) NOT NULL DEFAULT 0,
+  `created_at` int(11) NOT NULL DEFAULT 0,
   `created_ip` varchar(200) COLLATE utf8_bin DEFAULT NULL,
-  `updated_at` int(255) NOT NULL DEFAULT 0,
+  `updated_at` int(11) NOT NULL DEFAULT 0,
   `updated_ip` varchar(200) COLLATE utf8_bin DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=73 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;

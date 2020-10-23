@@ -279,7 +279,7 @@ class Plugin implements  \Sakura\Library\SharedConstInterface
 			$p = $this->getPluginSysPath()."views/";
 			if (!is_dir($p)) return false;
 			
-			$scanned_dir = \Sakura\Helpers\Functions\_fullScanDirs($p.'*');
+			$scanned_dir = \Sakura\Helpers\Functions::_fullScanDirs($p.'*');
 
 
 			foreach ($scanned_dir as $file) {
@@ -466,11 +466,11 @@ class Plugin implements  \Sakura\Library\SharedConstInterface
 	 */
 	public function getPluginViewPath()
 	{
-		return \Sakura\Helpers\Functions\_cleanPath($this->di->getConfig()->application->viewsDir . "/plugins/".strtolower($this->name)."/");
+		return \Sakura\Helpers\Functions::_cleanPath($this->di->getConfig()->application->viewsDir . "/plugins/".strtolower($this->name)."/");
 	}
 	public function getPluginSysPath()
 	{
-		return \Sakura\Helpers\Functions\_cleanPath($this->di->getConfig()->application->pluginsDir . "/{$this->name}/");
+		return \Sakura\Helpers\Functions::_cleanPath($this->di->getConfig()->application->pluginsDir . "/{$this->name}/");
 	}
 
 	public function cleanPath(string $path)
