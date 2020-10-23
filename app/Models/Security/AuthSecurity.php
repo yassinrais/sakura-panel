@@ -90,8 +90,8 @@ class AuthSecurity extends ModelBase
 
     public function removeCache()
     {
-        if ($this->getDI()->getSecurityCache()->has(md5($this->ip)))
-            $this->getDI()->getSecurityCache()->delete(md5($this->ip));
+        if ($this->getDI()->getModelsCache()->has(md5($this->ip)))
+            $this->getDI()->getModelsCache()->delete(md5($this->ip));
     }
 
 

@@ -7,27 +7,9 @@ declare(strict_types=1);
  *              >> Project Installation
  * 
  */
+require_once dirname(__FILE__) . '/bootstrap/autoload.php';
 
-use Phalcon\Di\FactoryDefault;
-
-define('BASE_PATH', dirname(__FILE__));
-define('APP_PATH', BASE_PATH . '/app');
-
-/**
- * Di factory to load models
- */
-$di = new FactoryDefault();
-
-
-/**
- * Read services
- */
-$di->setShared('config', function(){ return include_once ('./config/application.php'); });
-
-/**
- * Get config service for use in inline setup below
- */
-$config = $di->getConfig();
+$bootstrap = new Sakura\Bootstrap(dirname(__FILE__));
 
 /**
  * 

@@ -62,7 +62,7 @@ class LoginForm extends BaseForm
             new StringLength(
                 [
                     'min'            => $this->getDI()->getConfig()->security->min_password_length,
-                    'messageMinimum' => 'The :field is too short',
+                    'messageMinimum' => 'Wrong information !',
                 ]
             )
         );
