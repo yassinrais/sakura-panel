@@ -161,10 +161,5 @@ $configs = array(
  */
 include_once ('inc/menu.inc.php');
 
-/**
- *      Routers
- */
-include_once ('inc/routes.inc.php');
-
 // return configs
 return new \Phalcon\Config($configs);

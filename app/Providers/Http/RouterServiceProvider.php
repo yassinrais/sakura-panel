@@ -30,7 +30,7 @@ class RouterServiceProvider extends AbstractServiceProvider
                 /** @var \Phalcon\DiInterface  $this */
                 $appPath = $this->getShared('bootstrap')->getApplicationPath();
 
-                return require $appPath . '/config/routes.php';
+                return require $appPath . '/config/router.php';
             }
         );
     }

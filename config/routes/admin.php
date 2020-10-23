@@ -17,6 +17,12 @@ $group->setPrefix('/admin');
 /** 
  * Routes
  */
+
+$group->add( '', [
+    'controller'    => 'Dashboard',
+    'action' => 'index'
+]);
+
 $group->add( '/:controller', [
     'controller'    => 1,
 ]);
