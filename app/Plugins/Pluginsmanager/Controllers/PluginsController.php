@@ -116,20 +116,21 @@ class PluginsController extends MemberControllerBase
 				$view_dir = $this->getPluginViewPath($plugin_name);
 				$sys_dir = $this->getPluginSysPath($plugin_name);
 
+			
 				/**
 				 * Delete Plugin (sql)
 				 */
-				$di_plugin = $this->plugins->get($row->name);
-				// if ($di_plugin) 
+				$di_plugin = $this->getDi()->get('plugins')->get($row->name);
+				if ($di_plugin) 
 					$di_plugin->delete();
 				
 				/**
 				 * Delete plugin folders
 				 */
-				if (is_dir($view_dir)) 
-					\Sakura\Helpers\Functions::_deleteDir($view_dir);
 				if (is_dir($sys_dir)) 
 					\Sakura\Helpers\Functions::_deleteDir($sys_dir);
+				if (is_dir($view_dir)) 
+					\Sakura\Helpers\Functions::_deleteDir($view_dir);
 
 				/**
 				 * Delete row
@@ -183,7 +184,7 @@ class PluginsController extends MemberControllerBase
 				if (!\Sakura\Helpers\Functions::_isUrlAZipFile($zipFileUrl)) {
 					$this->ajax->error("Plugin ($zipFileUrl) file is not a zip file ");
 				}else{
-					$zipFileSavePath = $this->config->application->pluginsCacheDir . $plugin . ".zip";
+					$zipFileSavePath = $this->config->application->cache->plugins . $plugin . ".zip";
 
 					$download = \Sakura\Helpers\Functions::_downloadZipFile($zipFileUrl , $zipFileSavePath);
 
@@ -259,7 +260,7 @@ class PluginsController extends MemberControllerBase
 				if (!\Sakura\Helpers\Functions::_isUrlAZipFile($zipFileUrl)) {
 					$this->ajax->error("Plugin ($zipFileUrl) file is not a zip file ");
 				}else{
-					$zipFileSavePath = $this->config->application->pluginsCacheDir . $plugin . ".zip";
+					$zipFileSavePath = $this->config->application->cache->plugins . $plugin . ".zip";
 
 					$download = \Sakura\Helpers\Functions::_downloadZipFile($zipFileUrl , $zipFileSavePath);
 

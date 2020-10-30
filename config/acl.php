@@ -25,6 +25,7 @@ $roleAdmins     = new Role('admins', 'Administrator');
 $roleMembers    = new Role('members', 'Members'); 
 $roleGuests     = new Role('guests', 'Guests'); 
 
+
 $acl->setDefaultAction(Enum::DENY);
 
 /** 
@@ -43,17 +44,35 @@ $db_roles = Roles::find([
     ]
 ]);
 
+/** 
+ * Roles Add
+ * To ACL
+ * From DB
+ */
 foreach($db_roles as $role){
     $aclRole = new Role($role->name , $role->description);
 
     $acl->addRole($aclRole);
 }
-/**
- * Add Resources
+
+/** 
+ * Inherit Add
  * To ACL
  * From DB
  */
-
+foreach($db_roles as $role){
+    if ($role->inherit != null)
+        try{
+            $acl->addInherit($role->name,$role->inherit);
+        }catch(Exception $e){
+            $di->getLogger()->error($e->getMessage());
+        }
+}
+/**
+ * Resources Add
+ * To ACL
+ * From DB
+ */
 $db_resources = Resources::find([
     'status = ?0',
     'bind'=>[
@@ -76,11 +95,10 @@ foreach($db_resources as $resource){
 }
 
 /**
- * Add Permissions
+ * Permissions Add
  * To ACL
  * From DB
  */
-
  $db_permissions = Permissions::find([
      'status = ?0',
      'bind'=>[
@@ -101,7 +119,7 @@ foreach($db_resources as $resource){
 
 
 /** 
- * Add Resources
+ * Resources Add
  * To ACL
  * From Configs
  */

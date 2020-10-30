@@ -4,7 +4,7 @@ namespace Sakura\Providers\Manager;
 
 use Sakura\Providers\AbstractServiceProvider;
 
-use \Sakura\Library\PluginsManager;
+use Sakura\Library\Plugins\PluginsManager;
 
 /**
  * \Sakura\Providers\PluginsServiceProvider
@@ -30,7 +30,6 @@ class PluginsServiceProvider extends AbstractServiceProvider
             $this->serviceName,
             function () {
                 $plugins =  new PluginsManager();
-                $plugins->loadPlugins();
                 return $plugins;
             }
         );

@@ -6,12 +6,14 @@ $plugin = new Plugin();
 
 $plugin->initPluginByJson(dirname(__FILE__)."/plugin.config.json");
 
+
 $plugin->addRoute(
 	"admin", 
 	"plugins" ,
 	[
-		'url'=>['/#/@/:action','/#/@/:action/:params'],
-	    'controller'=>"\Sakura\Plugins\\${groupName}\Controllers\Plugins",
+		'url'=>['/#/@','/#/@/:action','/#/@/:action/:params'],
+		'namespace'=>'Sakura\Plugins',
+	    'controller'=>"${groupName}\Controllers\Plugins",
 	    'action'=>1 , 
 	    'params'=>2 , 
 	    'access' => ['admins' => ['*'] ]

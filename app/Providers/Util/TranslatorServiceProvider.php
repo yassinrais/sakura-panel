@@ -29,7 +29,7 @@ class TranslatorServiceProvider extends AbstractServiceProvider
         $this->di->setShared($this->serviceName, function(){
             $class = new Locale();
 
-            return $class->getTranslator();
+            return $class;
         });
     }
 }

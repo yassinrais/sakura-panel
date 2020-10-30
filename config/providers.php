@@ -7,6 +7,7 @@ return [
     Providers\Manager\EventManagerServiceProvider::class,
     Providers\Manager\SiteServiceProvider::class,
     Providers\Manager\PageServiceProvider::class,
+    Providers\Manager\PluginsServiceProvider::class,
 
     // config
     Providers\Config\ConfigServiceProvider::class,
@@ -30,6 +31,7 @@ return [
     Providers\Util\FlashServiceProvider::class,
     Providers\Util\LoggerServiceProvider::class,
     Providers\Util\CryptServiceProvider::class,
+    Providers\Util\CacheServiceProvider::class,
 
     // session
     Providers\Session\SessionServiceProvider::class,

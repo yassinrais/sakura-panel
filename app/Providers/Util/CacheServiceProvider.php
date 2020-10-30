@@ -1,6 +1,6 @@
 <?php
 
-namespace Sakura\Providers\Database;
+namespace Sakura\Providers\Util;
 
 use Sakura\Providers\AbstractServiceProvider;
 
@@ -8,17 +8,17 @@ use Phalcon\Cache\Adapter\Stream;
 use Phalcon\Storage\SerializerFactory;
 
 /**
- * \Sakura\Providers\ModelsCacheServiceProvider
+ * \Sakura\Providers\CacheServiceProvider
  *
  * @package Sakura\Providers
  */
-class ModelsCacheServiceProvider extends AbstractServiceProvider
+class CacheServiceProvider extends AbstractServiceProvider
 {
     /**
      * The Service name.
      * @var string
      */
-    protected $serviceName = 'modelsCache';
+    protected $serviceName = 'cache';
 
     /**
      * Register application service.
@@ -37,8 +37,8 @@ class ModelsCacheServiceProvider extends AbstractServiceProvider
                 $serializerFactory = new SerializerFactory();
 
                 $options = [
-                    'lifetime'   => intval( $config->cache->model_life_time ),  
-                    'storageDir' => $config->cache->models,
+                    'lifetime'   => intval( $config->cache->shared_life_time ),  
+                    'storageDir' => $config->cache->default,
                 ];
 
                 return new Stream($serializerFactory, $options);

@@ -106,6 +106,8 @@ class Bootstrap
         $_url = $_GET['_url'] ?? ($_SERVER['REQUEST_URI'] ?? '/');
         
         if ($this->app instanceof Application) {
+            $this->app->di->get('plugins')->loadPlugins();
+
             $response = $this->app->handle($_url);
 
             return $response->getContent();

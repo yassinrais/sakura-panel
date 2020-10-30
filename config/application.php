@@ -1,5 +1,6 @@
 <?php
 
+
 /**
  * vendor include_once 
  */
@@ -129,6 +130,7 @@ $configs = array(
         'sessions'=>	BASE_PATH . '/storage/cache/sessions/',
         'security'=>	BASE_PATH . '/storage/cache/security/',
         'plugins'=>		BASE_PATH . '/storage/cache/plugins/',
+        'models'=>		BASE_PATH . '/storage/cache/models/',
     
     
     
@@ -140,18 +142,18 @@ $configs = array(
 
     'acl'=>[
         'public_resources'=>[
-            [ 'name'    => Sakura\Controllers\Auth\AuthController::class                , 'roles' => 'guests|admins'    , 'access' => ['*'] ],
+            [ 'name'    => Sakura\Controllers\Auth\AuthController::class                , 'roles' => 'guests'    , 'access' => ['*'] ],
 
             [ 'name'    => Sakura\Controllers\Pages\PageErrorsController::class         , 'roles'  => '*'               , 'access' => ['*'] ],
-            [ 'name'    => Sakura\Controllers\Member\DashboardController::class         , 'roles' => 'members|admins'   , 'access' => ['*'] ],
-            [ 'name'    => Sakura\Controllers\Member\ProfileSettingsController::class   , 'roles' => 'members|admins'   , 'access' => ['*'] ],
+            [ 'name'    => Sakura\Controllers\Member\DashboardController::class         , 'roles' => 'members'   , 'access' => ['*'] ],
+            [ 'name'    => Sakura\Controllers\Member\ProfileSettingsController::class   , 'roles' => 'members'   , 'access' => ['*'] ],
 
             [ 'name'    => Sakura\Controllers\Admin\DashboardController::class          , 'roles' => 'admins'           , 'access' => ['*'] ],
             [ 'name'    => Sakura\Controllers\Admin\WebsiteSettingsController::class    , 'roles' => 'admins'           , 'access' => ['*'] ],
             [ 'name'    => Sakura\Controllers\Admin\WebsiteThemeController::class       , 'roles' => 'admins'           , 'access' => ['*'] ],
             [ 'name'    => Sakura\Controllers\Admin\UsersController::class              , 'roles' => 'admins'           , 'access' => ['*'] ],
             [ 'name'    => Sakura\Controllers\Admin\RolesController::class              , 'roles' => 'admins'           , 'access' => ['*'] ],
-            [ 'name'    => Sakura\Plugins\Pluginsmanager\Controllers\PluginsController::class              , 'roles' => 'admins'           , 'access' => ['*'] ],
+            [ 'name'    => Sakura\Plugins\Pluginsmanager\Controllers\PluginsController::class , 'roles' => 'admins'           , 'access' => ['*'] ],
         ]
     ]
 

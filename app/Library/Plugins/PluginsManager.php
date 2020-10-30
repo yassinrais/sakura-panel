@@ -9,7 +9,7 @@ use Sakura\Controllers\ControllerBase;
  */
 class Pluginsmanager extends ControllerBase
 {
-	private $plugins = [];
+	protected $plugins = [];
 	
 
 	/**
@@ -70,9 +70,15 @@ class Pluginsmanager extends ControllerBase
 		$this->loadPluginsFromDirs();
 		foreach ($this->plugins as $key => $plugin) {
 			if ($plugin->get('status')) {
-				$plugin->load($this->getDI());
+				try{
+					$plugin->load($this->getDI());
+				}catch(Exception $e){
+					$this->getDI()->warning("Plugin Bot: ". $e->getMessage());
+				}
 			}
 		}
+
+		return $this;
 	}
 
 	/**
@@ -93,10 +99,16 @@ class Pluginsmanager extends ControllerBase
 		        $_path = str_replace("//", "/", $pluginsFolder . '/'. $name.'/');
 
 		        if (is_dir($_path) && in_array($plugin_config_name, scandir($_path))) {
-		            $groupName = ucfirst($name);
-		            $plugin_config = include $_path . $plugin_config_name;
-		            if (is_object($plugin_config) && $plugin instanceof Plugin)
-		            	$this->addPlugin($plugin_config);
+					$groupName = ucfirst($name);
+					try{
+						
+						$plugin_config = include($_path . $plugin_config_name);
+						if (is_object($plugin_config) && $plugin instanceof Plugin)
+							$this->addPlugin($plugin_config);
+							
+					}catch(Exception $e){
+						$this->getDI()->getLogger()->warning("Plugin Include : ". $e->getMessage());
+					}
 		            
 		        }      
 		    }

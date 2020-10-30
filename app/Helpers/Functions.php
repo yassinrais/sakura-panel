@@ -9,10 +9,11 @@ class Functions {
 	public static function _deleteDir(string $path) {
 	    if (empty($path)) { 
 	        return false;
-	    }
-	    return is_file($path) ?
-	            @unlink($path) :
-	            array_map(__FUNCTION__, glob($path.'/*')) == @rmdir($path);
+		}
+
+		return is_file($path) ?
+			unlink($path) : ( is_dir($path) ? 
+			array_map('Sakura\Helpers\Functions::_deleteDir', glob($path.'/*')) == rmdir($path)  : true );
 	}
 
 
@@ -105,7 +106,7 @@ class Functions {
      $files = glob($pattern, $flags);
      foreach (glob(dirname($pattern).'/*', GLOB_ONLYDIR|GLOB_NOSORT) as $dir)
      {
-       $files = array_merge($files, _fullScanDirs($dir.'/'.basename($pattern), $flags));
+       $files = array_merge($files, self::_fullScanDirs($dir.'/'.basename($pattern), $flags));
      }
      return $files;
    }

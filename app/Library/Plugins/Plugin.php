@@ -115,6 +115,8 @@ class Plugin implements  \Sakura\Library\SharedConstInterface
 
 		if (empty($this->routes[$category]))
 			$this->routes[$category] = [];
+
+
 		$this->routes[$category] = array_merge_recursive((array)$this->routes[$category] , [$name=>$configs]);
 		
 		return $this;
@@ -177,7 +179,10 @@ class Plugin implements  \Sakura\Library\SharedConstInterface
 		                    'controller' => $page->controller,
 		                    'action'     => (!empty($page->action)) ? $page->action : 'index',
 		                    'params'     => (!empty($page->params)) ? $page->params : null,
-		                ];
+						];
+					if(!empty($page->namespace))
+						$routeConfig['namespace'] = $page->namespace;
+						
 		            $router->add(
 		                str_replace("@", $name,  str_replace("#", $prefix, $url)),
 		                $routeConfig
@@ -204,8 +209,8 @@ class Plugin implements  \Sakura\Library\SharedConstInterface
 		            $acl->addComponent(
 		                $controller,
 		                $actions
-		            );
-
+					);
+					
 		            foreach ($roles_alloweds as $name)
 		                try{
 							$acl->allow($name , $controller , $actions);

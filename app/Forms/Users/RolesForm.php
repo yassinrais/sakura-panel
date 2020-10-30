@@ -58,7 +58,7 @@ class RolesForm extends BaseForm
         $inherit = new Select(
           'inherit',
           [
-            'Inherit Role'=>$this::ROLES_LIST
+            'Inherit Role'=> $this::ROLES_LIST + [null=>'No Inherit']
           ],
           [
             'required'=>true,
