@@ -199,7 +199,7 @@ class Plugin implements  \Sakura\Library\SharedConstInterface
 					}
 					
 		            $urls = is_object($page->url) ? $page->url : (object) [$page->url];
-		            $controller =  str_replace('[M]', 'Sakura\Controllers\Member', $page->controller );
+					$controller = str_replace("\\\\","\\", ($page->namespace ?? false ? $page->namespace."\\" : "")) . $page->controller ."Controller";
 		            $roles_alloweds = explode("|", $acl_names ?: "*");
 
 					$actions = is_object($actions) && method_exists($actions , 'toArray') ? $actions->toArray() : $actions;
@@ -211,24 +211,18 @@ class Plugin implements  \Sakura\Library\SharedConstInterface
 		                $actions
 					);
 					
+					
 		            foreach ($roles_alloweds as $name)
 		                try{
 							$acl->allow($name , $controller , $actions);
 						}catch(AclException $e){
 							$this->di->getLogger()->warning("Acl Exception ! '{$e->getMessage()}'");
 
-							if($e->getCode() === $this::ACL_EXCEPTION_INVALIDE_ROLE){
+							if($e->getCode() === $this::ACL_EXCEPTION_INVALIDE_ROLE)
 								$this->di->get('flashSession')->error("Invalide role name : $name !");
-							}
-							if (getenv('ACL_ROLE_AUTOINSERT') == true){
-								$role = Roles::findFirstByName($name) ?: new Roles();
-								$role->name = $name;
-								$role->inherit = $this::ROLE_MEMBER;
-								if (!$role->save()){
-									$this->di->getLogger()->warning("Auto Role create ! '".implode(",", $role->getMessages())."'");
-									$this->di->get('flashSession')->error(implode(",", $role->getMessages()));
-								}
-							}
+
+							if (getenv('ACL_ROLE_AUTOINSERT') == true)
+								$role = Roles::findOrCreate(['name = ?:name', 'bind'=> ['name'=> $name]],['inherit'=> $this::ROLE_MEMBER]);
 						}
 		        }
 		    }

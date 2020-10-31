@@ -11,7 +11,9 @@ $plugin->addRoute(
 	"__route__" ,
 	[
 		'url'=>['/#/@','/#/@/','/#/@/:action','/#/@/:action/:params'],
-	    'controller'=>"\Sakura\Plugins\\${groupName}\Controllers\__group__",
+
+		'namespace'=>'Sakura\Plugins\\',
+	    'controller'=>"${groupName}\Controllers\__group__Controller",
 	    'action'=>1 , 
 	    'params'=>2 , 
 	    'access' => ['admins' => ['*'] ]
