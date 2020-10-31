@@ -148,13 +148,15 @@ class WebsiteThemeController extends MemberControllerBase
     {
         $this->ajax->disableArray();
         $file = (urldecode($this->request->get('id') ?: ""));
-
+        $tmp_file = $file . ".tmp";
+        
         if (!$this->getThemeFiles()[$file])
             return $this->ajax->error('This file is not allowed to delete !')->sendResponse();
 
 
         try{
             unlink($file);
+            unlink($tmp_file);
 
             $this->ajax->success('File Deleted successfully ! ');
         }catch(Exception $e){
