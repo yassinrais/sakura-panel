@@ -10,6 +10,7 @@ class Locale extends Injectable
 {
     protected $defaultLanguage = "en";
     protected $messages = [];
+    protected $translator;
 
     function __construct(){
 
@@ -18,7 +19,7 @@ class Locale extends Injectable
 
 
         $this->defaultLanguage = getenv('DEFAULT_LANGUAGE') ?? $this->defaultLanguage;
-
+        $this->translator = $this->getTranslator();
     }
 
     /**
@@ -83,6 +84,6 @@ class Locale extends Injectable
 
     public function _($key)
     {
-        return parent::_($key);
+        return $this->translator->_($key);
     }
 }

@@ -8,6 +8,7 @@ return [
     Providers\Manager\SiteServiceProvider::class,
     Providers\Manager\PageServiceProvider::class,
     Providers\Manager\PluginsServiceProvider::class,
+    Providers\Manager\WidgetsServiceProvider::class,
 
     // config
     Providers\Config\ConfigServiceProvider::class,

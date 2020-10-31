@@ -2,58 +2,31 @@
 
 namespace Sakura\Library\Widgets;
 
-use Sakura\Controllers\ControllerBase;
+use Phalcon\Di\AbstractInjectionAware;
+
 /**
  * WidgetsLoader
  */
-class WidgetsLoader extends ControllerBase
+class WidgetsLoader extends AbstractInjectionAware
 {
-	private $widgetsPath;
-	protected $widgets = [];
-	protected $userWidgets;
+	private $widgets = [];
 
-	private $widgetKey = 'user_widgets';
 
-	public function setWidgetsPath(string $path)
+	/**	
+	 * Add Widget to List of Widgets
+	 * @param partial : string
+	 */
+	public function addWidget(Widget $widget) : void
 	{
-		$this->widgetsPath = $path;
+		$this->widgets[] = $widget;
 	}
 
-
-	public function loadWidgets()
+	/**	
+	 * Get Widgets
+	 * @return $widgets : Array
+	 */
+	public function getWidgets() : Array
 	{
-		try {
-			$files = scandir($this->widgetsPath);	
-			foreach ($files as $fileName)
-				if (strpos($fileName, ".volt") > -1){
-					$p = $this->widgetsPath . $fileName;
-					$p = str_replace(".volt", "", explode($this->config->application->viewsDir, $p)[1]);
-
-					$this->widgets[strtolower(str_replace(".volt", "", $fileName))] =  ["path"=> "{$p}" , "status"=> "show"];  
-				}
-		} catch (Exception $e) {
-			exit('ERROR');
-		}
- 
+		return $this->widgets;
 	}
-
-
-	public function getWidgets()
-	{
-		$userWidgets = explode("|", $this->session->get($this->widgetKey) );
-
-		foreach ($userWidgets as $widget) {
-			$w = explode(":", $widget.":");
-			$this->widgets[$w[0]] = array_merge($this->widgets[$w[0]] ?? [] , ["status"=> $w[1]]); 
-		}
-
-
-		return (object) $this->widgets;
-	}
-
-	public function run()
-	{
-		// nothing to do :) 
-	}
-	
 }
