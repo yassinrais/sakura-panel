@@ -2,6 +2,8 @@
 
 {% if _widgets is not null %}
     {% for widget in _widgets %}
-        {{ partial(widget.getPartial()) }}
+        {% if widget.hasPermissions(user.role_name) %}
+            {{ partial(widget.getPartial()) }}
+        {% endif %}
     {% endfor %}
 {% endif %}

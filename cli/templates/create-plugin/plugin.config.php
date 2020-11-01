@@ -29,6 +29,7 @@ $plugin->addRoute(
 		"access"=>"admins",
 	]
 )
+->addWidget((new Widget('plugins/__group__/task-widget'))->setPermissions(['admins','members']))
 // ->addSql([
 // 	'install'=>dirname(__FILE__).'/sql/install.sql',
 // 	'delete'=>dirname(__FILE__).'/sql/delete.sql'

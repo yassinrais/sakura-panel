@@ -5,8 +5,9 @@ namespace Sakura\Library\Plugins;
 
 use Phalcon\Acl\Exception as AclException;
 
-use Sakura\Plugins\Pluginsmanager\Models\Plugins;
 use Sakura\Models\Acl\Roles;
+use Sakura\Library\Widgets\Widget;
+use Sakura\Plugins\Pluginsmanager\Models\Plugins;
 
 /**
  * Plugin
@@ -15,6 +16,8 @@ class Plugin implements  \Sakura\Library\SharedConstInterface
 {
 	const ACL_EXCEPTION_INVALIDE_ROLE = 0;
 
+	private $widgets = [];
+	
 	protected $title = "Plugin";
 	protected $name = "plugin";
 	protected $version = "1.0.0";
@@ -160,6 +163,7 @@ class Plugin implements  \Sakura\Library\SharedConstInterface
 		$this->loadMenu();
 		$this->loadTranslations();
 		$this->checkDb();
+		$this->loadWidgets();
 	} 
 
 
@@ -450,7 +454,30 @@ class Plugin implements  \Sakura\Library\SharedConstInterface
 		 
  		return true;
  	}
+	
+	/**	
+	 * Add Widget
+	 * @param $widget : Widget
+	 * @return $this : self
+	 */
+	public function addWidget(Widget $widget) : self
+	{
+		$this->widgets[] = $widget;
+		
+		return $this;
+	}
 
+	/**	
+	 * Load Widgets
+	 * @return $this : self
+	 */
+	public function loadWidgets() : self
+	{
+		foreach($this->widgets as $widget)
+			$this->di->get('widgets')->addWidget($widget);
+
+		return $this;
+	}
 
  	/**
  	 * Add sql o sqlFiles

@@ -22,9 +22,11 @@ class Widget {
      * Set Permissions
      * @param $permissions : Array
      */
-    public function setPermissions(Array $permissions) : void
+    public function setPermissions(Array $permissions) : self
     {
         $this->permissions = $permissions;
+        
+        return $this;
     }
 
     /**
@@ -65,5 +67,15 @@ class Widget {
         $this->toggle = $toggle;
 
         return $this;
+    }
+
+
+    /** 
+     * Has Permissions
+     * @return $has bool
+     */
+    public function hasPermissions(String $permission)
+    {
+        return in_array($permission , $this->permissions);
     }
 }
