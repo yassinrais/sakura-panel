@@ -1,6 +1,6 @@
 <p align=center>
   <img src="https://i.imgur.com/Hgh7vem.jpg" >
-  <h1 >Sakura <small>v 1.2.0-alpha</small></h1>
+  <h1 >Sakura <small>v 1.2.1</small></h1>
 </p>
 
 
@@ -15,10 +15,8 @@
 
 ## ⚠ TODO
 
-* REPLACE ROUTE SYSTEM 
 * UPGRADE PLUGIN ROUTER
 * UPGRADE MEMBER MENU
-* UPGRADE PERMISSIONS
 * UPGRADE TO USE MULTI TEMPLATES 
 
 ## 📗 About
