@@ -9,8 +9,12 @@ include_once BASE_PATH . '/vendor/autoload.php';
 /**
  * Env Loader
  */
-$dotenv = Dotenv\Dotenv::createImmutable(BASE_PATH);
-$dotenv->load();
+if (is_file(BASE_PATH . '/.env')){
+    $dotenv = Dotenv\Dotenv::createImmutable(BASE_PATH);
+    $dotenv->load();
+}elseif(php_sapi_name() != "cli"){
+    exit('Configuration are missing ! ');
+}
 
 
 /**
