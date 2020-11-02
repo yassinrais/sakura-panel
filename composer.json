@@ -23,11 +23,7 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "Sakura\\Controllers\\":"app/controllers",
-            "Sakura\\Models\\":"app/models",
-            "Sakura\\Forms\\":"app/forms",
-            "Sakura\\Plugins\\":"app/plugins",
-            "Sakura\\Library\\":"app/library",
+            "Sakura\\":"app",
             "Tests\\": "tests"
         }
     }
