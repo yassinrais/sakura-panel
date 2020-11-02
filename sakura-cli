@@ -48,14 +48,13 @@ class Install
     protected $user;
     protected $templates = "./cli/templates/";
     protected $cache_dirs = [
-        'logs/',
-        'cache/',
-        'cache/plugins/',
-        'cache/shared/',
-        'cache/global/',
-        'cache/security/',
-        'cache/sessions/',
-        'cache/views/',
+        'resources/logs/',
+        'resources/cache/',
+        'resources/cache/plugins/',
+        'resources/cache/views/',
+        'resources/cache/security/',
+        'resources/cache/shared/',
+        'resources/cache/sessions/',
         '.phalcon/',
     ];
     
