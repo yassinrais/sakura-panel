@@ -6,7 +6,7 @@ namespace Tests\Unit\Forms\Users;
 use Phalcon\Forms\Form;
 
 use Codeception\Test\Unit;
-use SakuraPanel\Forms\Users\ProfileSettingsForm;
+use Sakura\Forms\Users\ProfileSettingsForm;
 
 final class ProfileSettingsFormTest extends Unit
 {

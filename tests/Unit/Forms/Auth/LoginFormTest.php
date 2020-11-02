@@ -6,7 +6,7 @@ namespace Tests\Unit\Forms\Auth;
 use Phalcon\Forms\Form;
 
 use Codeception\Test\Unit;
-use SakuraPanel\Forms\Auth\LoginForm;
+use Sakura\Forms\Auth\LoginForm;
 
 final class LoginFormTest extends Unit
 {

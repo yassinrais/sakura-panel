@@ -3,18 +3,13 @@ declare(strict_types=1);
 /**
  *
  *
- *  SakuraPanel >> neutrapp.com/page/sakura
+ *  Sakura >> neutrapp.com/page/sakura
  *              >> Project Installation
  * 
  */
+require_once dirname(__FILE__) . '/bootstrap/autoload.php';
 
-use Phalcon\Di\FactoryDefault;
-
-define('BASE_PATH', dirname(__FILE__));
-define('APP_PATH', BASE_PATH . '/app');
-
-include_once APP_PATH . '/config/inc/functions.inc.php';
-
+$bootstrap = new Sakura\Bootstrap(dirname(__FILE__));
 
 /**
  * 
@@ -53,14 +48,13 @@ class Install
     protected $user;
     protected $templates = "./cli/templates/";
     protected $cache_dirs = [
-        'logs/',
-        'cache/',
-        'cache/plugins/',
-        'cache/shared/',
-        'cache/global/',
-        'cache/security/',
-        'cache/sessions/',
-        'cache/views/',
+        'resources/logs/',
+        'resources/cache/',
+        'resources/cache/plugins/',
+        'resources/cache/views/',
+        'resources/cache/security/',
+        'resources/cache/shared/',
+        'resources/cache/sessions/',
         '.phalcon/',
     ];
     
@@ -93,6 +87,10 @@ class Install
                 break;
             case 'help':
                 $this->printSakuraHelp();
+                break;
+            // case 'migration':
+                // $this->migrationDatabase();
+                // break;
                 break;
             case 'test':
                 $this->startTests();
@@ -162,7 +160,7 @@ class Install
             return false;
         }
 
-        $user = new \SakuraPanel\Models\User\Users;
+        $user = new \Sakura\Models\User\Users;
         $user->role_name = "admins";
         $user->setIp('0.0.0.0');
         $user->status = $user::ACTIVE;
@@ -226,7 +224,7 @@ class Install
         @mkdir($plugin_new_dir , 0775 , true);
         if (!is_dir($p)) return false;
 
-        $scanned_dir = \SakuraPanel\Functions\_fullScanDirs($p.'*');
+        $scanned_dir = \Sakura\Helpers\Functions::_fullScanDirs($p.'*');
         $plugin_new_config_json = $plugin_new_dir . $config_file_json;
 
 
@@ -346,27 +344,6 @@ class Install
 
     protected function readEnvConfigs()
     {
-        
-        /**
-         * Di factory to load models
-         */
-        $di = new FactoryDefault();
-
-
-        /**
-         * Read services
-         */
-        include APP_PATH . '/config/services.php';
-
-        /**
-         * Get config service for use in inline setup below
-         */
-        $config = $di->getConfig();
-
-        /**
-         * Include Autoloader
-         */
-        include APP_PATH . '/config/loader.php';
 
         $env_configs_file = explode("\n", str_replace("\r", "", file_get_contents(".env")));
         foreach ($env_configs_file as $line) {
@@ -383,7 +360,6 @@ class Install
                 $this->configs[$k] = $closet ? substr($c[1], 1 , count($v)-2): $c[1];
             }
         }
-
 
         return file_exists(".env");
     }
@@ -503,19 +479,21 @@ class Install
 
         Console::line();
         Console::print("Migration the models tables to Database  ..." ,"MIGRATION","yellow");
-        Console::print("Execute : `phalcon migration run` ...","MIGRATION","yellow");
-
+        Console::print("Execute : `vendor/bin/phinx migrate` ...","MIGRATION","yellow");
+        Console::print("You should have composer(+dev) installed !","MIGRATION","red");
+        sleep(2);
 
         ob_start();
-        system("phalcon migration run");
+        exec(__DIR__ . "./vendor/bin/phinx migrate");
+        sleep($this::SLEEP_TIME + 1);
         $ex = ob_get_contents();
         $ex = strtolower(preg_replace('/\s\s+/', ' ',$ex));
         ob_clean();
 
-
         Console::print($ex, "MIGRATION","light_gray");
+        Console::print("If you don't get any error regarding phinx, it means the migration was successful !", "MIGRATION","yellow");
 
-        return strpos($ex, "up to date") > -1 || strpos($ex, "successfully");
+        return 1;
     }
 
     protected function printSakuraHelp()

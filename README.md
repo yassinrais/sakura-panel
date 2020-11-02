@@ -1,6 +1,6 @@
 <p align=center>
   <img src="https://i.imgur.com/Hgh7vem.jpg" >
-  <h1 >Sakura Panel</h1>
+  <h1 >Sakura <small>v 1.2.1</small></h1>
 </p>
 
 
@@ -12,6 +12,12 @@
     <img alt="License: MIT" src="https://img.shields.io/badge/License-MIT-yellow.svg" target="_blank" />
   </a>
 </p>
+
+## ⚠ TODO
+
+* UPGRADE PLUGIN ROUTER
+* UPGRADE MEMBER MENU
+* UPGRADE TO USE MULTI TEMPLATES 
 
 ## 📗 About
 
@@ -36,29 +42,6 @@
 * Add New Admin  ``sakura-cli adduser``  
 * Create Plugin  ``sakura-cli create-plugin``  
 
-## 📈 Performance Tests : 
-### Test 1:
-* Load 3 Plugins 
-```php
-  $start = microtime(true);
-  $di->getPlugins()->loadPlugins();
-  echo (microtime(true) - $start)/1000 . "s";
-```
-* Result>> Take ~ ``0.00032733201980591 seconds``
-
-### Test 2:
-* Application Handle
-```php
-  $start = microtime(true);
-  echo $application->handle($_SERVER['REQUEST_URI'])->getContent();
-  echo (microtime(true) - $start)/1000 . "s";
-```
-* Result>> Take ~ ``6.4398050308228E-5 seconds``
-
-### Test 3:
-* Dashboard Request : 
-* Result : 291ms (page loaded) / ~ 70ms (TTFB)
-* ScreenShot: <a href="https://i.imgur.com/v1hwhLc.png" target="_blank">https://i.imgur.com/v1hwhLc.png</a>
 
 ## 👥 Contributors :
 

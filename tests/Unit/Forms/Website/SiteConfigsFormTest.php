@@ -6,7 +6,7 @@ namespace Tests\Unit\Forms\Website;
 use Phalcon\Forms\Form;
 
 use Codeception\Test\Unit;
-use SakuraPanel\Forms\Website\SiteConfigsForm;
+use Sakura\Forms\Website\SiteConfigsForm;
 
 final class SiteConfigsFormTest extends Unit
 {

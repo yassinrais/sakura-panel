@@ -1,6 +1,6 @@
 <?php 
 
-use SakuraPanel\Library\Plugins\Plugin;
+use Sakura\Library\Plugins\Plugin;
 
 $plugin = new Plugin();
 
@@ -11,7 +11,9 @@ $plugin->addRoute(
 	"__route__" ,
 	[
 		'url'=>['/#/@','/#/@/','/#/@/:action','/#/@/:action/:params'],
-	    'controller'=>"\SakuraPanel\Plugins\\${groupName}\Controllers\__group__",
+
+		'namespace'=>'Sakura\Plugins\\',
+	    'controller'=>"${groupName}\Controllers\__group__Controller",
 	    'action'=>1 , 
 	    'params'=>2 , 
 	    'access' => ['admins' => ['*'] ]
@@ -27,6 +29,7 @@ $plugin->addRoute(
 		"access"=>"admins",
 	]
 )
+->addWidget((new Widget('plugins/__group__/task-widget'))->setPermissions(['admins','members']))
 // ->addSql([
 // 	'install'=>dirname(__FILE__).'/sql/install.sql',
 // 	'delete'=>dirname(__FILE__).'/sql/delete.sql'

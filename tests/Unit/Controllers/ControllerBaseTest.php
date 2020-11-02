@@ -6,7 +6,7 @@ namespace Tests\Unit\Controllers;
 use Phalcon\Mvc\Controller;
 
 use Codeception\Test\Unit;
-use SakuraPanel\Controllers\ControllerBase;
+use Sakura\Controllers\ControllerBase;
 
 final class ControllerBaseTest extends Unit
 {

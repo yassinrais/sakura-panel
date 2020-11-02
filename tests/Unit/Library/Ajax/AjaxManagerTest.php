@@ -6,7 +6,7 @@ namespace Tests\Unit\Library\Ajax;
 use Phalcon\Mvc\Controller;
 
 use Codeception\Test\Unit;
-use SakuraPanel\Library\Ajax\AjaxManager;
+use Sakura\Library\Ajax\AjaxManager;
 
 final class AjaxManagerTest extends Unit
 {

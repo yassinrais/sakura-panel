@@ -6,7 +6,7 @@ namespace Tests\Unit\Forms\Website;
 use Phalcon\Forms\Form;
 
 use Codeception\Test\Unit;
-use SakuraPanel\Forms\Website\ThemeFileForm;
+use Sakura\Forms\Website\ThemeFileForm;
 
 final class ThemeFileFormTest extends Unit
 {

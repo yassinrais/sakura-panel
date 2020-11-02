@@ -8,7 +8,7 @@ namespace Tests\Unit\Controllers\Member\Account;
 use Phalcon\Mvc\Controller;
 
 use Codeception\Test\Unit;
-use SakuraPanel\Controllers\Member\Account\ProfileSettingsController;
+use Sakura\Controllers\Member\Account\ProfileSettingsController;
 
 final class ProfileSettingsControllerTest extends Unit
 {

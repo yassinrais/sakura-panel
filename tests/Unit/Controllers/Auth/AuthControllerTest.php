@@ -8,7 +8,7 @@ namespace Tests\Unit\Controllers\Auth\Website;
 use Phalcon\Mvc\Controller;
 
 use Codeception\Test\Unit;
-use SakuraPanel\Controllers\Auth\AuthController;
+use Sakura\Controllers\Auth\AuthController;
 
 final class AuthControllerTest extends Unit
 {

@@ -8,7 +8,7 @@ namespace Tests\Unit\Controllers\Member;
 use Phalcon\Mvc\Controller;
 
 use Codeception\Test\Unit;
-use SakuraPanel\Controllers\Member\DashboardController;
+use Sakura\Controllers\Member\DashboardController;
 
 final class DashboardControllerTest extends Unit
 {
