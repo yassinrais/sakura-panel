@@ -147,6 +147,7 @@ $configs = array(
     'acl'=>[
         'resources'=>[
             [ 'name'    => Sakura\Controllers\Auth\AuthController::class                , 'roles' => 'guests'    , 'access' => ['*'] ],
+            [ 'name'    => Sakura\Controllers\Auth\AuthController::class                , 'roles' => 'members|admins'    , 'access' => ['logout'] ],
 
             [ 'name'    => Sakura\Controllers\Pages\PageErrorsController::class         , 'roles'  => '*'               , 'access' => ['*'] ],
             [ 'name'    => Sakura\Controllers\Member\DashboardController::class         , 'roles' => 'members'   , 'access' => ['*'] ],
@@ -157,6 +158,7 @@ $configs = array(
             [ 'name'    => Sakura\Controllers\Admin\WebsiteThemeController::class       , 'roles' => 'admins'           , 'access' => ['*'] ],
             [ 'name'    => Sakura\Controllers\Admin\UsersController::class              , 'roles' => 'admins'           , 'access' => ['*'] ],
             [ 'name'    => Sakura\Controllers\Admin\RolesController::class              , 'roles' => 'admins'           , 'access' => ['*'] ],
+            [ 'name'    => Sakura\Controllers\Admin\PermissionsController::class              , 'roles' => 'admins'           , 'access' => ['*'] ],
             [ 'name'    => Sakura\Plugins\Pluginsmanager\Controllers\PluginsController::class , 'roles' => 'admins'           , 'access' => ['*'] ],
         ]
     ]

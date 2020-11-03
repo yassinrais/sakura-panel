@@ -21,7 +21,7 @@ class UsersController extends MemberControllerBase
     	parent::initialize();
 
         $this->page->set('title','Users');
-        $this->page->set('description','Here you can manager all users in this website <b>Smile☻</b>.');
+        $this->page->set('description','Here you can manager all users in this website.');
         $this->page->set('base_route','admin/users');
         $this->view->dataTable = true;
 	

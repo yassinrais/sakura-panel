@@ -23,7 +23,7 @@ class WebsiteSettingsController extends MemberControllerBase
     	parent::initialize();
 
         $this->page->set('title','Website Settings');
-        $this->page->set('description','Here you can edit&update your website settings <b>Smile☻</b>.');
+        $this->page->set('description','Here you can edit&update your website settings.');
 
         $this->view->dataTable = true;
 	

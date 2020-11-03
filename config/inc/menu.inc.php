@@ -46,6 +46,14 @@ $configs['menu'] = [
 		
 						"access"=>"admins",
 					],
+					"permissions"=>[
+						"title"=>"Permissions",
+						"icon"=>"fas fa-exclamation-triangle",
+						"url"=>"admin/permissions",
+		
+		
+						"access"=>"admins",
+					],
 				],
 
 				"access"=>"admins",
