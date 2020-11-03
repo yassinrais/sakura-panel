@@ -159,6 +159,16 @@ class Users extends ModelBase
         $this->setSource($this->getSourceByName("users"));
         
         $this->keepSnapshots(true);
+        
+
+        $this->hasOne(
+            'role_name',
+            Roles::class,
+            'name',
+            [
+                'alias'=>'role'
+            ]
+        );
     }
 
     /**
