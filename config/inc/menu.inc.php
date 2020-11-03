@@ -23,23 +23,35 @@ $configs['menu'] = [
 	"admin"=>[
 		"order"=>990,
 		"items"=>[
+
 			"users"=>[
 				"title"=>"Users",
 				"icon"=>"fas fa-users",
-				"url"=>"admin/users",
+				"url"=>"admin/users/admin/roles",
 
+				"sub"=> [
+					"list"=>[
+						"title"=>"Accounts",
+						"icon"=>"fas fa-list",
+						"url"=>"admin/users",
+		
+		
+						"access"=>"admins",
+					],
+					"roles"=>[
+						"title"=>"Roles",
+						"icon"=>"fas fa-user-secret",
+						"url"=>"admin/roles",
+		
+		
+						"access"=>"admins",
+					],
+				],
 
 				"access"=>"admins",
 			],
 
-			"roles"=>[
-				"title"=>"Roles",
-				"icon"=>"fas fa-user-secret",
-				"url"=>"admin/roles",
-
-
-				"access"=>"admins",
-			],
+			
 
 			"website"=>[
 				"title"=>"Website Settings",
