@@ -118,8 +118,7 @@ foreach($db_resources as $resource){
         $acl->$allowed(
             $permission->role->name,
             $permission->resource->name,
-            $permission->access->name,
-            
+            $permission->access->name
         );
     }
     
