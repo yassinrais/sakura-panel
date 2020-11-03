@@ -110,11 +110,19 @@ foreach($db_resources as $resource){
  foreach($db_permissions as $permission){
    
     if (!empty($permission->resource) && !empty($permission->role) && !empty($permission->access))
-    $acl->allow(
-        $permission->role->name,
-        $permission->resource->name,
-        $permission->access->name,
-    );
+    {    
+        // check if user/guest to allowed or denied
+        $allowed = $permission->allowed  == Permissions::ACTIVE ? "allow":"deny";
+
+        // add deny/allow
+        $acl->$allowed(
+            $permission->role->name,
+            $permission->resource->name,
+            $permission->access->name,
+            
+        );
+    }
+    
  }
 
 
@@ -123,8 +131,8 @@ foreach($db_resources as $resource){
  * To ACL
  * From Configs
  */
-if  (!empty($configs->acl->public_resources)){
-    foreach($configs->acl->public_resources as $resource){
+if  (!empty($configs->acl->resources)){
+    foreach($configs->acl->resources as $resource){
 
         // create & add component
         $compenent = new Component($resource->name);

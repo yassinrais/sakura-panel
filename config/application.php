@@ -145,7 +145,7 @@ $configs = array(
 
 
     'acl'=>[
-        'public_resources'=>[
+        'resources'=>[
             [ 'name'    => Sakura\Controllers\Auth\AuthController::class                , 'roles' => 'guests'    , 'access' => ['*'] ],
 
             [ 'name'    => Sakura\Controllers\Pages\PageErrorsController::class         , 'roles'  => '*'               , 'access' => ['*'] ],
