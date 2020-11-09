@@ -48,13 +48,14 @@ class Install
     protected $user;
     protected $templates = "./cli/templates/";
     protected $cache_dirs = [
-        'resources/logs/',
-        'resources/cache/',
-        'resources/cache/plugins/',
-        'resources/cache/views/',
-        'resources/cache/security/',
-        'resources/cache/shared/',
-        'resources/cache/sessions/',
+        'public/uploads/',
+        'storage/logs/',
+        'storage/cache/',
+        'storage/cache/plugins/',
+        'storage/cache/views/',
+        'storage/cache/security/',
+        'storage/cache/shared/',
+        'storage/cache/sessions/',
         '.phalcon/',
     ];
     
@@ -484,7 +485,7 @@ class Install
         sleep(2);
 
         ob_start();
-        exec(__DIR__ . "./vendor/bin/phinx migrate");
+        exec(__DIR__ . "/vendor/bin/phinx migrate");
         sleep($this::SLEEP_TIME + 1);
         $ex = ob_get_contents();
         $ex = strtolower(preg_replace('/\s\s+/', ' ',$ex));
