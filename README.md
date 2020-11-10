@@ -42,17 +42,39 @@
 
 ## 👩🏾‍💻 Setup Local Development Environment Using Docker:
 
-1. You need to have _Git and Docker Desktop_ installed on your _Machine_
-2. Execute `git clone https://github.com/yassinrais/sakura-panel.git`
-3. Run `cd sakura-panel` to get into the created directory
-4. Run `docker build -t sakura-panel:latest .` to create a docker image
-5. Execute `docker run --name sakura-panel -p 80:80 sakura-panel:latest` it will create and run a docker container
-6. Open a new terminal tab and run `docker exec -it sakura-panel mysql -uroot -e "create database sakura_panel"` to create a new database
-7. Run `docker exec -it --user www-data sakura-panel ./sakura-cli.sh install` it will run the installation script and help you to configure sakura-panel
-8. Run `docker exec -it --user www-data sakura-panel ./sakura-cli.sh adduser` to add a new user as an administrator
+### Installation :
 
-- To create a plugin you should run `docker exec -it --user www-data sakura-panel ./sakura-cli.sh create-plugin`
-- To run your container use `docker start -a sakura-panel`
+1. You need to have _Git and Docker Desktop_ installed on your _Machine_
+
+2. Execute `git clone https://github.com/yassinrais/sakura-panel.git`
+
+3. Run `cd sakura-panel` to get into the created directory
+
+4. Run `docker build -t lamp .` to create a docker image that includes Ubuntu 18.04 along with a LAMP stack (Apache, Mysql and PHP)
+
+5. Create and start a docker container, It will also link the app and persist the database:
+
+   - `docker run --name sakura-panel -p "80:80" -v ${PWD}:/app -v ${PWD}/mysql:/var/lib/mysql lamp`
+
+   - (**For WINDOWS OS**) `docker run -i -t --name sakura-panel -p "80:80" -v %cd%:/app -v %cd%/mysql:/var/lib/mysql lamp`
+
+6. Run `docker exec -it sakura-panel composer install` to install the dependencies
+
+7. Run `docker exec -it sakura-panel mysql -uroot -e "create database sakura_panel"` to create a new database
+
+8. Run `docker exec -it --user www-data sakura-panel php sakura-cli install` it will run the installation script and help you to configure sakura-panel
+
+9. Run `docker exec -it --user www-data sakura-panel php sakura-cli adduser` to add a new user as an administrator
+
+10. Voila 🎉
+
+### Usage :
+
+- To start your container use `docker start -a sakura-panel`
+- To stop your container use `docker stop sakura-panel`
+- To create a plugin you should run `docker exec -it --user www-data sakura-panel php sakura-cli create-plugin`
+- To add a new user you should run `docker exec -it --user www-data sakura-panel php sakura-cli adduser`
+- To get into the container CLI `docker exec -it sakura-panel bash`
 
 **The docker image is based on [docker-lamp](https://github.com/mattrayner/docker-lamp) feel free to have a look at it**
 
