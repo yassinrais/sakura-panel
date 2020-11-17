@@ -301,4 +301,30 @@ class ModelBase extends Model implements SharedConstInterface
 
 		return $row;
 	}
+
+	
+	/**	
+	 * Get Storage Path 
+	 */
+	public function getStoragePath()
+    {
+		$config = $this->getDI()->get('config');
+		
+		$date = date($config->storage->format);
+	 
+		$path = ($config->storage->path ?: "storage/" ) . $date . '/';
+		$dir = ($config->storage->dir ?: "storage/" ) . $date . '/';
+		
+		$this->uploadDir = $dir;
+		$this->uploadPath = $path;
+
+        if(!is_dir($dir))
+            try{
+                mkdir($dir,0777, true);
+            }catch(\Exception $e){
+                $this->di->get('logger')->error('Storage Dir Creation was Failed ! ' .$e->GetMessage());
+            }
+
+        return $path;
+    }
 }

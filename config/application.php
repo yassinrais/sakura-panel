@@ -65,7 +65,6 @@ $configs = array(
     ],
 
 
-
     /** 
      * Logger configuration
      */
@@ -74,6 +73,17 @@ $configs = array(
         'filename' => 'application.log',
         'format' => '%date% [%type%] %message%',
         'date' => 'Y-m-d H:i:s',
+    ],
+
+    /** 
+     * Storage configuration
+     * 
+     * Upload Files
+     */
+    'storage' => [
+        'dir' => BASE_PATH . '/public/uploads/',
+        'path' => '/uploads/',
+        'format' => 'Y/m/d',
     ],
 
     /** 

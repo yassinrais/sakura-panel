@@ -3,10 +3,9 @@ namespace Sakura\Forms\Users;
 
 
 // form elements
-use Phalcon\Forms\Form;
 use Phalcon\Forms\Element\Email;
 use Phalcon\Forms\Element\Text;
-use Phalcon\Forms\Element\Hidden;
+use Phalcon\Forms\Element\Image;
 use Phalcon\Forms\Element\Select;
 use Phalcon\Forms\Element\Password;
 
@@ -18,7 +17,15 @@ class UsersForm extends BaseForm
     public function initialize()
     {
       parent::initialize();
-       
+      /**
+       * Image Upload 
+       * 
+       * Avatar
+       */ 
+
+        $avatar = new Image('avatarfile',['class'=>'form-control']);
+        $this->add($avatar);
+
        /**
          *
          * Text Input

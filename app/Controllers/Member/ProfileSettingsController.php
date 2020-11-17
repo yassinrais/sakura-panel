@@ -19,7 +19,9 @@ class ProfileSettingsController extends MemberControllerBase
 	
 		$this->form = new ProfileSettingsForm($this->user);
 		$this->form->bind($this->user->toArray() ,$this->user);
-    }
+	}
+	
+
 	public function indexAction()
 	{
 		$form = $this->form;
@@ -39,13 +41,13 @@ class ProfileSettingsController extends MemberControllerBase
 				if ($this->security->checkHash($cpassword , $this->user->password)) {
 					$form->bind($_POST, $this->user);
 	
-					$this->user->password = $this->request->getPost('npassword');
-										
+					$this->user->password = $this->request->getPost('npassword') ?: $cpassword;
+
 					if ($this->user->save()) {
 						$this->flashSession->success('Profile Updated Successffully ');
 						return $this->response->redirect('member/dashboard');
 					}else{
-						$this->flashSession->error('Error !' . implode(" & ", $this->user->getMessages()));
+						$this->flashSession->error('Error ! ' . implode(" & ", $this->user->getMessages()));
 					}
 				}else{
 					$this->flashSession->error('Password incorrect !');

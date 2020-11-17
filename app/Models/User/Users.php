@@ -2,6 +2,7 @@
 namespace Sakura\Models\User;
 
 use Sakura\Models\ModelBase;
+use Sakura\Models\Behavior\Imageable;
 
 use Phalcon\Validation;
 use Phalcon\Validation\Validator\{
@@ -168,6 +169,26 @@ class Users extends ModelBase
             [
                 'alias'=>'role'
             ]
+        );
+
+        
+        $this->uploadPath = rtrim($this->getStoragePath(), '/\\');
+
+        $this->addBehavior(
+            new Imageable([
+                'beforeCreate' => [
+                    'field'      => 'avatar',
+                    'inputName'      => 'avatarfile',
+                    'uploadPath' => $this->uploadPath,
+                    'uploadDir' => $this->uploadDir,
+                ],
+                'beforeUpdate' => [
+                    'field'      => 'avatar',
+                    'inputName'      => 'avatarfile',
+                    'uploadPath' => $this->uploadPath,
+                    'uploadDir' => $this->uploadDir,
+                ],
+            ])
         );
     }
 
