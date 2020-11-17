@@ -40,8 +40,8 @@ $configs = array(
         'formsDir'       => APP_PATH . '/Forms/',
         'translateDir'   => APP_PATH . '/Translations/',
         
-        'viewsDir'       => BASE_PATH . '/resources/views/default/',
-        'widgetsPath'    => BASE_PATH . '/resources/views/default/widgets/',
+        'viewsDir'       => BASE_PATH . '/resources/views/'.( getenv('THEME_NAME') ?: 'default').'/',
+        'widgetsPath'    => BASE_PATH . '/resources/views/'.( getenv('THEME_NAME') ?: 'default').'/widgets/',
 
         'baseUri'        => '/',
         // server configs  doesnt exist in cli ("request" :@ to ignore undefined vars) 
@@ -60,6 +60,7 @@ $configs = array(
      * Theme configuration
      */
     'theme'=>[
+        'name'=> getenv('THEME_NAME'),
         'path'=> BASE_PATH . '/public/assets/custom/',
         'uri'=> 'assets/custom/',
     ],
