@@ -27,6 +27,8 @@
               <div class="sidebar-heading pt-3 mt-3">
                 {{ _(ucfirst(k)) }}
               </div>
+              {# Temporary Feature Disable #}
+              {% set menuactive = false %}
               {% for it in m['items'] %}
                 {% if it['sub'] is defined and it['sub'] | length %}
                 <li class="nav-item {{ menuactive ? 'active':''}}">
