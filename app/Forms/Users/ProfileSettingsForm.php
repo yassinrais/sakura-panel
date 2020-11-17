@@ -13,13 +13,13 @@ use Phalcon\Forms\Element\{
     Text,
     Email,
     Password,
+    File,
     Hidden
 };
 
 use Phalcon\Validation\Validator\{
     PresenceOf ,
     StringLength ,
-    Regex,
     Email as EmailVal,
     Callback
 };
@@ -32,13 +32,19 @@ class ProfileSettingsForm extends BaseForm
         // Set the same form as entity
         $this->setEntity($this);
 
+        // avatar
+        $avatar = new File('avatarfile',['class'=>'form-control','placeholder'=>'Avatar']);
+        $this->add($avatar);
+
+
         //  full name
         $fullname = new Text(
         	'fullname',
         	[
         		"required"=>true,
         		"class"=>"form-control",
-        		"id"=>"fullname",
+                "id"=>"fullname",
+                "placeholder"=>"Full Name"
         	]
         );
 
@@ -52,6 +58,7 @@ class ProfileSettingsForm extends BaseForm
                 "required"=> true,
                 "class"=>"form-control",
                 "id"=>"email",
+                "placeholder"=>"Email"
             ]
         );
    
@@ -61,7 +68,8 @@ class ProfileSettingsForm extends BaseForm
         	'npassword',
         	[
         		"class"=>"form-control",
-        		"id"=>"npassword"
+                "id"=>"npassword",
+                "placeholder"=>"New Password",
         	]
         );
         $npassword->addValidator(
@@ -80,7 +88,8 @@ class ProfileSettingsForm extends BaseForm
         	'cpassword',
         	[
         		"class"=>"form-control",
-        		"id"=>"cpassword"
+                "id"=>"cpassword",
+                "placeholder"=>"Confirm Password",
         	]
         );
         
@@ -102,7 +111,8 @@ class ProfileSettingsForm extends BaseForm
         	[
         		"required"=>true,
         		"class"=>"form-control",
-        		"id"=>"currentPassword",
+                "id"=>"currentPassword",
+                "placeholder"=>"Current Password"
         	]
         );
         $password->addValidator(

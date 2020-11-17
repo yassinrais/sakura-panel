@@ -65,7 +65,6 @@ $configs = array(
     ],
 
 
-
     /** 
      * Logger configuration
      */
@@ -74,6 +73,17 @@ $configs = array(
         'filename' => 'application.log',
         'format' => '%date% [%type%] %message%',
         'date' => 'Y-m-d H:i:s',
+    ],
+
+    /** 
+     * Storage configuration
+     * 
+     * Upload Files
+     */
+    'storage' => [
+        'dir' => BASE_PATH . '/public/uploads/',
+        'path' => '/uploads/',
+        'format' => 'Y/m/d',
     ],
 
     /** 
@@ -143,14 +153,19 @@ $configs = array(
         'shared_life_time'=> (int) getenv('CAHCE_SHARED_LIFE_TIME') ?: 6, // default 6 seconds
     ],
 
-
+    /**
+     * Default ACL Resources 
+     * 
+     * This Can Be Changed By The future permissions Manager ( Panel Administration )
+     */
     'acl'=>[
         'resources'=>[
             [ 'name'    => Sakura\Controllers\Auth\AuthController::class                , 'roles' => 'guests'    , 'access' => ['*'] ],
+            [ 'name'    => Sakura\Controllers\Auth\AuthController::class                , 'roles' => 'members|admins'    , 'access' => ['logout'] ],
 
             [ 'name'    => Sakura\Controllers\Pages\PageErrorsController::class         , 'roles'  => '*'               , 'access' => ['*'] ],
-            [ 'name'    => Sakura\Controllers\Member\DashboardController::class         , 'roles' => 'members'   , 'access' => ['*'] ],
-            [ 'name'    => Sakura\Controllers\Member\ProfileSettingsController::class   , 'roles' => 'members'   , 'access' => ['*'] ],
+            [ 'name'    => Sakura\Controllers\Member\DashboardController::class         , 'roles' => 'members|admins'   , 'access' => ['*'] ],
+            [ 'name'    => Sakura\Controllers\Member\ProfileSettingsController::class   , 'roles' => 'members|admins'   , 'access' => ['*'] ],
 
             [ 'name'    => Sakura\Controllers\Admin\DashboardController::class          , 'roles' => 'admins'           , 'access' => ['*'] ],
             [ 'name'    => Sakura\Controllers\Admin\WebsiteSettingsController::class    , 'roles' => 'admins'           , 'access' => ['*'] ],

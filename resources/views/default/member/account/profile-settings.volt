@@ -4,38 +4,19 @@
 			<i class="fas fa-cogs"></i> {{ _("Profile Information") }}
 		</div>
 		<div class="card-body">
-			<form method="post">
+			<form method="post" enctype="multipart/form-data">
 				
-				<div class="form-group">
-					<label for="fullname">{{ _('Full Name') }} :</label>
-					{{ form.render('fullname' , ["placeholder": _("Your Full Name") ]) }}
+				<div class="row">
+					{% for item in form.getElements() %}
+					{% if item.getAttribute('placeholder') is not null  %}
+					<div class="form-group col-lg-6">
+						<label for="fullname">{{ _(item.getAttribute('placeholder')) }} :</label>
+						{{ item.render() }}
+					</div>
+					{% endif %}
+					{% endfor %}
 				</div>
-				
-				<div class="form-group">
-					<label for="email">Email :</label>
-					{{ form.render('email' , ["placeholder": _("Your Email Adresse") ]) }}
-				</div>
-				
-				<div class="form-group">
-					<label for="npassword">{{ _("New Password") }} :</label>
-					{{ form.render('npassword' , ["placeholder": _("New Password")]) }}
-				</div>
-				
-				<div class="form-group">
-					<label for="cpassword">{{ _("Confirm Password") }} :</label>
-					{{ form.render('cpassword' , ["placeholder": _("Confirm Password")]) }}
-				</div>
-
-
-				<hr class="mb-2">
-
-				<div class="form-group">
-					<label for="currentPassword">{{ _("Current Password") }} :</label>
-					{{ form.render('currentPassword' , ["placeholder": _("Current Password")]) }}
-				</div>
-				
-				
-				<div class="form-group">
+				<div class="form-group text-center">
 					<button class="btn btn-info">
 						<i class="fas fa-save"></i> {{ _("Save") }}
 					</button>
