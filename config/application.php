@@ -143,14 +143,19 @@ $configs = array(
         'shared_life_time'=> (int) getenv('CAHCE_SHARED_LIFE_TIME') ?: 6, // default 6 seconds
     ],
 
-
+    /**
+     * Default ACL Resources 
+     * 
+     * This Can Be Changed By The future permissions Manager ( Panel Administration )
+     */
     'acl'=>[
         'resources'=>[
             [ 'name'    => Sakura\Controllers\Auth\AuthController::class                , 'roles' => 'guests'    , 'access' => ['*'] ],
+            [ 'name'    => Sakura\Controllers\Auth\AuthController::class                , 'roles' => 'members|admins'    , 'access' => ['logout'] ],
 
             [ 'name'    => Sakura\Controllers\Pages\PageErrorsController::class         , 'roles'  => '*'               , 'access' => ['*'] ],
-            [ 'name'    => Sakura\Controllers\Member\DashboardController::class         , 'roles' => 'members'   , 'access' => ['*'] ],
-            [ 'name'    => Sakura\Controllers\Member\ProfileSettingsController::class   , 'roles' => 'members'   , 'access' => ['*'] ],
+            [ 'name'    => Sakura\Controllers\Member\DashboardController::class         , 'roles' => 'members|admins'   , 'access' => ['*'] ],
+            [ 'name'    => Sakura\Controllers\Member\ProfileSettingsController::class   , 'roles' => 'members|admins'   , 'access' => ['*'] ],
 
             [ 'name'    => Sakura\Controllers\Admin\DashboardController::class          , 'roles' => 'admins'           , 'access' => ['*'] ],
             [ 'name'    => Sakura\Controllers\Admin\WebsiteSettingsController::class    , 'roles' => 'admins'           , 'access' => ['*'] ],

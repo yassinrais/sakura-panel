@@ -1,5 +1,11 @@
 # ✒ CHANGELOG
 
+
+#### Version: 1.2.1 > 1.2.2
+``Date 17/11/2020 15:12``
+* Fix Logout Permissions for Members/Admins Roles
+
+
 #### Version: 1.2.0-alpha > 1.2.1  
 ``Date 02/11/2020 15:12``
 
